@@ -20,7 +20,9 @@ const EMAIL_AUTH = {
 const EMAIL_RECIPIENTS =
   "jungws@hanssem.com, hanjg@hanssem.com, leesy0020@hanssem.com, byunsk@hanssem.com, jangmr0250@hanssem.com";
 
-test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, testInfo) => {
+test("운영환경 한샘몰 PC 500개 랜딩 테스트 리포팅", async ({
+  page,
+}, testInfo) => {
   test.setTimeout(7200000);
 
   const linkPool = new Set<string>();
@@ -111,13 +113,13 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
     });
 
     const mailOptions = {
-      from: `"자비스 QA 봇" <${EMAIL_AUTH.user}>`,
+      from: `"QA 봇" <${EMAIL_AUTH.user}>`,
       to: EMAIL_RECIPIENTS,
       subject: `📢 [QA 리포트] 한샘몰 품질 점검 결과 (${successRate}%)`,
       html: `
         <div style="font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; color: #333;">
           <h2 style="color: #1A4F9C;">🚀 한샘몰 통합 품질 점검 결과</h2>
-          <p>안녕하세요, 자비스입니다. 금일 실시한 점검 결과를 팀원분들께 보고드립니다.</p>
+          <p>안녕하세요, 금일 실시한 운영환경 PC 500개 랜딩 테스트 점검 결과를 공유 드립니다.</p>
           <div style="padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee;">
             <ul style="list-style: none; padding: 0;">
               <li>✅ <b>성공:</b> ${pass}건</li>
