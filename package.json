@@ -1,19 +1,19 @@
 {
   "name": "hanssem-qa-system",
   "version": "1.0.0",
-  "description": "한샘몰 E2E 품질 점검 시스템",
+  "description": "한샘몰 서비스 품질 관리 시스템",
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
     "deploy": "vercel --prod",
-    "report": "npm run test && npm run deploy"
+    "report": "npx playwright test && node scripts/deploy.js"
   },
   "keywords": [],
   "author": "dwlee",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.40.0",
-    "@types/node": "^20.0.0",
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^20.19.39",
     "@types/nodemailer": "^8.0.0"
   },
   "dependencies": {

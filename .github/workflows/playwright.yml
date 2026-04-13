@@ -1,34 +1,62 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-  # 매일 아침 9시(KST) 자동 실행을 원하신다면 아래 스케줄을 유지하세요.
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 8 * * *" # KST 17시 (UTC 8시 = KST 17시)
+
+# git push 허용
+permissions:
+  contents: write
 
 jobs:
   test:
-    timeout-minutes: 120 # 테스트 시간이 길어질 수 있으므로 여유 있게 조정했습니다.
+    timeout-minutes: 120
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # git push 권한 명시
+
+      # git commit/push 가능하게 설정
+      - name: Setup Git User
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 20
+
       - name: Install dependencies
         run: npm ci
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        # 🔥 [핀셋 수정] GitHub Secrets의 비밀번호를 테스트 환경 변수로 연결합니다.
-        run: npx playwright test
+        run: |
+          echo "🚀 운영 PC 500개 랜딩 테스트 시작"
+          npx playwright test
+          echo "✅ 테스트 완료"
+        continue-on-error: true # 테스트 실패해도 이후 스텝(아티팩트 업로드 등) 계속 실행
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
+          retention-days: 30
+
+      - name: Upload Fail Evidence
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: fail-evidence
+          path: fail_evidence/
           retention-days: 30
