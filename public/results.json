@@ -17,12 +17,293 @@
     {
       "title": "PC 랜덤 랜딩 테스트",
       "overallStatus": "pass",
-      "total": 0,
-      "pass": 0,
+      "total": 40,
+      "pass": 40,
       "fail": 0,
       "warn": 0,
-      "passRate": "NaN",
-      "cases": []
+      "passRate": "100.0",
+      "cases": [
+        {
+          "name": "furnishing",
+          "status": "pass",
+          "duration": "2.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070",
+          "status": "pass",
+          "duration": "1.9s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20071",
+          "status": "pass",
+          "duration": "2.8s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20072",
+          "status": "pass",
+          "duration": "1.8s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20073",
+          "status": "pass",
+          "duration": "1.7s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20074",
+          "status": "pass",
+          "duration": "1.9s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20075",
+          "status": "pass",
+          "duration": "1.8s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20076",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077",
+          "status": "pass",
+          "duration": "3.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20109",
+          "status": "pass",
+          "duration": "1.6s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "RANK",
+          "status": "pass",
+          "duration": "3.4s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "DEAL",
+          "status": "pass",
+          "duration": "1.4s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "shorts",
+          "status": "pass",
+          "duration": "1.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "interior",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20002",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20003",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20004",
+          "status": "pass",
+          "duration": "1.4s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20005",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20006",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "18881.html",
+          "status": "pass",
+          "duration": "1.8s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "choose-consult",
+          "status": "pass",
+          "duration": "2.7s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "19488",
+          "status": "pass",
+          "duration": "1.4s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "constcase",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "interior-review",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "search",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "magazine",
+          "status": "pass",
+          "duration": "1.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "main.do",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "customerAgreement.do",
+          "status": "pass",
+          "duration": "1.4s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "locationAgreement.do",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "customerPrivacy.do",
+          "status": "pass",
+          "duration": "1.6s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "cyber_inspection.do",
+          "status": "pass",
+          "duration": "1.2s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "csNotice.do",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "csMain.do",
+          "status": "pass",
+          "duration": "1.4s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "19646",
+          "status": "pass",
+          "duration": "2.2s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "18033.html",
+          "status": "pass",
+          "duration": "1.4s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "19521.html",
+          "status": "pass",
+          "duration": "1.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "19523.html",
+          "status": "pass",
+          "duration": "1.2s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "19402.html",
+          "status": "pass",
+          "duration": "1.2s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "19313",
+          "status": "pass",
+          "duration": "2.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "19475",
+          "status": "pass",
+          "duration": "3.3s",
+          "note": "정상",
+          "noteType": "blue"
+        }
+      ]
     }
   ],
   "monthlyDeploys": [
