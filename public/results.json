@@ -1,0 +1,125 @@
+{
+  "kpi": {
+    "overallPassRate": 100,
+    "overallPassRateDelta": "최근 실행 기준",
+    "totalTests": 10,
+    "todayRun": 10,
+    "activeDefects": 0,
+    "p1": 0,
+    "p2": 0,
+    "p3": 0,
+    "emergencyDeploy": 0,
+    "emergencyDeployDelta": "",
+    "apiP95": 0,
+    "apiTarget": 500
+  },
+  "reports": [
+    {
+      "title": "PC 랜덤 랜딩 테스트",
+      "iconLabel": "PC",
+      "iconBg": "#EFF4FF",
+      "iconColor": "#1A4F9C",
+      "overallStatus": "pass",
+      "runTime": "12:37",
+      "total": 10,
+      "pass": 10,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "passRate": 100,
+      "col1Header": "페이지",
+      "colDuration": "응답시간",
+      "cases": [
+        {
+          "name": "furnishing",
+          "status": "pass",
+          "duration": "402ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "interior",
+          "status": "pass",
+          "duration": "533ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070",
+          "status": "pass",
+          "duration": "577ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20071",
+          "status": "pass",
+          "duration": "689ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20072",
+          "status": "pass",
+          "duration": "1.9s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20073",
+          "status": "pass",
+          "duration": "1.4s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20074",
+          "status": "pass",
+          "duration": "716ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20075",
+          "status": "pass",
+          "duration": "1.9s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20076",
+          "status": "pass",
+          "duration": "503ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077",
+          "status": "pass",
+          "duration": "767ms",
+          "note": "정상",
+          "noteType": "blue"
+        }
+      ]
+    }
+  ],
+  "monthlyDeploys": [
+    {
+      "label": "1월",
+      "count": 0
+    },
+    {
+      "label": "2월",
+      "count": 0
+    },
+    {
+      "label": "3월",
+      "count": 0
+    },
+    {
+      "label": "4월",
+      "count": 0
+    }
+  ],
+  "lastUpdated": "2026. 4. 13. 오후 12:37:45"
+}
