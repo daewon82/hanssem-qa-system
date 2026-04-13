@@ -25,8 +25,6 @@ jobs:
       - name: Run Playwright tests
         # 🔥 [핀셋 수정] GitHub Secrets의 비밀번호를 테스트 환경 변수로 연결합니다.
         run: npx playwright test
-        env:
-          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
