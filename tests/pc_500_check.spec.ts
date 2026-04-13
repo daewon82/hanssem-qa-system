@@ -1,12 +1,24 @@
 import { test, expect } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
+import nodemailer from "nodemailer";
 
 const TARGET_DOMAIN = "https://store.hanssem.com";
-const MAX_LINKS = 10; // 주인님의 목표치 반영
+const MAX_LINKS = 500;
 const EXCLUDE_KEYWORDS = ["logout", "login", "javascript", "order", "settle"];
+
+// [알림 설정]
 const JANDI_WEBHOOK_URL =
-  "https://wh.jandi.com/connect-api/webhook/24103837/4c878ba74e1e0cf15180f85bdd47c1f6";
+  "https://wh.jandi.com/connect-api/webhook/24103837/a0a350d5a07914408b54cad34d2a7a98";
+
+// [이메일 설정] 보안을 위해 비밀번호는 환경 변수에서 가져옵니다.
+const EMAIL_AUTH = {
+  user: "dwlee@hanssem.com",
+  // GitHub Secrets에 저장한 값을 우선 사용하고, 로컬 테스트용으로 기본값을 둡니다.
+  pass: process.env.MAIL_PASSWORD,
+};
+const EMAIL_RECIPIENTS =
+  "jungws@hanssem.com, hanjg@hanssem.com, leesy0020@hanssem.com, byunsk@hanssem.com, jangmr0250@hanssem.com";
 
 test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, testInfo) => {
   test.setTimeout(7200000);
@@ -16,7 +28,6 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
   let passCount = 0;
   let failCount = 0;
 
-  // 케이스별 결과 기록
   const caseResults: {
     name: string;
     status: "pass" | "fail" | "warn";
@@ -25,7 +36,6 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
     noteType: "blue" | "red" | "amber";
   }[] = [];
 
-  // 필요한 폴더들 미리 확인 및 생성
   ["public", "fail_evidence"].forEach((dir) => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
   });
@@ -45,7 +55,6 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
               !h.includes("#"),
           ),
       );
-
       rawLinks.forEach((l) => {
         if (
           !EXCLUDE_KEYWORDS.some((k) => l.includes(k)) &&
@@ -54,17 +63,16 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
           linkPool.add(l);
         }
       });
-      console.log(`🔎 링크 수집됨: 현재 pool 총 ${linkPool.size}개`);
     } catch (err) {
       console.log("⚠️ 링크 수집 실패:", err);
     }
   };
 
+  // --- 잔디 전송 함수 ---
   const sendToJandi = async (pass: number, fail: number, total: number) => {
     try {
       const successRate = total > 0 ? ((pass / total) * 100).toFixed(1) : "0";
       const color = fail > 0 ? "#FF0000" : "#00FF00";
-
       await axios.post(
         JANDI_WEBHOOK_URL,
         {
@@ -73,7 +81,7 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
           connectInfo: [
             {
               title: "한샘몰 품질 점검 결과",
-              description: `✅ 성공: ${pass}건\n🚨 실패: ${fail}건\n📈 합계: ${total}건\n📊 품질 지수: ${successRate}%`,
+              description: `✅ 성공: ${pass}건\n🚨 실패: ${fail}건\n📊 품질 지수: ${successRate}%\n\n👉 상세 내용은 https://hanssem-qa-system.vercel.app/ 에서 확인 가능합니다.`,
             },
           ],
         },
@@ -90,7 +98,48 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
     }
   };
 
-  // 초기 접속 및 수집
+  // --- 이메일 전송 함수 ---
+  const sendToEmail = async (pass: number, fail: number, total: number) => {
+    const successRate = total > 0 ? ((pass / total) * 100).toFixed(1) : "0";
+
+    // 사내 SMTP 설정 (메일 서버 주소는 상황에 따라 mail.hanssem.com 등으로 확인 필요)
+    const transporter = nodemailer.createTransport({
+      host: "mail.hanssem.com",
+      port: 587,
+      secure: false,
+      auth: EMAIL_AUTH,
+    });
+
+    const mailOptions = {
+      from: `"자비스 QA 봇" <${EMAIL_AUTH.user}>`,
+      to: EMAIL_RECIPIENTS,
+      subject: `📢 [QA 리포트] 한샘몰 품질 점검 결과 (${successRate}%)`,
+      html: `
+        <div style="font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; color: #333;">
+          <h2 style="color: #1A4F9C;">🚀 한샘몰 통합 품질 점검 결과</h2>
+          <p>안녕하세요, 자비스입니다. 금일 실시한 점검 결과를 팀원분들께 보고드립니다.</p>
+          <div style="padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee;">
+            <ul style="list-style: none; padding: 0;">
+              <li>✅ <b>성공:</b> ${pass}건</li>
+              <li>🚨 <b>실패:</b> <span style="color: red;">${fail}건</span></li>
+              <li>📊 <b>품질 지수:</b> <b>${successRate}%</b></li>
+            </ul>
+          </div>
+          <p>🔗 <b>상세 대시보드:</b> <a href="https://hanssem-qa-system.vercel.app/" style="color: #1A4F9C; font-weight: bold;">리포트 페이지 바로가기</a></p>
+          <hr style="border: 0; border-top: 1px solid #eee;">
+          <p style="color: #888; font-size: 11px;">* 본 메일은 QA 자동화 시스템에 의해 자동으로 발송되었습니다.</p>
+        </div>
+      `,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log("✅ 이메일 발송 성공");
+    } catch (error: any) {
+      console.log("❌ 이메일 발송 실패:", error.message);
+    }
+  };
+
   try {
     await page.goto(TARGET_DOMAIN, {
       waitUntil: "domcontentloaded",
@@ -101,19 +150,13 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
     console.log("⚠️ 초기 접속 지연");
   }
 
-  // 메인 루프
   while (visitedLinks.size < MAX_LINKS) {
     const poolArray = Array.from(linkPool);
     let link = poolArray.find((l) => !visitedLinks.has(l));
-
     if (!link) {
-      console.log("🔄 링크 부족 → 추가 수집 중...");
       await collectLinks();
       link = Array.from(linkPool).find((l) => !visitedLinks.has(l));
-      if (!link) {
-        console.log("❌ 더 이상 링크 없음 → 종료");
-        break;
-      }
+      if (!link) break;
     }
 
     visitedLinks.add(link);
@@ -145,8 +188,6 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
     const elapsed = Date.now() - startTime;
     const durationStr =
       elapsed >= 1000 ? `${(elapsed / 1000).toFixed(1)}s` : `${elapsed}ms`;
-
-    // URL에서 페이지 이름 추출 (경로 마지막 세그먼트)
     let pageName = link;
     try {
       const url = new URL(link);
@@ -156,7 +197,6 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
         .filter(Boolean);
       pageName =
         segments.length > 0 ? segments[segments.length - 1] : url.hostname;
-      // 너무 길면 자르기
       if (pageName.length > 30) pageName = pageName.substring(0, 30) + "…";
     } catch {}
 
@@ -179,57 +219,32 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
         noteType: "red",
       });
     }
-
     console.log(
       `[${visitedLinks.size}/${MAX_LINKS}] ${isPass ? "✅" : "❌"} ${link}`,
     );
   }
 
-  // 최종 요약
   const totalCount = visitedLinks.size;
   const warnCount = caseResults.filter((c) => c.status === "warn").length;
   const successRate =
     totalCount > 0
       ? parseFloat(((passCount / totalCount) * 100).toFixed(1))
       : 0;
-
   const overallStatus =
     failCount > 0 ? "fail" : warnCount > 0 ? "warn" : "pass";
 
-  const summary = `📊 [${testInfo.project.name}] 최종 요약\n✅ 성공: ${passCount}\n🚨 실패: ${failCount}\n📈 총 처리: ${totalCount}`;
-  console.log(
-    `\n================================================\n${summary}\n================================================\n`,
-  );
-
-  // -----------------------------
-  // 🔥 결과 데이터 구조화 및 저장 (수정본)
-  // -----------------------------
-  let existingData: any = {
-    kpi: {},
-    reports: [], // 초기화 확실히
-    monthlyDeploys: [],
-  };
-
-  // 1. 기존 파일 읽기 시도
+  // --- 결과 데이터 저장 로직 ---
+  let existingData: any = { kpi: {}, reports: [], monthlyDeploys: [] };
   if (fs.existsSync("public/results.json")) {
     try {
       const raw = fs.readFileSync("public/results.json", "utf-8");
-      const parsed = JSON.parse(raw);
-      // 읽어온 데이터가 있고 reports가 배열인 경우에만 덮어쓰기
-      if (parsed && Array.isArray(parsed.reports)) {
-        existingData = parsed;
-      }
-    } catch (e) {
-      console.log("⚠️ 기존 리포트 읽기 실패 (새로 생성합니다)");
-    }
+      existingData = JSON.parse(raw);
+    } catch {}
   }
 
-  // 이번 테스트 리포트 객체
   const thisReport = {
     title: "PC 랜덤 랜딩 테스트",
     iconLabel: "PC",
-    iconBg: "#EFF4FF",
-    iconColor: "#1A4F9C",
     overallStatus,
     runTime: new Date().toLocaleTimeString("ko-KR", {
       hour: "2-digit",
@@ -241,80 +256,23 @@ test("한샘몰 통합 품질 점검 및 자비스 리포팅", async ({ page }, 
     pass: passCount,
     fail: failCount,
     warn: warnCount,
-    skip: 0,
     passRate: successRate,
-    col1Header: "페이지",
-    colDuration: "응답시간",
     cases: caseResults,
   };
 
-  // 2. 안전하게 reports 배열 확인 후 업데이트
   if (!existingData.reports) existingData.reports = [];
-
-  const reportIndex = existingData.reports.findIndex(
-    (r: any) => r && r.title === "PC 랜덤 랜딩 테스트",
+  const idx = existingData.reports.findIndex(
+    (r: any) => r.title === thisReport.title,
   );
+  if (idx >= 0) existingData.reports[idx] = thisReport;
+  else existingData.reports.unshift(thisReport);
 
-  if (reportIndex >= 0) {
-    existingData.reports[reportIndex] = thisReport;
-  } else {
-    existingData.reports.unshift(thisReport);
-  }
-
-  // 3. KPI 및 날짜 업데이트
-  const allReports = existingData.reports;
-  const totalPass = allReports.reduce(
-    (s: number, r: any) => s + (r.pass || 0),
-    0,
-  );
-  const totalAll = allReports.reduce(
-    (s: number, r: any) => s + (r.total || 0),
-    0,
-  );
-  const overallRate =
-    totalAll > 0 ? parseFloat(((totalPass / totalAll) * 100).toFixed(1)) : 0;
-
-  existingData.lastUpdated = new Date().toLocaleString("ko-KR", {
-    timeZone: "Asia/Seoul",
-  });
-  existingData.kpi = {
-    ...(existingData.kpi || {}),
-    overallPassRate: overallRate,
-    overallPassRateDelta: "최근 실행 기준",
-    totalTests: totalAll,
-    todayRun: totalCount,
-    activeDefects: existingData.kpi?.activeDefects ?? 0,
-    p1: existingData.kpi?.p1 ?? 0,
-    p2: existingData.kpi?.p2 ?? 0,
-    p3: existingData.kpi?.p3 ?? 0,
-    emergencyDeploy: existingData.kpi?.emergencyDeploy ?? 0,
-    emergencyDeployDelta: existingData.kpi?.emergencyDeployDelta ?? "",
-    apiP95: existingData.kpi?.apiP95 ?? 0,
-    apiTarget: existingData.kpi?.apiTarget ?? 500,
-  };
-
-  // monthlyDeploys 안전장치
-  if (
-    !existingData.monthlyDeploys ||
-    existingData.monthlyDeploys.length === 0
-  ) {
-    existingData.monthlyDeploys = [
-      { label: "1월", count: 0 },
-      { label: "2월", count: 0 },
-      { label: "3월", count: 0 },
-      { label: "4월", count: 0 },
-    ];
-  }
-
-  // 4. 최종 파일 저장
-  if (!fs.existsSync("public")) fs.mkdirSync("public");
   fs.writeFileSync(
     "public/results.json",
     JSON.stringify(existingData, null, 2),
   );
 
-  console.log("📊 results.json 업데이트 완료");
-
-  // 잔디 전송
+  // --- [최종 알림 발송] 잔디와 메일 모두 보냅니다 ---
   await sendToJandi(passCount, failCount, totalCount);
+  await sendToEmail(passCount, failCount, totalCount);
 });
