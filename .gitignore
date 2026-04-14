@@ -4,3 +4,5 @@ playwright-report/
 fail_evidence/
 .auth/
 .DS_Store
+.vercel/output/
+.vercel/.env*
