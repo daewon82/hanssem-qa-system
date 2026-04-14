@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. 오후 5:17:04",
+  "lastUpdated": "2026. 4. 14. PM 7:51:39",
   "reports": [
     {
       "title": "한샘몰 자동 테스트",
@@ -50,13 +50,20 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 14. 오후 5:17:04",
+      "lastUpdated": "2026. 4. 14. PM 7:51:39",
       "total": 167,
-      "pass": 167,
-      "fail": 0,
-      "passRate": "100.0",
-      "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k/edit#gid=82791351",
-      "cases": []
+      "pass": 166,
+      "fail": 1,
+      "passRate": "99.4",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
+      "cases": [
+        {
+          "name": "furnishing",
+          "url": "https://store.hanssem.com/furnishing",
+          "status": "fail",
+          "duration": "5.79s"
+        }
+      ]
     }
   ]
 }
