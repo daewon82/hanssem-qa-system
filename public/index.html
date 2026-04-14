@@ -385,10 +385,6 @@
           <div class="inc-stat-label">총 장애 건수</div>
         </div>
         <div class="inc-stat">
-          <div class="inc-stat-val hotfix" id="inc-hotfix">—</div>
-          <div class="inc-stat-label">핫픽스</div>
-        </div>
-        <div class="inc-stat">
           <div class="inc-stat-val" style="color:var(--blue)" id="inc-fe">—</div>
           <div class="inc-stat-label">FE 프론트엔드</div>
         </div>
@@ -661,7 +657,6 @@
           if (data.incidents) {
             const inc = data.incidents;
             document.getElementById("inc-total").textContent  = inc.total    || 0;
-            document.getElementById("inc-hotfix").textContent = inc.hotfix   || 0;
             document.getElementById("inc-fe").textContent     = inc.feCount  || 0;
             document.getElementById("inc-be").textContent     = inc.beCount  || 0;
             document.getElementById("inc-app").textContent    = inc.appCount || 0;
