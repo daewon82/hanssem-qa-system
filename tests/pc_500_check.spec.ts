@@ -9,6 +9,22 @@ import { google } from "googleapis";
 // [설정]
 const TARGET_DOMAIN = "https://store.hanssem.com";
 const MAX_LINKS = 500;
+
+// 링크 풀 소진 시 순환 재수집할 카테고리 시드 URL
+const SEED_URLS = [
+  "https://store.hanssem.com",
+  "https://store.hanssem.com/furnishing",
+  "https://store.hanssem.com/interior",
+  "https://store.hanssem.com/kitchen",
+  "https://store.hanssem.com/bath",
+  "https://store.hanssem.com/bedroom",
+  "https://store.hanssem.com/living",
+  "https://store.hanssem.com/brand",
+  "https://store.hanssem.com/event",
+  "https://store.hanssem.com/new",
+  "https://store.hanssem.com/sale",
+  "https://store.hanssem.com/best",
+];
 const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
 const TEMPLATE_GID = 1626254051;
 const TOKEN_PATH = "/Users/dw/Web_E2E_Test/token.json";
@@ -128,10 +144,16 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   console.log(`🚀 점검 시작: ${testInfo.project.name}`);
 
   // -----------------------------
-  // 링크 수집 (스크롤 없음, hanssem.com 전체)
+  // 링크 수집 (스크롤로 lazy-load 유발, hanssem.com 전체)
   // -----------------------------
   const collectLinks = async () => {
     try {
+      // lazy-load 콘텐츠 노출을 위한 스크롤
+      for (let i = 0; i < 3; i++) {
+        await page.mouse.wheel(0, 3000);
+        await page.waitForTimeout(600);
+      }
+
       const rawLinks = await page.evaluate(() =>
         Array.from(document.querySelectorAll("a"))
           .map((a) => a.href)
@@ -184,15 +206,27 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
     const nextLink = Array.from(linkPool).find((l) => !visitedLinks.has(l));
 
     if (!nextLink) {
-      console.log("🔗 링크 풀 소진. 메인 페이지로 돌아가 재수집합니다...");
-      try {
-        await page.goto(TARGET_DOMAIN, {
-          waitUntil: "domcontentloaded",
-          timeout: 30000,
-        });
-      } catch { /* 무시 */ }
-      await collectLinks();
-      if (Array.from(linkPool).every((l) => visitedLinks.has(l))) break;
+      console.log("🔗 링크 풀 소진. 시드 URL 순환 재수집합니다...");
+      let found = false;
+      for (const seedUrl of SEED_URLS) {
+        try {
+          await page.goto(seedUrl, {
+            waitUntil: "domcontentloaded",
+            timeout: 30000,
+          });
+        } catch { /* 무시 */ }
+        const before = linkPool.size;
+        await collectLinks();
+        if (linkPool.size > before) {
+          found = true;
+          console.log(`🔗 [${seedUrl}] 에서 ${linkPool.size - before}개 추가 수집`);
+          break;
+        }
+      }
+      if (!found) {
+        console.log("⚠️ 모든 시드 URL 순환 후에도 새 링크 없음. 종료합니다.");
+        break;
+      }
       continue;
     }
 
