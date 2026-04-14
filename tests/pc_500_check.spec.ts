@@ -2,9 +2,17 @@ import { test } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
 import { execSync } from "child_process";
+import { GoogleSpreadsheet } from "google-spreadsheet";
+import { authenticate } from "@google-cloud/local-auth";
+import { google } from "googleapis";
 
+// [설정]
 const TARGET_DOMAIN = "https://store.hanssem.com";
 const MAX_LINKS = 500;
+const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
+const TEMPLATE_GID = 1626254051;
+const TOKEN_PATH = "/Users/dw/Web_E2E_Test/token.json";
+const CREDENTIALS_PATH = "/Users/dw/Downloads/pc_secret.json";
 
 const EXCLUDE_KEYWORDS = [
   "logout",
@@ -19,13 +27,33 @@ const EXCLUDE_KEYWORDS = [
 const JANDI_WEBHOOK_URL =
   "https://wh.jandi.com/connect-api/webhook/24103837/4c878ba74e1e0cf15180f85bdd47c1f6";
 
-// ✅ 핵심: URL 정규화 함수
-const normalizeUrl = (url: string) => {
-  return url.replace(/(https?:\/\/)+/g, "https://").replace(/\/$/, "");
-};
+const normalizeUrl = (url: string) =>
+  url.replace(/(https?:\/\/)+/g, "https://").replace(/\/$/, "");
 
-// ✅ 반드시 여기만 관리
 const DASHBOARD_URL = normalizeUrl("https://hanssem-qa-system.vercel.app");
+
+// 구글 인증
+async function getAuthClient() {
+  try {
+    if (fs.existsSync(TOKEN_PATH)) {
+      const content = fs.readFileSync(TOKEN_PATH, "utf8");
+      const credentials = JSON.parse(content);
+      if (credentials.type === "authorized_user" || credentials.refresh_token) {
+        return google.auth.fromJSON(credentials);
+      }
+    }
+  } catch {
+    console.log("⚠️ 인증 정보 만료 또는 형식 오류. 재인증을 시작합니다.");
+  }
+
+  const client = await authenticate({
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    keyfilePath: CREDENTIALS_PATH,
+  });
+  if (client.credentials)
+    fs.writeFileSync(TOKEN_PATH, JSON.stringify(client.credentials));
+  return client;
+}
 
 test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) => {
   test.setTimeout(7200000);
@@ -37,39 +65,70 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
 
   let passCount = 0;
   let failCount = 0;
+  let currentRow = 6;
 
   ["public", "fail_evidence"].forEach((dir) => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
   });
 
+  // -----------------------------
+  // 구글 시트 초기화
+  // -----------------------------
+  const testStartTime = new Date();
+  const auth = await getAuthClient();
+  const doc = new GoogleSpreadsheet(SPREADSHEET_ID, auth as any);
+  await doc.loadInfo();
+
+  const nowStr = testStartTime
+    .toISOString()
+    .replace(/[:T]/g, "-")
+    .split(".")[0];
+  const templateSheet = doc.sheetsById[TEMPLATE_GID];
+  const newSheet = await templateSheet.duplicate({
+    title: `Report_OP_${nowStr}`,
+  });
+
+  await newSheet.loadCells("A1:J10");
+  const headers = [
+    "URL",
+    "메뉴명",
+    "접근성ID",
+    "랜딩확인",
+    "로딩시간(초)",
+    "결과",
+    "실패 사유",
+  ];
+  headers.forEach((h, i) => {
+    newSheet.getCell(4, i).value = h;
+  });
+  newSheet.getCellByA1("B2").value = testStartTime.toLocaleString("ko-KR", {
+    timeZone: "Asia/Seoul",
+  });
+  await newSheet.saveUpdatedCells();
+
   console.log(`🚀 점검 시작: ${testInfo.project.name}`);
 
   // -----------------------------
-  // 링크 수집
+  // 링크 수집 (스크롤 없음, hanssem.com 전체)
   // -----------------------------
   const collectLinks = async () => {
     try {
-      for (let i = 0; i < 2; i++) {
-        await page.mouse.wheel(0, 3000);
-        await page.waitForTimeout(800);
-      }
-
-      const rawLinks = await page.evaluate((domain) => {
-        return Array.from(document.querySelectorAll("a"))
+      const rawLinks = await page.evaluate(() =>
+        Array.from(document.querySelectorAll("a"))
           .map((a) => a.href)
           .filter(
             (h) =>
               h &&
-              h.startsWith(domain) &&
-              !h.includes("#") &&
-              !h.includes("javascript:"),
-          );
-      }, TARGET_DOMAIN);
+              h.startsWith("http") &&
+              h.includes("hanssem.com") &&
+              !h.includes("#"),
+          ),
+      );
 
       rawLinks.forEach((l) => {
         try {
           const url = new URL(l);
-          // 경로에 프로토콜이 포함된 잘못된 URL 제외 (e.g. /goods/https://...)
+          // 경로에 프로토콜이 포함된 잘못된 URL 제외
           if (url.pathname.includes("http")) return;
         } catch {
           return;
@@ -78,7 +137,8 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
         if (
           !EXCLUDE_KEYWORDS.some((k) => l.includes(k)) &&
           !visitedLinks.has(l) &&
-          !linkPool.has(l)
+          !linkPool.has(l) &&
+          linkPool.size < 1500
         ) {
           linkPool.add(l);
         }
@@ -93,10 +153,10 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   // -----------------------------
   await page.goto(TARGET_DOMAIN, {
     waitUntil: "domcontentloaded",
-    timeout: 30000,
+    timeout: 40000,
   });
-
   await collectLinks();
+  console.log(`🔗 수집된 후보 링크: ${linkPool.size}개`);
 
   // -----------------------------
   // 메인 루프
@@ -104,29 +164,32 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   while (visitedLinks.size < MAX_LINKS) {
     const nextLink = Array.from(linkPool).find((l) => !visitedLinks.has(l));
 
-    if (!nextLink) break;
+    if (!nextLink) {
+      console.log("🔗 새로운 링크를 추가로 탐색합니다...");
+      await collectLinks();
+      if (Array.from(linkPool).every((l) => visitedLinks.has(l))) break;
+      continue;
+    }
 
     visitedLinks.add(nextLink);
+    console.log(`[${visitedLinks.size}/${MAX_LINKS}] 점검 중: ${nextLink}`);
 
     let isPass = false;
-    const startTime = Date.now();
+    const startMs = Date.now();
+    let loadTimeSec = "0.00";
+    let httpStatus: string | number = "Error";
 
     try {
       const response = await page.goto(nextLink, {
         waitUntil: "domcontentloaded",
-        timeout: 30000,
+        timeout: 25000,
       });
-
-      if (linkPool.size < MAX_LINKS + 50) {
-        await collectLinks();
-      }
-
-      const contentCount = await page.locator("div, img").count();
-
-      if (response?.status() === 200 && contentCount > 10) {
-        isPass = true;
-      }
+      loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
+      httpStatus = response?.status() || "Error";
+      isPass = httpStatus === 200 && parseFloat(loadTimeSec) <= 5.0;
     } catch {
+      loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
+      httpStatus = "Timeout/Error";
       try {
         const safeUrl = nextLink.replace(/[/\\?%*:|"<>]/g, "-");
         await page.screenshot({
@@ -138,57 +201,106 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       }
     }
 
-    const elapsed = Date.now() - startTime;
+    // 구글 시트 실시간 기록
+    try {
+      await newSheet.loadCells(`A${currentRow}:G${currentRow}`);
+      const rowData = [
+        nextLink,
+        "자동수집",
+        "N/A",
+        httpStatus.toString(),
+        loadTimeSec,
+        isPass ? "PASS" : "FAIL",
+        isPass ? "-" : httpStatus === "Timeout/Error" ? "접속실패" : "성능지연",
+      ];
+      rowData.forEach((val, idx) => {
+        const cell = newSheet.getCell(currentRow - 1, idx);
+        cell.value = val;
+        if (idx === 5 && val === "FAIL") {
+          cell.backgroundColor = { red: 1, green: 0, blue: 0 };
+          cell.textFormat = {
+            foregroundColor: { red: 1, green: 1, blue: 1 },
+            bold: true,
+          };
+        }
+      });
+      await newSheet.saveUpdatedCells();
+    } catch (err: any) {
+      console.log("⚠️ 시트 기록 오류:", err.message);
+    }
 
-    if (isPass) passCount++;
-    else {
+    if (isPass) {
+      passCount++;
+      console.log(`  ✅ 통과 (${loadTimeSec}s)`);
+    } else {
       failCount++;
       failedUrls.push(nextLink);
+      console.log(`  ❌ 실패 (${loadTimeSec}s)`);
     }
 
     caseResults.push({
       name: nextLink.split("/").pop() || "HOME",
       url: nextLink,
       status: isPass ? "pass" : "fail",
-      duration: `${elapsed}ms`,
+      duration: `${loadTimeSec}s`,
     });
+
+    // 50개마다 추가 링크 수집
+    if (visitedLinks.size % 50 === 0) {
+      await collectLinks();
+    }
   }
 
   // -----------------------------
-  // 결과 저장
+  // 구글 시트 종료 시간 기록
+  // -----------------------------
+  try {
+    const endTime = new Date();
+    await newSheet.loadCells("B3");
+    newSheet.getCellByA1("B3").value = endTime.toLocaleString("ko-KR", {
+      timeZone: "Asia/Seoul",
+    });
+    await newSheet.saveUpdatedCells();
+    console.log("📊 구글 시트 기록 완료");
+  } catch (err: any) {
+    console.log("⚠️ 시트 종료 기록 오류:", err.message);
+  }
+
+  // -----------------------------
+  // results.json 저장
   // -----------------------------
   const totalCount = visitedLinks.size;
   const passRate =
     totalCount > 0 ? ((passCount / totalCount) * 100).toFixed(1) : "0";
+  const kst = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
 
-  const kst = new Date().toLocaleString("ko-KR", {
-    timeZone: "Asia/Seoul",
-  });
-
-  const resultsData = {
-    lastUpdated: kst,
-    reports: [
+  fs.writeFileSync(
+    "public/results.json",
+    JSON.stringify(
       {
-        title: "한샘몰 자동 테스트",
-        total: totalCount,
-        pass: passCount,
-        fail: failCount,
-        passRate,
-        cases: caseResults,
+        lastUpdated: kst,
+        reports: [
+          {
+            title: "한샘몰 자동 테스트",
+            total: totalCount,
+            pass: passCount,
+            fail: failCount,
+            passRate,
+            cases: caseResults,
+          },
+        ],
       },
-    ],
-  };
-
-  fs.writeFileSync("public/results.json", JSON.stringify(resultsData, null, 2));
+      null,
+      2,
+    ),
+  );
 
   // -----------------------------
   // Git push
   // -----------------------------
   try {
     execSync("git add public/results.json");
-
     const status = execSync("git status --porcelain").toString().trim();
-
     if (status) {
       execSync(`git commit -m "auto update ${Date.now()}"`);
       execSync("git push origin main --force");
@@ -213,19 +325,14 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
           title: "결과 요약",
           description: `총 ${totalCount}건 / 통과율 ${passRate}%`,
         },
-        {
-          title: "실패 URL",
-          description: failUrlText,
-        },
-        {
-          title: "📊 리포트 보기",
-          description: DASHBOARD_URL, // ✅ 여기 핵심
-        },
+        { title: "실패 URL", description: failUrlText },
+        { title: "📊 리포트 보기", description: DASHBOARD_URL },
       ],
     });
-
     console.log("📤 잔디 전송 완료");
   } catch (err: any) {
     console.log("❌ 잔디 실패:", err.message);
   }
+
+  console.log(`🏁 모든 점검 완료! 총 ${totalCount}건 확인.`);
 });

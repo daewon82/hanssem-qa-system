@@ -17,7 +17,10 @@
     "@types/nodemailer": "^8.0.0"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^3.0.1",
     "axios": "^1.6.0",
+    "google-spreadsheet": "^5.2.0",
+    "googleapis": "^171.4.0",
     "nodemailer": "^8.0.5"
   }
 }
