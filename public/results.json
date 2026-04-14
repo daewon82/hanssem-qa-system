@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. PM 10:50:23",
+  "lastUpdated": "2026. 4. 14. PM 10:52:09",
   "incidents": {
     "total": 23,
     "hotfix": 23,
@@ -319,13 +319,21 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 14. PM 10:35:26",
-      "total": 2,
-      "pass": 2,
-      "fail": 0,
-      "passRate": "100.0",
+      "lastUpdated": "2026. 4. 14. PM 10:52:09",
+      "total": 12,
+      "pass": 11,
+      "fail": 1,
+      "passRate": "91.7",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": []
+      "cases": [
+        {
+          "name": "상품 상세 — 구매 버튼 노출 (PC)",
+          "url": "https://store.hanssem.com/goods/837513",
+          "status": "fail",
+          "duration": "14.45s",
+          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisib"
+        }
+      ]
     }
   ]
 }
