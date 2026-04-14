@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. PM 9:01:58",
+  "lastUpdated": "2026. 4. 14. PM 9:02:30",
   "incidents": {
     "total": 23,
     "hotfix": 23,
@@ -327,7 +327,7 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 접근성ID 테스트",
-      "lastUpdated": "2026. 4. 14. PM 9:01:58",
+      "lastUpdated": "2026. 4. 14. PM 9:02:30",
       "total": 1,
       "pass": 0,
       "fail": 1,
@@ -335,10 +335,10 @@
       "sheetUrl": "",
       "cases": [
         {
-          "name": "검색 아이콘 클릭 → 검색 진입 [home_btn_search]",
+          "name": "장바구니 아이콘 클릭 → mall.hanssem.com 이동 [home_btn_cart]",
           "url": "https://store.hanssem.com/",
           "status": "fail",
-          "duration": "5.78s"
+          "duration": "14.16s"
         }
       ]
     }
