@@ -139,8 +139,9 @@
         padding: 2px 8px; border-radius: 8px;
         white-space: nowrap;
       }
-      .cat-fe { background: var(--blue-light); color: var(--blue); }
-      .cat-be { background: var(--amber-bg);   color: var(--amber); }
+      .cat-fe  { background: var(--blue-light); color: var(--blue); }
+      .cat-be  { background: var(--amber-bg);  color: var(--amber); }
+      .cat-app { background: var(--green-bg);  color: var(--green); }
 
       .jira-link {
         display: inline-flex; align-items: center; gap: 4px;
@@ -194,16 +195,16 @@
         <div class="sum-label">핫픽스</div>
       </div>
       <div class="sum-item">
-        <div class="sum-val unplanned" id="s-unplanned">—</div>
-        <div class="sum-label">비정기배포</div>
-      </div>
-      <div class="sum-item">
         <div class="sum-val fe" id="s-fe">—</div>
         <div class="sum-label">FE 프론트엔드</div>
       </div>
       <div class="sum-item">
         <div class="sum-val be" id="s-be">—</div>
         <div class="sum-label">BE 백엔드</div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-val" style="color:var(--green)" id="s-app">—</div>
+        <div class="sum-label">APP 모바일</div>
       </div>
     </div>
 
@@ -219,7 +220,8 @@
       }
 
       function catBadge(cat) {
-        if (cat === "FE") return `<span class="cat-badge cat-fe">FE</span>`;
+        if (cat === "FE")  return `<span class="cat-badge cat-fe">FE</span>`;
+        if (cat === "APP") return `<span class="cat-badge cat-app">APP</span>`;
         return `<span class="cat-badge cat-be">BE</span>`;
       }
 
@@ -252,6 +254,7 @@
             <span style="color:var(--blue);font-size:10px">FE ${m.fe}</span>
             <span style="color:var(--text-hint)">·</span>
             <span style="color:var(--amber);font-size:10px">BE ${m.be}</span>
+            ${m.app ? `<span style="color:var(--text-hint)">·</span><span style="color:var(--green);font-size:10px">APP ${m.app}</span>` : ""}
           </div>
           <div class="table-card">
             <table>
@@ -277,11 +280,11 @@
           const data = await res.json();
           const inc  = data.incidents;
 
-          document.getElementById("s-total").textContent     = inc.total     || 0;
-          document.getElementById("s-hotfix").textContent    = inc.hotfix    || 0;
-          document.getElementById("s-unplanned").textContent = inc.unplanned || 0;
-          document.getElementById("s-fe").textContent        = inc.feCount   || 0;
-          document.getElementById("s-be").textContent        = inc.beCount   || 0;
+          document.getElementById("s-total").textContent  = inc.total    || 0;
+          document.getElementById("s-hotfix").textContent = inc.hotfix   || 0;
+          document.getElementById("s-fe").textContent     = inc.feCount  || 0;
+          document.getElementById("s-be").textContent     = inc.beCount  || 0;
+          document.getElementById("s-app").textContent    = inc.appCount || 0;
           document.getElementById("period-sub").textContent  = `기간: ${inc.period || ""}`;
 
           let html = "", offset = 0;

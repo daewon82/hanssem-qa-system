@@ -369,6 +369,7 @@
         <div class="chart-legend">
           <span><span style="display:inline-block;width:11px;height:11px;background:#1a4f9c;border-radius:2px;vertical-align:middle;margin-right:4px"></span>FE 프론트엔드</span>
           <span><span style="display:inline-block;width:11px;height:11px;background:#e65100;border-radius:2px;vertical-align:middle;margin-right:4px"></span>BE 백엔드</span>
+          <span><span style="display:inline-block;width:11px;height:11px;background:#2e7d32;border-radius:2px;vertical-align:middle;margin-right:4px"></span>APP 모바일</span>
         </div>
       </div>
       <div class="chart-wrap" id="chart-wrap">
@@ -388,11 +389,18 @@
           <div class="inc-stat-label">핫픽스</div>
         </div>
         <div class="inc-stat">
-          <div class="inc-stat-val unplanned" id="inc-unplanned">—</div>
-          <div class="inc-stat-label">비정기배포</div>
+          <div class="inc-stat-val" style="color:var(--blue)" id="inc-fe">—</div>
+          <div class="inc-stat-label">FE 프론트엔드</div>
         </div>
-        <div class="inc-stat" style="border-left:none;padding-left:20px">
-          <div style="font-size:11px;color:var(--text-sub);font-weight:600" id="inc-fe-be">FE — / BE —</div>
+        <div class="inc-stat">
+          <div class="inc-stat-val" style="color:var(--amber)" id="inc-be">—</div>
+          <div class="inc-stat-label">BE 백엔드</div>
+        </div>
+        <div class="inc-stat">
+          <div class="inc-stat-val" style="color:var(--green)" id="inc-app">—</div>
+          <div class="inc-stat-label">APP 모바일</div>
+        </div>
+        <div class="inc-stat" style="border-left:none;padding-left:8px">
           <div class="inc-stat-label" id="inc-period">—</div>
         </div>
       </div>
@@ -557,14 +565,14 @@
         const chartW = W - PAD_L - PAD_R, chartH = 120;
         const n = byMonth.length;
 
-        const allVals = byMonth.flatMap(m => [m.fe || 0, m.be || 0]);
+        const allVals = byMonth.flatMap(m => [m.fe || 0, m.be || 0, m.app || 0]);
         const maxVal  = Math.max(...allVals, 4);
         const yTop    = Math.ceil(maxVal / 2) * 2 + 2;
         const yPos    = v => PAD_T + chartH - (v / yTop) * chartH;
 
         const groupW = chartW / n;
-        const barW   = Math.min(30, (groupW - 24) / 2);
-        const barGap = 5;
+        const barW   = Math.min(22, (groupW - 24) / 3);
+        const barGap = 4;
 
         /* grid lines */
         let grid = "";
@@ -578,19 +586,25 @@
         /* bars + labels */
         let bars = "", xlabels = "";
         byMonth.forEach((m, i) => {
-          const cx  = PAD_L + (i + 0.5) * groupW;
-          const feX = cx - barW - barGap / 2;
-          const beX = cx + barGap / 2;
-          const feH = Math.max(((m.fe || 0) / yTop) * chartH, m.fe ? 2 : 0);
-          const beH = Math.max(((m.be || 0) / yTop) * chartH, m.be ? 2 : 0);
-          const feY = PAD_T + chartH - feH;
-          const beY = PAD_T + chartH - beH;
+          const cx       = PAD_L + (i + 0.5) * groupW;
+          const totalW   = 3 * barW + 2 * barGap;
+          const feX      = cx - totalW / 2;
+          const beX      = feX + barW + barGap;
+          const appX     = beX + barW + barGap;
+          const feH  = Math.max(((m.fe  || 0) / yTop) * chartH, m.fe  ? 2 : 0);
+          const beH  = Math.max(((m.be  || 0) / yTop) * chartH, m.be  ? 2 : 0);
+          const appH = Math.max(((m.app || 0) / yTop) * chartH, m.app ? 2 : 0);
+          const feY  = PAD_T + chartH - feH;
+          const beY  = PAD_T + chartH - beH;
+          const appY = PAD_T + chartH - appH;
 
           bars += `
             <rect x="${feX.toFixed(1)}" y="${feY.toFixed(1)}" width="${barW}" height="${feH.toFixed(1)}" fill="#1A4F9C" rx="3"/>
-            ${m.fe ? `<text x="${(feX + barW / 2).toFixed(1)}" y="${(feY - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#1A4F9C" font-family="'Pretendard',sans-serif">${m.fe}</text>` : ""}
+            ${m.fe  ? `<text x="${(feX  + barW / 2).toFixed(1)}" y="${(feY  - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#1A4F9C" font-family="'Pretendard',sans-serif">${m.fe}</text>`  : ""}
             <rect x="${beX.toFixed(1)}" y="${beY.toFixed(1)}" width="${barW}" height="${beH.toFixed(1)}" fill="#E65100" rx="3"/>
-            ${m.be ? `<text x="${(beX + barW / 2).toFixed(1)}" y="${(beY - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#E65100" font-family="'Pretendard',sans-serif">${m.be}</text>` : ""}`;
+            ${m.be  ? `<text x="${(beX  + barW / 2).toFixed(1)}" y="${(beY  - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#E65100" font-family="'Pretendard',sans-serif">${m.be}</text>`  : ""}
+            <rect x="${appX.toFixed(1)}" y="${appY.toFixed(1)}" width="${barW}" height="${appH.toFixed(1)}" fill="#2E7D32" rx="3"/>
+            ${m.app ? `<text x="${(appX + barW / 2).toFixed(1)}" y="${(appY - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#2E7D32" font-family="'Pretendard',sans-serif">${m.app}</text>` : ""}`;
 
           const shortLabel = m.label.replace("2026년 ", "").replace("월", "월");
           xlabels += `
@@ -646,11 +660,12 @@
 
           if (data.incidents) {
             const inc = data.incidents;
-            document.getElementById("inc-total").textContent     = inc.total     || 0;
-            document.getElementById("inc-hotfix").textContent    = inc.hotfix    || 0;
-            document.getElementById("inc-unplanned").textContent = inc.unplanned || 0;
-            document.getElementById("inc-fe-be").textContent     = `FE ${inc.feCount || 0}건 / BE ${inc.beCount || 0}건`;
-            document.getElementById("inc-period").textContent    = inc.period    || "";
+            document.getElementById("inc-total").textContent  = inc.total    || 0;
+            document.getElementById("inc-hotfix").textContent = inc.hotfix   || 0;
+            document.getElementById("inc-fe").textContent     = inc.feCount  || 0;
+            document.getElementById("inc-be").textContent     = inc.beCount  || 0;
+            document.getElementById("inc-app").textContent    = inc.appCount || 0;
+            document.getElementById("inc-period").textContent = inc.period   || "";
           }
 
           const hasFailure = data.reports.some(r => (r.fail || 0) > 0);
