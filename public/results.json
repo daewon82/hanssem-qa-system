@@ -1,14 +1,39 @@
 {
-  "lastUpdated": "2026. 4. 14. 오후 3:36:06",
+  "lastUpdated": "2026. 4. 14. 오후 3:48:08",
   "reports": [
     {
       "title": "한샘몰 자동 테스트",
-      "total": 2,
-      "pass": 2,
-      "fail": 0,
-      "passRate": "100.0",
-      "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k/edit#gid=826738375",
-      "cases": []
+      "total": 230,
+      "pass": 226,
+      "fail": 4,
+      "passRate": "98.3",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k/edit#gid=341880560",
+      "cases": [
+        {
+          "name": "400542",
+          "url": "https://store.hanssem.com/goods/400542",
+          "status": "fail",
+          "duration": "25.01s"
+        },
+        {
+          "name": "choose-consult?channelType=OPKG_01",
+          "url": "https://remodeling.hanssem.com/choose-consult?channelType=OPKG_01",
+          "status": "fail",
+          "duration": "6.31s"
+        },
+        {
+          "name": "furnishing",
+          "url": "https://remodeling.hanssem.com/furnishing",
+          "status": "fail",
+          "duration": "0.58s"
+        },
+        {
+          "name": "interior",
+          "url": "https://remodeling.hanssem.com/interior",
+          "status": "fail",
+          "duration": "0.17s"
+        }
+      ]
     }
   ]
 }
