@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. PM 9:00:02",
+  "lastUpdated": "2026. 4. 14. PM 9:00:34",
   "incidents": {
     "total": 23,
     "hotfix": 23,
@@ -327,18 +327,18 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 접근성ID 테스트",
-      "lastUpdated": "2026. 4. 14. PM 9:00:02",
-      "total": 2,
-      "pass": 1,
+      "lastUpdated": "2026. 4. 14. PM 9:00:34",
+      "total": 1,
+      "pass": 0,
       "fail": 1,
-      "passRate": "50.0",
+      "passRate": "0.0",
       "sheetUrl": "",
       "cases": [
         {
-          "name": "헤더 햄버거 메뉴 노출 [home_btn_all_menu]",
+          "name": "헤더 검색 아이콘 노출 [home_btn_search]",
           "url": "https://store.hanssem.com/",
           "status": "fail",
-          "duration": "14.20s"
+          "duration": "14.07s"
         }
       ]
     }
