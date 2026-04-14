@@ -1,4 +1,5 @@
 {
+  "lastUpdated": "2026. 4. 14. 오전 10:03:44",
   "reports": [
     {
       "title": "한샘몰 PC 자동 랜딩 테스트",
@@ -11,21 +12,21 @@
         {
           "name": "furnishing",
           "status": "pass",
-          "duration": "2.2s",
+          "duration": "2.4s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20070",
           "status": "pass",
-          "duration": "2.5s",
+          "duration": "2.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071",
           "status": "pass",
-          "duration": "2.0s",
+          "duration": "2.1s",
           "note": "정상",
           "noteType": "blue"
         },
@@ -39,28 +40,28 @@
         {
           "name": "20073",
           "status": "pass",
-          "duration": "2.1s",
+          "duration": "2.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074",
           "status": "pass",
-          "duration": "3.0s",
+          "duration": "2.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075",
           "status": "pass",
-          "duration": "2.1s",
+          "duration": "3.5s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076",
           "status": "pass",
-          "duration": "2.0s",
+          "duration": "2.7s",
           "note": "정상",
           "noteType": "blue"
         },
@@ -74,14 +75,14 @@
         {
           "name": "20109",
           "status": "pass",
-          "duration": "2.3s",
+          "duration": "3.7s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "RANK",
           "status": "pass",
-          "duration": "4.0s",
+          "duration": "1.9s",
           "note": "정상",
           "noteType": "blue"
         },
@@ -95,189 +96,189 @@
         {
           "name": "shorts",
           "status": "pass",
-          "duration": "1.8s",
+          "duration": "1.7s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "interior",
           "status": "pass",
-          "duration": "1.8s",
+          "duration": "3.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20002",
           "status": "pass",
-          "duration": "294ms",
+          "duration": "415ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20003",
           "status": "pass",
-          "duration": "553ms",
+          "duration": "270ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20004",
           "status": "pass",
-          "duration": "283ms",
+          "duration": "289ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20005",
           "status": "pass",
-          "duration": "269ms",
+          "duration": "669ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20006",
           "status": "pass",
-          "duration": "475ms",
+          "duration": "439ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19488",
           "status": "pass",
-          "duration": "243ms",
+          "duration": "189ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "constcase",
           "status": "pass",
-          "duration": "224ms",
+          "duration": "218ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "magazine",
           "status": "pass",
-          "duration": "233ms",
+          "duration": "198ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646",
           "status": "pass",
-          "duration": "917ms",
+          "duration": "591ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19313",
           "status": "pass",
-          "duration": "1.6s",
+          "duration": "174ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19475",
           "status": "pass",
-          "duration": "312ms",
+          "duration": "180ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19312",
           "status": "pass",
-          "duration": "2.4s",
+          "duration": "290ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19316",
           "status": "pass",
-          "duration": "779ms",
+          "duration": "532ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19315",
           "status": "pass",
-          "duration": "732ms",
+          "duration": "549ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19314",
           "status": "pass",
-          "duration": "3.6s",
+          "duration": "500ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19445",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "749ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19494",
           "status": "pass",
-          "duration": "1.8s",
+          "duration": "218ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?anchorID=nv-01",
           "status": "pass",
-          "duration": "909ms",
+          "duration": "740ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19081.html",
           "status": "fail",
-          "duration": "272ms",
+          "duration": "140ms",
           "note": "랜딩 실패",
           "noteType": "red"
         },
         {
           "name": "19077.html",
           "status": "fail",
-          "duration": "215ms",
+          "duration": "109ms",
           "note": "랜딩 실패",
           "noteType": "red"
         },
         {
           "name": "17610.html",
           "status": "fail",
-          "duration": "587ms",
+          "duration": "107ms",
           "note": "랜딩 실패",
           "noteType": "red"
         },
         {
           "name": "17608.html",
           "status": "fail",
-          "duration": "115ms",
+          "duration": "101ms",
           "note": "랜딩 실패",
           "noteType": "red"
         },
         {
           "name": "799220",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "929ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "644540",
           "status": "pass",
-          "duration": "606ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "799215",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "438ms",
           "note": "정상",
           "noteType": "blue"
         },
@@ -291,231 +292,231 @@
         {
           "name": "1115049",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "1.5s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "17183.html",
           "status": "fail",
-          "duration": "364ms",
+          "duration": "170ms",
           "note": "랜딩 실패",
           "noteType": "red"
         },
         {
           "name": "17172.html",
           "status": "fail",
-          "duration": "204ms",
+          "duration": "108ms",
           "note": "랜딩 실패",
           "noteType": "red"
         },
         {
           "name": "1070411",
           "status": "pass",
-          "duration": "919ms",
+          "duration": "591ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "37964",
           "status": "pass",
-          "duration": "542ms",
+          "duration": "833ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1064854",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "796ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "487623",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "535ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1028853",
           "status": "pass",
-          "duration": "943ms",
+          "duration": "648ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "819864",
           "status": "pass",
-          "duration": "781ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "891268",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "665ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "803701",
           "status": "pass",
-          "duration": "596ms",
+          "duration": "1.4s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "848855",
           "status": "pass",
-          "duration": "860ms",
+          "duration": "585ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "811400",
           "status": "pass",
-          "duration": "863ms",
+          "duration": "557ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "703950",
           "status": "pass",
-          "duration": "810ms",
+          "duration": "597ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1077505",
           "status": "pass",
-          "duration": "566ms",
+          "duration": "678ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1085902",
           "status": "pass",
-          "duration": "875ms",
+          "duration": "724ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?componentId=7406",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "716ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?anchorID=nv-02",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "999ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?anchorID=nv-7487",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "968ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?componentId=7344",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "641ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1064857",
           "status": "pass",
-          "duration": "542ms",
+          "duration": "1.4s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1054788",
           "status": "pass",
-          "duration": "826ms",
+          "duration": "997ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1084735",
           "status": "pass",
-          "duration": "902ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "909639",
           "status": "pass",
-          "duration": "797ms",
+          "duration": "554ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "823609",
           "status": "pass",
-          "duration": "890ms",
+          "duration": "519ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1084736",
           "status": "pass",
-          "duration": "543ms",
+          "duration": "603ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1001675",
           "status": "pass",
-          "duration": "852ms",
+          "duration": "510ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1001673",
           "status": "pass",
-          "duration": "897ms",
+          "duration": "745ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129317",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "970ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129332",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "731ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129310",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "999ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129329",
           "status": "pass",
-          "duration": "949ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129328",
           "status": "pass",
-          "duration": "969ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
@@ -529,285 +530,264 @@
         {
           "name": "1129312",
           "status": "pass",
-          "duration": "701ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129313",
           "status": "pass",
-          "duration": "989ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129326",
           "status": "pass",
-          "duration": "959ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129314",
           "status": "pass",
-          "duration": "882ms",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1115091",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "859307",
           "status": "pass",
-          "duration": "545ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1115138",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1115046",
           "status": "pass",
-          "duration": "989ms",
+          "duration": "818ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "829864",
           "status": "pass",
-          "duration": "926ms",
+          "duration": "731ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "719636",
           "status": "pass",
-          "duration": "965ms",
+          "duration": "1.6s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "859306",
           "status": "pass",
-          "duration": "977ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1002457",
           "status": "pass",
-          "duration": "774ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "394130",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "932ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "829876",
           "status": "pass",
-          "duration": "898ms",
+          "duration": "724ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "993093",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "612ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "817732",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "506ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1098826",
           "status": "pass",
-          "duration": "886ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "817730",
           "status": "pass",
-          "duration": "993ms",
+          "duration": "588ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1098824",
           "status": "pass",
-          "duration": "999ms",
+          "duration": "665ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "737687",
           "status": "pass",
-          "duration": "612ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "993094",
           "status": "pass",
-          "duration": "1.7s",
+          "duration": "610ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "817734",
           "status": "pass",
-          "duration": "988ms",
+          "duration": "584ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "992272",
           "status": "pass",
-          "duration": "1.4s",
+          "duration": "605ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1027331",
           "status": "pass",
-          "duration": "979ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1050289",
           "status": "pass",
-          "duration": "927ms",
+          "duration": "618ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1042687",
           "status": "pass",
-          "duration": "930ms",
+          "duration": "696ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "811593",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "648ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1042685",
           "status": "pass",
-          "duration": "977ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "703619",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "749ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "811479",
           "status": "pass",
-          "duration": "609ms",
+          "duration": "677ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1042688",
           "status": "pass",
-          "duration": "867ms",
+          "duration": "715ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "703620",
           "status": "pass",
-          "duration": "850ms",
+          "duration": "625ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "811513",
           "status": "pass",
-          "duration": "562ms",
+          "duration": "707ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "945924",
           "status": "pass",
-          "duration": "813ms",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "302469",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19317",
           "status": "pass",
-          "duration": "779ms",
+          "duration": "489ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "937108",
+          "name": "1075313",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "898ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "1106083",
-          "status": "pass",
-          "duration": "533ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1064061",
-          "status": "pass",
-          "duration": "1.5s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "269222",
-          "status": "pass",
-          "duration": "807ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "333145",
+          "name": "829899",
           "status": "pass",
           "duration": "1.1s",
           "note": "정상",
@@ -816,68 +796,103 @@
         {
           "name": "860261",
           "status": "pass",
-          "duration": "470ms",
+          "duration": "649ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "333145",
+          "status": "pass",
+          "duration": "781ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "269222",
+          "status": "pass",
+          "duration": "695ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1064062",
+          "status": "pass",
+          "duration": "1.6s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1064061",
+          "status": "pass",
+          "duration": "1.4s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "988307",
           "status": "pass",
-          "duration": "1.8s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "184114",
-          "status": "pass",
-          "duration": "805ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "743207",
-          "status": "pass",
-          "duration": "1.0s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1100750",
-          "status": "pass",
-          "duration": "577ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "855493",
-          "status": "pass",
-          "duration": "910ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "743208",
-          "status": "pass",
-          "duration": "878ms",
+          "duration": "630ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "213816",
           "status": "pass",
-          "duration": "911ms",
+          "duration": "640ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "184114",
+          "status": "pass",
+          "duration": "532ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1100750",
+          "status": "pass",
+          "duration": "574ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "743207",
+          "status": "pass",
+          "duration": "1.6s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "855493",
+          "status": "pass",
+          "duration": "601ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "743208",
+          "status": "pass",
+          "duration": "609ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "795512",
+          "status": "pass",
+          "duration": "654ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "400542",
+          "status": "pass",
+          "duration": "573ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1114367",
-          "status": "pass",
-          "duration": "553ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1064062",
           "status": "pass",
           "duration": "1.2s",
           "note": "정상",
@@ -886,161 +901,147 @@
         {
           "name": "1066885",
           "status": "pass",
-          "duration": "865ms",
+          "duration": "839ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1115350",
           "status": "pass",
-          "duration": "2.0s",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "795512",
+          "name": "641215",
           "status": "pass",
-          "duration": "1.4s",
+          "duration": "1.5s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1018877",
           "status": "pass",
-          "duration": "1.1s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1075313",
-          "status": "pass",
-          "duration": "683ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "400542",
-          "status": "pass",
-          "duration": "533ms",
+          "duration": "550ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19640",
           "status": "pass",
-          "duration": "328ms",
+          "duration": "192ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1131703",
           "status": "pass",
-          "duration": "844ms",
+          "duration": "621ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1063435",
           "status": "pass",
-          "duration": "601ms",
+          "duration": "539ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1008081",
           "status": "pass",
-          "duration": "830ms",
+          "duration": "429ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1110720",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "900ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1077402",
           "status": "pass",
-          "duration": "874ms",
+          "duration": "466ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1079644",
           "status": "pass",
-          "duration": "813ms",
+          "duration": "591ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1075227",
           "status": "pass",
-          "duration": "812ms",
+          "duration": "584ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1095220",
           "status": "pass",
-          "duration": "485ms",
+          "duration": "875ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1057158",
           "status": "pass",
-          "duration": "843ms",
+          "duration": "528ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20078",
           "status": "pass",
-          "duration": "445ms",
+          "duration": "579ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20079",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20080",
           "status": "pass",
-          "duration": "412ms",
+          "duration": "585ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?componentId=7561",
           "status": "pass",
-          "duration": "955ms",
+          "duration": "754ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1106094",
           "status": "pass",
-          "duration": "1.4s",
+          "duration": "754ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "932380",
           "status": "pass",
-          "duration": "635ms",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1115939",
           "status": "pass",
-          "duration": "742ms",
+          "duration": "718ms",
           "note": "정상",
           "noteType": "blue"
         },
@@ -1054,7 +1055,7 @@
         {
           "name": "1115941",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "979ms",
           "note": "정상",
           "noteType": "blue"
         },
@@ -1066,317 +1067,317 @@
           "noteType": "blue"
         },
         {
-          "name": "1064735",
-          "status": "pass",
-          "duration": "1.9s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "724129",
-          "status": "pass",
-          "duration": "1.2s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1038160",
-          "status": "pass",
-          "duration": "2.6s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1038180",
-          "status": "pass",
-          "duration": "1.2s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1051573",
-          "status": "pass",
-          "duration": "1.2s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1051572",
-          "status": "pass",
-          "duration": "1.1s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1064060",
-          "status": "pass",
-          "duration": "1.3s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1064059",
-          "status": "pass",
-          "duration": "1.1s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1042804",
-          "status": "pass",
-          "duration": "1.7s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1042803",
-          "status": "pass",
-          "duration": "1.1s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "19318",
-          "status": "pass",
-          "duration": "2.4s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1115946",
-          "status": "pass",
-          "duration": "823ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1115947",
-          "status": "pass",
-          "duration": "819ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1115948",
-          "status": "pass",
-          "duration": "766ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1115954",
+          "name": "1106083",
           "status": "pass",
           "duration": "1.4s",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "1115955",
-          "status": "pass",
-          "duration": "601ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1115956",
-          "status": "pass",
-          "duration": "1.2s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1115943",
-          "status": "pass",
-          "duration": "861ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1115944",
-          "status": "pass",
-          "duration": "767ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1115945",
-          "status": "pass",
-          "duration": "1.0s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1081479",
-          "status": "pass",
-          "duration": "929ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "319572",
-          "status": "pass",
-          "duration": "411ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1018219",
-          "status": "pass",
-          "duration": "907ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "390420",
-          "status": "pass",
-          "duration": "485ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "641215",
-          "status": "pass",
-          "duration": "1.1s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1091699",
-          "status": "pass",
-          "duration": "886ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1041149",
-          "status": "pass",
-          "duration": "416ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "932381",
-          "status": "pass",
-          "duration": "962ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "932378",
-          "status": "pass",
-          "duration": "1.1s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1091700",
-          "status": "pass",
-          "duration": "581ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "1064630",
-          "status": "pass",
-          "duration": "474ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=1",
-          "status": "pass",
-          "duration": "2.3s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=2",
-          "status": "pass",
-          "duration": "592ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=3",
-          "status": "pass",
-          "duration": "830ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=4",
-          "status": "pass",
-          "duration": "941ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=5",
-          "status": "pass",
-          "duration": "873ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=6",
-          "status": "pass",
-          "duration": "749ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=7",
-          "status": "pass",
-          "duration": "1.2s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=8",
-          "status": "pass",
-          "duration": "566ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=9",
-          "status": "pass",
-          "duration": "1.6s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20070?page=10",
-          "status": "pass",
-          "duration": "631ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20081",
-          "status": "pass",
-          "duration": "884ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20082",
+          "name": "1064735",
           "status": "pass",
           "duration": "1.5s",
           "note": "정상",
           "noteType": "blue"
         },
         {
+          "name": "724129",
+          "status": "pass",
+          "duration": "735ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1038160",
+          "status": "pass",
+          "duration": "886ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1038180",
+          "status": "pass",
+          "duration": "1.1s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1051573",
+          "status": "pass",
+          "duration": "1.5s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1051572",
+          "status": "pass",
+          "duration": "1.7s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1064060",
+          "status": "pass",
+          "duration": "1.2s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1064059",
+          "status": "pass",
+          "duration": "1.0s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1042804",
+          "status": "pass",
+          "duration": "1.2s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1042803",
+          "status": "pass",
+          "duration": "1.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "19318",
+          "status": "pass",
+          "duration": "2.1s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115946",
+          "status": "pass",
+          "duration": "908ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115947",
+          "status": "pass",
+          "duration": "924ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115948",
+          "status": "pass",
+          "duration": "800ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115954",
+          "status": "pass",
+          "duration": "1.2s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115955",
+          "status": "pass",
+          "duration": "662ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115956",
+          "status": "pass",
+          "duration": "984ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115943",
+          "status": "pass",
+          "duration": "835ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115944",
+          "status": "pass",
+          "duration": "761ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1115945",
+          "status": "pass",
+          "duration": "877ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1081479",
+          "status": "pass",
+          "duration": "1.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "319572",
+          "status": "pass",
+          "duration": "1.1s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1018219",
+          "status": "pass",
+          "duration": "1.1s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "390420",
+          "status": "pass",
+          "duration": "962ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1091699",
+          "status": "pass",
+          "duration": "902ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1041149",
+          "status": "pass",
+          "duration": "1.6s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "932378",
+          "status": "pass",
+          "duration": "1.3s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "932381",
+          "status": "pass",
+          "duration": "925ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "773278",
+          "status": "pass",
+          "duration": "1.0s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "1091700",
+          "status": "pass",
+          "duration": "507ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=1",
+          "status": "pass",
+          "duration": "757ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=2",
+          "status": "pass",
+          "duration": "939ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=3",
+          "status": "pass",
+          "duration": "814ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=4",
+          "status": "pass",
+          "duration": "681ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=5",
+          "status": "pass",
+          "duration": "678ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=6",
+          "status": "pass",
+          "duration": "671ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=7",
+          "status": "pass",
+          "duration": "837ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=8",
+          "status": "pass",
+          "duration": "586ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=9",
+          "status": "pass",
+          "duration": "616ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20070?page=10",
+          "status": "pass",
+          "duration": "596ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20081",
+          "status": "pass",
+          "duration": "841ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20082",
+          "status": "pass",
+          "duration": "570ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
           "name": "19447",
           "status": "pass",
-          "duration": "3.1s",
+          "duration": "3.6s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?componentId=7562",
           "status": "pass",
-          "duration": "974ms",
+          "duration": "652ms",
           "note": "정상",
           "noteType": "blue"
         },
@@ -1390,21 +1391,21 @@
         {
           "name": "1058860",
           "status": "pass",
-          "duration": "1.4s",
+          "duration": "580ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "786625",
           "status": "pass",
-          "duration": "646ms",
+          "duration": "612ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "746525",
           "status": "pass",
-          "duration": "986ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
@@ -1418,203 +1419,210 @@
         {
           "name": "958513",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "630ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1005271",
           "status": "pass",
-          "duration": "1.6s",
+          "duration": "459ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "992474",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "520ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1076189",
           "status": "pass",
-          "duration": "597ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1005272",
           "status": "pass",
-          "duration": "2.0s",
+          "duration": "859ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1122192",
           "status": "pass",
-          "duration": "972ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1122191",
           "status": "pass",
-          "duration": "496ms",
+          "duration": "929ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1122190",
           "status": "pass",
-          "duration": "935ms",
+          "duration": "996ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1122194",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "923ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "777039",
           "status": "pass",
-          "duration": "726ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1099086",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "989ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "786845",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "638ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "955436",
           "status": "pass",
-          "duration": "911ms",
+          "duration": "981ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "777040",
+          "name": "998964",
           "status": "pass",
-          "duration": "917ms",
+          "duration": "960ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "821209",
           "status": "pass",
-          "duration": "913ms",
+          "duration": "1.0s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "777040",
+          "status": "pass",
+          "duration": "982ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=1",
           "status": "pass",
-          "duration": "1.9s",
+          "duration": "1.8s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=2",
           "status": "pass",
-          "duration": "561ms",
+          "duration": "552ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=3",
           "status": "pass",
-          "duration": "770ms",
+          "duration": "988ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=4",
           "status": "pass",
-          "duration": "510ms",
+          "duration": "544ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=5",
           "status": "pass",
-          "duration": "473ms",
+          "duration": "525ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=6",
           "status": "pass",
-          "duration": "555ms",
+          "duration": "623ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=7",
           "status": "pass",
-          "duration": "909ms",
+          "duration": "559ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=8",
           "status": "pass",
-          "duration": "545ms",
+          "duration": "644ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=9",
           "status": "pass",
-          "duration": "502ms",
+          "duration": "654ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20071?page=10",
           "status": "pass",
-          "duration": "468ms",
+          "duration": "706ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20083",
           "status": "pass",
-          "duration": "882ms",
+          "duration": "638ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20084",
           "status": "pass",
-          "duration": "892ms",
+          "duration": "961ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20085",
           "status": "pass",
-          "duration": "463ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?componentId=7565",
           "status": "pass",
-          "duration": "857ms",
+          "duration": "618ms",
           "note": "정상",
           "noteType": "blue"
         },
@@ -1628,588 +1636,588 @@
         {
           "name": "909271",
           "status": "pass",
-          "duration": "541ms",
+          "duration": "834ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "909641",
           "status": "pass",
-          "duration": "840ms",
+          "duration": "842ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1064859",
           "status": "pass",
-          "duration": "816ms",
+          "duration": "930ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1064855",
           "status": "pass",
-          "duration": "952ms",
+          "duration": "891ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129164",
           "status": "pass",
-          "duration": "835ms",
+          "duration": "764ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129169",
           "status": "pass",
-          "duration": "972ms",
+          "duration": "847ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129179",
           "status": "pass",
-          "duration": "734ms",
+          "duration": "795ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129175",
           "status": "pass",
-          "duration": "801ms",
+          "duration": "847ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129163",
           "status": "pass",
-          "duration": "930ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129159",
           "status": "pass",
-          "duration": "775ms",
+          "duration": "789ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1118340",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "866ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1118298",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "498ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1118294",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "793ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1118302",
           "status": "pass",
-          "duration": "793ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1118300",
           "status": "pass",
-          "duration": "789ms",
+          "duration": "926ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1118305",
           "status": "pass",
-          "duration": "796ms",
+          "duration": "793ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1038775",
           "status": "pass",
-          "duration": "609ms",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "865080",
           "status": "pass",
-          "duration": "850ms",
+          "duration": "460ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "943982",
           "status": "pass",
-          "duration": "831ms",
+          "duration": "814ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "993169",
           "status": "pass",
-          "duration": "460ms",
+          "duration": "772ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1001672",
           "status": "pass",
-          "duration": "832ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=1",
           "status": "pass",
-          "duration": "588ms",
+          "duration": "581ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=2",
           "status": "pass",
-          "duration": "566ms",
+          "duration": "571ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=3",
           "status": "pass",
-          "duration": "652ms",
+          "duration": "696ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=4",
           "status": "pass",
-          "duration": "599ms",
+          "duration": "558ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=5",
           "status": "pass",
-          "duration": "561ms",
+          "duration": "546ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=6",
           "status": "pass",
-          "duration": "560ms",
+          "duration": "574ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=7",
           "status": "pass",
-          "duration": "644ms",
+          "duration": "759ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=8",
           "status": "pass",
-          "duration": "593ms",
+          "duration": "567ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=9",
           "status": "pass",
-          "duration": "631ms",
+          "duration": "667ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20072?page=10",
           "status": "pass",
-          "duration": "720ms",
+          "duration": "592ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?componentId=7560",
           "status": "pass",
-          "duration": "876ms",
+          "duration": "606ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1046962",
           "status": "pass",
-          "duration": "894ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "810476",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "976ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "775655",
           "status": "pass",
-          "duration": "562ms",
+          "duration": "833ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1047367",
           "status": "pass",
-          "duration": "526ms",
+          "duration": "864ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1066292",
           "status": "pass",
-          "duration": "912ms",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1029516",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "916ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1029514",
           "status": "pass",
-          "duration": "1.7s",
+          "duration": "813ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1066289",
           "status": "pass",
-          "duration": "797ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "743257",
           "status": "pass",
-          "duration": "880ms",
+          "duration": "1.4s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=1",
           "status": "pass",
-          "duration": "599ms",
+          "duration": "455ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=2",
           "status": "pass",
-          "duration": "784ms",
+          "duration": "764ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=3",
           "status": "pass",
-          "duration": "726ms",
+          "duration": "414ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=4",
           "status": "pass",
-          "duration": "572ms",
+          "duration": "472ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=5",
           "status": "pass",
-          "duration": "519ms",
+          "duration": "511ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=6",
           "status": "pass",
-          "duration": "957ms",
+          "duration": "498ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=7",
           "status": "pass",
-          "duration": "800ms",
+          "duration": "449ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=8",
           "status": "pass",
-          "duration": "578ms",
+          "duration": "453ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=9",
           "status": "pass",
-          "duration": "471ms",
+          "duration": "478ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20073?page=10",
           "status": "pass",
-          "duration": "473ms",
+          "duration": "429ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20089",
           "status": "pass",
-          "duration": "1.4s",
+          "duration": "450ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20090",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "377ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20091",
           "status": "pass",
-          "duration": "524ms",
+          "duration": "647ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20092",
           "status": "pass",
-          "duration": "387ms",
+          "duration": "808ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20546",
           "status": "pass",
-          "duration": "772ms",
+          "duration": "948ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19646?componentId=7563",
           "status": "pass",
-          "duration": "990ms",
+          "duration": "585ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1115110",
           "status": "pass",
-          "duration": "1.6s",
+          "duration": "1.5s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "394133",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1115067",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "829873",
           "status": "pass",
-          "duration": "949ms",
+          "duration": "1.4s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "932993",
           "status": "pass",
-          "duration": "924ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "829875",
           "status": "pass",
-          "duration": "563ms",
+          "duration": "1.5s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1070326",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1114371",
           "status": "pass",
-          "duration": "556ms",
+          "duration": "590ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1073160",
           "status": "pass",
-          "duration": "953ms",
+          "duration": "952ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1114281",
           "status": "pass",
-          "duration": "817ms",
+          "duration": "677ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1070358",
           "status": "pass",
-          "duration": "1.5s",
+          "duration": "506ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1114420",
           "status": "pass",
-          "duration": "492ms",
+          "duration": "911ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=1",
           "status": "pass",
-          "duration": "484ms",
+          "duration": "476ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=2",
           "status": "pass",
-          "duration": "618ms",
+          "duration": "573ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=3",
           "status": "pass",
-          "duration": "570ms",
+          "duration": "548ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=4",
           "status": "pass",
-          "duration": "504ms",
+          "duration": "585ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=5",
           "status": "pass",
-          "duration": "1.4s",
+          "duration": "435ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=6",
           "status": "pass",
-          "duration": "469ms",
+          "duration": "711ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=7",
           "status": "pass",
-          "duration": "607ms",
+          "duration": "1.7s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=8",
           "status": "pass",
-          "duration": "478ms",
+          "duration": "603ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=9",
           "status": "pass",
-          "duration": "435ms",
+          "duration": "526ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20074?page=10",
           "status": "pass",
-          "duration": "510ms",
+          "duration": "491ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20094",
           "status": "pass",
-          "duration": "409ms",
+          "duration": "364ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20095",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "437ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20096",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "570ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20097",
           "status": "pass",
-          "duration": "702ms",
+          "duration": "700ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20098",
           "status": "pass",
-          "duration": "609ms",
+          "duration": "310ms",
           "note": "정상",
           "noteType": "blue"
         },
@@ -2223,553 +2231,553 @@
         {
           "name": "19646?componentId=7564",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "665ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126108",
           "status": "pass",
-          "duration": "1.6s",
+          "duration": "848ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126177",
           "status": "pass",
-          "duration": "509ms",
+          "duration": "876ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126187",
           "status": "pass",
-          "duration": "1.4s",
+          "duration": "926ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126180",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "890ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1028805",
           "status": "pass",
-          "duration": "579ms",
+          "duration": "827ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1028838",
           "status": "pass",
-          "duration": "851ms",
+          "duration": "848ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1077501",
           "status": "pass",
-          "duration": "565ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1077502",
           "status": "pass",
-          "duration": "949ms",
+          "duration": "877ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1077506",
           "status": "pass",
-          "duration": "771ms",
+          "duration": "574ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1077507",
           "status": "pass",
-          "duration": "838ms",
+          "duration": "894ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126127",
           "status": "pass",
-          "duration": "756ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126225",
           "status": "pass",
-          "duration": "923ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126223",
           "status": "pass",
-          "duration": "820ms",
+          "duration": "858ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126244",
           "status": "pass",
-          "duration": "793ms",
+          "duration": "579ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126243",
           "status": "pass",
-          "duration": "954ms",
+          "duration": "578ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126216",
           "status": "pass",
-          "duration": "893ms",
+          "duration": "889ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126241",
           "status": "pass",
-          "duration": "808ms",
+          "duration": "918ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126240",
           "status": "pass",
-          "duration": "905ms",
+          "duration": "668ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126247",
           "status": "pass",
-          "duration": "938ms",
+          "duration": "842ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126246",
           "status": "pass",
-          "duration": "941ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126239",
           "status": "pass",
-          "duration": "867ms",
+          "duration": "1.5s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126234",
           "status": "pass",
-          "duration": "848ms",
+          "duration": "838ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126217",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "862ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126222",
           "status": "pass",
-          "duration": "769ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126224",
           "status": "pass",
-          "duration": "833ms",
+          "duration": "835ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126245",
           "status": "pass",
-          "duration": "865ms",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126237",
           "status": "pass",
-          "duration": "930ms",
+          "duration": "855ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126236",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "826ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126235",
           "status": "pass",
-          "duration": "902ms",
+          "duration": "885ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126226",
           "status": "pass",
-          "duration": "949ms",
+          "duration": "758ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1126238",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "829ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1071018",
           "status": "pass",
-          "duration": "552ms",
+          "duration": "863ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "973904",
           "status": "pass",
-          "duration": "984ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "973871",
           "status": "pass",
-          "duration": "593ms",
+          "duration": "1.6s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "289954",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "1.6s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "289959",
           "status": "pass",
-          "duration": "877ms",
+          "duration": "933ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "857489",
           "status": "pass",
-          "duration": "850ms",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "262290",
           "status": "pass",
-          "duration": "964ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1125556",
           "status": "pass",
-          "duration": "810ms",
+          "duration": "550ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "101683",
           "status": "pass",
-          "duration": "508ms",
+          "duration": "649ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "99692",
           "status": "pass",
-          "duration": "984ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "37960",
+          "name": "1071030",
           "status": "pass",
-          "duration": "829ms",
+          "duration": "615ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "37963",
           "status": "pass",
-          "duration": "535ms",
+          "duration": "868ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=1",
           "status": "pass",
-          "duration": "571ms",
+          "duration": "2.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=2",
           "status": "pass",
-          "duration": "637ms",
+          "duration": "591ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=3",
           "status": "pass",
-          "duration": "772ms",
+          "duration": "678ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=4",
           "status": "pass",
-          "duration": "842ms",
+          "duration": "774ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=5",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "834ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=6",
           "status": "pass",
-          "duration": "577ms",
+          "duration": "544ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=7",
           "status": "pass",
-          "duration": "567ms",
+          "duration": "700ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=8",
           "status": "pass",
-          "duration": "763ms",
+          "duration": "573ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=9",
           "status": "pass",
-          "duration": "679ms",
+          "duration": "542ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20075?page=10",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "597ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20099",
           "status": "pass",
-          "duration": "480ms",
+          "duration": "368ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20100",
           "status": "pass",
-          "duration": "1.5s",
+          "duration": "576ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20101",
           "status": "pass",
-          "duration": "786ms",
+          "duration": "725ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058212",
           "status": "pass",
-          "duration": "724ms",
+          "duration": "843ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058201",
           "status": "pass",
-          "duration": "844ms",
+          "duration": "974ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058200",
           "status": "pass",
-          "duration": "965ms",
+          "duration": "888ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058203",
           "status": "pass",
-          "duration": "803ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058202",
           "status": "pass",
-          "duration": "555ms",
+          "duration": "882ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058204",
           "status": "pass",
-          "duration": "2.5s",
+          "duration": "1.2s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058206",
           "status": "pass",
-          "duration": "875ms",
+          "duration": "890ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058199",
           "status": "pass",
-          "duration": "759ms",
+          "duration": "536ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058207",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "849ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1058208",
           "status": "pass",
-          "duration": "838ms",
+          "duration": "925ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "992516",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "531ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "893120",
           "status": "pass",
-          "duration": "793ms",
+          "duration": "925ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "893087",
           "status": "pass",
-          "duration": "892ms",
+          "duration": "893ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "975161",
           "status": "pass",
-          "duration": "810ms",
+          "duration": "909ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1032599",
           "status": "pass",
-          "duration": "887ms",
+          "duration": "953ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1112413",
           "status": "pass",
-          "duration": "810ms",
+          "duration": "815ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1117930",
           "status": "pass",
-          "duration": "806ms",
+          "duration": "515ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "975191",
           "status": "pass",
-          "duration": "1.6s",
+          "duration": "2.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1117932",
           "status": "pass",
-          "duration": "873ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "992515",
-          "status": "pass",
-          "duration": "941ms",
+          "duration": "983ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "993108",
           "status": "pass",
-          "duration": "765ms",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1112420",
           "status": "pass",
-          "duration": "451ms",
+          "duration": "996ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "892990",
+          "status": "pass",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
@@ -2783,728 +2791,721 @@
         {
           "name": "20076?page=2",
           "status": "pass",
-          "duration": "329ms",
+          "duration": "333ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076?page=3",
           "status": "pass",
-          "duration": "322ms",
+          "duration": "379ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076?page=4",
           "status": "pass",
-          "duration": "363ms",
+          "duration": "325ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076?page=5",
           "status": "pass",
-          "duration": "350ms",
+          "duration": "310ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076?page=6",
           "status": "pass",
-          "duration": "315ms",
+          "duration": "391ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076?page=7",
           "status": "pass",
-          "duration": "392ms",
+          "duration": "338ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076?page=8",
           "status": "pass",
-          "duration": "339ms",
+          "duration": "306ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076?page=9",
           "status": "pass",
-          "duration": "375ms",
+          "duration": "632ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20076?page=10",
           "status": "pass",
-          "duration": "337ms",
+          "duration": "382ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20102",
           "status": "pass",
-          "duration": "843ms",
+          "duration": "905ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20103",
           "status": "pass",
-          "duration": "411ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20104",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "917ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20105",
           "status": "pass",
-          "duration": "813ms",
+          "duration": "286ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20106",
           "status": "pass",
-          "duration": "269ms",
+          "duration": "905ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20107",
           "status": "pass",
-          "duration": "762ms",
+          "duration": "701ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20108",
           "status": "pass",
-          "duration": "221ms",
+          "duration": "255ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20110",
           "status": "pass",
-          "duration": "786ms",
+          "duration": "850ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20111",
           "status": "pass",
-          "duration": "769ms",
+          "duration": "780ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20112",
           "status": "pass",
-          "duration": "268ms",
+          "duration": "289ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20113",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "841ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "20114",
           "status": "pass",
-          "duration": "246ms",
+          "duration": "260ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19408",
           "status": "pass",
-          "duration": "2.8s",
+          "duration": "2.4s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19371",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "769274",
           "status": "pass",
-          "duration": "1.4s",
+          "duration": "644ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "72096",
           "status": "pass",
-          "duration": "1.5s",
+          "duration": "862ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "677168",
           "status": "pass",
-          "duration": "958ms",
+          "duration": "796ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1061734",
           "status": "pass",
-          "duration": "893ms",
+          "duration": "800ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "384982",
           "status": "pass",
-          "duration": "556ms",
+          "duration": "823ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "205576",
           "status": "pass",
-          "duration": "952ms",
+          "duration": "768ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "890030",
           "status": "pass",
-          "duration": "656ms",
+          "duration": "807ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1125799",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1125281",
           "status": "pass",
-          "duration": "689ms",
+          "duration": "815ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "603654",
           "status": "pass",
-          "duration": "955ms",
+          "duration": "801ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1120451",
           "status": "pass",
-          "duration": "789ms",
+          "duration": "876ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1124076",
           "status": "pass",
-          "duration": "826ms",
+          "duration": "859ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1124078",
           "status": "pass",
-          "duration": "869ms",
+          "duration": "759ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129161",
           "status": "pass",
-          "duration": "884ms",
+          "duration": "792ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1132450",
           "status": "pass",
-          "duration": "826ms",
+          "duration": "858ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1129160",
           "status": "pass",
-          "duration": "1.1s",
+          "duration": "920ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1120450",
           "status": "pass",
-          "duration": "837ms",
+          "duration": "804ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1120449",
           "status": "pass",
-          "duration": "945ms",
+          "duration": "831ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19328",
           "status": "pass",
-          "duration": "439ms",
+          "duration": "246ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19369",
           "status": "pass",
-          "duration": "408ms",
+          "duration": "631ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19370",
           "status": "pass",
-          "duration": "604ms",
+          "duration": "1.3s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "93355",
           "status": "pass",
-          "duration": "748ms",
+          "duration": "810ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1113358",
           "status": "pass",
-          "duration": "841ms",
+          "duration": "809ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "245358",
           "status": "pass",
-          "duration": "943ms",
+          "duration": "858ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "846614",
           "status": "pass",
-          "duration": "822ms",
+          "duration": "792ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1091244",
           "status": "pass",
-          "duration": "871ms",
+          "duration": "801ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "715372",
           "status": "pass",
-          "duration": "870ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "996174",
           "status": "pass",
-          "duration": "805ms",
+          "duration": "710ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "816116",
           "status": "pass",
-          "duration": "871ms",
+          "duration": "799ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1069169",
           "status": "pass",
-          "duration": "440ms",
+          "duration": "789ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "648715",
           "status": "pass",
-          "duration": "2.8s",
+          "duration": "643ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1068343",
           "status": "pass",
-          "duration": "804ms",
+          "duration": "742ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1069749",
           "status": "pass",
-          "duration": "893ms",
+          "duration": "551ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "609986",
           "status": "pass",
-          "duration": "994ms",
+          "duration": "807ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1051521",
           "status": "pass",
-          "duration": "899ms",
+          "duration": "520ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "837145",
           "status": "pass",
-          "duration": "743ms",
+          "duration": "485ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "127267",
           "status": "pass",
-          "duration": "891ms",
+          "duration": "863ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "708091",
           "status": "pass",
-          "duration": "982ms",
+          "duration": "875ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "383719",
           "status": "pass",
-          "duration": "1.3s",
+          "duration": "542ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "834236",
           "status": "pass",
-          "duration": "762ms",
+          "duration": "792ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "634708",
           "status": "pass",
-          "duration": "621ms",
+          "duration": "921ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1116105",
           "status": "pass",
-          "duration": "901ms",
+          "duration": "864ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "384968",
           "status": "pass",
-          "duration": "851ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "820733",
-          "status": "pass",
-          "duration": "820ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "679502",
-          "status": "pass",
-          "duration": "860ms",
+          "duration": "830ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "684860",
           "status": "pass",
-          "duration": "881ms",
+          "duration": "781ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "180878",
+          "name": "820733",
           "status": "pass",
-          "duration": "869ms",
+          "duration": "895ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "679502",
+          "status": "pass",
+          "duration": "818ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "924423",
           "status": "pass",
-          "duration": "816ms",
+          "duration": "509ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "643234",
+          "name": "180878",
           "status": "pass",
-          "duration": "999ms",
+          "duration": "901ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "1089039",
           "status": "pass",
-          "duration": "1.2s",
+          "duration": "908ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
-          "name": "20077?page=1",
-          "status": "pass",
-          "duration": "774ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=2",
-          "status": "pass",
-          "duration": "644ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=3",
-          "status": "pass",
-          "duration": "629ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=4",
-          "status": "pass",
-          "duration": "1.5s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=5",
-          "status": "pass",
-          "duration": "597ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=6",
-          "status": "pass",
-          "duration": "642ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=7",
-          "status": "pass",
-          "duration": "630ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=8",
-          "status": "pass",
-          "duration": "746ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=9",
-          "status": "pass",
-          "duration": "783ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20077?page=10",
-          "status": "pass",
-          "duration": "774ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20249",
-          "status": "pass",
-          "duration": "231ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20250",
-          "status": "pass",
-          "duration": "196ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20251",
-          "status": "pass",
-          "duration": "202ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20252",
-          "status": "pass",
-          "duration": "197ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "20253",
-          "status": "pass",
-          "duration": "236ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "870522",
-          "status": "pass",
-          "duration": "922ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "873941",
-          "status": "pass",
-          "duration": "730ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "581240",
-          "status": "pass",
-          "duration": "902ms",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "886426",
+          "name": "887412",
           "status": "pass",
           "duration": "1.1s",
           "note": "정상",
           "noteType": "blue"
         },
         {
+          "name": "20077?page=1",
+          "status": "pass",
+          "duration": "699ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=2",
+          "status": "pass",
+          "duration": "671ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=3",
+          "status": "pass",
+          "duration": "683ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=4",
+          "status": "pass",
+          "duration": "660ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=5",
+          "status": "pass",
+          "duration": "609ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=6",
+          "status": "pass",
+          "duration": "704ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=7",
+          "status": "pass",
+          "duration": "587ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=8",
+          "status": "pass",
+          "duration": "599ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=9",
+          "status": "pass",
+          "duration": "669ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20077?page=10",
+          "status": "pass",
+          "duration": "1.1s",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20249",
+          "status": "pass",
+          "duration": "225ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20250",
+          "status": "pass",
+          "duration": "208ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20251",
+          "status": "pass",
+          "duration": "222ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20252",
+          "status": "pass",
+          "duration": "243ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "20253",
+          "status": "pass",
+          "duration": "323ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "870522",
+          "status": "pass",
+          "duration": "827ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "873941",
+          "status": "pass",
+          "duration": "973ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "581240",
+          "status": "pass",
+          "duration": "866ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
+          "name": "886426",
+          "status": "pass",
+          "duration": "870ms",
+          "note": "정상",
+          "noteType": "blue"
+        },
+        {
           "name": "577840",
           "status": "pass",
-          "duration": "985ms",
+          "duration": "869ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "851186",
           "status": "pass",
-          "duration": "888ms",
+          "duration": "954ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19652",
           "status": "pass",
-          "duration": "577ms",
+          "duration": "730ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19653",
           "status": "pass",
-          "duration": "387ms",
+          "duration": "695ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19654",
           "status": "pass",
-          "duration": "451ms",
+          "duration": "904ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "19655",
           "status": "pass",
-          "duration": "411ms",
+          "duration": "1.0s",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "590451",
           "status": "pass",
-          "duration": "852ms",
+          "duration": "820ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "743760",
           "status": "pass",
-          "duration": "980ms",
+          "duration": "874ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "816044",
           "status": "pass",
-          "duration": "1.0s",
+          "duration": "870ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "590120",
           "status": "pass",
-          "duration": "884ms",
+          "duration": "798ms",
           "note": "정상",
           "noteType": "blue"
         },
         {
           "name": "590160",
           "status": "pass",
-          "duration": "1.0s",
-          "note": "정상",
-          "noteType": "blue"
-        },
-        {
-          "name": "589910",
-          "status": "pass",
-          "duration": "909ms",
+          "duration": "959ms",
           "note": "정상",
           "noteType": "blue"
         }
