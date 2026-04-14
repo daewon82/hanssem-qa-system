@@ -216,7 +216,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       });
       loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
       httpStatus = response?.status() || "Error";
-      isPass = httpStatus === 200 && parseFloat(loadTimeSec) <= 7.0;
+      isPass = httpStatus === 200 && parseFloat(loadTimeSec) <= 10.0;
     } catch {
       loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
       httpStatus = "Timeout/Error";

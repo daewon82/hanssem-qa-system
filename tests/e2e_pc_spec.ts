@@ -2,9 +2,9 @@ import { test, expect, Page } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
 import { execSync } from "child_process";
-import { GoogleSpreadsheet } from "google-spreadsheet";
-import { authenticate } from "@google-cloud/local-auth";
-import { google } from "googleapis";
+// import { GoogleSpreadsheet } from "google-spreadsheet";
+// import { authenticate } from "@google-cloud/local-auth";
+// import { google } from "googleapis";
 
 /**
  * store.hanssem.com PC E2E 테스트 — Accessibility ID 기반
@@ -26,8 +26,8 @@ import { google } from "googleapis";
 // ─── 설정 ────────────────────────────────────────────────────
 const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
 const TEMPLATE_GID = 1626254051;
-const TOKEN_PATH = "/Users/dw/Web_E2E_Test/token.json";
-const CREDENTIALS_PATH = "/Users/dw/Downloads/pc_secret.json";
+// const TOKEN_PATH = "/Users/dwlee/Web_E2E_Test/token.json";
+// const CREDENTIALS_PATH = "/Users/dwlee/Downloads/pc_secret.json";
 const REPORT_ID = "pc-e2e";
 const REPORT_TITLE = "운영환경 PC E2E 접근성ID 테스트";
 const JANDI_WEBHOOK_URL =
@@ -45,39 +45,8 @@ async function waitForPageReady(page: Page, extra = 1500) {
   await page.waitForTimeout(extra);
 }
 
-// ─── 구글 인증 ───────────────────────────────────────────────
-async function getAuthClient() {
-  if (fs.existsSync(TOKEN_PATH)) {
-    try {
-      const token = JSON.parse(fs.readFileSync(TOKEN_PATH, "utf8"));
-      const keys = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, "utf8"));
-      const { client_id, client_secret } = keys.installed || keys.web;
-
-      const auth = new google.auth.OAuth2(client_id, client_secret);
-      auth.setCredentials(token);
-      auth.on("tokens", (tokens) => {
-        const updated = { ...token, ...tokens };
-        fs.writeFileSync(TOKEN_PATH, JSON.stringify(updated));
-        console.log("🔄 구글 토큰 자동 갱신 완료");
-      });
-      return auth;
-    } catch {
-      console.log("⚠️ 저장된 토큰 오류. 재인증합니다.");
-    }
-  }
-
-  const client = await authenticate({
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-    keyfilePath: CREDENTIALS_PATH,
-  });
-  if (client.credentials) {
-    const dir = TOKEN_PATH.substring(0, TOKEN_PATH.lastIndexOf("/"));
-    if (dir && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(TOKEN_PATH, JSON.stringify(client.credentials));
-    console.log("💾 구글 인증 토큰 저장 완료");
-  }
-  return client;
-}
+// ─── 구글 인증 (비활성화) ────────────────────────────────────
+// async function getAuthClient() { ... }
 
 // ─── 모듈 상태 (workers:1 고정 환경) ────────────────────────
 let newSheet: any = null;
@@ -87,48 +56,12 @@ let failCount = 0;
 const caseResults: any[] = [];
 const failedUrls: string[] = [];
 
-// ─── 전처리: 구글 시트 초기화 ───────────────────────────────
+// ─── 전처리: 디렉토리 생성 ───────────────────────────────────
 test.beforeAll(async () => {
   ["public", "fail_evidence"].forEach((dir) => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
   });
-
-  try {
-    const testStartTime = new Date();
-    const auth = await getAuthClient();
-    const doc = new GoogleSpreadsheet(SPREADSHEET_ID, auth as any);
-    await doc.loadInfo();
-
-    const nowStr = testStartTime
-      .toISOString()
-      .replace(/[:T]/g, "-")
-      .split(".")[0];
-    const templateSheet = doc.sheetsById[TEMPLATE_GID];
-    newSheet = await templateSheet.duplicate({
-      title: `Report_PC_AID_${nowStr}`,
-    });
-
-    await newSheet.loadCells("A1:J10");
-    const headers = [
-      "URL",
-      "테스트명",
-      "접근성ID",
-      "결과상태",
-      "실행시간(초)",
-      "결과",
-      "실패 사유",
-    ];
-    headers.forEach((h, i) => {
-      newSheet.getCell(4, i).value = h;
-    });
-    newSheet.getCellByA1("B2").value = testStartTime.toLocaleString("ko-KR", {
-      timeZone: "Asia/Seoul",
-    });
-    await newSheet.saveUpdatedCells();
-    console.log("📊 구글 시트 초기화 완료");
-  } catch (err: any) {
-    console.log("⚠️ 구글 시트 초기화 오류:", err.message);
-  }
+  // 구글 시트 초기화 비활성화
 });
 
 // ─── 각 테스트 후: 결과 기록 ────────────────────────────────
