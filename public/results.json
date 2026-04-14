@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. PM 10:54:34",
+  "lastUpdated": "2026. 4. 14. PM 10:55:04",
   "incidents": {
     "total": 23,
     "hotfix": 23,
@@ -319,19 +319,19 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 14. PM 10:54:34",
-      "total": 20,
-      "pass": 19,
+      "lastUpdated": "2026. 4. 14. PM 10:55:04",
+      "total": 2,
+      "pass": 1,
       "fail": 1,
-      "passRate": "95.0",
+      "passRate": "50.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
       "cases": [
         {
-          "name": "가구/홈리빙 — 모든필터 버튼 노출 (PC)",
-          "url": "https://store.hanssem.com/furnishing",
+          "name": "검색 결과 0건 — 없는 키워드",
+          "url": "https://store.hanssem.com/search/goods?searchKey=zzzzxxx%ED%95%9C%EC%83%98%EC%97%86%EB%8A%94%EC%83%81%ED%92%88xyz",
           "status": "fail",
-          "duration": "15.33s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisib"
+          "duration": "3.96s",
+          "reason": "Error: Channel closed"
         }
       ]
     }
