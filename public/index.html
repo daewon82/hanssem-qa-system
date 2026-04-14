@@ -665,18 +665,21 @@
               ? Math.round((pass / total) * 100)
               : 0;
 
-        const rows = (r.cases || [])
-          .map(
-            (c) => `
+        const failCases = (r.cases || []).filter((c) => c.status === "fail");
+        const rows = failCases.length > 0
+          ? failCases.map((c) => `
           <tr>
-            <td>${c.status === "fail" && c.url ? `<a href="${c.url}" target="_blank" rel="noopener" style="color:var(--red);font-weight:600;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${c.name}</a>` : c.name}</td>
-            ${r.colPlatform ? `<td>${chipHtml(c.platform, "blue")}</td>` : ""}
-            <td>${statusDot(c.status)}${statusLabel(c.status)}</td>
+            <td>${c.url ? `<a href="${c.url}" target="_blank" rel="noopener" style="color:var(--red);font-weight:600;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${c.name || c.url}</a>` : c.name}</td>
             <td>${c.duration || "—"}</td>
-            <td>${c.note ? chipHtml(c.note, c.noteType || "blue") : "—"}</td>
-          </tr>`,
-          )
-          .join("");
+          </tr>`).join("")
+          : `<tr><td colspan="2" style="text-align:center;color:var(--text-hint);padding:16px 0;">실패 항목 없음</td></tr>`;
+
+        const sheetBtn = r.sheetUrl
+          ? `<a href="${r.sheetUrl}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:7px 14px;background:var(--blue);color:#fff;font-size:11px;font-weight:600;border-radius:6px;text-decoration:none;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2h4v1H3v6h6V7h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/><path d="M7 2h3v3h-1V3.7L5.85 6.85l-.7-.7L8.3 3H7V2z" fill="currentColor"/></svg>
+              리포트 상세보기
+            </a>`
+          : "";
 
         return `
           <div class="report-card">
@@ -696,9 +699,8 @@
             </div>
             <table class="mini-table">
               <thead><tr>
-                <th>${r.col1Header || "이름"}</th>
-                ${r.colPlatform ? "<th>플랫폼</th>" : ""}
-                <th>상태</th><th>${r.colDuration || "응답시간"}</th><th>비고</th>
+                <th>실패 URL</th>
+                <th>응답시간</th>
               </tr></thead>
               <tbody>${rows}</tbody>
             </table>
@@ -707,6 +709,7 @@
               <div class="prog-track"><div class="prog-fill" style="width:${rate}%;background:${passColor(rate)};"></div></div>
               <span class="prog-val ${passClass(rate)}">${rate}%</span>
             </div>
+            ${sheetBtn}
           </div>`;
       }
 

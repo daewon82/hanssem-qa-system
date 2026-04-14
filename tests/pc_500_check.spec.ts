@@ -34,24 +34,43 @@ const DASHBOARD_URL = normalizeUrl("https://hanssem-qa-system.vercel.app");
 
 // 구글 인증
 async function getAuthClient() {
-  try {
-    if (fs.existsSync(TOKEN_PATH)) {
-      const content = fs.readFileSync(TOKEN_PATH, "utf8");
-      const credentials = JSON.parse(content);
-      if (credentials.type === "authorized_user" || credentials.refresh_token) {
-        return google.auth.fromJSON(credentials);
-      }
+  // 저장된 토큰이 있으면 재사용 (브라우저 인증 없이)
+  if (fs.existsSync(TOKEN_PATH)) {
+    try {
+      const token = JSON.parse(fs.readFileSync(TOKEN_PATH, "utf8"));
+      const keys = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, "utf8"));
+      const { client_id, client_secret } = keys.installed || keys.web;
+
+      const auth = new google.auth.OAuth2(client_id, client_secret);
+      auth.setCredentials(token);
+
+      // access_token 만료 시 자동 갱신 후 토큰 파일 업데이트
+      auth.on("tokens", (tokens) => {
+        const updated = { ...token, ...tokens };
+        fs.writeFileSync(TOKEN_PATH, JSON.stringify(updated));
+        console.log("🔄 구글 토큰 자동 갱신 완료");
+      });
+
+      return auth;
+    } catch {
+      console.log("⚠️ 저장된 토큰 오류. 재인증합니다.");
     }
-  } catch {
-    console.log("⚠️ 인증 정보 만료 또는 형식 오류. 재인증을 시작합니다.");
   }
 
+  // 최초 1회 브라우저 인증
   const client = await authenticate({
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     keyfilePath: CREDENTIALS_PATH,
   });
-  if (client.credentials)
+
+  // 토큰 저장 (디렉토리 없으면 자동 생성)
+  if (client.credentials) {
+    const dir = TOKEN_PATH.substring(0, TOKEN_PATH.lastIndexOf("/"));
+    if (dir && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(TOKEN_PATH, JSON.stringify(client.credentials));
+    console.log("💾 구글 인증 토큰 저장 완료");
+  }
+
   return client;
 }
 
@@ -165,7 +184,13 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
     const nextLink = Array.from(linkPool).find((l) => !visitedLinks.has(l));
 
     if (!nextLink) {
-      console.log("🔗 새로운 링크를 추가로 탐색합니다...");
+      console.log("🔗 링크 풀 소진. 메인 페이지로 돌아가 재수집합니다...");
+      try {
+        await page.goto(TARGET_DOMAIN, {
+          waitUntil: "domcontentloaded",
+          timeout: 30000,
+        });
+      } catch { /* 무시 */ }
       await collectLinks();
       if (Array.from(linkPool).every((l) => visitedLinks.has(l))) break;
       continue;
@@ -225,8 +250,10 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
         }
       });
       await newSheet.saveUpdatedCells();
+      currentRow++;
     } catch (err: any) {
       console.log("⚠️ 시트 기록 오류:", err.message);
+      currentRow++;
     }
 
     if (isPass) {
@@ -273,6 +300,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   const passRate =
     totalCount > 0 ? ((passCount / totalCount) * 100).toFixed(1) : "0";
   const kst = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+  const sheetUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/edit#gid=${newSheet.sheetId}`;
 
   fs.writeFileSync(
     "public/results.json",
@@ -286,7 +314,8 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
             pass: passCount,
             fail: failCount,
             passRate,
-            cases: caseResults,
+            sheetUrl,
+            cases: caseResults.filter((c) => c.status === "fail"),
           },
         ],
       },
