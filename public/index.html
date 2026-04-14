@@ -820,12 +820,38 @@
           `${fmt(today)} · 마지막 업데이트 ${today.getHours().toString().padStart(2, "0")}:${today.getMinutes().toString().padStart(2, "0")}`;
 
         try {
-          const res = await fetch("./results.json?t=" + Date.now());
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          const data = await res.json();
+          try {
+            // 1. 캐시 방지를 위한 타임스탬프 쿼리 포함 호출
+            const res = await fetch("./results.json?t=" + Date.now());
 
-          if (!data.reports || !Array.isArray(data.reports))
-            throw new Error("reports 없음");
+            // 2. HTTP 응답 상태 확인
+            if (!res.ok) {
+              throw new Error(`서버 응답 오류 (HTTP ${res.status})`);
+            }
+
+            // 3. JSON 파싱 시도 (파일이 비어있거나 형식이 깨졌을 경우 대비)
+            const data = await res.json();
+
+            // 4. 데이터 구조 유효성 검사 (Optional Chaining 활용)
+            if (!data?.reports || !Array.isArray(data.reports)) {
+              throw new Error(
+                "리포트 형식이 올바르지 않거나 데이터가 없습니다.",
+              );
+            }
+
+            // 여기서부터 data를 사용하여 화면 렌더링...
+            console.log(
+              "✅ 데이터 로드 성공:",
+              data.reports.length,
+              "개의 리포트 확인",
+            );
+          } catch (err) {
+            // 5. 에러 발생 시 사용자에게 안내 (콘솔 및 UI 처리)
+            console.error("🚨 [자비스 알림] 데이터 로드 실패:", err.message);
+
+            // 예: 화면에 에러 메시지 표시 로직
+            // document.getElementById('error-msg').innerText = "최신 데이터를 불러오지 못했습니다. 잠시 후 새로고침 해주세요.";
+          }
 
           renderKPI(data.reports);
           renderReports(data.reports);
