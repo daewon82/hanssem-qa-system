@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. PM 10:35:02",
+  "lastUpdated": "2026. 4. 14. PM 10:35:26",
   "incidents": {
     "total": 23,
     "hotfix": 23,
@@ -327,21 +327,13 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 14. PM 10:35:02",
-      "total": 5,
-      "pass": 4,
-      "fail": 1,
-      "passRate": "80.0",
+      "lastUpdated": "2026. 4. 14. PM 10:35:26",
+      "total": 2,
+      "pass": 2,
+      "fail": 0,
+      "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": [
-        {
-          "name": "인테리어 — 무료견적상담 링크 노출",
-          "url": "https://store.hanssem.com/interior",
-          "status": "fail",
-          "duration": "13.30s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisib"
-        }
-      ]
+      "cases": []
     }
   ]
 }
