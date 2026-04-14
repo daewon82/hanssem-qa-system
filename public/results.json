@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. PM 8:21:07",
+  "lastUpdated": "2026. 4. 14. PM 8:54:12",
   "incidents": {
     "total": 34,
     "hotfix": 23,
@@ -10,57 +10,345 @@
     "period": "2026-01-06 ~ 2026-04-14",
     "byMonth": [
       {
-        "month": "2026-01", "label": "2026년 1월", "count": 11, "fe": 6, "be": 5,
+        "month": "2026-01",
+        "label": "2026년 1월",
+        "count": 11,
+        "fe": 6,
+        "be": 5,
         "list": [
-          { "no": 1,  "date": "2026-01-06", "type": "핫픽스",    "category": "FE", "assignee": "김의진", "summary": "한샘몰 프론트 숏폼 토큰 생성시 쿠키 도메인 이슈",          "jiraLink": "" },
-          { "no": 2,  "date": "2026-01-06", "type": "핫픽스",    "category": "FE", "assignee": "박대진", "summary": "AOS v5.5.77 시공사례 딥링크 랜딩시 필터 적용 안되는 이슈",  "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-14457" },
-          { "no": 3,  "date": "2026-01-06", "type": "핫픽스",    "category": "BE", "assignee": "민선홍", "summary": "시공사례 목록 내 특정 컨텐츠 대표 이미지 미노출",            "jiraLink": "" },
-          { "no": 4,  "date": "2026-01-06", "type": "비정기배포", "category": "FE", "assignee": "임찬수", "summary": "숏폼 테마 속성 추가 비정기 배포 (업체 요청)",              "jiraLink": "" },
-          { "no": 5,  "date": "2026-01-07", "type": "핫픽스",    "category": "BE", "assignee": "신휴창", "summary": "미인증회원 정보수정시 알림톡 잘못 발송되는 문제",            "jiraLink": "" },
-          { "no": 6,  "date": "2026-01-07", "type": "비정기배포", "category": "FE", "assignee": "임찬수", "summary": "리모델링 도메인 컨테이너 사이즈 변경 후 디자인 이슈",       "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/20947/tab/release-report-all-issues" },
-          { "no": 7,  "date": "2026-01-09", "type": "핫픽스",    "category": "BE", "assignee": "신휴창", "summary": "OMS 미인증회원 전환 불가 (DB 고유키 정책 위반)",            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/21052/tab/release-report-all-issues" },
-          { "no": 8,  "date": "2026-01-13", "type": "비정기배포", "category": "BE", "assignee": "이근우", "summary": "SSO v260113 보안취약점 개선 비정기 배포",                  "jiraLink": "" },
-          { "no": 9,  "date": "2026-01-20", "type": "핫픽스",    "category": "BE", "assignee": "김지헌", "summary": "전시 API 랭킹플래그 관련 핫픽스 배포",                     "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/21555/tab/release-report-all-issues" },
-          { "no": 10, "date": "2026-01-21", "type": "비정기배포", "category": "FE", "assignee": "임찬수", "summary": "전시 페이징 데이터 API 버전업으로 인한 비정기 배포",        "jiraLink": "" },
-          { "no": 11, "date": "2026-01-28", "type": "핫픽스",    "category": "FE", "assignee": "이지영", "summary": "주문서 재발주 설정값 삭제 현상 핫픽스",                     "jiraLink": "https://hanssem.atlassian.net/projects/SALES/versions/21889/tab/release-report-all-issues" }
+          {
+            "no": 1,
+            "date": "2026-01-06",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "김의진",
+            "summary": "한샘몰 프론트 숏폼 토큰 생성시 쿠키 도메인 이슈",
+            "jiraLink": ""
+          },
+          {
+            "no": 2,
+            "date": "2026-01-06",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대진",
+            "summary": "AOS v5.5.77 시공사례 딥링크 랜딩시 필터 적용 안되는 이슈",
+            "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-14457"
+          },
+          {
+            "no": 3,
+            "date": "2026-01-06",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "민선홍",
+            "summary": "시공사례 목록 내 특정 컨텐츠 대표 이미지 미노출",
+            "jiraLink": ""
+          },
+          {
+            "no": 4,
+            "date": "2026-01-06",
+            "type": "비정기배포",
+            "category": "FE",
+            "assignee": "임찬수",
+            "summary": "숏폼 테마 속성 추가 비정기 배포 (업체 요청)",
+            "jiraLink": ""
+          },
+          {
+            "no": 5,
+            "date": "2026-01-07",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "신휴창",
+            "summary": "미인증회원 정보수정시 알림톡 잘못 발송되는 문제",
+            "jiraLink": ""
+          },
+          {
+            "no": 6,
+            "date": "2026-01-07",
+            "type": "비정기배포",
+            "category": "FE",
+            "assignee": "임찬수",
+            "summary": "리모델링 도메인 컨테이너 사이즈 변경 후 디자인 이슈",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/20947/tab/release-report-all-issues"
+          },
+          {
+            "no": 7,
+            "date": "2026-01-09",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "신휴창",
+            "summary": "OMS 미인증회원 전환 불가 (DB 고유키 정책 위반)",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/21052/tab/release-report-all-issues"
+          },
+          {
+            "no": 8,
+            "date": "2026-01-13",
+            "type": "비정기배포",
+            "category": "BE",
+            "assignee": "이근우",
+            "summary": "SSO v260113 보안취약점 개선 비정기 배포",
+            "jiraLink": ""
+          },
+          {
+            "no": 9,
+            "date": "2026-01-20",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "김지헌",
+            "summary": "전시 API 랭킹플래그 관련 핫픽스 배포",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/21555/tab/release-report-all-issues"
+          },
+          {
+            "no": 10,
+            "date": "2026-01-21",
+            "type": "비정기배포",
+            "category": "FE",
+            "assignee": "임찬수",
+            "summary": "전시 페이징 데이터 API 버전업으로 인한 비정기 배포",
+            "jiraLink": ""
+          },
+          {
+            "no": 11,
+            "date": "2026-01-28",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "이지영",
+            "summary": "주문서 재발주 설정값 삭제 현상 핫픽스",
+            "jiraLink": "https://hanssem.atlassian.net/projects/SALES/versions/21889/tab/release-report-all-issues"
+          }
         ]
       },
       {
-        "month": "2026-02", "label": "2026년 2월", "count": 7, "fe": 3, "be": 4,
+        "month": "2026-02",
+        "label": "2026년 2월",
+        "count": 7,
+        "fe": 3,
+        "be": 4,
         "list": [
-          { "no": 1, "date": "2026-02-24", "type": "핫픽스", "category": "BE", "assignee": "정도형", "summary": "이미지 해상도 개선 관련 상품후기 작성 페이지 오류 수정",      "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/22874/tab/release-report-all-issues" },
-          { "no": 2, "date": "2026-02-24", "type": "핫픽스", "category": "FE", "assignee": "임찬수", "summary": "쇼츠 모아보기 페이지 무한로딩 이슈",                         "jiraLink": "" },
-          { "no": 3, "date": "2026-02-24", "type": "핫픽스", "category": "BE", "assignee": "김의진", "summary": "포인트 내재화 오픈 관련 카카오페이 멤버십 등록 로직 오류",    "jiraLink": "https://hanssem.atlassian.net/projects/HSPOINT/versions/22876/tab/release-report-all-issues" },
-          { "no": 4, "date": "2026-02-24", "type": "핫픽스", "category": "BE", "assignee": "전소정", "summary": "홈솔 현장조회 이슈 주문API 핫픽스",                         "jiraLink": "https://hanssem.atlassian.net/projects/SALES/versions/22910/tab/release-report-all-issues" },
-          { "no": 5, "date": "2026-02-24", "type": "핫픽스", "category": "BE", "assignee": "조동희", "summary": "홈솔 카테고리 필터 통해 상품 목록 조회 시 미노출 이슈",       "jiraLink": "https://hanssem.atlassian.net/projects/SALES/versions/22911/tab/release-report-all-issues" },
-          { "no": 6, "date": "2026-02-27", "type": "핫픽스", "category": "FE", "assignee": "임찬수", "summary": "스토어 PC 최근 본 상품 랜딩 링크 오류",                     "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/23044/tab/release-report-all-issues" },
-          { "no": 7, "date": "2026-02-27", "type": "핫픽스", "category": "FE", "assignee": "윤종호", "summary": "포인트 어드민 레포트 개선 핫픽스",                           "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/23044/tab/release-report-all-issues" }
+          {
+            "no": 1,
+            "date": "2026-02-24",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "정도형",
+            "summary": "이미지 해상도 개선 관련 상품후기 작성 페이지 오류 수정",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/22874/tab/release-report-all-issues"
+          },
+          {
+            "no": 2,
+            "date": "2026-02-24",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "임찬수",
+            "summary": "쇼츠 모아보기 페이지 무한로딩 이슈",
+            "jiraLink": ""
+          },
+          {
+            "no": 3,
+            "date": "2026-02-24",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "김의진",
+            "summary": "포인트 내재화 오픈 관련 카카오페이 멤버십 등록 로직 오류",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSPOINT/versions/22876/tab/release-report-all-issues"
+          },
+          {
+            "no": 4,
+            "date": "2026-02-24",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "전소정",
+            "summary": "홈솔 현장조회 이슈 주문API 핫픽스",
+            "jiraLink": "https://hanssem.atlassian.net/projects/SALES/versions/22910/tab/release-report-all-issues"
+          },
+          {
+            "no": 5,
+            "date": "2026-02-24",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "조동희",
+            "summary": "홈솔 카테고리 필터 통해 상품 목록 조회 시 미노출 이슈",
+            "jiraLink": "https://hanssem.atlassian.net/projects/SALES/versions/22911/tab/release-report-all-issues"
+          },
+          {
+            "no": 6,
+            "date": "2026-02-27",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "임찬수",
+            "summary": "스토어 PC 최근 본 상품 랜딩 링크 오류",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/23044/tab/release-report-all-issues"
+          },
+          {
+            "no": 7,
+            "date": "2026-02-27",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "윤종호",
+            "summary": "포인트 어드민 레포트 개선 핫픽스",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/23044/tab/release-report-all-issues"
+          }
         ]
       },
       {
-        "month": "2026-03", "label": "2026년 3월", "count": 7, "fe": 3, "be": 4,
+        "month": "2026-03",
+        "label": "2026년 3월",
+        "count": 7,
+        "fe": 3,
+        "be": 4,
         "list": [
-          { "no": 1, "date": "2026-03-17", "type": "핫픽스",    "category": "FE", "assignee": "박대윤", "summary": "카테고리 자율형 컴포넌트 셋팅시 깜박임 현상",         "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15217" },
-          { "no": 2, "date": "2026-03-24", "type": "핫픽스",    "category": "BE", "assignee": "전소정", "summary": "홈퍼니싱솔루션 쿠폰 견적서 생성 안되는 이슈",         "jiraLink": "https://hanssem.atlassian.net/projects/SALES/versions/24439/tab/release-report-all-issues" },
-          { "no": 3, "date": "2026-03-25", "type": "비정기배포", "category": "BE", "assignee": "신휴창", "summary": "CTI 운영테스트로 인한 통합회원API 배포",             "jiraLink": "https://hanssem.atlassian.net/projects/KSCTI/versions/24539/tab/release-report-all-issues" },
-          { "no": 4, "date": "2026-03-26", "type": "비정기배포", "category": "BE", "assignee": "전소정", "summary": "v260326 한샘몰 매니저 비정기 배포 (4월 이벤트 쿠폰)",  "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/24572/tab/release-report-all-issues" },
-          { "no": 5, "date": "2026-03-31", "type": "핫픽스",    "category": "FE", "assignee": "박대윤", "summary": "자율형 배너 data-gtm-tracking 속성 누락",            "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15283" },
-          { "no": 6, "date": "2026-03-31", "type": "핫픽스",    "category": "BE", "assignee": "정도형", "summary": "홈솔 제주도 배송비 조회 오류",                       "jiraLink": "https://hanssem.atlassian.net/browse/SALES-12032" },
-          { "no": 7, "date": "2026-03-31", "type": "핫픽스",    "category": "FE", "assignee": "박대윤", "summary": "전시 컴포넌트 쇼츠호출 경로 수정",                    "jiraLink": "" }
+          {
+            "no": 1,
+            "date": "2026-03-17",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "카테고리 자율형 컴포넌트 셋팅시 깜박임 현상",
+            "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15217"
+          },
+          {
+            "no": 2,
+            "date": "2026-03-24",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "전소정",
+            "summary": "홈퍼니싱솔루션 쿠폰 견적서 생성 안되는 이슈",
+            "jiraLink": "https://hanssem.atlassian.net/projects/SALES/versions/24439/tab/release-report-all-issues"
+          },
+          {
+            "no": 3,
+            "date": "2026-03-25",
+            "type": "비정기배포",
+            "category": "BE",
+            "assignee": "신휴창",
+            "summary": "CTI 운영테스트로 인한 통합회원API 배포",
+            "jiraLink": "https://hanssem.atlassian.net/projects/KSCTI/versions/24539/tab/release-report-all-issues"
+          },
+          {
+            "no": 4,
+            "date": "2026-03-26",
+            "type": "비정기배포",
+            "category": "BE",
+            "assignee": "전소정",
+            "summary": "v260326 한샘몰 매니저 비정기 배포 (4월 이벤트 쿠폰)",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/24572/tab/release-report-all-issues"
+          },
+          {
+            "no": 5,
+            "date": "2026-03-31",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "자율형 배너 data-gtm-tracking 속성 누락",
+            "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15283"
+          },
+          {
+            "no": 6,
+            "date": "2026-03-31",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "정도형",
+            "summary": "홈솔 제주도 배송비 조회 오류",
+            "jiraLink": "https://hanssem.atlassian.net/browse/SALES-12032"
+          },
+          {
+            "no": 7,
+            "date": "2026-03-31",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "전시 컴포넌트 쇼츠호출 경로 수정",
+            "jiraLink": ""
+          }
         ]
       },
       {
-        "month": "2026-04", "label": "2026년 4월", "count": 9, "fe": 5, "be": 4,
+        "month": "2026-04",
+        "label": "2026년 4월",
+        "count": 9,
+        "fe": 5,
+        "be": 4,
         "list": [
-          { "no": 1,  "date": "2026-04-01", "type": "핫픽스",    "category": "BE", "assignee": "김지헌", "summary": "샘키즈 기획전 알림톡 문구변경 이슈",                "jiraLink": "" },
-          { "no": 2,  "date": "2026-04-03", "type": "핫픽스",    "category": "BE", "assignee": "김의진", "summary": "포인트 사용취소 반환 만료일자 기준 변경",            "jiraLink": "" },
-          { "no": 3,  "date": "2026-04-06", "type": "비정기배포", "category": "FE", "assignee": "임찬수", "summary": "기획전 커스텀 컴포넌트 이슈",                      "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/25180/tab/release-report-all-issues" },
-          { "no": 4,  "date": "2026-04-07", "type": "비정기배포", "category": "BE", "assignee": "전소정", "summary": "v260407 매니저 비정기 배포",                      "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/24775/tab/release-report-all-issues" },
-          { "no": 5,  "date": "2026-04-07", "type": "비정기배포", "category": "BE", "assignee": "전소정", "summary": "v260407 파트너 비정기 배포",                      "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/24775/tab/release-report-all-issues" },
-          { "no": 6,  "date": "2026-04-09", "type": "비정기배포", "category": "FE", "assignee": "박대윤", "summary": "기획전 커스텀 컴포넌트 이슈 비정기 배포",           "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/25487/tab/release-report-all-issues" },
-          { "no": 7,  "date": "2026-04-10", "type": "비정기배포", "category": "FE", "assignee": "박대윤", "summary": "전시 컴포넌트 수정 비정기 배포",                   "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/25555/tab/release-report-all-issues" },
-          { "no": 8,  "date": "2026-04-13", "type": "핫픽스",    "category": "FE", "assignee": "박대윤", "summary": "기획전 상품 간헐적 미노출 현상",                    "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15583" },
-          { "no": 9,  "date": "2026-04-13", "type": "핫픽스",    "category": "FE", "assignee": "박대윤", "summary": "페이지 앵커링 속도 지연 개선",                      "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15588" }
+          {
+            "no": 1,
+            "date": "2026-04-01",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "김지헌",
+            "summary": "샘키즈 기획전 알림톡 문구변경 이슈",
+            "jiraLink": ""
+          },
+          {
+            "no": 2,
+            "date": "2026-04-03",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "김의진",
+            "summary": "포인트 사용취소 반환 만료일자 기준 변경",
+            "jiraLink": ""
+          },
+          {
+            "no": 3,
+            "date": "2026-04-06",
+            "type": "비정기배포",
+            "category": "FE",
+            "assignee": "임찬수",
+            "summary": "기획전 커스텀 컴포넌트 이슈",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/25180/tab/release-report-all-issues"
+          },
+          {
+            "no": 4,
+            "date": "2026-04-07",
+            "type": "비정기배포",
+            "category": "BE",
+            "assignee": "전소정",
+            "summary": "v260407 매니저 비정기 배포",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/24775/tab/release-report-all-issues"
+          },
+          {
+            "no": 5,
+            "date": "2026-04-07",
+            "type": "비정기배포",
+            "category": "BE",
+            "assignee": "전소정",
+            "summary": "v260407 파트너 비정기 배포",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/24775/tab/release-report-all-issues"
+          },
+          {
+            "no": 6,
+            "date": "2026-04-09",
+            "type": "비정기배포",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "기획전 커스텀 컴포넌트 이슈 비정기 배포",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/25487/tab/release-report-all-issues"
+          },
+          {
+            "no": 7,
+            "date": "2026-04-10",
+            "type": "비정기배포",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "전시 컴포넌트 수정 비정기 배포",
+            "jiraLink": "https://hanssem.atlassian.net/projects/HSMALL/versions/25555/tab/release-report-all-issues"
+          },
+          {
+            "no": 8,
+            "date": "2026-04-13",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "기획전 상품 간헐적 미노출 현상",
+            "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15583"
+          },
+          {
+            "no": 9,
+            "date": "2026-04-13",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "페이지 앵커링 속도 지연 개선",
+            "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15588"
+          }
         ]
       }
     ]
@@ -74,26 +362,54 @@
       "passRate": "97.9",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k/edit#gid=1453392612",
       "cases": [
-        { "name": "1070411",                              "url": "https://store.hanssem.com/goods/1070411",                                                                          "status": "fail", "duration": "8.55s" },
-        { "name": "furnishing",                           "url": "https://remodeling.hanssem.com/furnishing",                                                                        "status": "fail", "duration": "0.18s" },
-        { "name": "interior",                             "url": "https://remodeling.hanssem.com/interior",                                                                          "status": "fail", "duration": "0.11s" },
-        { "name": "access_terms.do",                      "url": "https://company.hanssem.com/customer_support/access_terms.do",                                                     "status": "fail", "duration": "0.06s" },
-        { "name": "corporate_site_privacy_policy_cctv.do","url": "https://company.hanssem.com/customer_support/corporate_site_privacy_policy_cctv.do",                              "status": "fail", "duration": "0.03s" },
-        { "name": "inquire_history.do",                   "url": "https://company.hanssem.com/customer_support/customer_counseling/inquire_history.do",                             "status": "fail", "duration": "0.03s" }
+        {
+          "name": "1070411",
+          "url": "https://store.hanssem.com/goods/1070411",
+          "status": "fail",
+          "duration": "8.55s"
+        },
+        {
+          "name": "furnishing",
+          "url": "https://remodeling.hanssem.com/furnishing",
+          "status": "fail",
+          "duration": "0.18s"
+        },
+        {
+          "name": "interior",
+          "url": "https://remodeling.hanssem.com/interior",
+          "status": "fail",
+          "duration": "0.11s"
+        },
+        {
+          "name": "access_terms.do",
+          "url": "https://company.hanssem.com/customer_support/access_terms.do",
+          "status": "fail",
+          "duration": "0.06s"
+        },
+        {
+          "name": "corporate_site_privacy_policy_cctv.do",
+          "url": "https://company.hanssem.com/customer_support/corporate_site_privacy_policy_cctv.do",
+          "status": "fail",
+          "duration": "0.03s"
+        },
+        {
+          "name": "inquire_history.do",
+          "url": "https://company.hanssem.com/customer_support/customer_counseling/inquire_history.do",
+          "status": "fail",
+          "duration": "0.03s"
+        }
       ]
     },
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 14. PM 8:21:07",
+      "lastUpdated": "2026. 4. 14. PM 8:54:12",
       "total": 500,
-      "pass": 499,
-      "fail": 1,
-      "passRate": "99.8",
+      "pass": 500,
+      "fail": 0,
+      "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": [
-        { "name": "1064854", "url": "https://store.hanssem.com/goods/1064854", "status": "fail", "duration": "7.09s", "reason": "성능 지연" }
-      ]
+      "cases": []
     }
   ]
 }
