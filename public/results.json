@@ -1,262 +1,3012 @@
 {
-  "lastUpdated": "2026. 4. 14. 오후 2:57:29",
+  "lastUpdated": "2026. 4. 14. 오후 3:20:58",
   "reports": [
     {
       "title": "한샘몰 자동 테스트",
-      "total": 50,
-      "pass": 44,
-      "fail": 6,
-      "passRate": "88.0",
+      "total": 500,
+      "pass": 500,
+      "fail": 0,
+      "passRate": "100.0",
       "cases": [
         {
           "name": "furnishing",
+          "url": "https://store.hanssem.com/furnishing",
           "status": "pass",
-          "duration": "8077ms"
+          "duration": "2320ms"
         },
         {
           "name": "20070",
+          "url": "https://store.hanssem.com/category/20070",
           "status": "pass",
-          "duration": "620ms"
+          "duration": "2066ms"
         },
         {
           "name": "20071",
+          "url": "https://store.hanssem.com/category/20071",
           "status": "pass",
-          "duration": "1761ms"
+          "duration": "2129ms"
         },
         {
           "name": "20072",
+          "url": "https://store.hanssem.com/category/20072",
           "status": "pass",
-          "duration": "740ms"
+          "duration": "2238ms"
         },
         {
           "name": "20073",
+          "url": "https://store.hanssem.com/category/20073",
           "status": "pass",
-          "duration": "726ms"
+          "duration": "1909ms"
         },
         {
           "name": "20074",
+          "url": "https://store.hanssem.com/category/20074",
           "status": "pass",
-          "duration": "870ms"
+          "duration": "3080ms"
         },
         {
           "name": "20075",
+          "url": "https://store.hanssem.com/category/20075",
           "status": "pass",
-          "duration": "876ms"
+          "duration": "2213ms"
         },
         {
           "name": "20076",
+          "url": "https://store.hanssem.com/category/20076",
           "status": "pass",
-          "duration": "1165ms"
+          "duration": "1924ms"
         },
         {
           "name": "20077",
+          "url": "https://store.hanssem.com/category/20077",
           "status": "pass",
-          "duration": "1947ms"
+          "duration": "2237ms"
         },
         {
           "name": "20109",
+          "url": "https://store.hanssem.com/category/20109",
           "status": "pass",
-          "duration": "2079ms"
+          "duration": "1977ms"
         },
         {
           "name": "RANK",
+          "url": "https://store.hanssem.com/furnishing/RANK",
           "status": "pass",
-          "duration": "179ms"
+          "duration": "1879ms"
         },
         {
           "name": "DEAL",
+          "url": "https://store.hanssem.com/furnishing/DEAL",
           "status": "pass",
-          "duration": "187ms"
+          "duration": "1819ms"
         },
         {
           "name": "shorts",
+          "url": "https://store.hanssem.com/shorts",
           "status": "pass",
-          "duration": "125ms"
+          "duration": "1741ms"
         },
         {
           "name": "interior",
+          "url": "https://store.hanssem.com/interior",
           "status": "pass",
-          "duration": "188ms"
+          "duration": "1828ms"
         },
         {
           "name": "20002",
+          "url": "https://store.hanssem.com/category/20002",
           "status": "pass",
-          "duration": "250ms"
+          "duration": "281ms"
         },
         {
           "name": "20003",
+          "url": "https://store.hanssem.com/category/20003",
           "status": "pass",
-          "duration": "284ms"
+          "duration": "237ms"
         },
         {
           "name": "20004",
+          "url": "https://store.hanssem.com/category/20004",
           "status": "pass",
-          "duration": "261ms"
+          "duration": "258ms"
         },
         {
           "name": "20005",
-          "status": "pass",
-          "duration": "688ms"
-        },
-        {
-          "name": "20006",
-          "status": "pass",
-          "duration": "238ms"
-        },
-        {
-          "name": "19488",
-          "status": "pass",
-          "duration": "100ms"
-        },
-        {
-          "name": "constcase",
-          "status": "pass",
-          "duration": "129ms"
-        },
-        {
-          "name": "magazine",
-          "status": "pass",
-          "duration": "141ms"
-        },
-        {
-          "name": "19646",
-          "status": "pass",
-          "duration": "204ms"
-        },
-        {
-          "name": "19313",
-          "status": "pass",
-          "duration": "841ms"
-        },
-        {
-          "name": "19475",
-          "status": "pass",
-          "duration": "287ms"
-        },
-        {
-          "name": "19312",
-          "status": "pass",
-          "duration": "379ms"
-        },
-        {
-          "name": "19316",
-          "status": "pass",
-          "duration": "473ms"
-        },
-        {
-          "name": "19315",
-          "status": "pass",
-          "duration": "461ms"
-        },
-        {
-          "name": "19314",
-          "status": "pass",
-          "duration": "438ms"
-        },
-        {
-          "name": "19445",
+          "url": "https://store.hanssem.com/category/20005",
           "status": "pass",
           "duration": "241ms"
         },
         {
-          "name": "19494",
+          "name": "20006",
+          "url": "https://store.hanssem.com/category/20006",
           "status": "pass",
-          "duration": "218ms"
+          "duration": "257ms"
         },
         {
-          "name": "19646?anchorID=nv-01",
+          "name": "19488",
+          "url": "https://store.hanssem.com/plan/19488",
           "status": "pass",
-          "duration": "664ms"
+          "duration": "608ms"
         },
         {
-          "name": "19081.html",
-          "status": "fail",
-          "duration": "289ms"
+          "name": "constcase",
+          "url": "https://store.hanssem.com/interior/constcase",
+          "status": "pass",
+          "duration": "189ms"
         },
         {
-          "name": "19077.html",
-          "status": "fail",
+          "name": "magazine",
+          "url": "https://store.hanssem.com/interior/magazine",
+          "status": "pass",
+          "duration": "130ms"
+        },
+        {
+          "name": "19646",
+          "url": "https://store.hanssem.com/plan/19646",
+          "status": "pass",
           "duration": "207ms"
         },
         {
-          "name": "17610.html",
-          "status": "fail",
-          "duration": "181ms"
+          "name": "19313",
+          "url": "https://store.hanssem.com/plan/19313",
+          "status": "pass",
+          "duration": "779ms"
         },
         {
-          "name": "17608.html",
-          "status": "fail",
-          "duration": "124ms"
+          "name": "19475",
+          "url": "https://store.hanssem.com/plan/19475",
+          "status": "pass",
+          "duration": "478ms"
+        },
+        {
+          "name": "19312",
+          "url": "https://store.hanssem.com/plan/19312",
+          "status": "pass",
+          "duration": "363ms"
+        },
+        {
+          "name": "19316",
+          "url": "https://store.hanssem.com/plan/19316",
+          "status": "pass",
+          "duration": "492ms"
+        },
+        {
+          "name": "19315",
+          "url": "https://store.hanssem.com/plan/19315",
+          "status": "pass",
+          "duration": "394ms"
+        },
+        {
+          "name": "19314",
+          "url": "https://store.hanssem.com/plan/19314",
+          "status": "pass",
+          "duration": "445ms"
+        },
+        {
+          "name": "19445",
+          "url": "https://store.hanssem.com/plan/19445",
+          "status": "pass",
+          "duration": "257ms"
+        },
+        {
+          "name": "19494",
+          "url": "https://store.hanssem.com/plan/19494",
+          "status": "pass",
+          "duration": "233ms"
+        },
+        {
+          "name": "19646?anchorID=nv-01",
+          "url": "https://store.hanssem.com/plan/19646?anchorID=nv-01",
+          "status": "pass",
+          "duration": "885ms"
         },
         {
           "name": "799220",
+          "url": "https://store.hanssem.com/goods/799220",
           "status": "pass",
-          "duration": "1399ms"
+          "duration": "1814ms"
         },
         {
           "name": "644540",
+          "url": "https://store.hanssem.com/goods/644540",
           "status": "pass",
-          "duration": "984ms"
+          "duration": "610ms"
         },
         {
           "name": "799215",
+          "url": "https://store.hanssem.com/goods/799215",
+          "status": "pass",
+          "duration": "707ms"
+        },
+        {
+          "name": "644541",
+          "url": "https://store.hanssem.com/goods/644541",
+          "status": "pass",
+          "duration": "614ms"
+        },
+        {
+          "name": "1115049",
+          "url": "https://store.hanssem.com/goods/1115049",
+          "status": "pass",
+          "duration": "1020ms"
+        },
+        {
+          "name": "1070411",
+          "url": "https://store.hanssem.com/goods/1070411",
+          "status": "pass",
+          "duration": "547ms"
+        },
+        {
+          "name": "37964",
+          "url": "https://store.hanssem.com/goods/37964",
+          "status": "pass",
+          "duration": "576ms"
+        },
+        {
+          "name": "1064854",
+          "url": "https://store.hanssem.com/goods/1064854",
+          "status": "pass",
+          "duration": "560ms"
+        },
+        {
+          "name": "487623",
+          "url": "https://store.hanssem.com/goods/487623",
+          "status": "pass",
+          "duration": "469ms"
+        },
+        {
+          "name": "1028853",
+          "url": "https://store.hanssem.com/goods/1028853",
+          "status": "pass",
+          "duration": "550ms"
+        },
+        {
+          "name": "819864",
+          "url": "https://store.hanssem.com/goods/819864",
+          "status": "pass",
+          "duration": "680ms"
+        },
+        {
+          "name": "891268",
+          "url": "https://store.hanssem.com/goods/891268",
+          "status": "pass",
+          "duration": "550ms"
+        },
+        {
+          "name": "803701",
+          "url": "https://store.hanssem.com/goods/803701",
+          "status": "pass",
+          "duration": "881ms"
+        },
+        {
+          "name": "848855",
+          "url": "https://store.hanssem.com/goods/848855",
+          "status": "pass",
+          "duration": "608ms"
+        },
+        {
+          "name": "811400",
+          "url": "https://store.hanssem.com/goods/811400",
+          "status": "pass",
+          "duration": "497ms"
+        },
+        {
+          "name": "703950",
+          "url": "https://store.hanssem.com/goods/703950",
+          "status": "pass",
+          "duration": "593ms"
+        },
+        {
+          "name": "1077505",
+          "url": "https://store.hanssem.com/goods/1077505",
+          "status": "pass",
+          "duration": "930ms"
+        },
+        {
+          "name": "1085902",
+          "url": "https://store.hanssem.com/goods/1085902",
+          "status": "pass",
+          "duration": "564ms"
+        },
+        {
+          "name": "19646?componentId=7406",
+          "url": "https://store.hanssem.com/plan/19646?componentId=7406",
+          "status": "pass",
+          "duration": "686ms"
+        },
+        {
+          "name": "19646?anchorID=nv-02",
+          "url": "https://store.hanssem.com/plan/19646?anchorID=nv-02",
+          "status": "pass",
+          "duration": "746ms"
+        },
+        {
+          "name": "19646?anchorID=nv-7487",
+          "url": "https://store.hanssem.com/plan/19646?anchorID=nv-7487",
+          "status": "pass",
+          "duration": "717ms"
+        },
+        {
+          "name": "19646?componentId=7344",
+          "url": "https://store.hanssem.com/plan/19646?componentId=7344",
+          "status": "pass",
+          "duration": "645ms"
+        },
+        {
+          "name": "1064857",
+          "url": "https://store.hanssem.com/goods/1064857",
+          "status": "pass",
+          "duration": "1154ms"
+        },
+        {
+          "name": "1054788",
+          "url": "https://store.hanssem.com/goods/1054788",
+          "status": "pass",
+          "duration": "633ms"
+        },
+        {
+          "name": "1084735",
+          "url": "https://store.hanssem.com/goods/1084735",
+          "status": "pass",
+          "duration": "529ms"
+        },
+        {
+          "name": "909639",
+          "url": "https://store.hanssem.com/goods/909639",
+          "status": "pass",
+          "duration": "514ms"
+        },
+        {
+          "name": "823609",
+          "url": "https://store.hanssem.com/goods/823609",
+          "status": "pass",
+          "duration": "597ms"
+        },
+        {
+          "name": "1084736",
+          "url": "https://store.hanssem.com/goods/1084736",
+          "status": "pass",
+          "duration": "544ms"
+        },
+        {
+          "name": "1001675",
+          "url": "https://store.hanssem.com/goods/1001675",
+          "status": "pass",
+          "duration": "1038ms"
+        },
+        {
+          "name": "1001673",
+          "url": "https://store.hanssem.com/goods/1001673",
+          "status": "pass",
+          "duration": "633ms"
+        },
+        {
+          "name": "1129317",
+          "url": "https://store.hanssem.com/goods/1129317",
+          "status": "pass",
+          "duration": "616ms"
+        },
+        {
+          "name": "1129332",
+          "url": "https://store.hanssem.com/goods/1129332",
+          "status": "pass",
+          "duration": "1266ms"
+        },
+        {
+          "name": "1129310",
+          "url": "https://store.hanssem.com/goods/1129310",
+          "status": "pass",
+          "duration": "879ms"
+        },
+        {
+          "name": "1129329",
+          "url": "https://store.hanssem.com/goods/1129329",
+          "status": "pass",
+          "duration": "1380ms"
+        },
+        {
+          "name": "1129328",
+          "url": "https://store.hanssem.com/goods/1129328",
+          "status": "pass",
+          "duration": "1089ms"
+        },
+        {
+          "name": "1129315",
+          "url": "https://store.hanssem.com/goods/1129315",
+          "status": "pass",
+          "duration": "718ms"
+        },
+        {
+          "name": "1129312",
+          "url": "https://store.hanssem.com/goods/1129312",
+          "status": "pass",
+          "duration": "892ms"
+        },
+        {
+          "name": "1129313",
+          "url": "https://store.hanssem.com/goods/1129313",
+          "status": "pass",
+          "duration": "580ms"
+        },
+        {
+          "name": "1129326",
+          "url": "https://store.hanssem.com/goods/1129326",
+          "status": "pass",
+          "duration": "605ms"
+        },
+        {
+          "name": "1129314",
+          "url": "https://store.hanssem.com/goods/1129314",
+          "status": "pass",
+          "duration": "649ms"
+        },
+        {
+          "name": "1115091",
+          "url": "https://store.hanssem.com/goods/1115091",
+          "status": "pass",
+          "duration": "1007ms"
+        },
+        {
+          "name": "859307",
+          "url": "https://store.hanssem.com/goods/859307",
+          "status": "pass",
+          "duration": "754ms"
+        },
+        {
+          "name": "1115138",
+          "url": "https://store.hanssem.com/goods/1115138",
+          "status": "pass",
+          "duration": "948ms"
+        },
+        {
+          "name": "1115046",
+          "url": "https://store.hanssem.com/goods/1115046",
+          "status": "pass",
+          "duration": "629ms"
+        },
+        {
+          "name": "829864",
+          "url": "https://store.hanssem.com/goods/829864",
+          "status": "pass",
+          "duration": "555ms"
+        },
+        {
+          "name": "719636",
+          "url": "https://store.hanssem.com/goods/719636",
+          "status": "pass",
+          "duration": "1166ms"
+        },
+        {
+          "name": "859306",
+          "url": "https://store.hanssem.com/goods/859306",
+          "status": "pass",
+          "duration": "960ms"
+        },
+        {
+          "name": "1002457",
+          "url": "https://store.hanssem.com/goods/1002457",
+          "status": "pass",
+          "duration": "629ms"
+        },
+        {
+          "name": "394130",
+          "url": "https://store.hanssem.com/goods/394130",
+          "status": "pass",
+          "duration": "975ms"
+        },
+        {
+          "name": "829876",
+          "url": "https://store.hanssem.com/goods/829876",
+          "status": "pass",
+          "duration": "509ms"
+        },
+        {
+          "name": "993093",
+          "url": "https://store.hanssem.com/goods/993093",
+          "status": "pass",
+          "duration": "805ms"
+        },
+        {
+          "name": "817732",
+          "url": "https://store.hanssem.com/goods/817732",
+          "status": "pass",
+          "duration": "630ms"
+        },
+        {
+          "name": "1098826",
+          "url": "https://store.hanssem.com/goods/1098826",
+          "status": "pass",
+          "duration": "649ms"
+        },
+        {
+          "name": "817730",
+          "url": "https://store.hanssem.com/goods/817730",
+          "status": "pass",
+          "duration": "512ms"
+        },
+        {
+          "name": "1098824",
+          "url": "https://store.hanssem.com/goods/1098824",
+          "status": "pass",
+          "duration": "498ms"
+        },
+        {
+          "name": "737687",
+          "url": "https://store.hanssem.com/goods/737687",
+          "status": "pass",
+          "duration": "437ms"
+        },
+        {
+          "name": "993094",
+          "url": "https://store.hanssem.com/goods/993094",
+          "status": "pass",
+          "duration": "671ms"
+        },
+        {
+          "name": "817734",
+          "url": "https://store.hanssem.com/goods/817734",
+          "status": "pass",
+          "duration": "603ms"
+        },
+        {
+          "name": "992272",
+          "url": "https://store.hanssem.com/goods/992272",
+          "status": "pass",
+          "duration": "480ms"
+        },
+        {
+          "name": "1027331",
+          "url": "https://store.hanssem.com/goods/1027331",
+          "status": "pass",
+          "duration": "1018ms"
+        },
+        {
+          "name": "1050289",
+          "url": "https://store.hanssem.com/goods/1050289",
+          "status": "pass",
+          "duration": "849ms"
+        },
+        {
+          "name": "1042687",
+          "url": "https://store.hanssem.com/goods/1042687",
+          "status": "pass",
+          "duration": "606ms"
+        },
+        {
+          "name": "811593",
+          "url": "https://store.hanssem.com/goods/811593",
+          "status": "pass",
+          "duration": "540ms"
+        },
+        {
+          "name": "1042685",
+          "url": "https://store.hanssem.com/goods/1042685",
+          "status": "pass",
+          "duration": "616ms"
+        },
+        {
+          "name": "703619",
+          "url": "https://store.hanssem.com/goods/703619",
+          "status": "pass",
+          "duration": "900ms"
+        },
+        {
+          "name": "811479",
+          "url": "https://store.hanssem.com/goods/811479",
+          "status": "pass",
+          "duration": "543ms"
+        },
+        {
+          "name": "1042688",
+          "url": "https://store.hanssem.com/goods/1042688",
+          "status": "pass",
+          "duration": "717ms"
+        },
+        {
+          "name": "703620",
+          "url": "https://store.hanssem.com/goods/703620",
+          "status": "pass",
+          "duration": "615ms"
+        },
+        {
+          "name": "811513",
+          "url": "https://store.hanssem.com/goods/811513",
+          "status": "pass",
+          "duration": "657ms"
+        },
+        {
+          "name": "945924",
+          "url": "https://store.hanssem.com/goods/945924",
+          "status": "pass",
+          "duration": "479ms"
+        },
+        {
+          "name": "302469",
+          "url": "https://store.hanssem.com/goods/302469",
+          "status": "pass",
+          "duration": "554ms"
+        },
+        {
+          "name": "19317",
+          "url": "https://store.hanssem.com/plan/19317",
+          "status": "pass",
+          "duration": "502ms"
+        },
+        {
+          "name": "1075313",
+          "url": "https://store.hanssem.com/goods/1075313",
+          "status": "pass",
+          "duration": "550ms"
+        },
+        {
+          "name": "829899",
+          "url": "https://store.hanssem.com/goods/829899",
+          "status": "pass",
+          "duration": "532ms"
+        },
+        {
+          "name": "860261",
+          "url": "https://store.hanssem.com/goods/860261",
+          "status": "pass",
+          "duration": "388ms"
+        },
+        {
+          "name": "333145",
+          "url": "https://store.hanssem.com/goods/333145",
+          "status": "pass",
+          "duration": "565ms"
+        },
+        {
+          "name": "269222",
+          "url": "https://store.hanssem.com/goods/269222",
+          "status": "pass",
+          "duration": "628ms"
+        },
+        {
+          "name": "1064062",
+          "url": "https://store.hanssem.com/goods/1064062",
+          "status": "pass",
+          "duration": "1070ms"
+        },
+        {
+          "name": "1064061",
+          "url": "https://store.hanssem.com/goods/1064061",
+          "status": "pass",
+          "duration": "776ms"
+        },
+        {
+          "name": "988307",
+          "url": "https://store.hanssem.com/goods/988307",
+          "status": "pass",
+          "duration": "442ms"
+        },
+        {
+          "name": "213816",
+          "url": "https://store.hanssem.com/goods/213816",
+          "status": "pass",
+          "duration": "816ms"
+        },
+        {
+          "name": "184114",
+          "url": "https://store.hanssem.com/goods/184114",
+          "status": "pass",
+          "duration": "725ms"
+        },
+        {
+          "name": "1100750",
+          "url": "https://store.hanssem.com/goods/1100750",
+          "status": "pass",
+          "duration": "1287ms"
+        },
+        {
+          "name": "743207",
+          "url": "https://store.hanssem.com/goods/743207",
+          "status": "pass",
+          "duration": "953ms"
+        },
+        {
+          "name": "855493",
+          "url": "https://store.hanssem.com/goods/855493",
+          "status": "pass",
+          "duration": "484ms"
+        },
+        {
+          "name": "743208",
+          "url": "https://store.hanssem.com/goods/743208",
+          "status": "pass",
+          "duration": "534ms"
+        },
+        {
+          "name": "795512",
+          "url": "https://store.hanssem.com/goods/795512",
+          "status": "pass",
+          "duration": "502ms"
+        },
+        {
+          "name": "400542",
+          "url": "https://store.hanssem.com/goods/400542",
+          "status": "pass",
+          "duration": "571ms"
+        },
+        {
+          "name": "1114367",
+          "url": "https://store.hanssem.com/goods/1114367",
+          "status": "pass",
+          "duration": "690ms"
+        },
+        {
+          "name": "1066885",
+          "url": "https://store.hanssem.com/goods/1066885",
+          "status": "pass",
+          "duration": "543ms"
+        },
+        {
+          "name": "1115350",
+          "url": "https://store.hanssem.com/goods/1115350",
+          "status": "pass",
+          "duration": "911ms"
+        },
+        {
+          "name": "641215",
+          "url": "https://store.hanssem.com/goods/641215",
+          "status": "pass",
+          "duration": "1508ms"
+        },
+        {
+          "name": "1018877",
+          "url": "https://store.hanssem.com/goods/1018877",
+          "status": "pass",
+          "duration": "864ms"
+        },
+        {
+          "name": "19640",
+          "url": "https://store.hanssem.com/plan/19640",
+          "status": "pass",
+          "duration": "178ms"
+        },
+        {
+          "name": "1131703",
+          "url": "https://store.hanssem.com/goods/1131703",
+          "status": "pass",
+          "duration": "486ms"
+        },
+        {
+          "name": "1063435",
+          "url": "https://store.hanssem.com/goods/1063435",
+          "status": "pass",
+          "duration": "525ms"
+        },
+        {
+          "name": "1008081",
+          "url": "https://store.hanssem.com/goods/1008081",
+          "status": "pass",
+          "duration": "763ms"
+        },
+        {
+          "name": "1110720",
+          "url": "https://store.hanssem.com/goods/1110720",
+          "status": "pass",
+          "duration": "475ms"
+        },
+        {
+          "name": "1077402",
+          "url": "https://store.hanssem.com/goods/1077402",
+          "status": "pass",
+          "duration": "880ms"
+        },
+        {
+          "name": "1079644",
+          "url": "https://store.hanssem.com/goods/1079644",
+          "status": "pass",
+          "duration": "841ms"
+        },
+        {
+          "name": "1075227",
+          "url": "https://store.hanssem.com/goods/1075227",
+          "status": "pass",
+          "duration": "1275ms"
+        },
+        {
+          "name": "1095220",
+          "url": "https://store.hanssem.com/goods/1095220",
+          "status": "pass",
+          "duration": "1059ms"
+        },
+        {
+          "name": "1057158",
+          "url": "https://store.hanssem.com/goods/1057158",
+          "status": "pass",
+          "duration": "1023ms"
+        },
+        {
+          "name": "20078",
+          "url": "https://store.hanssem.com/category/20078",
+          "status": "pass",
+          "duration": "438ms"
+        },
+        {
+          "name": "20079",
+          "url": "https://store.hanssem.com/category/20079",
+          "status": "pass",
+          "duration": "1190ms"
+        },
+        {
+          "name": "20080",
+          "url": "https://store.hanssem.com/category/20080",
+          "status": "pass",
+          "duration": "543ms"
+        },
+        {
+          "name": "19646?componentId=7561",
+          "url": "https://store.hanssem.com/plan/19646?componentId=7561",
+          "status": "pass",
+          "duration": "639ms"
+        },
+        {
+          "name": "1106094",
+          "url": "https://store.hanssem.com/goods/1106094",
+          "status": "pass",
+          "duration": "551ms"
+        },
+        {
+          "name": "932380",
+          "url": "https://store.hanssem.com/goods/932380",
+          "status": "pass",
+          "duration": "1113ms"
+        },
+        {
+          "name": "1115939",
+          "url": "https://store.hanssem.com/goods/1115939",
+          "status": "pass",
+          "duration": "7826ms"
+        },
+        {
+          "name": "1115940",
+          "url": "https://store.hanssem.com/goods/1115940",
+          "status": "pass",
+          "duration": "949ms"
+        },
+        {
+          "name": "1115941",
+          "url": "https://store.hanssem.com/goods/1115941",
+          "status": "pass",
+          "duration": "1048ms"
+        },
+        {
+          "name": "959676",
+          "url": "https://store.hanssem.com/goods/959676",
+          "status": "pass",
+          "duration": "959ms"
+        },
+        {
+          "name": "1106083",
+          "url": "https://store.hanssem.com/goods/1106083",
+          "status": "pass",
+          "duration": "942ms"
+        },
+        {
+          "name": "1064735",
+          "url": "https://store.hanssem.com/goods/1064735",
+          "status": "pass",
+          "duration": "1114ms"
+        },
+        {
+          "name": "724129",
+          "url": "https://store.hanssem.com/goods/724129",
+          "status": "pass",
+          "duration": "936ms"
+        },
+        {
+          "name": "1038160",
+          "url": "https://store.hanssem.com/goods/1038160",
+          "status": "pass",
+          "duration": "1156ms"
+        },
+        {
+          "name": "1038180",
+          "url": "https://store.hanssem.com/goods/1038180",
+          "status": "pass",
+          "duration": "1136ms"
+        },
+        {
+          "name": "1051573",
+          "url": "https://store.hanssem.com/goods/1051573",
+          "status": "pass",
+          "duration": "1792ms"
+        },
+        {
+          "name": "1051572",
+          "url": "https://store.hanssem.com/goods/1051572",
+          "status": "pass",
+          "duration": "1239ms"
+        },
+        {
+          "name": "1064060",
+          "url": "https://store.hanssem.com/goods/1064060",
+          "status": "pass",
+          "duration": "996ms"
+        },
+        {
+          "name": "1064059",
+          "url": "https://store.hanssem.com/goods/1064059",
+          "status": "pass",
+          "duration": "1087ms"
+        },
+        {
+          "name": "1042804",
+          "url": "https://store.hanssem.com/goods/1042804",
+          "status": "pass",
+          "duration": "668ms"
+        },
+        {
+          "name": "1042803",
+          "url": "https://store.hanssem.com/goods/1042803",
+          "status": "pass",
+          "duration": "1066ms"
+        },
+        {
+          "name": "19318",
+          "url": "https://store.hanssem.com/plan/19318",
+          "status": "pass",
+          "duration": "282ms"
+        },
+        {
+          "name": "1115946",
+          "url": "https://store.hanssem.com/goods/1115946",
+          "status": "pass",
+          "duration": "1070ms"
+        },
+        {
+          "name": "1115947",
+          "url": "https://store.hanssem.com/goods/1115947",
+          "status": "pass",
+          "duration": "822ms"
+        },
+        {
+          "name": "1115948",
+          "url": "https://store.hanssem.com/goods/1115948",
+          "status": "pass",
+          "duration": "856ms"
+        },
+        {
+          "name": "1115954",
+          "url": "https://store.hanssem.com/goods/1115954",
+          "status": "pass",
+          "duration": "584ms"
+        },
+        {
+          "name": "1115955",
+          "url": "https://store.hanssem.com/goods/1115955",
+          "status": "pass",
+          "duration": "507ms"
+        },
+        {
+          "name": "1115956",
+          "url": "https://store.hanssem.com/goods/1115956",
+          "status": "pass",
+          "duration": "1404ms"
+        },
+        {
+          "name": "1115943",
+          "url": "https://store.hanssem.com/goods/1115943",
+          "status": "pass",
+          "duration": "842ms"
+        },
+        {
+          "name": "1115944",
+          "url": "https://store.hanssem.com/goods/1115944",
+          "status": "pass",
+          "duration": "772ms"
+        },
+        {
+          "name": "1115945",
+          "url": "https://store.hanssem.com/goods/1115945",
+          "status": "pass",
+          "duration": "546ms"
+        },
+        {
+          "name": "1081479",
+          "url": "https://store.hanssem.com/goods/1081479",
+          "status": "pass",
+          "duration": "1004ms"
+        },
+        {
+          "name": "319572",
+          "url": "https://store.hanssem.com/goods/319572",
+          "status": "pass",
+          "duration": "1094ms"
+        },
+        {
+          "name": "1018219",
+          "url": "https://store.hanssem.com/goods/1018219",
+          "status": "pass",
+          "duration": "1098ms"
+        },
+        {
+          "name": "390420",
+          "url": "https://store.hanssem.com/goods/390420",
+          "status": "pass",
+          "duration": "916ms"
+        },
+        {
+          "name": "1091699",
+          "url": "https://store.hanssem.com/goods/1091699",
+          "status": "pass",
+          "duration": "975ms"
+        },
+        {
+          "name": "1041149",
+          "url": "https://store.hanssem.com/goods/1041149",
+          "status": "pass",
+          "duration": "1126ms"
+        },
+        {
+          "name": "932378",
+          "url": "https://store.hanssem.com/goods/932378",
+          "status": "pass",
+          "duration": "1087ms"
+        },
+        {
+          "name": "932381",
+          "url": "https://store.hanssem.com/goods/932381",
+          "status": "pass",
+          "duration": "834ms"
+        },
+        {
+          "name": "773278",
+          "url": "https://store.hanssem.com/goods/773278",
+          "status": "pass",
+          "duration": "985ms"
+        },
+        {
+          "name": "1091700",
+          "url": "https://store.hanssem.com/goods/1091700",
+          "status": "pass",
+          "duration": "1082ms"
+        },
+        {
+          "name": "20070?page=1",
+          "url": "https://store.hanssem.com/category/20070?page=1",
+          "status": "pass",
+          "duration": "571ms"
+        },
+        {
+          "name": "20070?page=2",
+          "url": "https://store.hanssem.com/category/20070?page=2",
+          "status": "pass",
+          "duration": "538ms"
+        },
+        {
+          "name": "20070?page=3",
+          "url": "https://store.hanssem.com/category/20070?page=3",
+          "status": "pass",
+          "duration": "540ms"
+        },
+        {
+          "name": "20070?page=4",
+          "url": "https://store.hanssem.com/category/20070?page=4",
+          "status": "pass",
+          "duration": "532ms"
+        },
+        {
+          "name": "20070?page=5",
+          "url": "https://store.hanssem.com/category/20070?page=5",
+          "status": "pass",
+          "duration": "594ms"
+        },
+        {
+          "name": "20070?page=6",
+          "url": "https://store.hanssem.com/category/20070?page=6",
+          "status": "pass",
+          "duration": "576ms"
+        },
+        {
+          "name": "20070?page=7",
+          "url": "https://store.hanssem.com/category/20070?page=7",
+          "status": "pass",
+          "duration": "818ms"
+        },
+        {
+          "name": "20070?page=8",
+          "url": "https://store.hanssem.com/category/20070?page=8",
+          "status": "pass",
+          "duration": "587ms"
+        },
+        {
+          "name": "20070?page=9",
+          "url": "https://store.hanssem.com/category/20070?page=9",
+          "status": "pass",
+          "duration": "823ms"
+        },
+        {
+          "name": "20070?page=10",
+          "url": "https://store.hanssem.com/category/20070?page=10",
+          "status": "pass",
+          "duration": "772ms"
+        },
+        {
+          "name": "20081",
+          "url": "https://store.hanssem.com/category/20081",
+          "status": "pass",
+          "duration": "1795ms"
+        },
+        {
+          "name": "20082",
+          "url": "https://store.hanssem.com/category/20082",
+          "status": "pass",
+          "duration": "537ms"
+        },
+        {
+          "name": "19447",
+          "url": "https://store.hanssem.com/plan/19447",
+          "status": "pass",
+          "duration": "516ms"
+        },
+        {
+          "name": "19646?componentId=7562",
+          "url": "https://store.hanssem.com/plan/19646?componentId=7562",
+          "status": "pass",
+          "duration": "773ms"
+        },
+        {
+          "name": "1076191",
+          "url": "https://store.hanssem.com/goods/1076191",
+          "status": "pass",
+          "duration": "864ms"
+        },
+        {
+          "name": "1058860",
+          "url": "https://store.hanssem.com/goods/1058860",
+          "status": "pass",
+          "duration": "1080ms"
+        },
+        {
+          "name": "786625",
+          "url": "https://store.hanssem.com/goods/786625",
+          "status": "pass",
+          "duration": "1005ms"
+        },
+        {
+          "name": "746525",
+          "url": "https://store.hanssem.com/goods/746525",
+          "status": "pass",
+          "duration": "634ms"
+        },
+        {
+          "name": "746526",
+          "url": "https://store.hanssem.com/goods/746526",
+          "status": "pass",
+          "duration": "511ms"
+        },
+        {
+          "name": "958513",
+          "url": "https://store.hanssem.com/goods/958513",
+          "status": "pass",
+          "duration": "1016ms"
+        },
+        {
+          "name": "1005271",
+          "url": "https://store.hanssem.com/goods/1005271",
+          "status": "pass",
+          "duration": "463ms"
+        },
+        {
+          "name": "992474",
+          "url": "https://store.hanssem.com/goods/992474",
+          "status": "pass",
+          "duration": "560ms"
+        },
+        {
+          "name": "1076189",
+          "url": "https://store.hanssem.com/goods/1076189",
+          "status": "pass",
+          "duration": "535ms"
+        },
+        {
+          "name": "1005272",
+          "url": "https://store.hanssem.com/goods/1005272",
+          "status": "pass",
+          "duration": "936ms"
+        },
+        {
+          "name": "1122192",
+          "url": "https://store.hanssem.com/goods/1122192",
+          "status": "pass",
+          "duration": "1030ms"
+        },
+        {
+          "name": "1122191",
+          "url": "https://store.hanssem.com/goods/1122191",
+          "status": "pass",
+          "duration": "1073ms"
+        },
+        {
+          "name": "1122190",
+          "url": "https://store.hanssem.com/goods/1122190",
+          "status": "pass",
+          "duration": "961ms"
+        },
+        {
+          "name": "1122194",
+          "url": "https://store.hanssem.com/goods/1122194",
+          "status": "pass",
+          "duration": "1007ms"
+        },
+        {
+          "name": "777039",
+          "url": "https://store.hanssem.com/goods/777039",
+          "status": "pass",
+          "duration": "558ms"
+        },
+        {
+          "name": "1099086",
+          "url": "https://store.hanssem.com/goods/1099086",
+          "status": "pass",
+          "duration": "1061ms"
+        },
+        {
+          "name": "786845",
+          "url": "https://store.hanssem.com/goods/786845",
+          "status": "pass",
+          "duration": "1469ms"
+        },
+        {
+          "name": "955436",
+          "url": "https://store.hanssem.com/goods/955436",
+          "status": "pass",
+          "duration": "981ms"
+        },
+        {
+          "name": "998964",
+          "url": "https://store.hanssem.com/goods/998964",
+          "status": "pass",
+          "duration": "991ms"
+        },
+        {
+          "name": "821209",
+          "url": "https://store.hanssem.com/goods/821209",
+          "status": "pass",
+          "duration": "852ms"
+        },
+        {
+          "name": "777040",
+          "url": "https://store.hanssem.com/goods/777040",
+          "status": "pass",
+          "duration": "1232ms"
+        },
+        {
+          "name": "20071?page=1",
+          "url": "https://store.hanssem.com/category/20071?page=1",
+          "status": "pass",
+          "duration": "577ms"
+        },
+        {
+          "name": "20071?page=2",
+          "url": "https://store.hanssem.com/category/20071?page=2",
+          "status": "pass",
+          "duration": "550ms"
+        },
+        {
+          "name": "20071?page=3",
+          "url": "https://store.hanssem.com/category/20071?page=3",
+          "status": "pass",
+          "duration": "578ms"
+        },
+        {
+          "name": "20071?page=4",
+          "url": "https://store.hanssem.com/category/20071?page=4",
+          "status": "pass",
+          "duration": "577ms"
+        },
+        {
+          "name": "20071?page=5",
+          "url": "https://store.hanssem.com/category/20071?page=5",
+          "status": "pass",
+          "duration": "475ms"
+        },
+        {
+          "name": "20071?page=6",
+          "url": "https://store.hanssem.com/category/20071?page=6",
+          "status": "pass",
+          "duration": "446ms"
+        },
+        {
+          "name": "20071?page=7",
+          "url": "https://store.hanssem.com/category/20071?page=7",
+          "status": "pass",
+          "duration": "559ms"
+        },
+        {
+          "name": "20071?page=8",
+          "url": "https://store.hanssem.com/category/20071?page=8",
+          "status": "pass",
+          "duration": "598ms"
+        },
+        {
+          "name": "20071?page=9",
+          "url": "https://store.hanssem.com/category/20071?page=9",
+          "status": "pass",
+          "duration": "458ms"
+        },
+        {
+          "name": "20071?page=10",
+          "url": "https://store.hanssem.com/category/20071?page=10",
+          "status": "pass",
+          "duration": "542ms"
+        },
+        {
+          "name": "20083",
+          "url": "https://store.hanssem.com/category/20083",
+          "status": "pass",
+          "duration": "591ms"
+        },
+        {
+          "name": "20084",
+          "url": "https://store.hanssem.com/category/20084",
+          "status": "pass",
+          "duration": "867ms"
+        },
+        {
+          "name": "20085",
+          "url": "https://store.hanssem.com/category/20085",
+          "status": "pass",
+          "duration": "354ms"
+        },
+        {
+          "name": "19646?componentId=7565",
+          "url": "https://store.hanssem.com/plan/19646?componentId=7565",
+          "status": "pass",
+          "duration": "597ms"
+        },
+        {
+          "name": "19444",
+          "url": "https://store.hanssem.com/plan/19444",
+          "status": "pass",
+          "duration": "285ms"
+        },
+        {
+          "name": "909271",
+          "url": "https://store.hanssem.com/goods/909271",
+          "status": "pass",
+          "duration": "843ms"
+        },
+        {
+          "name": "909641",
+          "url": "https://store.hanssem.com/goods/909641",
+          "status": "pass",
+          "duration": "1129ms"
+        },
+        {
+          "name": "1064859",
+          "url": "https://store.hanssem.com/goods/1064859",
+          "status": "pass",
+          "duration": "979ms"
+        },
+        {
+          "name": "1064855",
+          "url": "https://store.hanssem.com/goods/1064855",
+          "status": "pass",
+          "duration": "624ms"
+        },
+        {
+          "name": "1129164",
+          "url": "https://store.hanssem.com/goods/1129164",
+          "status": "pass",
+          "duration": "999ms"
+        },
+        {
+          "name": "1129169",
+          "url": "https://store.hanssem.com/goods/1129169",
+          "status": "pass",
+          "duration": "1009ms"
+        },
+        {
+          "name": "1129179",
+          "url": "https://store.hanssem.com/goods/1129179",
+          "status": "pass",
+          "duration": "830ms"
+        },
+        {
+          "name": "1129175",
+          "url": "https://store.hanssem.com/goods/1129175",
+          "status": "pass",
+          "duration": "545ms"
+        },
+        {
+          "name": "1129163",
+          "url": "https://store.hanssem.com/goods/1129163",
+          "status": "pass",
+          "duration": "815ms"
+        },
+        {
+          "name": "1129159",
+          "url": "https://store.hanssem.com/goods/1129159",
+          "status": "pass",
+          "duration": "941ms"
+        },
+        {
+          "name": "1118340",
+          "url": "https://store.hanssem.com/goods/1118340",
+          "status": "pass",
+          "duration": "859ms"
+        },
+        {
+          "name": "1118298",
+          "url": "https://store.hanssem.com/goods/1118298",
+          "status": "pass",
+          "duration": "884ms"
+        },
+        {
+          "name": "1118294",
+          "url": "https://store.hanssem.com/goods/1118294",
+          "status": "pass",
+          "duration": "860ms"
+        },
+        {
+          "name": "1118302",
+          "url": "https://store.hanssem.com/goods/1118302",
+          "status": "pass",
+          "duration": "1366ms"
+        },
+        {
+          "name": "1118300",
+          "url": "https://store.hanssem.com/goods/1118300",
+          "status": "pass",
+          "duration": "851ms"
+        },
+        {
+          "name": "1118305",
+          "url": "https://store.hanssem.com/goods/1118305",
+          "status": "pass",
+          "duration": "927ms"
+        },
+        {
+          "name": "1038775",
+          "url": "https://store.hanssem.com/goods/1038775",
+          "status": "pass",
+          "duration": "533ms"
+        },
+        {
+          "name": "865080",
+          "url": "https://store.hanssem.com/goods/865080",
+          "status": "pass",
+          "duration": "900ms"
+        },
+        {
+          "name": "943982",
+          "url": "https://store.hanssem.com/goods/943982",
+          "status": "pass",
+          "duration": "1014ms"
+        },
+        {
+          "name": "993169",
+          "url": "https://store.hanssem.com/goods/993169",
+          "status": "pass",
+          "duration": "794ms"
+        },
+        {
+          "name": "1001672",
+          "url": "https://store.hanssem.com/goods/1001672",
+          "status": "pass",
+          "duration": "973ms"
+        },
+        {
+          "name": "20072?page=1",
+          "url": "https://store.hanssem.com/category/20072?page=1",
+          "status": "pass",
+          "duration": "626ms"
+        },
+        {
+          "name": "20072?page=2",
+          "url": "https://store.hanssem.com/category/20072?page=2",
+          "status": "pass",
+          "duration": "584ms"
+        },
+        {
+          "name": "20072?page=3",
+          "url": "https://store.hanssem.com/category/20072?page=3",
+          "status": "pass",
+          "duration": "1040ms"
+        },
+        {
+          "name": "20072?page=4",
+          "url": "https://store.hanssem.com/category/20072?page=4",
+          "status": "pass",
+          "duration": "552ms"
+        },
+        {
+          "name": "20072?page=5",
+          "url": "https://store.hanssem.com/category/20072?page=5",
+          "status": "pass",
+          "duration": "547ms"
+        },
+        {
+          "name": "20072?page=6",
+          "url": "https://store.hanssem.com/category/20072?page=6",
+          "status": "pass",
+          "duration": "579ms"
+        },
+        {
+          "name": "20072?page=7",
+          "url": "https://store.hanssem.com/category/20072?page=7",
+          "status": "pass",
+          "duration": "596ms"
+        },
+        {
+          "name": "20072?page=8",
+          "url": "https://store.hanssem.com/category/20072?page=8",
+          "status": "pass",
+          "duration": "500ms"
+        },
+        {
+          "name": "20072?page=9",
+          "url": "https://store.hanssem.com/category/20072?page=9",
+          "status": "pass",
+          "duration": "691ms"
+        },
+        {
+          "name": "20072?page=10",
+          "url": "https://store.hanssem.com/category/20072?page=10",
+          "status": "pass",
+          "duration": "571ms"
+        },
+        {
+          "name": "19646?componentId=7560",
+          "url": "https://store.hanssem.com/plan/19646?componentId=7560",
+          "status": "pass",
+          "duration": "1000ms"
+        },
+        {
+          "name": "1046962",
+          "url": "https://store.hanssem.com/goods/1046962",
+          "status": "pass",
+          "duration": "758ms"
+        },
+        {
+          "name": "810476",
+          "url": "https://store.hanssem.com/goods/810476",
+          "status": "pass",
+          "duration": "593ms"
+        },
+        {
+          "name": "775655",
+          "url": "https://store.hanssem.com/goods/775655",
           "status": "pass",
           "duration": "638ms"
         },
         {
-          "name": "644541",
+          "name": "1047367",
+          "url": "https://store.hanssem.com/goods/1047367",
           "status": "pass",
-          "duration": "1333ms"
+          "duration": "502ms"
         },
         {
-          "name": "1115049",
+          "name": "1066292",
+          "url": "https://store.hanssem.com/goods/1066292",
           "status": "pass",
-          "duration": "1037ms"
+          "duration": "867ms"
         },
         {
-          "name": "17183.html",
-          "status": "fail",
-          "duration": "124ms"
-        },
-        {
-          "name": "17172.html",
-          "status": "fail",
-          "duration": "135ms"
-        },
-        {
-          "name": "1070411",
+          "name": "1029516",
+          "url": "https://store.hanssem.com/goods/1029516",
           "status": "pass",
-          "duration": "702ms"
+          "duration": "774ms"
         },
         {
-          "name": "37964",
+          "name": "1029514",
+          "url": "https://store.hanssem.com/goods/1029514",
+          "status": "pass",
+          "duration": "502ms"
+        },
+        {
+          "name": "1066289",
+          "url": "https://store.hanssem.com/goods/1066289",
+          "status": "pass",
+          "duration": "827ms"
+        },
+        {
+          "name": "743257",
+          "url": "https://store.hanssem.com/goods/743257",
+          "status": "pass",
+          "duration": "624ms"
+        },
+        {
+          "name": "20073?page=1",
+          "url": "https://store.hanssem.com/category/20073?page=1",
+          "status": "pass",
+          "duration": "503ms"
+        },
+        {
+          "name": "20073?page=2",
+          "url": "https://store.hanssem.com/category/20073?page=2",
+          "status": "pass",
+          "duration": "439ms"
+        },
+        {
+          "name": "20073?page=3",
+          "url": "https://store.hanssem.com/category/20073?page=3",
+          "status": "pass",
+          "duration": "459ms"
+        },
+        {
+          "name": "20073?page=4",
+          "url": "https://store.hanssem.com/category/20073?page=4",
+          "status": "pass",
+          "duration": "442ms"
+        },
+        {
+          "name": "20073?page=5",
+          "url": "https://store.hanssem.com/category/20073?page=5",
+          "status": "pass",
+          "duration": "446ms"
+        },
+        {
+          "name": "20073?page=6",
+          "url": "https://store.hanssem.com/category/20073?page=6",
+          "status": "pass",
+          "duration": "691ms"
+        },
+        {
+          "name": "20073?page=7",
+          "url": "https://store.hanssem.com/category/20073?page=7",
+          "status": "pass",
+          "duration": "510ms"
+        },
+        {
+          "name": "20073?page=8",
+          "url": "https://store.hanssem.com/category/20073?page=8",
+          "status": "pass",
+          "duration": "458ms"
+        },
+        {
+          "name": "20073?page=9",
+          "url": "https://store.hanssem.com/category/20073?page=9",
+          "status": "pass",
+          "duration": "632ms"
+        },
+        {
+          "name": "20073?page=10",
+          "url": "https://store.hanssem.com/category/20073?page=10",
+          "status": "pass",
+          "duration": "440ms"
+        },
+        {
+          "name": "20089",
+          "url": "https://store.hanssem.com/category/20089",
+          "status": "pass",
+          "duration": "841ms"
+        },
+        {
+          "name": "20090",
+          "url": "https://store.hanssem.com/category/20090",
+          "status": "pass",
+          "duration": "1148ms"
+        },
+        {
+          "name": "20091",
+          "url": "https://store.hanssem.com/category/20091",
+          "status": "pass",
+          "duration": "762ms"
+        },
+        {
+          "name": "20092",
+          "url": "https://store.hanssem.com/category/20092",
+          "status": "pass",
+          "duration": "829ms"
+        },
+        {
+          "name": "20546",
+          "url": "https://store.hanssem.com/category/20546",
+          "status": "pass",
+          "duration": "523ms"
+        },
+        {
+          "name": "19646?componentId=7563",
+          "url": "https://store.hanssem.com/plan/19646?componentId=7563",
+          "status": "pass",
+          "duration": "636ms"
+        },
+        {
+          "name": "1115110",
+          "url": "https://store.hanssem.com/goods/1115110",
+          "status": "pass",
+          "duration": "1346ms"
+        },
+        {
+          "name": "394133",
+          "url": "https://store.hanssem.com/goods/394133",
+          "status": "pass",
+          "duration": "1096ms"
+        },
+        {
+          "name": "1115067",
+          "url": "https://store.hanssem.com/goods/1115067",
+          "status": "pass",
+          "duration": "1032ms"
+        },
+        {
+          "name": "829873",
+          "url": "https://store.hanssem.com/goods/829873",
+          "status": "pass",
+          "duration": "1331ms"
+        },
+        {
+          "name": "932993",
+          "url": "https://store.hanssem.com/goods/932993",
+          "status": "pass",
+          "duration": "897ms"
+        },
+        {
+          "name": "829875",
+          "url": "https://store.hanssem.com/goods/829875",
+          "status": "pass",
+          "duration": "1417ms"
+        },
+        {
+          "name": "1070326",
+          "url": "https://store.hanssem.com/goods/1070326",
+          "status": "pass",
+          "duration": "906ms"
+        },
+        {
+          "name": "1114371",
+          "url": "https://store.hanssem.com/goods/1114371",
           "status": "pass",
           "duration": "592ms"
         },
         {
-          "name": "1064854",
-          "status": "pass",
-          "duration": "825ms"
-        },
-        {
-          "name": "487623",
+          "name": "1073160",
+          "url": "https://store.hanssem.com/goods/1073160",
           "status": "pass",
           "duration": "855ms"
         },
         {
-          "name": "1028853",
+          "name": "1114281",
+          "url": "https://store.hanssem.com/goods/1114281",
           "status": "pass",
-          "duration": "1321ms"
+          "duration": "484ms"
         },
         {
-          "name": "819864",
+          "name": "1070358",
+          "url": "https://store.hanssem.com/goods/1070358",
+          "status": "pass",
+          "duration": "931ms"
+        },
+        {
+          "name": "1114420",
+          "url": "https://store.hanssem.com/goods/1114420",
+          "status": "pass",
+          "duration": "1546ms"
+        },
+        {
+          "name": "20074?page=1",
+          "url": "https://store.hanssem.com/category/20074?page=1",
+          "status": "pass",
+          "duration": "3978ms"
+        },
+        {
+          "name": "20074?page=2",
+          "url": "https://store.hanssem.com/category/20074?page=2",
+          "status": "pass",
+          "duration": "532ms"
+        },
+        {
+          "name": "20074?page=3",
+          "url": "https://store.hanssem.com/category/20074?page=3",
+          "status": "pass",
+          "duration": "528ms"
+        },
+        {
+          "name": "20074?page=4",
+          "url": "https://store.hanssem.com/category/20074?page=4",
+          "status": "pass",
+          "duration": "529ms"
+        },
+        {
+          "name": "20074?page=5",
+          "url": "https://store.hanssem.com/category/20074?page=5",
+          "status": "pass",
+          "duration": "461ms"
+        },
+        {
+          "name": "20074?page=6",
+          "url": "https://store.hanssem.com/category/20074?page=6",
+          "status": "pass",
+          "duration": "537ms"
+        },
+        {
+          "name": "20074?page=7",
+          "url": "https://store.hanssem.com/category/20074?page=7",
+          "status": "pass",
+          "duration": "429ms"
+        },
+        {
+          "name": "20074?page=8",
+          "url": "https://store.hanssem.com/category/20074?page=8",
+          "status": "pass",
+          "duration": "491ms"
+        },
+        {
+          "name": "20074?page=9",
+          "url": "https://store.hanssem.com/category/20074?page=9",
+          "status": "pass",
+          "duration": "510ms"
+        },
+        {
+          "name": "20074?page=10",
+          "url": "https://store.hanssem.com/category/20074?page=10",
+          "status": "pass",
+          "duration": "466ms"
+        },
+        {
+          "name": "20094",
+          "url": "https://store.hanssem.com/category/20094",
+          "status": "pass",
+          "duration": "389ms"
+        },
+        {
+          "name": "20095",
+          "url": "https://store.hanssem.com/category/20095",
+          "status": "pass",
+          "duration": "1488ms"
+        },
+        {
+          "name": "20096",
+          "url": "https://store.hanssem.com/category/20096",
+          "status": "pass",
+          "duration": "985ms"
+        },
+        {
+          "name": "20097",
+          "url": "https://store.hanssem.com/category/20097",
+          "status": "pass",
+          "duration": "763ms"
+        },
+        {
+          "name": "20098",
+          "url": "https://store.hanssem.com/category/20098",
+          "status": "pass",
+          "duration": "680ms"
+        },
+        {
+          "name": "19356",
+          "url": "https://store.hanssem.com/plan/19356",
+          "status": "pass",
+          "duration": "301ms"
+        },
+        {
+          "name": "19646?componentId=7564",
+          "url": "https://store.hanssem.com/plan/19646?componentId=7564",
+          "status": "pass",
+          "duration": "603ms"
+        },
+        {
+          "name": "1126108",
+          "url": "https://store.hanssem.com/goods/1126108",
+          "status": "pass",
+          "duration": "611ms"
+        },
+        {
+          "name": "1126177",
+          "url": "https://store.hanssem.com/goods/1126177",
+          "status": "pass",
+          "duration": "868ms"
+        },
+        {
+          "name": "1126187",
+          "url": "https://store.hanssem.com/goods/1126187",
+          "status": "pass",
+          "duration": "978ms"
+        },
+        {
+          "name": "1126180",
+          "url": "https://store.hanssem.com/goods/1126180",
+          "status": "pass",
+          "duration": "1310ms"
+        },
+        {
+          "name": "1028805",
+          "url": "https://store.hanssem.com/goods/1028805",
+          "status": "pass",
+          "duration": "544ms"
+        },
+        {
+          "name": "1028838",
+          "url": "https://store.hanssem.com/goods/1028838",
+          "status": "pass",
+          "duration": "728ms"
+        },
+        {
+          "name": "1077501",
+          "url": "https://store.hanssem.com/goods/1077501",
+          "status": "pass",
+          "duration": "514ms"
+        },
+        {
+          "name": "1077502",
+          "url": "https://store.hanssem.com/goods/1077502",
+          "status": "pass",
+          "duration": "930ms"
+        },
+        {
+          "name": "1077506",
+          "url": "https://store.hanssem.com/goods/1077506",
+          "status": "pass",
+          "duration": "961ms"
+        },
+        {
+          "name": "1077507",
+          "url": "https://store.hanssem.com/goods/1077507",
+          "status": "pass",
+          "duration": "747ms"
+        },
+        {
+          "name": "1126127",
+          "url": "https://store.hanssem.com/goods/1126127",
+          "status": "pass",
+          "duration": "871ms"
+        },
+        {
+          "name": "1126225",
+          "url": "https://store.hanssem.com/goods/1126225",
+          "status": "pass",
+          "duration": "836ms"
+        },
+        {
+          "name": "1126223",
+          "url": "https://store.hanssem.com/goods/1126223",
+          "status": "pass",
+          "duration": "795ms"
+        },
+        {
+          "name": "1126244",
+          "url": "https://store.hanssem.com/goods/1126244",
+          "status": "pass",
+          "duration": "929ms"
+        },
+        {
+          "name": "1126243",
+          "url": "https://store.hanssem.com/goods/1126243",
+          "status": "pass",
+          "duration": "776ms"
+        },
+        {
+          "name": "1126216",
+          "url": "https://store.hanssem.com/goods/1126216",
+          "status": "pass",
+          "duration": "835ms"
+        },
+        {
+          "name": "1126241",
+          "url": "https://store.hanssem.com/goods/1126241",
           "status": "pass",
           "duration": "895ms"
         },
         {
-          "name": "891268",
+          "name": "1126240",
+          "url": "https://store.hanssem.com/goods/1126240",
           "status": "pass",
-          "duration": "880ms"
+          "duration": "982ms"
+        },
+        {
+          "name": "1126247",
+          "url": "https://store.hanssem.com/goods/1126247",
+          "status": "pass",
+          "duration": "999ms"
+        },
+        {
+          "name": "1126246",
+          "url": "https://store.hanssem.com/goods/1126246",
+          "status": "pass",
+          "duration": "792ms"
+        },
+        {
+          "name": "1126239",
+          "url": "https://store.hanssem.com/goods/1126239",
+          "status": "pass",
+          "duration": "944ms"
+        },
+        {
+          "name": "1126234",
+          "url": "https://store.hanssem.com/goods/1126234",
+          "status": "pass",
+          "duration": "916ms"
+        },
+        {
+          "name": "1126217",
+          "url": "https://store.hanssem.com/goods/1126217",
+          "status": "pass",
+          "duration": "900ms"
+        },
+        {
+          "name": "1126222",
+          "url": "https://store.hanssem.com/goods/1126222",
+          "status": "pass",
+          "duration": "761ms"
+        },
+        {
+          "name": "1126224",
+          "url": "https://store.hanssem.com/goods/1126224",
+          "status": "pass",
+          "duration": "901ms"
+        },
+        {
+          "name": "1126245",
+          "url": "https://store.hanssem.com/goods/1126245",
+          "status": "pass",
+          "duration": "901ms"
+        },
+        {
+          "name": "1126237",
+          "url": "https://store.hanssem.com/goods/1126237",
+          "status": "pass",
+          "duration": "851ms"
+        },
+        {
+          "name": "1126236",
+          "url": "https://store.hanssem.com/goods/1126236",
+          "status": "pass",
+          "duration": "1338ms"
+        },
+        {
+          "name": "1126235",
+          "url": "https://store.hanssem.com/goods/1126235",
+          "status": "pass",
+          "duration": "788ms"
+        },
+        {
+          "name": "1126226",
+          "url": "https://store.hanssem.com/goods/1126226",
+          "status": "pass",
+          "duration": "896ms"
+        },
+        {
+          "name": "1126238",
+          "url": "https://store.hanssem.com/goods/1126238",
+          "status": "pass",
+          "duration": "875ms"
+        },
+        {
+          "name": "1071018",
+          "url": "https://store.hanssem.com/goods/1071018",
+          "status": "pass",
+          "duration": "570ms"
+        },
+        {
+          "name": "973904",
+          "url": "https://store.hanssem.com/goods/973904",
+          "status": "pass",
+          "duration": "1067ms"
+        },
+        {
+          "name": "973871",
+          "url": "https://store.hanssem.com/goods/973871",
+          "status": "pass",
+          "duration": "1050ms"
+        },
+        {
+          "name": "289954",
+          "url": "https://store.hanssem.com/goods/289954",
+          "status": "pass",
+          "duration": "583ms"
+        },
+        {
+          "name": "289959",
+          "url": "https://store.hanssem.com/goods/289959",
+          "status": "pass",
+          "duration": "992ms"
+        },
+        {
+          "name": "857489",
+          "url": "https://store.hanssem.com/goods/857489",
+          "status": "pass",
+          "duration": "874ms"
+        },
+        {
+          "name": "262290",
+          "url": "https://store.hanssem.com/goods/262290",
+          "status": "pass",
+          "duration": "586ms"
+        },
+        {
+          "name": "1125556",
+          "url": "https://store.hanssem.com/goods/1125556",
+          "status": "pass",
+          "duration": "725ms"
+        },
+        {
+          "name": "101683",
+          "url": "https://store.hanssem.com/goods/101683",
+          "status": "pass",
+          "duration": "841ms"
+        },
+        {
+          "name": "99692",
+          "url": "https://store.hanssem.com/goods/99692",
+          "status": "pass",
+          "duration": "565ms"
+        },
+        {
+          "name": "1071030",
+          "url": "https://store.hanssem.com/goods/1071030",
+          "status": "pass",
+          "duration": "983ms"
+        },
+        {
+          "name": "37963",
+          "url": "https://store.hanssem.com/goods/37963",
+          "status": "pass",
+          "duration": "825ms"
+        },
+        {
+          "name": "20075?page=1",
+          "url": "https://store.hanssem.com/category/20075?page=1",
+          "status": "pass",
+          "duration": "1929ms"
+        },
+        {
+          "name": "20075?page=2",
+          "url": "https://store.hanssem.com/category/20075?page=2",
+          "status": "pass",
+          "duration": "551ms"
+        },
+        {
+          "name": "20075?page=3",
+          "url": "https://store.hanssem.com/category/20075?page=3",
+          "status": "pass",
+          "duration": "588ms"
+        },
+        {
+          "name": "20075?page=4",
+          "url": "https://store.hanssem.com/category/20075?page=4",
+          "status": "pass",
+          "duration": "801ms"
+        },
+        {
+          "name": "20075?page=5",
+          "url": "https://store.hanssem.com/category/20075?page=5",
+          "status": "pass",
+          "duration": "569ms"
+        },
+        {
+          "name": "20075?page=6",
+          "url": "https://store.hanssem.com/category/20075?page=6",
+          "status": "pass",
+          "duration": "684ms"
+        },
+        {
+          "name": "20075?page=7",
+          "url": "https://store.hanssem.com/category/20075?page=7",
+          "status": "pass",
+          "duration": "612ms"
+        },
+        {
+          "name": "20075?page=8",
+          "url": "https://store.hanssem.com/category/20075?page=8",
+          "status": "pass",
+          "duration": "621ms"
+        },
+        {
+          "name": "20075?page=9",
+          "url": "https://store.hanssem.com/category/20075?page=9",
+          "status": "pass",
+          "duration": "612ms"
+        },
+        {
+          "name": "20075?page=10",
+          "url": "https://store.hanssem.com/category/20075?page=10",
+          "status": "pass",
+          "duration": "595ms"
+        },
+        {
+          "name": "20099",
+          "url": "https://store.hanssem.com/category/20099",
+          "status": "pass",
+          "duration": "1148ms"
+        },
+        {
+          "name": "20100",
+          "url": "https://store.hanssem.com/category/20100",
+          "status": "pass",
+          "duration": "420ms"
+        },
+        {
+          "name": "20101",
+          "url": "https://store.hanssem.com/category/20101",
+          "status": "pass",
+          "duration": "776ms"
+        },
+        {
+          "name": "1058212",
+          "url": "https://store.hanssem.com/goods/1058212",
+          "status": "pass",
+          "duration": "778ms"
+        },
+        {
+          "name": "1058201",
+          "url": "https://store.hanssem.com/goods/1058201",
+          "status": "pass",
+          "duration": "1089ms"
+        },
+        {
+          "name": "1058200",
+          "url": "https://store.hanssem.com/goods/1058200",
+          "status": "pass",
+          "duration": "821ms"
+        },
+        {
+          "name": "1058203",
+          "url": "https://store.hanssem.com/goods/1058203",
+          "status": "pass",
+          "duration": "496ms"
+        },
+        {
+          "name": "1058202",
+          "url": "https://store.hanssem.com/goods/1058202",
+          "status": "pass",
+          "duration": "871ms"
+        },
+        {
+          "name": "1058204",
+          "url": "https://store.hanssem.com/goods/1058204",
+          "status": "pass",
+          "duration": "824ms"
+        },
+        {
+          "name": "1058206",
+          "url": "https://store.hanssem.com/goods/1058206",
+          "status": "pass",
+          "duration": "952ms"
+        },
+        {
+          "name": "1058199",
+          "url": "https://store.hanssem.com/goods/1058199",
+          "status": "pass",
+          "duration": "831ms"
+        },
+        {
+          "name": "1058207",
+          "url": "https://store.hanssem.com/goods/1058207",
+          "status": "pass",
+          "duration": "792ms"
+        },
+        {
+          "name": "1058208",
+          "url": "https://store.hanssem.com/goods/1058208",
+          "status": "pass",
+          "duration": "774ms"
+        },
+        {
+          "name": "992516",
+          "url": "https://store.hanssem.com/goods/992516",
+          "status": "pass",
+          "duration": "466ms"
+        },
+        {
+          "name": "893120",
+          "url": "https://store.hanssem.com/goods/893120",
+          "status": "pass",
+          "duration": "838ms"
+        },
+        {
+          "name": "893087",
+          "url": "https://store.hanssem.com/goods/893087",
+          "status": "pass",
+          "duration": "854ms"
+        },
+        {
+          "name": "975161",
+          "url": "https://store.hanssem.com/goods/975161",
+          "status": "pass",
+          "duration": "552ms"
+        },
+        {
+          "name": "1032599",
+          "url": "https://store.hanssem.com/goods/1032599",
+          "status": "pass",
+          "duration": "763ms"
+        },
+        {
+          "name": "1112413",
+          "url": "https://store.hanssem.com/goods/1112413",
+          "status": "pass",
+          "duration": "882ms"
+        },
+        {
+          "name": "1117930",
+          "url": "https://store.hanssem.com/goods/1117930",
+          "status": "pass",
+          "duration": "900ms"
+        },
+        {
+          "name": "975191",
+          "url": "https://store.hanssem.com/goods/975191",
+          "status": "pass",
+          "duration": "851ms"
+        },
+        {
+          "name": "1117932",
+          "url": "https://store.hanssem.com/goods/1117932",
+          "status": "pass",
+          "duration": "788ms"
+        },
+        {
+          "name": "993108",
+          "url": "https://store.hanssem.com/goods/993108",
+          "status": "pass",
+          "duration": "737ms"
+        },
+        {
+          "name": "1112420",
+          "url": "https://store.hanssem.com/goods/1112420",
+          "status": "pass",
+          "duration": "1015ms"
+        },
+        {
+          "name": "892990",
+          "url": "https://store.hanssem.com/goods/892990",
+          "status": "pass",
+          "duration": "752ms"
+        },
+        {
+          "name": "20076?page=1",
+          "url": "https://store.hanssem.com/category/20076?page=1",
+          "status": "pass",
+          "duration": "1151ms"
+        },
+        {
+          "name": "20076?page=2",
+          "url": "https://store.hanssem.com/category/20076?page=2",
+          "status": "pass",
+          "duration": "337ms"
+        },
+        {
+          "name": "20076?page=3",
+          "url": "https://store.hanssem.com/category/20076?page=3",
+          "status": "pass",
+          "duration": "324ms"
+        },
+        {
+          "name": "20076?page=4",
+          "url": "https://store.hanssem.com/category/20076?page=4",
+          "status": "pass",
+          "duration": "356ms"
+        },
+        {
+          "name": "20076?page=5",
+          "url": "https://store.hanssem.com/category/20076?page=5",
+          "status": "pass",
+          "duration": "354ms"
+        },
+        {
+          "name": "20076?page=6",
+          "url": "https://store.hanssem.com/category/20076?page=6",
+          "status": "pass",
+          "duration": "431ms"
+        },
+        {
+          "name": "20076?page=7",
+          "url": "https://store.hanssem.com/category/20076?page=7",
+          "status": "pass",
+          "duration": "305ms"
+        },
+        {
+          "name": "20076?page=8",
+          "url": "https://store.hanssem.com/category/20076?page=8",
+          "status": "pass",
+          "duration": "464ms"
+        },
+        {
+          "name": "20076?page=9",
+          "url": "https://store.hanssem.com/category/20076?page=9",
+          "status": "pass",
+          "duration": "331ms"
+        },
+        {
+          "name": "20076?page=10",
+          "url": "https://store.hanssem.com/category/20076?page=10",
+          "status": "pass",
+          "duration": "423ms"
+        },
+        {
+          "name": "20102",
+          "url": "https://store.hanssem.com/category/20102",
+          "status": "pass",
+          "duration": "886ms"
+        },
+        {
+          "name": "20103",
+          "url": "https://store.hanssem.com/category/20103",
+          "status": "pass",
+          "duration": "1272ms"
+        },
+        {
+          "name": "20104",
+          "url": "https://store.hanssem.com/category/20104",
+          "status": "pass",
+          "duration": "844ms"
+        },
+        {
+          "name": "20105",
+          "url": "https://store.hanssem.com/category/20105",
+          "status": "pass",
+          "duration": "868ms"
+        },
+        {
+          "name": "20106",
+          "url": "https://store.hanssem.com/category/20106",
+          "status": "pass",
+          "duration": "849ms"
+        },
+        {
+          "name": "20107",
+          "url": "https://store.hanssem.com/category/20107",
+          "status": "pass",
+          "duration": "678ms"
+        },
+        {
+          "name": "20108",
+          "url": "https://store.hanssem.com/category/20108",
+          "status": "pass",
+          "duration": "560ms"
+        },
+        {
+          "name": "20110",
+          "url": "https://store.hanssem.com/category/20110",
+          "status": "pass",
+          "duration": "773ms"
+        },
+        {
+          "name": "20111",
+          "url": "https://store.hanssem.com/category/20111",
+          "status": "pass",
+          "duration": "285ms"
+        },
+        {
+          "name": "20112",
+          "url": "https://store.hanssem.com/category/20112",
+          "status": "pass",
+          "duration": "352ms"
+        },
+        {
+          "name": "20113",
+          "url": "https://store.hanssem.com/category/20113",
+          "status": "pass",
+          "duration": "791ms"
+        },
+        {
+          "name": "20114",
+          "url": "https://store.hanssem.com/category/20114",
+          "status": "pass",
+          "duration": "208ms"
+        },
+        {
+          "name": "19408",
+          "url": "https://store.hanssem.com/plan/19408",
+          "status": "pass",
+          "duration": "301ms"
+        },
+        {
+          "name": "19371",
+          "url": "https://store.hanssem.com/plan/19371",
+          "status": "pass",
+          "duration": "125ms"
+        },
+        {
+          "name": "769274",
+          "url": "https://store.hanssem.com/goods/769274",
+          "status": "pass",
+          "duration": "868ms"
+        },
+        {
+          "name": "72096",
+          "url": "https://store.hanssem.com/goods/72096",
+          "status": "pass",
+          "duration": "984ms"
+        },
+        {
+          "name": "677168",
+          "url": "https://store.hanssem.com/goods/677168",
+          "status": "pass",
+          "duration": "797ms"
+        },
+        {
+          "name": "1061734",
+          "url": "https://store.hanssem.com/goods/1061734",
+          "status": "pass",
+          "duration": "819ms"
+        },
+        {
+          "name": "384982",
+          "url": "https://store.hanssem.com/goods/384982",
+          "status": "pass",
+          "duration": "918ms"
+        },
+        {
+          "name": "205576",
+          "url": "https://store.hanssem.com/goods/205576",
+          "status": "pass",
+          "duration": "831ms"
+        },
+        {
+          "name": "890030",
+          "url": "https://store.hanssem.com/goods/890030",
+          "status": "pass",
+          "duration": "1034ms"
+        },
+        {
+          "name": "1125799",
+          "url": "https://store.hanssem.com/goods/1125799",
+          "status": "pass",
+          "duration": "772ms"
+        },
+        {
+          "name": "1125281",
+          "url": "https://store.hanssem.com/goods/1125281",
+          "status": "pass",
+          "duration": "972ms"
+        },
+        {
+          "name": "603654",
+          "url": "https://store.hanssem.com/goods/603654",
+          "status": "pass",
+          "duration": "824ms"
+        },
+        {
+          "name": "1120451",
+          "url": "https://store.hanssem.com/goods/1120451",
+          "status": "pass",
+          "duration": "839ms"
+        },
+        {
+          "name": "1124076",
+          "url": "https://store.hanssem.com/goods/1124076",
+          "status": "pass",
+          "duration": "784ms"
+        },
+        {
+          "name": "1124078",
+          "url": "https://store.hanssem.com/goods/1124078",
+          "status": "pass",
+          "duration": "848ms"
+        },
+        {
+          "name": "1129161",
+          "url": "https://store.hanssem.com/goods/1129161",
+          "status": "pass",
+          "duration": "1182ms"
+        },
+        {
+          "name": "1132450",
+          "url": "https://store.hanssem.com/goods/1132450",
+          "status": "pass",
+          "duration": "808ms"
+        },
+        {
+          "name": "1129160",
+          "url": "https://store.hanssem.com/goods/1129160",
+          "status": "pass",
+          "duration": "814ms"
+        },
+        {
+          "name": "1120450",
+          "url": "https://store.hanssem.com/goods/1120450",
+          "status": "pass",
+          "duration": "754ms"
+        },
+        {
+          "name": "1120449",
+          "url": "https://store.hanssem.com/goods/1120449",
+          "status": "pass",
+          "duration": "749ms"
+        },
+        {
+          "name": "19328",
+          "url": "https://store.hanssem.com/plan/19328",
+          "status": "pass",
+          "duration": "151ms"
+        },
+        {
+          "name": "19369",
+          "url": "https://store.hanssem.com/plan/19369",
+          "status": "pass",
+          "duration": "624ms"
+        },
+        {
+          "name": "19370",
+          "url": "https://store.hanssem.com/plan/19370",
+          "status": "pass",
+          "duration": "151ms"
+        },
+        {
+          "name": "93355",
+          "url": "https://store.hanssem.com/goods/93355",
+          "status": "pass",
+          "duration": "427ms"
+        },
+        {
+          "name": "1113358",
+          "url": "https://store.hanssem.com/goods/1113358",
+          "status": "pass",
+          "duration": "809ms"
+        },
+        {
+          "name": "245358",
+          "url": "https://store.hanssem.com/goods/245358",
+          "status": "pass",
+          "duration": "476ms"
+        },
+        {
+          "name": "846614",
+          "url": "https://store.hanssem.com/goods/846614",
+          "status": "pass",
+          "duration": "780ms"
+        },
+        {
+          "name": "1091244",
+          "url": "https://store.hanssem.com/goods/1091244",
+          "status": "pass",
+          "duration": "775ms"
+        },
+        {
+          "name": "715372",
+          "url": "https://store.hanssem.com/goods/715372",
+          "status": "pass",
+          "duration": "935ms"
+        },
+        {
+          "name": "996174",
+          "url": "https://store.hanssem.com/goods/996174",
+          "status": "pass",
+          "duration": "781ms"
+        },
+        {
+          "name": "816116",
+          "url": "https://store.hanssem.com/goods/816116",
+          "status": "pass",
+          "duration": "814ms"
+        },
+        {
+          "name": "1069169",
+          "url": "https://store.hanssem.com/goods/1069169",
+          "status": "pass",
+          "duration": "1170ms"
+        },
+        {
+          "name": "648715",
+          "url": "https://store.hanssem.com/goods/648715",
+          "status": "pass",
+          "duration": "2885ms"
+        },
+        {
+          "name": "1068343",
+          "url": "https://store.hanssem.com/goods/1068343",
+          "status": "pass",
+          "duration": "859ms"
+        },
+        {
+          "name": "1069749",
+          "url": "https://store.hanssem.com/goods/1069749",
+          "status": "pass",
+          "duration": "818ms"
+        },
+        {
+          "name": "609986",
+          "url": "https://store.hanssem.com/goods/609986",
+          "status": "pass",
+          "duration": "971ms"
+        },
+        {
+          "name": "1051521",
+          "url": "https://store.hanssem.com/goods/1051521",
+          "status": "pass",
+          "duration": "918ms"
+        },
+        {
+          "name": "837145",
+          "url": "https://store.hanssem.com/goods/837145",
+          "status": "pass",
+          "duration": "860ms"
+        },
+        {
+          "name": "127267",
+          "url": "https://store.hanssem.com/goods/127267",
+          "status": "pass",
+          "duration": "765ms"
+        },
+        {
+          "name": "708091",
+          "url": "https://store.hanssem.com/goods/708091",
+          "status": "pass",
+          "duration": "858ms"
+        },
+        {
+          "name": "383719",
+          "url": "https://store.hanssem.com/goods/383719",
+          "status": "pass",
+          "duration": "948ms"
+        },
+        {
+          "name": "834236",
+          "url": "https://store.hanssem.com/goods/834236",
+          "status": "pass",
+          "duration": "802ms"
+        },
+        {
+          "name": "634708",
+          "url": "https://store.hanssem.com/goods/634708",
+          "status": "pass",
+          "duration": "844ms"
+        },
+        {
+          "name": "1116105",
+          "url": "https://store.hanssem.com/goods/1116105",
+          "status": "pass",
+          "duration": "1031ms"
+        },
+        {
+          "name": "384968",
+          "url": "https://store.hanssem.com/goods/384968",
+          "status": "pass",
+          "duration": "1559ms"
+        },
+        {
+          "name": "684860",
+          "url": "https://store.hanssem.com/goods/684860",
+          "status": "pass",
+          "duration": "816ms"
+        },
+        {
+          "name": "820733",
+          "url": "https://store.hanssem.com/goods/820733",
+          "status": "pass",
+          "duration": "899ms"
+        },
+        {
+          "name": "679502",
+          "url": "https://store.hanssem.com/goods/679502",
+          "status": "pass",
+          "duration": "931ms"
+        },
+        {
+          "name": "924423",
+          "url": "https://store.hanssem.com/goods/924423",
+          "status": "pass",
+          "duration": "943ms"
+        },
+        {
+          "name": "180878",
+          "url": "https://store.hanssem.com/goods/180878",
+          "status": "pass",
+          "duration": "1029ms"
+        },
+        {
+          "name": "1089039",
+          "url": "https://store.hanssem.com/goods/1089039",
+          "status": "pass",
+          "duration": "1362ms"
+        },
+        {
+          "name": "887412",
+          "url": "https://store.hanssem.com/goods/887412",
+          "status": "pass",
+          "duration": "1035ms"
+        },
+        {
+          "name": "20077?page=1",
+          "url": "https://store.hanssem.com/category/20077?page=1",
+          "status": "pass",
+          "duration": "3650ms"
+        },
+        {
+          "name": "20077?page=2",
+          "url": "https://store.hanssem.com/category/20077?page=2",
+          "status": "pass",
+          "duration": "1101ms"
+        },
+        {
+          "name": "20077?page=3",
+          "url": "https://store.hanssem.com/category/20077?page=3",
+          "status": "pass",
+          "duration": "1067ms"
+        },
+        {
+          "name": "20077?page=4",
+          "url": "https://store.hanssem.com/category/20077?page=4",
+          "status": "pass",
+          "duration": "746ms"
+        },
+        {
+          "name": "20077?page=5",
+          "url": "https://store.hanssem.com/category/20077?page=5",
+          "status": "pass",
+          "duration": "699ms"
+        },
+        {
+          "name": "20077?page=6",
+          "url": "https://store.hanssem.com/category/20077?page=6",
+          "status": "pass",
+          "duration": "868ms"
+        },
+        {
+          "name": "20077?page=7",
+          "url": "https://store.hanssem.com/category/20077?page=7",
+          "status": "pass",
+          "duration": "795ms"
+        },
+        {
+          "name": "20077?page=8",
+          "url": "https://store.hanssem.com/category/20077?page=8",
+          "status": "pass",
+          "duration": "747ms"
+        },
+        {
+          "name": "20077?page=9",
+          "url": "https://store.hanssem.com/category/20077?page=9",
+          "status": "pass",
+          "duration": "848ms"
+        },
+        {
+          "name": "20077?page=10",
+          "url": "https://store.hanssem.com/category/20077?page=10",
+          "status": "pass",
+          "duration": "1069ms"
+        },
+        {
+          "name": "20249",
+          "url": "https://store.hanssem.com/category/20249",
+          "status": "pass",
+          "duration": "260ms"
+        },
+        {
+          "name": "20250",
+          "url": "https://store.hanssem.com/category/20250",
+          "status": "pass",
+          "duration": "351ms"
+        },
+        {
+          "name": "20251",
+          "url": "https://store.hanssem.com/category/20251",
+          "status": "pass",
+          "duration": "591ms"
+        },
+        {
+          "name": "20252",
+          "url": "https://store.hanssem.com/category/20252",
+          "status": "pass",
+          "duration": "323ms"
+        },
+        {
+          "name": "20253",
+          "url": "https://store.hanssem.com/category/20253",
+          "status": "pass",
+          "duration": "456ms"
+        },
+        {
+          "name": "870522",
+          "url": "https://store.hanssem.com/goods/870522",
+          "status": "pass",
+          "duration": "1022ms"
+        },
+        {
+          "name": "873941",
+          "url": "https://store.hanssem.com/goods/873941",
+          "status": "pass",
+          "duration": "1986ms"
+        },
+        {
+          "name": "581240",
+          "url": "https://store.hanssem.com/goods/581240",
+          "status": "pass",
+          "duration": "945ms"
+        },
+        {
+          "name": "886426",
+          "url": "https://store.hanssem.com/goods/886426",
+          "status": "pass",
+          "duration": "1048ms"
+        },
+        {
+          "name": "577840",
+          "url": "https://store.hanssem.com/goods/577840",
+          "status": "pass",
+          "duration": "1011ms"
+        },
+        {
+          "name": "851186",
+          "url": "https://store.hanssem.com/goods/851186",
+          "status": "pass",
+          "duration": "896ms"
+        },
+        {
+          "name": "19652",
+          "url": "https://store.hanssem.com/plan/19652",
+          "status": "pass",
+          "duration": "211ms"
+        },
+        {
+          "name": "19653",
+          "url": "https://store.hanssem.com/plan/19653",
+          "status": "pass",
+          "duration": "294ms"
+        },
+        {
+          "name": "19654",
+          "url": "https://store.hanssem.com/plan/19654",
+          "status": "pass",
+          "duration": "246ms"
+        },
+        {
+          "name": "19655",
+          "url": "https://store.hanssem.com/plan/19655",
+          "status": "pass",
+          "duration": "188ms"
+        },
+        {
+          "name": "590451",
+          "url": "https://store.hanssem.com/goods/590451",
+          "status": "pass",
+          "duration": "1021ms"
+        },
+        {
+          "name": "743760",
+          "url": "https://store.hanssem.com/goods/743760",
+          "status": "pass",
+          "duration": "1130ms"
+        },
+        {
+          "name": "816044",
+          "url": "https://store.hanssem.com/goods/816044",
+          "status": "pass",
+          "duration": "924ms"
+        },
+        {
+          "name": "590120",
+          "url": "https://store.hanssem.com/goods/590120",
+          "status": "pass",
+          "duration": "827ms"
+        },
+        {
+          "name": "590160",
+          "url": "https://store.hanssem.com/goods/590160",
+          "status": "pass",
+          "duration": "1076ms"
+        },
+        {
+          "name": "589910",
+          "url": "https://store.hanssem.com/goods/589910",
+          "status": "pass",
+          "duration": "907ms"
+        },
+        {
+          "name": "1123530",
+          "url": "https://store.hanssem.com/goods/1123530",
+          "status": "pass",
+          "duration": "1067ms"
+        },
+        {
+          "name": "1123528",
+          "url": "https://store.hanssem.com/goods/1123528",
+          "status": "pass",
+          "duration": "812ms"
+        },
+        {
+          "name": "384981",
+          "url": "https://store.hanssem.com/goods/384981",
+          "status": "pass",
+          "duration": "826ms"
+        },
+        {
+          "name": "835145",
+          "url": "https://store.hanssem.com/goods/835145",
+          "status": "pass",
+          "duration": "903ms"
+        },
+        {
+          "name": "925747",
+          "url": "https://store.hanssem.com/goods/925747",
+          "status": "pass",
+          "duration": "1130ms"
         }
       ]
     }
