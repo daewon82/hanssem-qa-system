@@ -463,15 +463,25 @@
             ? `<span class="badge badge-warn">경고</span>`
             : `<span class="badge badge-fail">실패</span>`;
 
-        const sheetBtn = r.sheetUrl
-          ? `<a href="${r.sheetUrl}" target="_blank" rel="noopener" class="rc4-sheet-btn">
+        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json" };
+        const detailFile = detailFileMap[r.id];
+        const sheetBtn = detailFile
+          ? `<a href="detail.html?id=${r.id}" class="rc4-sheet-btn">
                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                  <path d="M2 2h4v1H3v6h6V7h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/>
                  <path d="M7 2h3v3h-1V3.7L5.85 6.85l-.7-.7L8.3 3H7V2z" fill="currentColor"/>
                </svg>
                리포트 상세보기
              </a>`
-          : "";
+          : r.sheetUrl
+            ? `<a href="${r.sheetUrl}" target="_blank" rel="noopener" class="rc4-sheet-btn">
+                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                   <path d="M2 2h4v1H3v6h6V7h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/>
+                   <path d="M7 2h3v3h-1V3.7L5.85 6.85l-.7-.7L8.3 3H7V2z" fill="currentColor"/>
+                 </svg>
+                 리포트 상세보기
+               </a>`
+            : "";
 
         const updatedLine = r.lastUpdated
           ? `<div class="rc4-updated">최근 실행: ${r.lastUpdated}</div>`

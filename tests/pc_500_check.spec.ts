@@ -334,10 +334,30 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   fs.writeFileSync("public/results.json", JSON.stringify(existingData, null, 2));
 
   // -----------------------------
+  // pc_500.json 전체 결과 저장
+  // -----------------------------
+  fs.writeFileSync(
+    "public/pc_500.json",
+    JSON.stringify(
+      {
+        title: "운영환경 PC 500개 랜딩 테스트",
+        lastUpdated: kst,
+        total: totalCount,
+        pass: passCount,
+        fail: failCount,
+        passRate,
+        cases: caseResults,
+      },
+      null,
+      2,
+    ),
+  );
+
+  // -----------------------------
   // Git push + Vercel 직접 배포
   // -----------------------------
   try {
-    execSync("git add public/results.json");
+    execSync("git add public/results.json public/pc_500.json");
     const status = execSync("git status --porcelain").toString().trim();
     console.log(`📋 Git 상태: ${status || "변경 없음"}`);
 

@@ -33,7 +33,7 @@ const SAMPLE_GOODS_ID = "837513";
 let passCount = 0;
 let failCount = 0;
 const caseResults: any[] = [];
-const failedUrls: string[] = [];
+const failedTests: string[] = [];
 
 // ─── 유틸 ────────────────────────────────────────────────────
 async function waitForPageReady(page: Page, extra = 1500) {
@@ -58,7 +58,7 @@ test.afterEach(async ({ page }, testInfo) => {
   if (!isPassed) {
     testInfo.annotations.push({ type: "url", description: currentUrl });
     failCount++;
-    failedUrls.push(currentUrl);
+    failedTests.push(`${testInfo.title}\n  ${currentUrl}`);
   } else {
     passCount++;
   }
@@ -114,8 +114,26 @@ test.afterAll(async () => {
 
   fs.writeFileSync("public/results.json", JSON.stringify(existingData, null, 2));
 
+  // pc_e2e.json 전체 결과 저장
+  fs.writeFileSync(
+    "public/pc_e2e.json",
+    JSON.stringify(
+      {
+        title: REPORT_TITLE,
+        lastUpdated: kst,
+        total: totalCount,
+        pass: passCount,
+        fail: failCount,
+        passRate,
+        cases: caseResults,
+      },
+      null,
+      2,
+    ),
+  );
+
   try {
-    execSync("git add public/results.json");
+    execSync("git add public/results.json public/pc_e2e.json");
     const status = execSync("git status --porcelain").toString().trim();
     if (status) {
       execSync(`git commit -m "auto update ${Date.now()} [skip ci]"`);
@@ -140,8 +158,8 @@ test.afterAll(async () => {
   }
 
   try {
-    const failUrlText =
-      failedUrls.length > 0 ? failedUrls.slice(0, 10).join("\n") : "없음";
+    const failTestText =
+      failedTests.length > 0 ? failedTests.slice(0, 10).join("\n") : "없음";
     await axios.post(JANDI_WEBHOOK_URL, {
       body: `[${REPORT_TITLE}] 결과: ${passCount} 성공 / ${failCount} 실패`,
       connectColor: failCount > 0 ? "#FF4444" : "#00C73C",
@@ -150,7 +168,7 @@ test.afterAll(async () => {
           title: "결과 요약",
           description: `총 ${totalCount}건 / 통과율 ${passRate}%`,
         },
-        { title: "실패 테스트", description: failUrlText },
+        { title: "실패 테스트", description: failTestText },
         { title: "📊 리포트 보기", description: DASHBOARD_URL },
       ],
     });
