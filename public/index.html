@@ -224,9 +224,9 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 4px;
+        gap: 6px;
         font-size: 10px;
-        padding: 4px 7px;
+        padding: 5px 7px;
         background: var(--bg-stat);
         border-radius: 4px;
       }
@@ -238,9 +238,19 @@
         white-space: nowrap;
         font-weight: 500;
         flex: 1;
+        min-width: 0;
       }
       .rc4-fail-item a:hover { text-decoration: underline; }
-      .rc4-fail-dur { color: var(--text-hint); font-size: 9px; flex-shrink: 0; }
+      .rc4-fail-meta { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+      .rc4-fail-dur { color: var(--text-hint); font-size: 9px; }
+      .rc4-fail-reason {
+        font-size: 9px; font-weight: 700;
+        padding: 1px 5px; border-radius: 4px;
+        background: var(--red-bg); color: var(--red);
+        white-space: nowrap;
+      }
+      .rc4-fail-reason.perf { background: var(--amber-bg); color: var(--amber); }
+      .rc4-fail-reason.conn { background: #f3f4f6; color: var(--text-sub); }
       .rc4-fail-empty {
         font-size: 11px; color: var(--text-hint);
         padding: 10px 0; text-align: center;
@@ -365,11 +375,19 @@
 
         const failItems = failCases.length > 0
           ? failCases.slice(0, 15).map(c => {
-              const label = c.name || c.url || "";
-              const display = label.length > 50 ? "…" + label.slice(-47) : label;
+              const url = c.url || "";
+              const display = url.length > 55 ? "…" + url.slice(-52) : url;
+              const reason = c.reason || "";
+              const reasonClass = reason === "성능 지연" ? "perf"
+                                : reason === "접속 실패" ? "conn" : "";
+              const reasonBadge = reason
+                ? `<span class="rc4-fail-reason ${reasonClass}">${reason}</span>` : "";
               return `<li class="rc4-fail-item">
-                <a href="${c.url || '#'}" target="_blank" rel="noopener" title="${c.url || ''}">${display}</a>
-                <span class="rc4-fail-dur">${c.duration || ""}</span>
+                <a href="${url}" target="_blank" rel="noopener" title="${url}">${display}</a>
+                <span class="rc4-fail-meta">
+                  ${reasonBadge}
+                  <span class="rc4-fail-dur">${c.duration || ""}</span>
+                </span>
               </li>`;
             }).join("")
           : `<li class="rc4-fail-empty">실패 항목 없음</li>`;
