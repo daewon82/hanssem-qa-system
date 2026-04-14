@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, master]
   schedule:
-    - cron: "0 8 * * *" # KST 17시 (UTC 8시 = KST 17시)
+    - cron: "0 23 * * *" # KST 08시 (UTC 23시 = KST 다음날 08시)
 
 # git push 허용
 permissions:
@@ -20,9 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # git push 권한 명시
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # git commit/push 가능하게 설정
       - name: Setup Git User
         run: |
           git config --global user.name "github-actions"
@@ -43,7 +42,23 @@ jobs:
           echo "🚀 운영 PC 500개 랜딩 테스트 시작"
           npx playwright test
           echo "✅ 테스트 완료"
-        continue-on-error: true # 테스트 실패해도 이후 스텝(아티팩트 업로드 등) 계속 실행
+        continue-on-error: true
+
+      # results.json 변경사항 커밋 & 푸시 (한국 시간 기준)
+      - name: Commit and push results.json
+        run: |
+          git add public/results.json
+          KST=$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M:%S KST')
+          git diff --staged --quiet || git commit -m "자비스 리포트 업데이트: ${KST}"
+          git push
+        continue-on-error: true
+
+      # Vercel 배포
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        continue-on-error: true
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4

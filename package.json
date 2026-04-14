@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx playwright test",
     "deploy": "vercel --prod",
-    "report": "npx playwright test && node scripts/deploy.js"
+    "report": "npx playwright test && vercel --prod"
   },
   "keywords": [],
   "author": "dwlee",
