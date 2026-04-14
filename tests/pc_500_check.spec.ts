@@ -356,26 +356,31 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   );
 
   // -----------------------------
-  // Git push
+  // Git push + Vercel 직접 배포
   // -----------------------------
   try {
-    // 현재 브랜치 확인
-    const branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
-    console.log(`📌 현재 브랜치: ${branch}`);
-
     execSync("git add public/results.json");
     const status = execSync("git status --porcelain").toString().trim();
     console.log(`📋 Git 상태: ${status || "변경 없음"}`);
 
     if (status) {
-      execSync(`git commit -m "auto update ${Date.now()}"`);
-      const pushResult = execSync("git push origin HEAD:main --force").toString().trim();
-      console.log(`🚀 배포 완료: ${pushResult || "성공"}`);
+      // [skip ci] → GitHub Actions 재실행 방지
+      execSync(`git commit -m "auto update ${Date.now()} [skip ci]"`);
+      execSync("git push origin HEAD:main --force");
+      console.log("📤 GitHub push 완료");
     } else {
       console.log("⚠️ results.json 변경 없음 - 커밋 스킵");
     }
   } catch (err: any) {
     console.log("❌ Git 오류:", err.message);
+  }
+
+  // Vercel 직접 배포 (CI 우회, 즉시 반영)
+  try {
+    execSync("npx vercel --prod --yes", { stdio: "inherit" });
+    console.log("🚀 Vercel 배포 완료");
+  } catch (err: any) {
+    console.log("❌ Vercel 배포 오류:", err.message);
   }
 
   // -----------------------------
