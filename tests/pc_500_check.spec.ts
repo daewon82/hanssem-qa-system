@@ -10,21 +10,6 @@ import { google } from "googleapis";
 const TARGET_DOMAIN = "https://store.hanssem.com";
 const MAX_LINKS = 500;
 
-// 링크 풀 소진 시 순환 재수집할 카테고리 시드 URL
-const SEED_URLS = [
-  "https://store.hanssem.com",
-  "https://store.hanssem.com/furnishing",
-  "https://store.hanssem.com/interior",
-  "https://store.hanssem.com/kitchen",
-  "https://store.hanssem.com/bath",
-  "https://store.hanssem.com/bedroom",
-  "https://store.hanssem.com/living",
-  "https://store.hanssem.com/brand",
-  "https://store.hanssem.com/event",
-  "https://store.hanssem.com/new",
-  "https://store.hanssem.com/sale",
-  "https://store.hanssem.com/best",
-];
 const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
 const TEMPLATE_GID = 1626254051;
 const TOKEN_PATH = "/Users/dw/Web_E2E_Test/token.json";
@@ -206,9 +191,21 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
     const nextLink = Array.from(linkPool).find((l) => !visitedLinks.has(l));
 
     if (!nextLink) {
-      console.log("🔗 링크 풀 소진. 시드 URL 순환 재수집합니다...");
+      console.log("🔗 링크 풀 소진. 실제 수집된 상위 페이지에서 재수집합니다...");
+
+      // 방문한 링크 중 depth 1 경로(실제 존재하는 카테고리)를 시드로 활용
+      const seedCandidates = [
+        TARGET_DOMAIN,
+        ...Array.from(visitedLinks).filter((l) => {
+          try {
+            const path = new URL(l).pathname.split("/").filter(Boolean);
+            return path.length === 1;
+          } catch { return false; }
+        }),
+      ];
+
       let found = false;
-      for (const seedUrl of SEED_URLS) {
+      for (const seedUrl of seedCandidates) {
         try {
           await page.goto(seedUrl, {
             waitUntil: "domcontentloaded",
@@ -224,7 +221,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
         }
       }
       if (!found) {
-        console.log("⚠️ 모든 시드 URL 순환 후에도 새 링크 없음. 종료합니다.");
+        console.log("⚠️ 모든 시드 순환 후에도 새 링크 없음. 종료합니다.");
         break;
       }
       continue;
@@ -362,15 +359,23 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   // Git push
   // -----------------------------
   try {
+    // 현재 브랜치 확인
+    const branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+    console.log(`📌 현재 브랜치: ${branch}`);
+
     execSync("git add public/results.json");
     const status = execSync("git status --porcelain").toString().trim();
+    console.log(`📋 Git 상태: ${status || "변경 없음"}`);
+
     if (status) {
       execSync(`git commit -m "auto update ${Date.now()}"`);
-      execSync("git push origin main --force");
-      console.log("🚀 강제 배포 완료");
+      const pushResult = execSync("git push origin HEAD:main --force").toString().trim();
+      console.log(`🚀 배포 완료: ${pushResult || "성공"}`);
+    } else {
+      console.log("⚠️ results.json 변경 없음 - 커밋 스킵");
     }
-  } catch {
-    console.log("⚠️ Git 스킵");
+  } catch (err: any) {
+    console.log("❌ Git 오류:", err.message);
   }
 
   // -----------------------------
