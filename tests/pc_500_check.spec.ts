@@ -23,6 +23,7 @@ const EXCLUDE_KEYWORDS = [
   "settle",
   "cart",
   "member",
+  "company.hanssem.com",
 ];
 
 const JANDI_WEBHOOK_URL =
@@ -146,7 +147,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
             (h) =>
               h &&
               h.startsWith("http") &&
-              h.includes("hanssem.com") &&
+              h.includes("store.hanssem.com") &&
               !h.includes("#"),
           ),
       );
@@ -333,27 +334,34 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   const kst = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
   const sheetUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/edit#gid=${newSheet.sheetId}`;
 
-  fs.writeFileSync(
-    "public/results.json",
-    JSON.stringify(
-      {
-        lastUpdated: kst,
-        reports: [
-          {
-            title: "한샘몰 자동 테스트",
-            total: totalCount,
-            pass: passCount,
-            fail: failCount,
-            passRate,
-            sheetUrl,
-            cases: caseResults.filter((c) => c.status === "fail"),
-          },
-        ],
-      },
-      null,
-      2,
-    ),
-  );
+  // 기존 results.json 읽기 (다른 리포트 슬롯 보존)
+  let existingData: any = { lastUpdated: kst, reports: [] };
+  try {
+    const raw = fs.readFileSync("public/results.json", "utf8");
+    existingData = JSON.parse(raw);
+  } catch {}
+
+  const newReport = {
+    id: "pc-landing",
+    title: "운영환경 PC 500개 랜딩 테스트",
+    lastUpdated: kst,
+    total: totalCount,
+    pass: passCount,
+    fail: failCount,
+    passRate,
+    sheetUrl,
+    cases: caseResults.filter((c) => c.status === "fail"),
+  };
+
+  const reportIdx = existingData.reports.findIndex((r: any) => r.id === "pc-landing");
+  if (reportIdx >= 0) {
+    existingData.reports[reportIdx] = newReport;
+  } else {
+    existingData.reports.push(newReport);
+  }
+  existingData.lastUpdated = kst;
+
+  fs.writeFileSync("public/results.json", JSON.stringify(existingData, null, 2));
 
   // -----------------------------
   // Git push + Vercel 직접 배포
@@ -375,9 +383,13 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
     console.log("❌ Git 오류:", err.message);
   }
 
-  // Vercel 직접 배포 (CI 우회, 즉시 반영)
+  // Vercel 직접 배포 (--force: 이전 배포와 동일해도 항상 강제 재배포)
   try {
-    execSync("npx vercel --prod --yes", { stdio: "inherit" });
+    const vercelToken = process.env.VERCEL_TOKEN;
+    const vercelCmd = vercelToken
+      ? `npx vercel --prod --yes --force --token=${vercelToken}`
+      : "npx vercel --prod --yes --force";
+    execSync(vercelCmd, { stdio: "inherit" });
     console.log("🚀 Vercel 배포 완료");
   } catch (err: any) {
     console.log("❌ Vercel 배포 오류:", err.message);
@@ -391,7 +403,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       failedUrls.length > 0 ? failedUrls.slice(0, 10).join("\n") : "없음";
 
     await axios.post(JANDI_WEBHOOK_URL, {
-      body: `결과: ${passCount} 성공 / ${failCount} 실패`,
+      body: `[운영환경 PC 500개 랜딩 테스트] 결과: ${passCount} 성공 / ${failCount} 실패`,
       connectColor: failCount > 0 ? "#FF4444" : "#00C73C",
       connectInfo: [
         {
