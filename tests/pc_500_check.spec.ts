@@ -4,7 +4,7 @@ import axios from "axios";
 import { execSync } from "child_process";
 
 const TARGET_DOMAIN = "https://store.hanssem.com";
-const MAX_LINKS = 500;
+const MAX_LINKS = 50;
 const EXCLUDE_KEYWORDS = [
   "logout",
   "login",
