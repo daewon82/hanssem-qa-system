@@ -496,27 +496,6 @@
       </div>
     </div>
 
-    <div class="section-label" id="kpi-date-label">오늘의 품질 지표</div>
-    <div class="kpi-row" id="kpi-row">
-      <div class="kpi"><div class="kpi-label">데이터 로드 중...</div></div>
-    </div>
-
-    <div class="section-label">테스트 결과 리포트</div>
-    <div class="reports-grid" id="reports-grid">
-      <div class="report-card" style="grid-column: 1/-1">
-        <div
-          style="
-            text-align: center;
-            padding: 30px 0;
-            color: var(--text-hint);
-            font-size: 13px;
-          "
-        >
-          데이터를 불러오는 중...
-        </div>
-      </div>
-    </div>
-
     <div class="section-label">월별 긴급 배포 건수</div>
     <div class="chart-card">
       <div class="chart-header">
@@ -552,6 +531,27 @@
           "
         >
           차트 데이터 로드 중...
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label" id="kpi-date-label">오늘의 품질 지표</div>
+    <div class="kpi-row" id="kpi-row">
+      <div class="kpi"><div class="kpi-label">데이터 로드 중...</div></div>
+    </div>
+
+    <div class="section-label">테스트 결과 리포트</div>
+    <div class="reports-grid" id="reports-grid">
+      <div class="report-card" style="grid-column: 1/-1">
+        <div
+          style="
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-hint);
+            font-size: 13px;
+          "
+        >
+          데이터를 불러오는 중...
         </div>
       </div>
     </div>
@@ -669,7 +669,7 @@
           .map(
             (c) => `
           <tr>
-            <td>${c.name}</td>
+            <td>${c.status === "fail" && c.url ? `<a href="${c.url}" target="_blank" rel="noopener" style="color:var(--red);font-weight:600;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${c.name}</a>` : c.name}</td>
             ${r.colPlatform ? `<td>${chipHtml(c.platform, "blue")}</td>` : ""}
             <td>${statusDot(c.status)}${statusLabel(c.status)}</td>
             <td>${c.duration || "—"}</td>

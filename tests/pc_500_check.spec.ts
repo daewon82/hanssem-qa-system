@@ -127,10 +127,15 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
         isPass = true;
       }
     } catch {
-      const safeUrl = nextLink.replace(/[/\\?%*:|"<>]/g, "-");
-      await page.screenshot({
-        path: `fail_evidence/${safeUrl}.png`,
-      });
+      try {
+        const safeUrl = nextLink.replace(/[/\\?%*:|"<>]/g, "-");
+        await page.screenshot({
+          path: `fail_evidence/${safeUrl}.png`,
+          timeout: 5000,
+        });
+      } catch {
+        // 스크린샷 실패 시 무시하고 계속 진행
+      }
     }
 
     const elapsed = Date.now() - startTime;
@@ -143,6 +148,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
 
     caseResults.push({
       name: nextLink.split("/").pop() || "HOME",
+      url: nextLink,
       status: isPass ? "pass" : "fail",
       duration: `${elapsed}ms`,
     });
