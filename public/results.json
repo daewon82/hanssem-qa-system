@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. PM 9:14:15",
+  "lastUpdated": "2026. 4. 14. PM 9:14:52",
   "incidents": {
     "total": 23,
     "hotfix": 23,
@@ -327,18 +327,18 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 접근성ID 테스트",
-      "lastUpdated": "2026. 4. 14. PM 9:14:15",
-      "total": 1,
-      "pass": 0,
+      "lastUpdated": "2026. 4. 14. PM 9:14:52",
+      "total": 2,
+      "pass": 1,
       "fail": 1,
-      "passRate": "0.0",
+      "passRate": "50.0",
       "sheetUrl": "",
       "cases": [
         {
-          "name": "장바구니 아이콘 클릭 → mall.hanssem.com 이동 [home_btn_cart]",
-          "url": "https://store.hanssem.com/",
+          "name": "헤더 검색 아이콘 노출 [furniture_btn_search]",
+          "url": "https://store.hanssem.com/furnishing",
           "status": "fail",
-          "duration": "15.83s",
+          "duration": "13.53s",
           "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisib"
         }
       ]
