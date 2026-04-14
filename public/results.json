@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 14. PM 9:13:19",
+  "lastUpdated": "2026. 4. 14. PM 9:13:42",
   "incidents": {
     "total": 23,
     "hotfix": 23,
@@ -327,7 +327,7 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 접근성ID 테스트",
-      "lastUpdated": "2026. 4. 14. PM 9:13:19",
+      "lastUpdated": "2026. 4. 14. PM 9:13:42",
       "total": 1,
       "pass": 0,
       "fail": 1,
@@ -335,11 +335,11 @@
       "sheetUrl": "",
       "cases": [
         {
-          "name": "메인 빅 배너 노출 [home_banner_big]",
+          "name": "검색 아이콘 클릭 → 검색 진입 [home_btn_search]",
           "url": "https://store.hanssem.com/",
           "status": "fail",
-          "duration": "14.31s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisib"
+          "duration": "5.94s",
+          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m"
         }
       ]
     }
