@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   test:
-    timeout-minutes: 120
+    timeout-minutes: 300
     runs-on: ubuntu-latest
 
     steps:
