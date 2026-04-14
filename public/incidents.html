@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+    <title>2026 장애 상세 현황 | 한샘몰 QMS</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg-page: #f0f2f5;
+        --bg-card: #ffffff;
+        --bg-stat: #f6f8fa;
+        --border: #e4e8ed;
+        --text-main: #1a1a2e;
+        --text-sub: #5a6477;
+        --text-hint: #9aa3b0;
+        --blue: #1a4f9c;
+        --blue-light: #eff4ff;
+        --red: #c62828;
+        --red-bg: #ffebee;
+        --amber: #e65100;
+        --amber-bg: #fff8e1;
+        --green: #2e7d32;
+        --green-bg: #e8f5e9;
+        --radius: 10px;
+        --radius-sm: 6px;
+      }
+
+      body {
+        font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+        background: var(--bg-page);
+        color: var(--text-main);
+        padding: 24px;
+        min-height: 100vh;
+      }
+
+      /* ── Header ── */
+      .header {
+        display: flex; align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .header-left { display: flex; align-items: center; gap: 10px; }
+      .logo-box {
+        width: 34px; height: 34px;
+        background: var(--blue); border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .logo-box svg { width: 18px; height: 18px; }
+      .title-main { font-size: 16px; font-weight: 700; }
+      .title-sub  { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+      .back-btn {
+        display: inline-flex; align-items: center; gap: 5px;
+        font-size: 12px; font-weight: 600; color: var(--blue);
+        text-decoration: none; padding: 7px 14px;
+        border: 1px solid var(--blue); border-radius: 6px;
+        transition: background 0.15s;
+      }
+      .back-btn:hover { background: var(--blue-light); }
+
+      /* ── Summary Bar ── */
+      .summary-bar {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 24px;
+        display: flex; align-items: center; gap: 0;
+        margin-bottom: 20px;
+      }
+      .sum-item { text-align: center; padding: 0 28px; }
+      .sum-item + .sum-item { border-left: 1px solid var(--border); }
+      .sum-val { font-size: 32px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+      .sum-val.total    { color: var(--text-main); }
+      .sum-val.hotfix   { color: var(--red); }
+      .sum-val.unplanned{ color: var(--amber); }
+      .sum-val.fe       { color: var(--blue); }
+      .sum-val.be       { color: var(--amber); }
+      .sum-label { font-size: 10px; color: var(--text-hint); margin-top: 4px; }
+
+      /* ── Section ── */
+      .section-label {
+        font-size: 12px; font-weight: 700;
+        color: var(--text-sub);
+        margin: 20px 0 8px;
+        display: flex; align-items: center; gap: 8px;
+      }
+      .month-badge {
+        font-size: 11px; font-weight: 600;
+        padding: 2px 10px; border-radius: 10px;
+        background: var(--blue-light); color: var(--blue);
+      }
+      .count-badge {
+        font-size: 10px; font-weight: 700;
+        padding: 1px 8px; border-radius: 8px;
+        background: var(--bg-stat); color: var(--text-sub);
+      }
+
+      /* ── Table ── */
+      .table-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      table {
+        width: 100%; border-collapse: collapse;
+        font-size: 12px;
+      }
+      thead th {
+        background: var(--bg-stat);
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 11px; font-weight: 600;
+        color: var(--text-sub);
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      tbody tr { border-bottom: 1px solid var(--border); }
+      tbody tr:last-child { border-bottom: none; }
+      tbody tr:hover { background: var(--bg-stat); }
+      td { padding: 10px 14px; color: var(--text-main); vertical-align: middle; }
+      td.date   { color: var(--text-hint); white-space: nowrap; font-size: 11px; }
+      td.summary{ line-height: 1.5; }
+
+      .type-badge {
+        display: inline-block;
+        font-size: 10px; font-weight: 700;
+        padding: 2px 8px; border-radius: 8px;
+        white-space: nowrap;
+      }
+      .type-hotfix   { background: var(--red-bg);   color: var(--red); }
+      .type-unplanned{ background: var(--amber-bg);  color: var(--amber); }
+
+      .cat-badge {
+        display: inline-block;
+        font-size: 10px; font-weight: 700;
+        padding: 2px 8px; border-radius: 8px;
+        white-space: nowrap;
+      }
+      .cat-fe { background: var(--blue-light); color: var(--blue); }
+      .cat-be { background: var(--amber-bg);   color: var(--amber); }
+
+      .jira-link {
+        display: inline-flex; align-items: center; gap: 4px;
+        color: var(--blue); text-decoration: none; font-size: 11px;
+        font-weight: 500;
+      }
+      .jira-link:hover { text-decoration: underline; }
+      .no-link { color: var(--text-hint); font-size: 11px; }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        body { padding: 14px; }
+        .summary-bar { flex-wrap: wrap; gap: 12px; }
+        .sum-item { padding: 0 16px; }
+        thead th:nth-child(1),
+        td:nth-child(1) { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <div class="logo-box">
+          <svg viewBox="0 0 18 18" fill="none">
+            <rect x="2"  y="2"  width="6" height="6" rx="1.5" fill="white"/>
+            <rect x="10" y="2"  width="6" height="6" rx="1.5" fill="white" opacity=".6"/>
+            <rect x="2"  y="10" width="6" height="6" rx="1.5" fill="white" opacity=".6"/>
+            <rect x="10" y="10" width="6" height="6" rx="1.5" fill="white" opacity=".3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="title-main">2026 장애 상세 현황</div>
+          <div class="title-sub" id="period-sub">핫픽스 · 비정기배포 전체 내역</div>
+        </div>
+      </div>
+      <a href="index.html" class="back-btn">
+        ← 대시보드로 돌아가기
+      </a>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-bar" id="summary-bar">
+      <div class="sum-item">
+        <div class="sum-val total" id="s-total">—</div>
+        <div class="sum-label">총 장애 건수</div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-val hotfix" id="s-hotfix">—</div>
+        <div class="sum-label">핫픽스</div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-val unplanned" id="s-unplanned">—</div>
+        <div class="sum-label">비정기배포</div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-val fe" id="s-fe">—</div>
+        <div class="sum-label">FE 프론트엔드</div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-val be" id="s-be">—</div>
+        <div class="sum-label">BE 백엔드</div>
+      </div>
+    </div>
+
+    <!-- Monthly Tables -->
+    <div id="content">
+      <div style="text-align:center;padding:60px 0;color:var(--text-hint);font-size:13px;">데이터 로드 중...</div>
+    </div>
+
+    <script>
+      function typeBadge(type) {
+        if (type === "핫픽스") return `<span class="type-badge type-hotfix">핫픽스</span>`;
+        return `<span class="type-badge type-unplanned">비정기배포</span>`;
+      }
+
+      function catBadge(cat) {
+        if (cat === "FE") return `<span class="cat-badge cat-fe">FE</span>`;
+        return `<span class="cat-badge cat-be">BE</span>`;
+      }
+
+      function jiraCell(link) {
+        if (!link) return `<span class="no-link">—</span>`;
+        const m = link.match(/browse\/([\w-]+)$/);
+        const label = m ? m[1] : "Jira 링크";
+        return `<a class="jira-link" href="${link}" target="_blank" rel="noopener">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1h4v1H2v6h6V6h1v2a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1z" fill="currentColor"/><path d="M6 1h3v3H8V2.7L4.85 5.85l-.7-.7L7.3 2H6V1z" fill="currentColor"/></svg>
+          ${label}
+        </a>`;
+      }
+
+      function renderMonth(m, globalOffset) {
+        const rows = m.list.map((item, idx) => `
+          <tr>
+            <td class="date">${String(globalOffset + idx + 1).padStart(2, "0")}</td>
+            <td class="date">${item.date}</td>
+            <td>${typeBadge(item.type)}</td>
+            <td>${catBadge(item.category)}</td>
+            <td style="font-weight:500">${item.assignee}</td>
+            <td class="summary">${item.summary}</td>
+            <td>${jiraCell(item.jiraLink)}</td>
+          </tr>`).join("");
+
+        return `
+          <div class="section-label">
+            <span class="month-badge">${m.label}</span>
+            <span class="count-badge">총 ${m.count}건</span>
+            <span style="color:var(--blue);font-size:10px">FE ${m.fe}</span>
+            <span style="color:var(--text-hint)">·</span>
+            <span style="color:var(--amber);font-size:10px">BE ${m.be}</span>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:36px">No</th>
+                  <th style="width:90px">날짜</th>
+                  <th style="width:90px">유형</th>
+                  <th style="width:52px">분류</th>
+                  <th style="width:72px">담당자</th>
+                  <th>이슈 내용</th>
+                  <th style="width:110px">Jira</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>`;
+      }
+
+      async function load() {
+        try {
+          const res  = await fetch("results.json?t=" + Date.now());
+          const data = await res.json();
+          const inc  = data.incidents;
+
+          document.getElementById("s-total").textContent     = inc.total     || 0;
+          document.getElementById("s-hotfix").textContent    = inc.hotfix    || 0;
+          document.getElementById("s-unplanned").textContent = inc.unplanned || 0;
+          document.getElementById("s-fe").textContent        = inc.feCount   || 0;
+          document.getElementById("s-be").textContent        = inc.beCount   || 0;
+          document.getElementById("period-sub").textContent  = `기간: ${inc.period || ""}`;
+
+          let html = "", offset = 0;
+          for (const m of inc.byMonth) {
+            html   += renderMonth(m, offset);
+            offset += m.list.length;
+          }
+          document.getElementById("content").innerHTML = html;
+        } catch (e) {
+          document.getElementById("content").innerHTML =
+            `<div style="text-align:center;padding:60px;color:#c62828;font-size:13px;">데이터를 불러올 수 없습니다.<br>${e.message}</div>`;
+        }
+      }
+
+      load();
+    </script>
+  </body>
+</html>

@@ -290,6 +290,39 @@
       }
       .error-box .err-icon { font-size: 28px; margin-bottom: 8px; }
 
+      /* ── Incident Summary Card ──────────────────────── */
+      .incident-summary-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 12px;
+      }
+      .inc-stats { display: flex; align-items: center; gap: 0; }
+      .inc-stat  { text-align: center; padding: 0 24px; }
+      .inc-stat + .inc-stat { border-left: 1px solid var(--border); }
+      .inc-stat-val { font-size: 36px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+      .inc-stat-val.total    { color: var(--text-main); }
+      .inc-stat-val.hotfix   { color: var(--red); }
+      .inc-stat-val.unplanned{ color: var(--amber); }
+      .inc-stat-label { font-size: 10px; color: var(--text-hint); margin-top: 5px; }
+      .detail-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 11px 20px;
+        background: var(--blue); color: white;
+        font-size: 12px; font-weight: 600;
+        border-radius: 6px; text-decoration: none;
+        white-space: nowrap;
+        transition: opacity 0.15s;
+        flex-shrink: 0;
+      }
+      .detail-btn:hover { opacity: 0.85; }
+      .inc-period { font-size: 10px; color: var(--text-hint); margin-top: 6px; }
+
       /* Responsive */
       @media (max-width: 1200px) {
         .cards-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -297,6 +330,8 @@
       @media (max-width: 640px) {
         body { padding: 14px; }
         .cards-grid-4 { grid-template-columns: 1fr; }
+        .incident-summary-card { flex-direction: column; align-items: flex-start; }
+        .inc-stat { padding: 0 16px; }
       }
     </style>
   </head>
@@ -332,13 +367,39 @@
           <div class="chart-subtitle" id="chart-range">2026년 1월 ~ 현재</div>
         </div>
         <div class="chart-legend">
-          <span><span class="legend-line" style="background:#1a4f9c"></span>긴급 배포</span>
-          <span><span class="legend-line" style="background:#f44336;border-top:2px dashed #f44336;height:0"></span>임계치 (5건)</span>
+          <span><span style="display:inline-block;width:11px;height:11px;background:#1a4f9c;border-radius:2px;vertical-align:middle;margin-right:4px"></span>FE 프론트엔드</span>
+          <span><span style="display:inline-block;width:11px;height:11px;background:#e65100;border-radius:2px;vertical-align:middle;margin-right:4px"></span>BE 백엔드</span>
         </div>
       </div>
       <div class="chart-wrap" id="chart-wrap">
         <div style="text-align:center;padding:60px 0;color:var(--text-hint);font-size:13px;">차트 데이터 로드 중...</div>
       </div>
+    </div>
+
+    <!-- ── 장애 현황 요약 ────────────────────────────────── -->
+    <div class="incident-summary-card" id="incident-summary-card">
+      <div class="inc-stats">
+        <div class="inc-stat">
+          <div class="inc-stat-val total" id="inc-total">—</div>
+          <div class="inc-stat-label">총 장애 건수</div>
+        </div>
+        <div class="inc-stat">
+          <div class="inc-stat-val hotfix" id="inc-hotfix">—</div>
+          <div class="inc-stat-label">핫픽스</div>
+        </div>
+        <div class="inc-stat">
+          <div class="inc-stat-val unplanned" id="inc-unplanned">—</div>
+          <div class="inc-stat-label">비정기배포</div>
+        </div>
+        <div class="inc-stat" style="border-left:none;padding-left:20px">
+          <div style="font-size:11px;color:var(--text-sub);font-weight:600" id="inc-fe-be">FE — / BE —</div>
+          <div class="inc-stat-label" id="inc-period">—</div>
+        </div>
+      </div>
+      <a href="incidents.html" class="detail-btn">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 2h4v1H3v7h7V8h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/><path d="M8 2h3v3h-1V3.7L6.85 6.85l-.7-.7L9.3 3H8V2z" fill="currentColor"/></svg>
+        장애 상세 내용 보기
+      </a>
     </div>
 
     <!-- ── 테스트 결과 리포트 (4-column) ──────────────────── -->
@@ -484,67 +545,67 @@
           .join("");
       }
 
-      /* ── 차트 렌더링 ───────────────────────────────────────── */
-      function renderChart(monthly) {
-        if (!monthly || monthly.length === 0) {
+      /* ── 차트 렌더링 (그룹 막대: FE/BE) ───────────────────── */
+      function renderIncidentChart(byMonth) {
+        if (!byMonth || byMonth.length === 0) {
           document.getElementById("chart-wrap").innerHTML =
             `<div style="text-align:center;padding:60px 0;color:var(--text-hint);font-size:13px;">차트 데이터가 없습니다.</div>`;
           return;
         }
 
-        const W = 860, PAD_L = 50, PAD_R = 20, PAD_T = 20, PAD_B = 30;
-        const chartW = W - PAD_L - PAD_R, chartH = 130, threshold = 5;
-        const maxVal = Math.max(...monthly.map(m => m.count), threshold + 1);
-        const yTop = Math.ceil(maxVal / 2) * 2;
-        const stepVal = yTop / 4;
-        const yPos = v => PAD_T + chartH - (v / yTop) * chartH;
-        const n = monthly.length;
-        const xGap = chartW / Math.max(n - 1, 1);
-        const pts = monthly.map((m, i) => ({
-          x: PAD_L + (n === 1 ? chartW / 2 : i * xGap),
-          y: yPos(m.count),
-          val: m.count, label: m.label,
-          isOver: m.count >= threshold,
-        }));
+        const W = 860, PAD_L = 46, PAD_R = 20, PAD_T = 24, PAD_B = 44;
+        const chartW = W - PAD_L - PAD_R, chartH = 120;
+        const n = byMonth.length;
 
+        const allVals = byMonth.flatMap(m => [m.fe || 0, m.be || 0]);
+        const maxVal  = Math.max(...allVals, 4);
+        const yTop    = Math.ceil(maxVal / 2) * 2 + 2;
+        const yPos    = v => PAD_T + chartH - (v / yTop) * chartH;
+
+        const groupW = chartW / n;
+        const barW   = Math.min(30, (groupW - 24) / 2);
+        const barGap = 5;
+
+        /* grid lines */
         let grid = "";
         for (let i = 0; i <= 4; i++) {
-          const v = i * stepVal, y = yPos(v);
+          const v = Math.round((i / 4) * yTop);
+          const y = yPos(v);
           grid += `<line x1="${PAD_L}" y1="${y}" x2="${W - PAD_R}" y2="${y}" stroke="#e4e8ed" stroke-width="0.5"/>
                    <text x="${PAD_L - 6}" y="${y + 4}" font-size="10" fill="#9aa3b0" text-anchor="end" font-family="'Pretendard',sans-serif">${v}</text>`;
         }
 
-        const ty = yPos(threshold);
-        const thLine = `<line x1="${PAD_L}" y1="${ty}" x2="${W - PAD_R}" y2="${ty}" stroke="#F44336" stroke-width="1" stroke-dasharray="5 4" opacity="0.65"/>
-                        <text x="${W - PAD_R + 4}" y="${ty + 4}" font-size="9" fill="#F44336" font-family="'Pretendard',sans-serif">${threshold}</text>`;
+        /* bars + labels */
+        let bars = "", xlabels = "";
+        byMonth.forEach((m, i) => {
+          const cx  = PAD_L + (i + 0.5) * groupW;
+          const feX = cx - barW - barGap / 2;
+          const beX = cx + barGap / 2;
+          const feH = Math.max(((m.fe || 0) / yTop) * chartH, m.fe ? 2 : 0);
+          const beH = Math.max(((m.be || 0) / yTop) * chartH, m.be ? 2 : 0);
+          const feY = PAD_T + chartH - feH;
+          const beY = PAD_T + chartH - beH;
 
-        const area = `M${pts[0].x},${pts[0].y} ` + pts.slice(1).map(p => `L${p.x},${p.y}`).join(" ")
-          + ` L${pts[pts.length - 1].x},${PAD_T + chartH} L${pts[0].x},${PAD_T + chartH} Z`;
-        const line = `M${pts.map(p => `${p.x},${p.y}`).join(" L")}`;
-        const dots = pts.map(p => `
-          <circle cx="${p.x}" cy="${p.y}" r="${p === pts[pts.length - 1] ? 5 : 4}" fill="${p.isOver ? "#F44336" : "#1A4F9C"}" stroke="white" stroke-width="1.5"/>
-          <text x="${p.x}" y="${p.y - 9}" font-size="11" font-weight="700" text-anchor="middle" fill="${p.isOver ? "#C62828" : "#1A4F9C"}" font-family="'Pretendard',sans-serif">${p.val}</text>`).join("");
-        const xlabels = pts.map((p, i) =>
-          `<text x="${p.x}" y="${PAD_T + chartH + 18}" font-size="11" text-anchor="middle"
-           fill="${p.isOver ? "#C62828" : i === pts.length - 1 ? "#1A4F9C" : "#5a6477"}"
-           font-weight="${i === pts.length - 1 ? "700" : "400"}"
-           font-family="'Pretendard',sans-serif">${p.label}</text>`).join("");
+          bars += `
+            <rect x="${feX.toFixed(1)}" y="${feY.toFixed(1)}" width="${barW}" height="${feH.toFixed(1)}" fill="#1A4F9C" rx="3"/>
+            ${m.fe ? `<text x="${(feX + barW / 2).toFixed(1)}" y="${(feY - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#1A4F9C" font-family="'Pretendard',sans-serif">${m.fe}</text>` : ""}
+            <rect x="${beX.toFixed(1)}" y="${beY.toFixed(1)}" width="${barW}" height="${beH.toFixed(1)}" fill="#E65100" rx="3"/>
+            ${m.be ? `<text x="${(beX + barW / 2).toFixed(1)}" y="${(beY - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#E65100" font-family="'Pretendard',sans-serif">${m.be}</text>` : ""}`;
+
+          const shortLabel = m.label.replace("2026년 ", "").replace("월", "월");
+          xlabels += `
+            <text x="${cx.toFixed(1)}" y="${PAD_T + chartH + 16}" font-size="11" text-anchor="middle" fill="#5a6477" font-family="'Pretendard',sans-serif">${shortLabel}</text>
+            <text x="${cx.toFixed(1)}" y="${PAD_T + chartH + 30}" font-size="10" text-anchor="middle" fill="#9aa3b0" font-family="'Pretendard',sans-serif">합계 ${m.count || 0}건</text>`;
+        });
 
         const svgH = PAD_T + chartH + PAD_B;
         document.getElementById("chart-wrap").innerHTML = `
-          <svg viewBox="0 0 ${W} ${svgH}" width="100%" height="${Math.max(160, svgH)}px" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#1A4F9C" stop-opacity="0.12"/>
-              <stop offset="100%" stop-color="#1A4F9C" stop-opacity="0"/>
-            </linearGradient></defs>
-            ${grid}${thLine}
-            <path d="${area}" fill="url(#area-grad)"/>
-            <path d="${line}" fill="none" stroke="#1A4F9C" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-            ${dots}${xlabels}
+          <svg viewBox="0 0 ${W} ${svgH}" width="100%" height="${svgH}px" xmlns="http://www.w3.org/2000/svg">
+            ${grid}${bars}${xlabels}
           </svg>`;
 
         document.getElementById("chart-range").textContent =
-          `${monthly[0].label} ~ ${monthly[monthly.length - 1].label}`;
+          `${byMonth[0].label} ~ ${byMonth[byMonth.length - 1].label}`;
       }
 
       /* ── Error ───────────────────────────────────────────── */
@@ -581,7 +642,16 @@
           console.log("✅ 데이터 로드 성공:", data.reports.length, "개의 리포트 확인");
 
           renderCards(data.reports);
-          renderChart(data.monthlyDeploys || []);
+          renderIncidentChart(data.incidents?.byMonth || []);
+
+          if (data.incidents) {
+            const inc = data.incidents;
+            document.getElementById("inc-total").textContent     = inc.total     || 0;
+            document.getElementById("inc-hotfix").textContent    = inc.hotfix    || 0;
+            document.getElementById("inc-unplanned").textContent = inc.unplanned || 0;
+            document.getElementById("inc-fe-be").textContent     = `FE ${inc.feCount || 0}건 / BE ${inc.beCount || 0}건`;
+            document.getElementById("inc-period").textContent    = inc.period    || "";
+          }
 
           const hasFailure = data.reports.some(r => (r.fail || 0) > 0);
           if (hasFailure) {
