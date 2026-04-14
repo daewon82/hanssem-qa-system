@@ -822,7 +822,7 @@
         try {
           try {
             // 1. 캐시 방지를 위한 타임스탬프 쿼리 포함 호출
-            const res = await fetch("./results.json?t=" + Date.now());
+            const res = await fetch("results.json?t=" + Date.now());
 
             // 2. HTTP 응답 상태 확인
             if (!res.ok) {
