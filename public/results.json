@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 9:13:33",
+  "lastUpdated": "2026. 4. 15. PM 9:26:18",
   "incidents": {
     "total": 26,
     "hotfix": 25,
@@ -354,13 +354,125 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:06:56",
-      "total": 39,
-      "pass": 39,
-      "fail": 0,
-      "passRate": "100.0",
-      "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": []
+      "lastUpdated": "2026. 4. 15. PM 9:26:18",
+      "total": 16,
+      "pass": 15,
+      "fail": 1,
+      "passRate": "93.8",
+      "cases": [
+        {
+          "name": "1-01  메인 페이지 로딩 및 타이틀",
+          "url": "https://store.hanssem.com/",
+          "status": "pass",
+          "duration": "4.21s",
+          "reason": ""
+        },
+        {
+          "name": "1-02  헤더 노출",
+          "url": "https://store.hanssem.com/",
+          "status": "pass",
+          "duration": "4.10s",
+          "reason": ""
+        },
+        {
+          "name": "1-03  푸터 노출",
+          "url": "https://store.hanssem.com/",
+          "status": "pass",
+          "duration": "4.22s",
+          "reason": ""
+        },
+        {
+          "name": "1-04  GNB 로그인 버튼 노출",
+          "url": "https://store.hanssem.com/",
+          "status": "pass",
+          "duration": "4.11s",
+          "reason": ""
+        },
+        {
+          "name": "1-05  GNB 장바구니 버튼 노출",
+          "url": "https://store.hanssem.com/",
+          "status": "pass",
+          "duration": "4.12s",
+          "reason": ""
+        },
+        {
+          "name": "1-06  GNB 가구/홈리빙 링크 클릭 → /furnishing 이동",
+          "url": "https://store.hanssem.com/furnishing",
+          "status": "pass",
+          "duration": "7.19s",
+          "reason": ""
+        },
+        {
+          "name": "1-07  GNB 인테리어 링크 클릭 → /interior 이동",
+          "url": "https://store.hanssem.com/interior",
+          "status": "pass",
+          "duration": "7.01s",
+          "reason": ""
+        },
+        {
+          "name": "1-08  GNB 매장찾기 클릭 → store 페이지 이동",
+          "url": "https://store.hanssem.com/",
+          "status": "pass",
+          "duration": "5.25s",
+          "reason": ""
+        },
+        {
+          "name": "2-01  가구/홈리빙 진입 및 타이틀",
+          "url": "https://store.hanssem.com/furnishing",
+          "status": "pass",
+          "duration": "4.59s",
+          "reason": ""
+        },
+        {
+          "name": "2-02  인테리어 진입 및 타이틀",
+          "url": "https://store.hanssem.com/interior",
+          "status": "pass",
+          "duration": "4.18s",
+          "reason": ""
+        },
+        {
+          "name": "2-03  가구/홈리빙 상품 링크 1개 이상 노출",
+          "url": "https://store.hanssem.com/furnishing",
+          "status": "pass",
+          "duration": "6.60s",
+          "reason": ""
+        },
+        {
+          "name": "2-04  상품 목록 → 첫 상품 클릭 → 상세 이동",
+          "url": "https://store.hanssem.com/goods/799220",
+          "status": "pass",
+          "duration": "8.87s",
+          "reason": ""
+        },
+        {
+          "name": "3-01  상품명(H1) 노출",
+          "url": "https://store.hanssem.com/goods/837513",
+          "status": "pass",
+          "duration": "6.08s",
+          "reason": ""
+        },
+        {
+          "name": "3-02  가격 정보 노출 (숫자+원 패턴)",
+          "url": "https://store.hanssem.com/goods/837513",
+          "status": "pass",
+          "duration": "5.60s",
+          "reason": ""
+        },
+        {
+          "name": "3-03  장바구니 버튼 노출",
+          "url": "https://store.hanssem.com/goods/837513",
+          "status": "pass",
+          "duration": "5.59s",
+          "reason": ""
+        },
+        {
+          "name": "3-04  구매하기 버튼 노출",
+          "url": "https://store.hanssem.com/goods/837513",
+          "status": "fail",
+          "duration": "13.83s",
+          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[2"
+        }
+      ]
     },
     {
       "id": "a-main-gnb",
@@ -383,18 +495,54 @@
     {
       "id": "b-category-list",
       "title": "B. 카테고리 / 상품 목록 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:13:33",
+      "lastUpdated": "2026. 4. 15. PM 9:18:27",
       "total": 1,
       "pass": 0,
       "fail": 1,
       "passRate": "0.0",
       "cases": [
         {
-          "name": "B-02  카테고리 — 인테리어 진입 후 상품 목록 노출",
+          "name": "B-09  상품 목록 — 최소 4개 이상 상품 렌더링",
           "url": "https://store.hanssem.com/",
           "status": "fail",
-          "duration": "18.51s",
+          "duration": "18.65s",
           "reason": "TimeoutError: locator.click: Timeout 15000ms exceeded."
+        }
+      ]
+    },
+    {
+      "id": "c-product-detail",
+      "title": "C. 상품 상세 테스트",
+      "lastUpdated": "2026. 4. 15. PM 9:21:25",
+      "total": 1,
+      "pass": 0,
+      "fail": 1,
+      "passRate": "0.0",
+      "cases": [
+        {
+          "name": "C-10  장바구니 버튼 노출",
+          "url": "https://store.hanssem.com/goods/detail/837513",
+          "status": "fail",
+          "duration": "8.87s",
+          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed"
+        }
+      ]
+    },
+    {
+      "id": "d-search",
+      "title": "D. 검색 테스트",
+      "lastUpdated": "2026. 4. 15. PM 9:21:42",
+      "total": 1,
+      "pass": 0,
+      "fail": 1,
+      "passRate": "0.0",
+      "cases": [
+        {
+          "name": "D-01  검색 — 키워드 입력 후 엔터 → 결과 페이지 진입",
+          "url": "https://store.hanssem.com/",
+          "status": "fail",
+          "duration": "7.11s",
+          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed"
         }
       ]
     }
