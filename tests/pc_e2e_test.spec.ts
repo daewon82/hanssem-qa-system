@@ -617,12 +617,10 @@ test.describe("10. 상품 상세 탭 전환", () => {
 test.describe("11. 상품 목록 정렬/필터", () => {
   test("가구/홈리빙 — 모든필터 버튼 노출 (PC)", async ({ page, isMobile }) => {
     test.skip(isMobile, "PC 전용");
-    await page.goto("/furnishing");
+    // 필터는 /furnishing(홈 형태)이 아닌 카테고리 상품목록 페이지에 존재
+    await page.goto("/category/20070");
     await waitForPageReady(page, 4000);
-    // "필터" 외 "전체필터", GTM 속성 등 다양한 형태 대응
-    const filterBtn = page.locator(
-      '[data-gtm-tracking*="filter"], button:has-text("필터"), button:has-text("전체필터"), button:has-text("모든필터")'
-    ).first();
+    const filterBtn = page.locator('[data-gtm-tracking="category_filter_open"]').first();
     await expect(filterBtn).toBeVisible({ timeout: 10000 });
     console.log("[✓] 필터 버튼 노출");
   });
