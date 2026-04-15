@@ -361,7 +361,7 @@
       "passRate": "0.0",
       "cases": [
         {
-          "name": "2-03  가구/홈리빙 상품 링크 1개 이상 노출",
+          "name": "2-04  상품 목록 → 첫 상품 클릭 → 상세 이동",
           "url": "chrome-error://chromewebdata/",
           "status": "fail",
           "duration": "0.05s",
