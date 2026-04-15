@@ -1,18 +1,52 @@
 {
-  "id": "pc-e2e",
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 15. PM 9:31:30",
-  "total": 1,
-  "pass": 0,
+  "lastUpdated": "2026. 4. 15. PM 9:49:33",
+  "total": 6,
+  "pass": 5,
   "fail": 1,
-  "passRate": "0.0",
+  "passRate": "83.3",
   "cases": [
     {
-      "name": "7-02  GNB 매장찾기 클릭 → store 또는 remodeling 이동",
-      "url": "chrome-error://chromewebdata/",
+      "name": "페이지 정상 로딩 및 타이틀 확인",
+      "url": "https://store.hanssem.com/",
+      "status": "pass",
+      "duration": "6.53s",
+      "reason": ""
+    },
+    {
+      "name": "헤더(GNB) 노출 확인",
+      "url": "https://store.hanssem.com/",
+      "status": "pass",
+      "duration": "5.46s",
+      "reason": ""
+    },
+    {
+      "name": "푸터 노출 확인 (PC)",
+      "url": "https://store.hanssem.com/",
+      "status": "pass",
+      "duration": "6.36s",
+      "reason": ""
+    },
+    {
+      "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
+      "url": "https://store.hanssem.com/furnishing",
+      "status": "pass",
+      "duration": "8.12s",
+      "reason": ""
+    },
+    {
+      "name": "인테리어 카테고리 진입 및 타이틀 확인",
+      "url": "https://store.hanssem.com/interior",
+      "status": "pass",
+      "duration": "6.46s",
+      "reason": ""
+    },
+    {
+      "name": "GNB 가구/홈리빙 링크 클릭 → 페이지 이동 (PC)",
+      "url": "https://store.hanssem.com/furnishing",
       "status": "fail",
-      "duration": "0.05s",
-      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/"
+      "duration": "13.32s",
+      "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2"
     }
   ]
 }
