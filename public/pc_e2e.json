@@ -8,10 +8,10 @@
   "passRate": "0.0",
   "cases": [
     {
-      "name": "4-01  검색 결과 페이지 진입 (소파)",
+      "name": "4-02  검색 결과 — 영문 키워드 (sofa)",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
-      "duration": "0.06s",
+      "duration": "0.05s",
       "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/se"
     }
   ]
