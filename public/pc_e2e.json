@@ -8,7 +8,7 @@
   "passRate": "0.0",
   "cases": [
     {
-      "name": "6-06  매장찾기 200 응답",
+      "name": "7-01  매장 찾기 페이지 직접 진입",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
       "duration": "0.05s",
