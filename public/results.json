@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 9:31:28",
+  "lastUpdated": "2026. 4. 15. PM 9:31:29",
   "incidents": {
     "total": 26,
     "hotfix": 25,
@@ -354,18 +354,18 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:31:28",
+      "lastUpdated": "2026. 4. 15. PM 9:31:29",
       "total": 1,
       "pass": 0,
       "fail": 1,
       "passRate": "0.0",
       "cases": [
         {
-          "name": "6-05  상품상세 200 응답",
+          "name": "6-06  매장찾기 200 응답",
           "url": "chrome-error://chromewebdata/",
           "status": "fail",
-          "duration": "0.06s",
-          "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/go"
+          "duration": "0.05s",
+          "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/st"
         }
       ]
     },
