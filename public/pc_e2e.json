@@ -1,18 +1,95 @@
 {
   "id": "pc-e2e",
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 15. PM 9:27:38",
-  "total": 1,
-  "pass": 0,
-  "fail": 1,
-  "passRate": "0.0",
+  "lastUpdated": "2026. 4. 15. PM 9:28:39",
+  "total": 12,
+  "pass": 12,
+  "fail": 0,
+  "passRate": "100.0",
   "cases": [
     {
-      "name": "4-03  GNB 검색창 클릭 → 입력창 노출 → 검색 이동",
+      "name": "5-01  GNB 로그인 클릭 → mall.hanssem.com 이동",
+      "url": "https://mall.hanssem.com/customer/mallLoginMain.do?returnUrl=https%3A%2F%2Fstore.hanssem.com%2F",
+      "status": "pass",
+      "duration": "6.46s",
+      "reason": ""
+    },
+    {
+      "name": "5-02  로그인 페이지 — ID 입력 필드 또는 SNS 버튼 노출",
+      "url": "https://mall.hanssem.com/customer/mallLoginMain.do?returnUrl=https://store.hanssem.com/",
+      "status": "pass",
+      "duration": "4.85s",
+      "reason": ""
+    },
+    {
+      "name": "5-03  GNB 장바구니 클릭 → mall.hanssem.com 이동",
+      "url": "https://mall.hanssem.com/order/goCart.do?util=shopping",
+      "status": "pass",
+      "duration": "7.03s",
+      "reason": ""
+    },
+    {
+      "name": "5-04  장바구니 직접 URL — 로그인 redirect 확인",
+      "url": "https://mall.hanssem.com/order/goCart.do?util=shopping",
+      "status": "pass",
+      "duration": "4.05s",
+      "reason": ""
+    },
+    {
+      "name": "6-01  메인 200 응답",
       "url": "https://store.hanssem.com/",
-      "status": "fail",
-      "duration": "15.12s",
-      "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[2"
+      "status": "pass",
+      "duration": "2.14s",
+      "reason": ""
+    },
+    {
+      "name": "6-02  가구/홈리빙 200 응답",
+      "url": "https://store.hanssem.com/furnishing",
+      "status": "pass",
+      "duration": "9.34s",
+      "reason": ""
+    },
+    {
+      "name": "6-03  인테리어 200 응답",
+      "url": "https://store.hanssem.com/interior",
+      "status": "pass",
+      "duration": "2.16s",
+      "reason": ""
+    },
+    {
+      "name": "6-04  검색결과 200 응답",
+      "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
+      "status": "pass",
+      "duration": "2.16s",
+      "reason": ""
+    },
+    {
+      "name": "6-05  상품상세 200 응답",
+      "url": "https://store.hanssem.com/goods/837513",
+      "status": "pass",
+      "duration": "2.64s",
+      "reason": ""
+    },
+    {
+      "name": "6-06  매장찾기 200 응답",
+      "url": "https://store.hanssem.com/store",
+      "status": "pass",
+      "duration": "7.36s",
+      "reason": ""
+    },
+    {
+      "name": "7-01  매장 찾기 페이지 직접 진입",
+      "url": "https://store.hanssem.com/store",
+      "status": "pass",
+      "duration": "4.41s",
+      "reason": ""
+    },
+    {
+      "name": "7-02  GNB 매장찾기 클릭 → store 또는 remodeling 이동",
+      "url": "https://store.hanssem.com/",
+      "status": "pass",
+      "duration": "5.32s",
+      "reason": ""
     }
   ]
 }
