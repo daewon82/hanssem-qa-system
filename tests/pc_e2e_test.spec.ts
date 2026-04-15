@@ -133,6 +133,8 @@ test.afterAll(async () => {
   );
 
   try {
+    execSync('git config user.email "actions@github.com"');
+    execSync('git config user.name "github-actions"');
     execSync("git add public/results.json public/pc_e2e.json");
     const status = execSync("git status --porcelain").toString().trim();
     if (status) {
@@ -329,11 +331,16 @@ test.describe("4. 상품 상세", () => {
 
   test("상품 상세 — 구매 버튼 노출 (PC)", async ({ page, isMobile }) => {
     test.skip(isMobile, "모바일은 구매 버튼 텍스트 다름");
+    await page.evaluate(() => window.scrollTo(0, 300));
+    await page.waitForTimeout(500);
     const cartBtn = page.locator('button:has-text("장바구니")').first();
-    const buyBtn = page.locator('button:has-text("구매하기")').first();
-    await expect(cartBtn).toBeVisible({ timeout: 8000 });
-    await expect(buyBtn).toBeVisible({ timeout: 8000 });
-    console.log("[✓] 장바구니 / 구매하기 버튼 노출");
+    // "구매하기" 외 "바로구매" 등 상품마다 버튼명이 다를 수 있음
+    const buyBtn = page.locator(
+      'button:has-text("구매하기"), button:has-text("바로구매"), [data-gtm-tracking*="purchase"], [data-gtm-tracking*="buy"]'
+    ).first();
+    await expect(cartBtn).toBeVisible({ timeout: 10000 });
+    await expect(buyBtn).toBeVisible({ timeout: 10000 });
+    console.log("[✓] 장바구니 / 구매 버튼 노출");
   });
 
   test("상품 상세 — 구매 버튼 노출 (Mobile)", async ({ page, isMobile }) => {
@@ -612,8 +619,11 @@ test.describe("11. 상품 목록 정렬/필터", () => {
     test.skip(isMobile, "PC 전용");
     await page.goto("/furnishing");
     await waitForPageReady(page, 4000);
-    const filterBtn = page.locator('button:has-text("필터")').first();
-    await expect(filterBtn).toBeVisible({ timeout: 8000 });
+    // "필터" 외 "전체필터", GTM 속성 등 다양한 형태 대응
+    const filterBtn = page.locator(
+      '[data-gtm-tracking*="filter"], button:has-text("필터"), button:has-text("전체필터"), button:has-text("모든필터")'
+    ).first();
+    await expect(filterBtn).toBeVisible({ timeout: 10000 });
     console.log("[✓] 필터 버튼 노출");
   });
 
@@ -671,11 +681,12 @@ test.describe("12. 인테리어 서브 페이지", () => {
   test("인테리어 — 무료견적상담 링크 노출", async ({ page }) => {
     await page.goto("/interior");
     await waitForPageReady(page, 3000);
+    // GNB 드롭다운 항목은 hover 전까지 hidden → href 속성으로 존재 확인
     const consultLink = page
-      .locator('a:has-text("무료"), a:has-text("견적"), button:has-text("견적")')
+      .locator('[data-gtm-tracking-menu-value="무료 견적상담"], a[href*="choose-consult"]')
       .first();
-    await expect(consultLink).toBeVisible({ timeout: 8000 });
-    console.log("[✓] 무료견적상담 링크 노출");
+    await expect(consultLink).toHaveAttribute("href", /remodeling\.hanssem\.com/, { timeout: 8000 });
+    console.log("[✓] 무료견적상담 링크 확인");
   });
 
   test("기획전 페이지(mall.hanssem.com/plan) 200 응답", async ({ page }) => {

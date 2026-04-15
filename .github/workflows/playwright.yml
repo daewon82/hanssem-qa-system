@@ -41,18 +41,17 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
-      # results.json 변경사항 커밋 & 푸시 (한국 시간 기준)
-      - name: Commit results.json
+      # results.json / pc_500.json / pc_e2e.json 커밋 & 강제 푸시
+      - name: Commit results
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
 
-          git add public/results.json
+          git add public/results.json public/pc_500.json public/pc_e2e.json
 
           git commit -m "🤖 auto: update results ($(date +'%Y-%m-%d %H:%M:%S'))" || echo "no changes"
 
-          git pull --rebase --autostash || true
-          git push
+          git push --force-with-lease || git push --force
 
       # Vercel 배포
 

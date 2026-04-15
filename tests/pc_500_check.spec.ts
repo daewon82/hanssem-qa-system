@@ -357,6 +357,8 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   // Git push + Vercel 직접 배포
   // -----------------------------
   try {
+    execSync('git config user.email "actions@github.com"');
+    execSync('git config user.name "github-actions"');
     execSync("git add public/results.json public/pc_500.json");
     const status = execSync("git status --porcelain").toString().trim();
     console.log(`📋 Git 상태: ${status || "변경 없음"}`);
