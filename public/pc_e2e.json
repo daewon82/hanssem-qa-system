@@ -1,18 +1,18 @@
 {
   "id": "pc-e2e",
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 15. PM 9:31:23",
+  "lastUpdated": "2026. 4. 15. PM 9:31:24",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "5-03  GNB 장바구니 클릭 → mall.hanssem.com 이동",
+      "name": "5-04  장바구니 직접 URL — 로그인 redirect 확인",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
       "duration": "0.05s",
-      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/"
+      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://mall.hanssem.com/ord"
     }
   ]
 }
