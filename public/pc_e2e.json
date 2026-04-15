@@ -1,14 +1,14 @@
 {
   "id": "pc-e2e",
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 15. PM 9:31:17",
+  "lastUpdated": "2026. 4. 15. PM 9:31:18",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "3-05  상품 이미지 노출",
+      "name": "3-06  리뷰 탭 클릭",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
       "duration": "0.06s",
