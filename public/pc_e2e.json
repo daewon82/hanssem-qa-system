@@ -1,18 +1,18 @@
 {
   "id": "pc-e2e",
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 15. PM 9:31:20",
+  "lastUpdated": "2026. 4. 15. PM 9:31:21",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "4-02  검색 결과 — 영문 키워드 (sofa)",
+      "name": "4-03  GNB 검색 아이콘 클릭 → 입력창 노출 → 검색 이동",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
       "duration": "0.05s",
-      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/se"
+      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/"
     }
   ]
 }
