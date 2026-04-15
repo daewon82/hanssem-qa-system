@@ -20,7 +20,6 @@ import axios from "axios";
  */
 
 // ─── 설정 ────────────────────────────────────────────────────
-const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
 const REPORT_ID = "pc-e2e";
 const REPORT_TITLE = "운영환경 PC E2E 테스트";
 const JANDI_WEBHOOK_URL =
@@ -81,7 +80,6 @@ test.afterAll(async () => {
   const passRate =
     totalCount > 0 ? ((passCount / totalCount) * 100).toFixed(1) : "0";
   const kst = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
-  const sheetUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}`;
 
   let existingData: any = { lastUpdated: kst, reports: [] };
   try {
@@ -97,8 +95,7 @@ test.afterAll(async () => {
     pass: passCount,
     fail: failCount,
     passRate,
-    sheetUrl,
-    cases: caseResults.filter((c) => c.status === "fail"),
+    cases: caseResults, // 전체 케이스 (pass + fail) — 상세보기에서 노출
   };
 
   const reportIdx = existingData.reports.findIndex(
@@ -219,7 +216,7 @@ test.describe("2. 카테고리 네비게이션", () => {
     const link = page.locator('a[href="/furnishing"]').first();
     await expect(link).toBeAttached({ timeout: 10000 });
     await link.evaluate((el) => (el as HTMLAnchorElement).click());
-    await waitForPageReady(page);
+    await page.waitForURL(/furnishing/, { timeout: 10000 });
     await expect(page).toHaveURL(/furnishing/);
     console.log(`[✓] GNB 가구/홈리빙 클릭: ${page.url()}`);
   });
