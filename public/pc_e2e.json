@@ -1,24 +1,24 @@
 {
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 14. PM 10:55:04",
+  "lastUpdated": "2026. 4. 15. PM 3:33:58",
   "total": 2,
-  "pass": 1,
-  "fail": 1,
-  "passRate": "50.0",
+  "pass": 2,
+  "fail": 0,
+  "passRate": "100.0",
   "cases": [
     {
-      "name": "가구/홈리빙 — 정렬 변경 (낮은가격순) → 상품 목록 유지",
-      "url": "https://store.hanssem.com/furnishing",
+      "name": "기획전 페이지(mall.hanssem.com/plan) 200 응답",
+      "url": "https://mall.hanssem.com/plan/19523.html?planType=12",
       "status": "pass",
-      "duration": "6.91s",
+      "duration": "5.30s",
       "reason": ""
     },
     {
-      "name": "검색 결과 0건 — 없는 키워드",
-      "url": "https://store.hanssem.com/search/goods?searchKey=zzzzxxx%ED%95%9C%EC%83%98%EC%97%86%EB%8A%94%EC%83%81%ED%92%88xyz",
-      "status": "fail",
-      "duration": "3.96s",
-      "reason": "Error: Channel closed"
+      "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
+      "url": "https://store.hanssem.com/not-exists-content",
+      "status": "pass",
+      "duration": "6.11s",
+      "reason": ""
     }
   ]
 }
