@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 9:31:11",
+  "lastUpdated": "2026. 4. 15. PM 9:31:12",
   "incidents": {
     "total": 26,
     "hotfix": 25,
@@ -354,74 +354,18 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:31:11",
-      "total": 9,
-      "pass": 8,
+      "lastUpdated": "2026. 4. 15. PM 9:31:12",
+      "total": 1,
+      "pass": 0,
       "fail": 1,
-      "passRate": "88.9",
+      "passRate": "0.0",
       "cases": [
         {
-          "name": "1-01  메인 페이지 로딩 및 타이틀",
-          "url": "https://store.hanssem.com/",
-          "status": "pass",
-          "duration": "4.04s",
-          "reason": ""
-        },
-        {
-          "name": "1-02  헤더 노출",
-          "url": "https://store.hanssem.com/",
-          "status": "pass",
-          "duration": "4.14s",
-          "reason": ""
-        },
-        {
-          "name": "1-03  푸터 노출",
-          "url": "https://store.hanssem.com/",
-          "status": "pass",
-          "duration": "4.03s",
-          "reason": ""
-        },
-        {
-          "name": "1-04  GNB 로그인 버튼 노출",
-          "url": "https://store.hanssem.com/",
-          "status": "pass",
-          "duration": "4.05s",
-          "reason": ""
-        },
-        {
-          "name": "1-05  GNB 장바구니 버튼 노출",
-          "url": "https://store.hanssem.com/",
-          "status": "pass",
-          "duration": "4.19s",
-          "reason": ""
-        },
-        {
-          "name": "1-06  GNB 가구/홈리빙 링크 클릭 → /furnishing 이동",
-          "url": "https://store.hanssem.com/furnishing",
-          "status": "pass",
-          "duration": "7.37s",
-          "reason": ""
-        },
-        {
-          "name": "1-07  GNB 인테리어 링크 클릭 → /interior 이동",
-          "url": "https://store.hanssem.com/interior",
-          "status": "pass",
-          "duration": "7.30s",
-          "reason": ""
-        },
-        {
-          "name": "1-08  GNB 매장찾기 클릭 → store 페이지 이동",
-          "url": "https://store.hanssem.com/",
-          "status": "pass",
-          "duration": "5.21s",
-          "reason": ""
-        },
-        {
-          "name": "2-01  가구/홈리빙 진입 및 타이틀",
+          "name": "2-02  인테리어 진입 및 타이틀",
           "url": "chrome-error://chromewebdata/",
           "status": "fail",
-          "duration": "2.84s",
-          "reason": "Error: page.goto: net::ERR_NETWORK_CHANGED at https://store.hanssem.com/furnishi"
+          "duration": "0.05s",
+          "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/in"
         }
       ]
     },
