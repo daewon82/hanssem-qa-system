@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 9:49:33",
+  "lastUpdated": "2026. 4. 15. PM 9:53:58",
   "incidents": {
     "total": 25,
     "hotfix": 25,
@@ -337,21 +337,13 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:49:33",
-      "total": 6,
-      "pass": 5,
-      "fail": 1,
-      "passRate": "83.3",
+      "lastUpdated": "2026. 4. 15. PM 9:53:58",
+      "total": 33,
+      "pass": 33,
+      "fail": 0,
+      "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": [
-        {
-          "name": "GNB 가구/홈리빙 링크 클릭 → 페이지 이동 (PC)",
-          "url": "https://store.hanssem.com/furnishing",
-          "status": "fail",
-          "duration": "13.32s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2"
-        }
-      ]
+      "cases": []
     },
     {
       "id": "a-main-gnb",
