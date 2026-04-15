@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 9:26:34",
+  "lastUpdated": "2026. 4. 15. PM 9:27:20",
   "incidents": {
     "total": 26,
     "hotfix": 25,
@@ -354,17 +354,52 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:26:34",
-      "total": 1,
-      "pass": 0,
+      "lastUpdated": "2026. 4. 15. PM 9:27:20",
+      "total": 6,
+      "pass": 5,
       "fail": 1,
-      "passRate": "0.0",
+      "passRate": "83.3",
       "cases": [
         {
-          "name": "3-04  구매하기 버튼 노출",
+          "name": "3-05  상품 이미지 노출",
           "url": "https://store.hanssem.com/goods/837513",
+          "status": "pass",
+          "duration": "5.65s",
+          "reason": ""
+        },
+        {
+          "name": "3-06  리뷰 탭 클릭",
+          "url": "https://store.hanssem.com/goods/837513",
+          "status": "pass",
+          "duration": "6.66s",
+          "reason": ""
+        },
+        {
+          "name": "3-07  상품정보 탭 클릭",
+          "url": "https://store.hanssem.com/goods/837513",
+          "status": "pass",
+          "duration": "6.82s",
+          "reason": ""
+        },
+        {
+          "name": "4-01  검색 결과 페이지 진입 (소파)",
+          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
+          "status": "pass",
+          "duration": "4.35s",
+          "reason": ""
+        },
+        {
+          "name": "4-02  검색 결과 — 영문 키워드 (sofa)",
+          "url": "https://store.hanssem.com/search/goods?searchKey=sofa",
+          "status": "pass",
+          "duration": "4.04s",
+          "reason": ""
+        },
+        {
+          "name": "4-03  GNB 검색창 클릭 → 입력창 노출 → 검색 이동",
+          "url": "https://store.hanssem.com/",
           "status": "fail",
-          "duration": "13.86s",
+          "duration": "15.28s",
           "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[2"
         }
       ]
