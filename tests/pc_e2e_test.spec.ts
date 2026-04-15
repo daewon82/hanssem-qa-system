@@ -1,7 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
-import { execSync } from "child_process";
 
 /**
  * store.hanssem.com E2E 테스트
@@ -131,22 +130,6 @@ test.afterAll(async () => {
       2,
     ),
   );
-
-  try {
-    execSync('git config user.email "actions@github.com"');
-    execSync('git config user.name "github-actions"');
-    execSync("git add public/results.json public/pc_e2e.json");
-    const status = execSync("git status --porcelain").toString().trim();
-    if (status) {
-      execSync(`git commit -m "auto update ${Date.now()} [skip ci]"`);
-      execSync("git push origin HEAD:main --force");
-      console.log("📤 GitHub push 완료");
-    } else {
-      console.log("⚠️ results.json 변경 없음 - 커밋 스킵");
-    }
-  } catch (err: any) {
-    console.log("❌ Git 오류:", err.message);
-  }
 
   try {
     const failTestText =

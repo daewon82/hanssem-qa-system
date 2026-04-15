@@ -1,7 +1,6 @@
 import { test } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
-import { execSync } from "child_process";
 // import { GoogleSpreadsheet } from "google-spreadsheet";
 // import { authenticate } from "@google-cloud/local-auth";
 // import { google } from "googleapis";
@@ -352,40 +351,6 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       2,
     ),
   );
-
-  // -----------------------------
-  // Git push + Vercel 직접 배포
-  // -----------------------------
-  try {
-    execSync('git config user.email "actions@github.com"');
-    execSync('git config user.name "github-actions"');
-    execSync("git add public/results.json public/pc_500.json");
-    const status = execSync("git status --porcelain").toString().trim();
-    console.log(`📋 Git 상태: ${status || "변경 없음"}`);
-
-    if (status) {
-      // [skip ci] → GitHub Actions 재실행 방지
-      execSync(`git commit -m "auto update ${Date.now()} [skip ci]"`);
-      execSync("git push origin HEAD:main --force");
-      console.log("📤 GitHub push 완료");
-    } else {
-      console.log("⚠️ results.json 변경 없음 - 커밋 스킵");
-    }
-  } catch (err: any) {
-    console.log("❌ Git 오류:", err.message);
-  }
-
-  // Vercel 직접 배포 (--force: 이전 배포와 동일해도 항상 강제 재배포)
-  try {
-    const vercelToken = process.env.VERCEL_TOKEN;
-    const vercelCmd = vercelToken
-      ? `npx vercel --prod --yes --force --token=${vercelToken}`
-      : "npx vercel --prod --yes --force";
-    execSync(vercelCmd, { stdio: "inherit" });
-    console.log("🚀 Vercel 배포 완료");
-  } catch (err: any) {
-    console.log("❌ Vercel 배포 오류:", err.message);
-  }
 
   // -----------------------------
   // 잔디 알림
