@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 9:31:24",
+  "lastUpdated": "2026. 4. 15. PM 9:31:25",
   "incidents": {
     "total": 26,
     "hotfix": 25,
@@ -354,18 +354,18 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:31:24",
+      "lastUpdated": "2026. 4. 15. PM 9:31:25",
       "total": 1,
       "pass": 0,
       "fail": 1,
       "passRate": "0.0",
       "cases": [
         {
-          "name": "5-04  장바구니 직접 URL — 로그인 redirect 확인",
+          "name": "6-01  메인 200 응답",
           "url": "chrome-error://chromewebdata/",
           "status": "fail",
           "duration": "0.05s",
-          "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://mall.hanssem.com/ord"
+          "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/"
         }
       ]
     },
