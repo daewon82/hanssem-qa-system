@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 9:31:30",
+  "lastUpdated": "2026. 4. 15. PM 9:47:51",
   "incidents": {
     "total": 25,
     "hotfix": 25,
@@ -326,21 +326,13 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 15. PM 8:44:12",
+      "lastUpdated": "2026. 4. 15. PM 9:47:51",
       "total": 500,
-      "pass": 499,
-      "fail": 1,
-      "passRate": "99.8",
+      "pass": 500,
+      "fail": 0,
+      "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": [
-        {
-          "name": "1038180",
-          "url": "https://store.hanssem.com/goods/1038180",
-          "status": "fail",
-          "duration": "25.02s",
-          "reason": "접속 실패"
-        }
-      ]
+      "cases": []
     },
     {
       "id": "pc-e2e",
