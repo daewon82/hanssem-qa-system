@@ -1,18 +1,18 @@
 {
   "id": "pc-e2e",
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 15. PM 9:31:12",
+  "lastUpdated": "2026. 4. 15. PM 9:31:13",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "2-02  인테리어 진입 및 타이틀",
+      "name": "2-03  가구/홈리빙 상품 링크 1개 이상 노출",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
       "duration": "0.05s",
-      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/in"
+      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/fu"
     }
   ]
 }
