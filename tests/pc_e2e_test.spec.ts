@@ -3,8 +3,8 @@ import fs from "fs";
 import axios from "axios";
 
 /**
- * store.hanssem.com E2E 테스트
- * - PC Chrome / Mobile Chrome (Pixel 5) / Mobile Safari (iPhone 13) 공통 실행
+ * store.hanssem.com PC E2E 테스트
+ * - PC Chrome 전용
  * - 명령어: npx playwright test tests/pc_e2e_test.spec.ts
  *
  * 시나리오:
@@ -176,19 +176,6 @@ test.describe("1. 메인 페이지", () => {
     console.log("[✓] 푸터 노출");
   });
 
-  test("BNB(하단 네비게이션) 노출 확인 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 전용 — PC는 BNB 없음");
-    await expect(page.locator('[data-test-id="home_bnb_home"]')).toBeVisible({ timeout: 8000 });
-    await expect(page.locator('[data-test-id="home_bnb_furniture"]')).toBeVisible({ timeout: 8000 });
-    await expect(page.locator('[data-test-id="home_bnb_store"]')).toBeVisible({ timeout: 8000 });
-    console.log("[✓] 모바일 BNB 노출");
-  });
-
-  test("모바일: m.store.hanssem.com 자동 리다이렉트", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 전용");
-    await expect(page).toHaveURL(/m\.store\.hanssem\.com/);
-    console.log(`[✓] 모바일 리다이렉트: ${page.url()}`);
-  });
 });
 
 // ─── 2. 카테고리 네비게이션 ────────────────────────────────
@@ -221,17 +208,6 @@ test.describe("2. 카테고리 네비게이션", () => {
     console.log(`[✓] GNB 가구/홈리빙 클릭: ${page.url()}`);
   });
 
-  test("BNB 가구/홈리빙 탭 클릭 → 페이지 이동 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 BNB 전용");
-    await page.goto("/");
-    await waitForPageReady(page, 3000);
-    const bnbFurniture = page.locator('[data-test-id="home_bnb_furniture"]');
-    await expect(bnbFurniture).toBeVisible({ timeout: 10000 });
-    await bnbFurniture.evaluate((el) => (el as HTMLAnchorElement).click());
-    await waitForPageReady(page);
-    await expect(page).toHaveURL(/furnishing/);
-    console.log(`[✓] 모바일 BNB 가구/홈리빙 클릭: ${page.url()}`);
-  });
 });
 
 // ─── 3. 상품 목록 ──────────────────────────────────────────
@@ -312,13 +288,6 @@ test.describe("4. 상품 상세", () => {
     console.log("[✓] 장바구니 / 구매 버튼 노출");
   });
 
-  test("상품 상세 — 구매 버튼 노출 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 전용");
-    const buyBtn = page.locator('button:has-text("구매하기")').first();
-    await expect(buyBtn).toBeVisible({ timeout: 8000 });
-    console.log("[✓] 모바일 구매하기 버튼 노출");
-  });
-
   test("상품 상세 — 상품 이미지 노출", async ({ page }) => {
     await expect(async () => {
       const imgs = await page.locator('img[src*="image.hanssem.com"]').all();
@@ -350,43 +319,12 @@ test.describe("5. 검색", () => {
     console.log(`[✓] 검색 결과 이동: ${page.url()}`);
   });
 
-  test("검색 아이콘 클릭 → 검색창 → 검색어 입력 → 결과 이동 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 검색 전용");
-    await page.goto("/");
-    await waitForPageReady(page, 3000);
-    const overlay = page.locator('[backgroundcolor="dimmed.dimmed_3"]').first();
-    if (await overlay.isVisible().catch(() => false)) {
-      await page.keyboard.press("Escape");
-      await page.waitForTimeout(500);
-    }
-    const searchIcon = page.locator('[data-test-id="home_btn_search"]');
-    await expect(searchIcon).toBeVisible({ timeout: 10000 });
-    await searchIcon.evaluate((el) => (el as HTMLElement).click());
-    const searchInput = page.locator('input[placeholder*="검색"]').first();
-    await expect(searchInput).toBeVisible({ timeout: 8000 });
-    await searchInput.fill("소파");
-    await searchInput.press("Enter");
-    await page.waitForURL(/search/, { timeout: 10000 });
-    await expect(page).toHaveURL(/search/);
-    console.log(`[✓] 모바일 검색 결과 이동: ${page.url()}`);
-  });
-
   test("검색 결과 페이지 — 정상 로딩 및 타이틀", async ({ page }) => {
     await page.goto("/search/goods?searchKey=소파");
     await waitForPageReady(page, 2000);
     await expect(page).toHaveURL(/search/);
     await expect(page).toHaveTitle(/한샘/);
     console.log(`[✓] 검색 결과 로딩: ${page.url()}`);
-  });
-
-  test("검색 결과 — 상품 링크 노출 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 전용 — PC 검색 결과는 JS 렌더링 지연");
-    await page.goto("/search/goods?searchKey=소파");
-    await waitForPageReady(page, 4000);
-    const goodsLinks = page.locator('a[href*="/goods/"]');
-    const count = await goodsLinks.count();
-    expect(count).toBeGreaterThan(0);
-    console.log(`[✓] 모바일 검색 결과 ${count}개 노출`);
   });
 
   test("검색 결과 — 영문 키워드", async ({ page }) => {
@@ -409,18 +347,6 @@ test.describe("6. 로그인", () => {
     await page.waitForURL(/mall\.hanssem\.com/, { timeout: 10000 });
     await expect(page).toHaveURL(/mall\.hanssem\.com/);
     console.log(`[✓] 로그인 이동: ${page.url()}`);
-  });
-
-  test("BNB 마이페이지 탭 클릭 → mall.hanssem.com 이동 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 BNB 전용");
-    await page.goto("/");
-    await waitForPageReady(page, 3000);
-    const myBtn = page.locator('[data-test-id="home_bnb_mypage"]');
-    await expect(myBtn).toBeVisible({ timeout: 10000 });
-    await myBtn.evaluate((el) => (el as HTMLAnchorElement).click());
-    await page.waitForURL(/mall\.hanssem\.com/, { timeout: 10000 });
-    await expect(page).toHaveURL(/mall\.hanssem\.com/);
-    console.log(`[✓] 모바일 BNB 마이페이지 이동: ${page.url()}`);
   });
 
   test("로그인 페이지 — ID 입력 필드 및 SNS 버튼 노출", async ({ page }) => {
@@ -454,18 +380,6 @@ test.describe("7. 장바구니", () => {
     await page.waitForURL(/mall\.hanssem\.com/, { timeout: 10000 });
     await expect(page).toHaveURL(/mall\.hanssem\.com/);
     console.log(`[✓] 장바구니 이동: ${page.url()}`);
-  });
-
-  test("장바구니 버튼 클릭 → mall.hanssem.com 이동 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 전용");
-    await page.goto("/");
-    await waitForPageReady(page, 3000);
-    const cartBtn = page.locator('[data-test-id="home_btn_cart"] a').first();
-    await expect(cartBtn).toBeAttached({ timeout: 10000 });
-    await cartBtn.evaluate((el) => (el as HTMLAnchorElement).click());
-    await page.waitForURL(/mall\.hanssem\.com/, { timeout: 10000 });
-    await expect(page).toHaveURL(/mall\.hanssem\.com/);
-    console.log(`[✓] 모바일 장바구니 이동: ${page.url()}`);
   });
 
   test("장바구니 직접 URL — 로그인 redirect 확인", async ({ page, isMobile }) => {
@@ -525,26 +439,6 @@ test.describe("9. 매장 찾기", () => {
     console.log(`[✓] 매장 찾기 GNB 클릭 이동: ${url}`);
   });
 
-  test("BNB 매장찾기 탭 클릭 → 매장 검색 페이지 이동 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 BNB 전용");
-    await page.goto("/");
-    await waitForPageReady(page, 3000);
-    const storeBtn = page.locator('[data-test-id="home_bnb_store"]');
-    await expect(storeBtn).toBeVisible({ timeout: 10000 });
-    await storeBtn.evaluate((el) => (el as HTMLAnchorElement).click());
-    await page.waitForURL(/remodeling\.hanssem\.com|store/, { timeout: 10000 });
-    const url = page.url();
-    expect(url.includes("remodeling.hanssem.com") || url.includes("store")).toBe(true);
-    console.log(`[✓] 모바일 BNB 매장찾기 클릭 이동: ${url}`);
-  });
-
-  test("모바일: m.store.hanssem.com/store 자동 리다이렉트", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 전용");
-    await page.goto("/store");
-    await waitForPageReady(page, 2000);
-    await expect(page).toHaveURL(/m\.store\.hanssem\.com.*store/);
-    console.log(`[✓] 모바일 매장 찾기 리다이렉트: ${page.url()}`);
-  });
 });
 
 // ─── 10. 상품 상세 탭 전환 ───────────────────────────────────
@@ -664,41 +558,8 @@ test.describe("12. 인테리어 서브 페이지", () => {
   });
 });
 
-// ─── 13. 모바일 햄버거 메뉴 ─────────────────────────────────
-test.describe("13. 모바일 햄버거 메뉴", () => {
-  test("햄버거 메뉴 열기 → 메뉴 영역 노출 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 전용");
-    await page.goto("/");
-    await waitForPageReady(page, 3000);
-    const overlay = page.locator('[backgroundcolor="dimmed.dimmed_3"]').first();
-    if (await overlay.isVisible().catch(() => false)) {
-      await page.keyboard.press("Escape");
-      await page.waitForTimeout(500);
-    }
-    const hamburger = page.locator('[data-test-id="home_btn_all_menu"]');
-    await expect(hamburger).toBeVisible({ timeout: 10000 });
-    await hamburger.evaluate((el) => (el as HTMLElement).click());
-    await page.waitForTimeout(1500);
-    const menuArea = page.locator('text=/가구|홈리빙|인테리어|침실|거실/i').first();
-    await expect(menuArea).toBeVisible({ timeout: 8000 });
-    console.log("[✓] 모바일 햄버거 메뉴 열기 성공");
-  });
-
-  test("BNB 인테리어 탭 클릭 → /interior 이동 (Mobile)", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "모바일 전용");
-    await page.goto("/");
-    await waitForPageReady(page, 3000);
-    const bnbInterior = page.locator('[data-test-id="home_bnb_interior"]');
-    await expect(bnbInterior).toBeVisible({ timeout: 10000 });
-    await bnbInterior.evaluate((el) => (el as HTMLAnchorElement).click());
-    await waitForPageReady(page);
-    await expect(page).toHaveURL(/interior/);
-    console.log(`[✓] 모바일 BNB 인테리어 클릭: ${page.url()}`);
-  });
-});
-
-// ─── 14. 예외 페이지 처리 ────────────────────────────────────
-test.describe("14. 예외 페이지 처리", () => {
+// ─── 13. 예외 페이지 처리 ────────────────────────────────────
+test.describe("13. 예외 페이지 처리", () => {
   test("존재하지 않는 상품 — 리다이렉트 또는 에러 페이지", async ({ page }) => {
     const response = await page.goto("/goods/999999999");
     await waitForPageReady(page, 2000);
