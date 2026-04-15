@@ -8,11 +8,11 @@
   "passRate": "0.0",
   "cases": [
     {
-      "name": "6-02  가구/홈리빙 200 응답",
+      "name": "6-03  인테리어 200 응답",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
       "duration": "0.05s",
-      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/fu"
+      "reason": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://store.hanssem.com/in"
     }
   ]
 }
