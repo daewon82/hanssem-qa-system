@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 9:06:56",
+  "lastUpdated": "2026. 4. 15. PM 9:13:33",
   "incidents": {
-    "total": 23,
-    "hotfix": 23,
+    "total": 26,
+    "hotfix": 25,
     "feCount": 10,
-    "beCount": 12,
-    "appCount": 1,
-    "lastUpdated": "2026-04-14",
-    "period": "2026-01-06 ~ 2026-04-14",
+    "beCount": 14,
+    "appCount": 2,
+    "lastUpdated": "2026-04-15",
+    "period": "2026-01-06 ~ 2026-04-15",
     "byMonth": [
       {
         "month": "2026-01",
@@ -213,10 +213,10 @@
       {
         "month": "2026-04",
         "label": "2026년 4월",
-        "count": 4,
+        "count": 7,
         "fe": 2,
-        "be": 2,
-        "app": 0,
+        "be": 4,
+        "app": 1,
         "list": [
           {
             "no": 1,
@@ -253,6 +253,33 @@
             "assignee": "박대윤",
             "summary": "페이지 앵커링 속도 지연 개선",
             "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15588"
+          },
+          {
+            "no": 5,
+            "date": "2026-04-15",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "신휴창",
+            "summary": "통합회원서버 refresh API AccessToken 검증 제외 (gateway 통과 요청)",
+            "jiraLink": "https://hanssem.atlassian.net/browse/HRCI-895"
+          },
+          {
+            "no": 6,
+            "date": "2026-04-15",
+            "type": "핫픽스",
+            "category": "BE",
+            "assignee": "김현우",
+            "summary": "/v1/refresh 응답 expiresAt 타입 불일치 수정 (timestamp → ISO string)",
+            "jiraLink": ""
+          },
+          {
+            "no": 7,
+            "date": "2026-04-15",
+            "type": "비정기배포",
+            "category": "APP",
+            "assignee": "박대진",
+            "summary": "숏폼 iOS 웹뷰 캐시 설정 변경 비정기배포",
+            "jiraLink": ""
           }
         ]
       }
@@ -334,6 +361,42 @@
       "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
       "cases": []
+    },
+    {
+      "id": "a-main-gnb",
+      "title": "A. 메인 / GNB 테스트",
+      "lastUpdated": "2026. 4. 15. PM 9:12:34",
+      "total": 1,
+      "pass": 0,
+      "fail": 1,
+      "passRate": "0.0",
+      "cases": [
+        {
+          "name": "A-09  사업자정보 팝업 — 클릭 시 레이어 노출",
+          "url": "https://store.hanssem.com/",
+          "status": "fail",
+          "duration": "3.60s",
+          "reason": "Error: locator.scrollIntoViewIfNeeded: Error: strict mode violation: locator('[class*=\"Footer__Foote"
+        }
+      ]
+    },
+    {
+      "id": "b-category-list",
+      "title": "B. 카테고리 / 상품 목록 테스트",
+      "lastUpdated": "2026. 4. 15. PM 9:13:33",
+      "total": 1,
+      "pass": 0,
+      "fail": 1,
+      "passRate": "0.0",
+      "cases": [
+        {
+          "name": "B-02  카테고리 — 인테리어 진입 후 상품 목록 노출",
+          "url": "https://store.hanssem.com/",
+          "status": "fail",
+          "duration": "18.51s",
+          "reason": "TimeoutError: locator.click: Timeout 15000ms exceeded."
+        }
+      ]
     }
   ]
 }
