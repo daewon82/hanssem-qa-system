@@ -1,14 +1,14 @@
 {
   "id": "pc-e2e",
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 15. PM 9:31:14",
+  "lastUpdated": "2026. 4. 15. PM 9:31:15",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "3-01  상품명(H1) 노출",
+      "name": "3-02  가격 정보 노출 (숫자+원 패턴)",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
       "duration": "0.05s",
