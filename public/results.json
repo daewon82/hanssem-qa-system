@@ -361,7 +361,7 @@
       "passRate": "0.0",
       "cases": [
         {
-          "name": "3-03  장바구니 버튼 노출",
+          "name": "3-04  구매하기 / 바로구매 버튼 노출",
           "url": "chrome-error://chromewebdata/",
           "status": "fail",
           "duration": "0.05s",
