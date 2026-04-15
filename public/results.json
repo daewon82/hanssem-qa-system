@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 15. PM 8:47:49",
+  "lastUpdated": "2026. 4. 15. PM 8:48:42",
   "incidents": {
     "total": 23,
     "hotfix": 23,
@@ -327,21 +327,13 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 15. PM 8:47:49",
-      "total": 32,
-      "pass": 31,
-      "fail": 1,
-      "passRate": "96.9",
+      "lastUpdated": "2026. 4. 15. PM 8:48:42",
+      "total": 7,
+      "pass": 7,
+      "fail": 0,
+      "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": [
-        {
-          "name": "가구/홈리빙 — 모든필터 버튼 노출 (PC)",
-          "url": "https://store.hanssem.com/furnishing",
-          "status": "fail",
-          "duration": "16.71s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisib"
-        }
-      ]
+      "cases": []
     }
   ]
 }
