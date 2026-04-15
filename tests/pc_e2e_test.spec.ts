@@ -149,17 +149,6 @@ test.afterAll(async () => {
   }
 
   try {
-    const vercelToken = process.env.VERCEL_TOKEN;
-    const vercelCmd = vercelToken
-      ? `npx vercel --prod --yes --force --token=${vercelToken}`
-      : "npx vercel --prod --yes --force";
-    execSync(vercelCmd, { stdio: "inherit" });
-    console.log("🚀 Vercel 배포 완료");
-  } catch (err: any) {
-    console.log("❌ Vercel 배포 오류:", err.message);
-  }
-
-  try {
     const failTestText =
       failedTests.length > 0 ? failedTests.slice(0, 10).join("\n") : "없음";
     await axios.post(JANDI_WEBHOOK_URL, {
