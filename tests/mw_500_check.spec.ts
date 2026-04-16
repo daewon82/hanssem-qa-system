@@ -69,6 +69,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   test.setTimeout(7200000);
 
   const linkPool = new Set<string>();
+  const linkQueue: string[] = [];
   const visitedLinks = new Set<string>();
   const caseResults: any[] = [];
   const failedUrls: string[] = [];
@@ -100,46 +101,59 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   console.log(`🚀 점검 시작: ${testInfo.project.name}`);
 
   // -----------------------------
-  // 링크 수집 (스크롤로 lazy-load 유발, hanssem.com 전체)
+  // 링크 수집 (공통 DOM 추출 로직)
   // -----------------------------
-  const collectLinks = async () => {
-    try {
-      // lazy-load 콘텐츠 노출을 위한 스크롤
-      for (let i = 0; i < 3; i++) {
-        await page.mouse.wheel(0, 3000);
-        await page.waitForTimeout(600);
+  const extractAndAddLinks = async () => {
+    const rawLinks = await page.evaluate(() =>
+      Array.from(document.querySelectorAll("a"))
+        .map((a) => a.href)
+        .filter(
+          (h) =>
+            h &&
+            h.startsWith("http") &&
+            h.includes("m.store.hanssem.com") &&
+            !h.includes("#"),
+        ),
+    );
+
+    rawLinks.forEach((l) => {
+      try {
+        const url = new URL(l);
+        // 경로에 프로토콜이 포함된 잘못된 URL 제외
+        if (url.pathname.includes("http")) return;
+      } catch {
+        return;
       }
 
-      const rawLinks = await page.evaluate(() =>
-        Array.from(document.querySelectorAll("a"))
-          .map((a) => a.href)
-          .filter(
-            (h) =>
-              h &&
-              h.startsWith("http") &&
-              h.includes("m.store.hanssem.com") &&
-              !h.includes("#"),
-          ),
-      );
+      if (
+        !EXCLUDE_KEYWORDS.some((k) => l.includes(k)) &&
+        !visitedLinks.has(l) &&
+        !linkPool.has(l) &&
+        linkPool.size < 1500
+      ) {
+        linkPool.add(l);
+        linkQueue.push(l);
+      }
+    });
+  };
 
-      rawLinks.forEach((l) => {
-        try {
-          const url = new URL(l);
-          // 경로에 프로토콜이 포함된 잘못된 URL 제외
-          if (url.pathname.includes("http")) return;
-        } catch {
-          return;
-        }
+  // 스크롤 포함 수집 — 초기 진입 + 링크 풀 소진 시
+  const collectLinksHeavy = async () => {
+    try {
+      for (let i = 0; i < 2; i++) {
+        await page.mouse.wheel(0, 3000);
+        await page.waitForTimeout(400);
+      }
+      await extractAndAddLinks();
+    } catch (err) {
+      console.log("⚠️ 링크 수집 오류:", err);
+    }
+  };
 
-        if (
-          !EXCLUDE_KEYWORDS.some((k) => l.includes(k)) &&
-          !visitedLinks.has(l) &&
-          !linkPool.has(l) &&
-          linkPool.size < 1500
-        ) {
-          linkPool.add(l);
-        }
-      });
+  // 스크롤 없는 경량 수집 — 매 페이지 방문 직후
+  const collectLinksQuick = async () => {
+    try {
+      await extractAndAddLinks();
     } catch (err) {
       console.log("⚠️ 링크 수집 오류:", err);
     }
@@ -152,14 +166,14 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
     waitUntil: "domcontentloaded",
     timeout: 40000,
   });
-  await collectLinks();
+  await collectLinksHeavy();
   console.log(`🔗 수집된 후보 링크: ${linkPool.size}개`);
 
   // -----------------------------
   // 메인 루프
   // -----------------------------
   while (visitedLinks.size < MAX_LINKS) {
-    const nextLink = Array.from(linkPool).find((l) => !visitedLinks.has(l));
+    const nextLink = linkQueue.shift();
 
     if (!nextLink) {
       console.log("🔗 링크 풀 소진. 재수집합니다...");
@@ -189,7 +203,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
           /* 무시 */
         }
         const before = linkPool.size;
-        await collectLinks();
+        await collectLinksHeavy();
         if (linkPool.size > before) {
           console.log(
             `🔗 [${seedUrl}] 에서 ${linkPool.size - before}개 추가 수집`,
@@ -222,6 +236,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
       loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
       httpStatus = response?.status() || "Error";
       isPass = httpStatus === 200;
+      await collectLinksQuick();
     } catch {
       loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
       httpStatus = "Timeout/Error";
@@ -280,10 +295,6 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
       reason: failReason,
     });
 
-    // 20개마다 추가 링크 수집
-    if (visitedLinks.size % 20 === 0) {
-      await collectLinks();
-    }
   }
 
   // -----------------------------
