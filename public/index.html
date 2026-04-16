@@ -646,8 +646,9 @@
         const fmt = d =>
           `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${dayNames[d.getDay()]})`;
 
+        const timeStr = `${String(today.getHours()).padStart(2,'0')}:${String(today.getMinutes()).padStart(2,'0')}`;
         document.getElementById("run-time").textContent =
-          `${fmt(today)} · 마지막 업데이트 로딩 중…`;
+          `조회일자 : ${fmt(today)} ${timeStr}`;
 
         try {
           const res = await fetch("results.json?t=" + Date.now());
@@ -682,12 +683,12 @@
 
           if (data.lastUpdated) {
             document.getElementById("footer-updated").textContent =
-              "최근 업데이트: " + data.lastUpdated;
+              "마지막 수정 버전: " + data.lastUpdated;
           }
           const codeDate = data.codeLastModified || data.lastUpdated;
           if (codeDate) {
             document.getElementById("run-time").textContent =
-              `${fmt(today)} · 마지막 업데이트 ${codeDate}`;
+              `조회일자 : ${fmt(today)} ${timeStr}`;
           }
         } catch (e) {
           console.error("🚨 [자비스 알림] 데이터 로드 실패:", e.message);
