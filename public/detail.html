@@ -194,7 +194,12 @@
 <script>
   const params = new URLSearchParams(location.search);
   const reportId = params.get("id") || "";
-  const fileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json" };
+  const fileMap = {
+    "pc-landing": "pc_500.json",
+    "pc-e2e": "pc_e2e.json",
+    "mw-landing": "mw_500.json",
+    "mw-e2e": "mw_e2e.json",
+  };
   const jsonFile = fileMap[reportId] || "pc_500.json";
 
   let allCases = [];

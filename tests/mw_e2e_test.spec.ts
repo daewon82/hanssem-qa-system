@@ -95,7 +95,7 @@ test.afterAll(async () => {
     pass: passCount,
     fail: failCount,
     passRate,
-    cases: caseResults, // 전체 케이스 (pass + fail) — 상세보기에서 노출
+    cases: caseResults.filter((c) => c.status === "fail"), // 메인 대시보드: 실패만
   };
 
   const reportIdx = existingData.reports.findIndex(
@@ -110,9 +110,9 @@ test.afterAll(async () => {
 
   fs.writeFileSync("public/results.json", JSON.stringify(existingData, null, 2));
 
-  // pc_e2e.json 전체 결과 저장
+  // mw_e2e.json 전체 결과 저장 (상세보기: pass + fail 전체)
   fs.writeFileSync(
-    "public/pc_e2e.json",
+    "public/mw_e2e.json",
     JSON.stringify(
       {
         title: REPORT_TITLE,

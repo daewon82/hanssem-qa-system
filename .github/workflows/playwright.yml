@@ -52,7 +52,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
 
-          git add public/results.json public/pc_500.json public/pc_e2e.json
+          git add public/results.json public/pc_500.json public/pc_e2e.json public/mw_500.json public/mw_e2e.json
 
           git commit -m "auto update $(date +'%s') [skip ci]" || echo "no changes"
 

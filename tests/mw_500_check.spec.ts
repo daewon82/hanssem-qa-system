@@ -315,8 +315,8 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   } catch {}
 
   const newReport = {
-    id: "pc-landing",
-    title: "운영환경 PC 500개 랜딩 테스트",
+    id: "mw-landing",
+    title: "운영환경 MW 500개 랜딩 테스트",
     lastUpdated: kst,
     total: totalCount,
     pass: passCount,
@@ -327,7 +327,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   };
 
   const reportIdx = existingData.reports.findIndex(
-    (r: any) => r.id === "pc-landing",
+    (r: any) => r.id === "mw-landing",
   );
   if (reportIdx >= 0) {
     existingData.reports[reportIdx] = newReport;
@@ -342,13 +342,13 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   );
 
   // -----------------------------
-  // pc_500.json 전체 결과 저장
+  // mw_500.json 전체 결과 저장
   // -----------------------------
   fs.writeFileSync(
-    "public/pc_500.json",
+    "public/mw_500.json",
     JSON.stringify(
       {
-        title: "운영환경 PC 500개 랜딩 테스트",
+        title: "운영환경 MW 500개 랜딩 테스트",
         lastUpdated: kst,
         total: totalCount,
         pass: passCount,
@@ -372,7 +372,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
         failedUrls.length > 0 ? failedUrls.slice(0, 10).join("\n") : "없음";
 
       await axios.post(JANDI_WEBHOOK_URL, {
-        body: `[운영환경 PC 500개 랜딩 테스트] 결과: ${passCount} 성공 / ${failCount} 실패`,
+        body: `[운영환경 MW 500개 랜딩 테스트] 결과: ${passCount} 성공 / ${failCount} 실패`,
         connectColor: failCount > 0 ? "#FF4444" : "#00C73C",
         connectInfo: [
           {
