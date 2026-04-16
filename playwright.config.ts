@@ -31,6 +31,12 @@ export default defineConfig({
     {
       name: "PC_Chrome",
       use: { ...devices["Desktop Chrome"] },
+      testMatch: ["**/pc_*.spec.ts"],
+    },
+    {
+      name: "MW_Chrome",
+      use: { ...devices["Pixel 5"] },
+      testMatch: ["**/mw_*.spec.ts"],
     },
   ],
 });
