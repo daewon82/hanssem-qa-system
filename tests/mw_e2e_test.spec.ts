@@ -3,9 +3,9 @@ import fs from "fs";
 import axios from "axios";
 
 /**
- * store.hanssem.com PC E2E 테스트
- * - PC Chrome 전용
- * - 명령어: npx playwright test tests/pc_e2e_test.spec.ts
+ * store.hanssem.com MW E2E 테스트
+ * - MW Chrome 전용
+ * - 명령어: npx playwright test tests/mw_e2e_test.spec.ts
  *
  * 시나리오:
  * 1. 메인 페이지 — 로딩, 헤더, 푸터
@@ -20,8 +20,8 @@ import axios from "axios";
  */
 
 // ─── 설정 ────────────────────────────────────────────────────
-const REPORT_ID = "pc-e2e";
-const REPORT_TITLE = "운영환경 PC E2E 테스트";
+const REPORT_ID = "mw-e2e";
+const REPORT_TITLE = "운영환경 MW E2E 테스트";
 const JANDI_WEBHOOK_URL =
   "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
 const DASHBOARD_URL = "https://hanssem-qa-system.vercel.app";
@@ -151,7 +151,7 @@ test.afterAll(async () => {
     console.log("❌ 잔디 실패:", err.message);
   }
 
-  console.log(`🏁 PC E2E 완료! 총 ${totalCount}건`);
+  console.log(`🏁 MW E2E 완료! 총 ${totalCount}건`);
 });
 
 // ─── 1. 메인 페이지 ─────────────────────────────────────
