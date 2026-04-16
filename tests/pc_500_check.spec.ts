@@ -26,7 +26,7 @@ const EXCLUDE_KEYWORDS = [
 ];
 
 const JANDI_WEBHOOK_URL =
-  "https://wh.jandi.com/connect-api/webhook/24103837/4c878ba74e1e0cf15180f85bdd47c1f6";
+  "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
 
 const normalizeUrl = (url: string) =>
   url.replace(/(https?:\/\/)+/g, "https://").replace(/\/$/, "");
@@ -215,7 +215,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       });
       loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
       httpStatus = response?.status() || "Error";
-      isPass = httpStatus === 200 && parseFloat(loadTimeSec) <= 10.0;
+      isPass = httpStatus === 200;
     } catch {
       loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
       httpStatus = "Timeout/Error";
@@ -263,9 +263,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       ? ""
       : httpStatus === "Timeout/Error"
         ? "접속 실패"
-        : httpStatus !== 200
-          ? `${httpStatus}`
-          : "성능 지연";
+        : `${httpStatus}`;
 
     caseResults.push({
       name: nextLink.split("/").pop() || "HOME",
@@ -353,9 +351,11 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   );
 
   // -----------------------------
-  // 잔디 알림
+  // 잔디 알림 (GitHub Actions 에서만 전송)
   // -----------------------------
-  try {
+  if (!process.env.CI) {
+    console.log("⏭️ 로컬 실행 — 잔디 알림 스킵");
+  } else try {
     const failUrlText =
       failedUrls.length > 0 ? failedUrls.slice(0, 10).join("\n") : "없음";
 

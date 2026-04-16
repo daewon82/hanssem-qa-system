@@ -278,52 +278,6 @@
   },
   "reports": [
     {
-      "title": "한샘몰 자동 테스트",
-      "total": 291,
-      "pass": 285,
-      "fail": 6,
-      "passRate": "97.9",
-      "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k/edit#gid=1453392612",
-      "cases": [
-        {
-          "name": "1070411",
-          "url": "https://store.hanssem.com/goods/1070411",
-          "status": "fail",
-          "duration": "8.55s"
-        },
-        {
-          "name": "furnishing",
-          "url": "https://remodeling.hanssem.com/furnishing",
-          "status": "fail",
-          "duration": "0.18s"
-        },
-        {
-          "name": "interior",
-          "url": "https://remodeling.hanssem.com/interior",
-          "status": "fail",
-          "duration": "0.11s"
-        },
-        {
-          "name": "access_terms.do",
-          "url": "https://company.hanssem.com/customer_support/access_terms.do",
-          "status": "fail",
-          "duration": "0.06s"
-        },
-        {
-          "name": "corporate_site_privacy_policy_cctv.do",
-          "url": "https://company.hanssem.com/customer_support/corporate_site_privacy_policy_cctv.do",
-          "status": "fail",
-          "duration": "0.03s"
-        },
-        {
-          "name": "inquire_history.do",
-          "url": "https://company.hanssem.com/customer_support/customer_counseling/inquire_history.do",
-          "status": "fail",
-          "duration": "0.03s"
-        }
-      ]
-    },
-    {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
       "lastUpdated": "2026. 4. 16. AM 11:26:22",
@@ -623,78 +577,6 @@
           "status": "pass",
           "duration": "5.63s",
           "reason": ""
-        }
-      ]
-    },
-    {
-      "id": "a-main-gnb",
-      "title": "A. 메인 / GNB 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:12:34",
-      "total": 1,
-      "pass": 0,
-      "fail": 1,
-      "passRate": "0.0",
-      "cases": [
-        {
-          "name": "A-09  사업자정보 팝업 — 클릭 시 레이어 노출",
-          "url": "https://store.hanssem.com/",
-          "status": "fail",
-          "duration": "3.60s",
-          "reason": "Error: locator.scrollIntoViewIfNeeded: Error: strict mode violation: locator('[class*=\"Footer__Foote"
-        }
-      ]
-    },
-    {
-      "id": "b-category-list",
-      "title": "B. 카테고리 / 상품 목록 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:18:27",
-      "total": 1,
-      "pass": 0,
-      "fail": 1,
-      "passRate": "0.0",
-      "cases": [
-        {
-          "name": "B-09  상품 목록 — 최소 4개 이상 상품 렌더링",
-          "url": "https://store.hanssem.com/",
-          "status": "fail",
-          "duration": "18.65s",
-          "reason": "TimeoutError: locator.click: Timeout 15000ms exceeded."
-        }
-      ]
-    },
-    {
-      "id": "c-product-detail",
-      "title": "C. 상품 상세 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:21:25",
-      "total": 1,
-      "pass": 0,
-      "fail": 1,
-      "passRate": "0.0",
-      "cases": [
-        {
-          "name": "C-10  장바구니 버튼 노출",
-          "url": "https://store.hanssem.com/goods/detail/837513",
-          "status": "fail",
-          "duration": "8.87s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed"
-        }
-      ]
-    },
-    {
-      "id": "d-search",
-      "title": "D. 검색 테스트",
-      "lastUpdated": "2026. 4. 15. PM 9:21:42",
-      "total": 1,
-      "pass": 0,
-      "fail": 1,
-      "passRate": "0.0",
-      "cases": [
-        {
-          "name": "D-01  검색 — 키워드 입력 후 엔터 → 결과 페이지 진입",
-          "url": "https://store.hanssem.com/",
-          "status": "fail",
-          "duration": "7.11s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed"
         }
       ]
     }

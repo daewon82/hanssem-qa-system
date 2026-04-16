@@ -1,9 +1,7 @@
 name: Playwright Tests
 
 on:
-  schedule:
-    - cron: "0 23 * * *" # KST 08시 (UTC 23시 = KST 다음날 08시)
-  workflow_dispatch: # 수동 실행 버튼
+  workflow_dispatch: # 수동 실행 버튼 (외부 크론 또는 직접 실행)
 
 permissions:
   contents: write
@@ -21,6 +19,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Write last commit date to results.json
+        run: |
+          node -e "
+          const fs = require('fs');
+          const { execSync } = require('child_process');
+          const raw = execSync('git log -1 --format=\"%ci\"').toString().trim();
+          const d = new Date(raw);
+          const kst = new Date(d.getTime() + 9 * 60 * 60 * 1000);
+          const fmt = kst.getFullYear() + '. ' + (kst.getMonth()+1) + '. ' + kst.getDate() + '. ' +
+                      String(kst.getHours()).padStart(2,'0') + ':' + String(kst.getMinutes()).padStart(2,'0');
+          const data = JSON.parse(fs.readFileSync('public/results.json', 'utf8'));
+          data.codeLastModified = fmt;
+          fs.writeFileSync('public/results.json', JSON.stringify(data, null, 2));
+          "
 
       - name: Install dependencies
         run: npm ci

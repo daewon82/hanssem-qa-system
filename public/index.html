@@ -82,7 +82,7 @@
       }
       .chart-header {
         display: flex; align-items: flex-start;
-        justify-content: space-between;
+        justify-content: flex-start;
         margin-bottom: 12px;
       }
       .chart-title  { font-size: 13px; font-weight: 700; color: var(--text-main); }
@@ -349,7 +349,6 @@
         </div>
         <div>
           <div class="title-main">한샘몰 서비스 품질 관리 시스템</div>
-          <div class="title-sub">JARVIS QMS Dashboard</div>
         </div>
       </div>
       <div class="header-right">
@@ -365,11 +364,11 @@
         <div>
           <div class="chart-title">월별 긴급 배포 건수</div>
           <div class="chart-subtitle" id="chart-range">2026년 1월 ~ 현재</div>
-        </div>
-        <div class="chart-legend">
-          <span><span style="display:inline-block;width:11px;height:11px;background:#1a4f9c;border-radius:2px;vertical-align:middle;margin-right:4px"></span>FE 프론트엔드</span>
-          <span><span style="display:inline-block;width:11px;height:11px;background:#e65100;border-radius:2px;vertical-align:middle;margin-right:4px"></span>BE 백엔드</span>
-          <span><span style="display:inline-block;width:11px;height:11px;background:#2e7d32;border-radius:2px;vertical-align:middle;margin-right:4px"></span>APP 모바일</span>
+          <div class="chart-legend" style="margin-top:8px">
+            <span><span style="display:inline-block;width:11px;height:11px;background:#1a4f9c;border-radius:2px;vertical-align:middle;margin-right:4px"></span>FE 프론트엔드</span>
+            <span><span style="display:inline-block;width:11px;height:11px;background:#e65100;border-radius:2px;vertical-align:middle;margin-right:4px"></span>BE 백엔드</span>
+            <span><span style="display:inline-block;width:11px;height:11px;background:#2e7d32;border-radius:2px;vertical-align:middle;margin-right:4px"></span>APP 모바일</span>
+          </div>
         </div>
       </div>
       <div class="chart-wrap" id="chart-wrap">
@@ -648,7 +647,7 @@
           `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${dayNames[d.getDay()]})`;
 
         document.getElementById("run-time").textContent =
-          `${fmt(today)} · 마지막 업데이트 ${today.getHours().toString().padStart(2,"0")}:${today.getMinutes().toString().padStart(2,"0")}`;
+          `${fmt(today)} · 마지막 업데이트 로딩 중…`;
 
         try {
           const res = await fetch("results.json?t=" + Date.now());
@@ -684,6 +683,11 @@
           if (data.lastUpdated) {
             document.getElementById("footer-updated").textContent =
               "최근 업데이트: " + data.lastUpdated;
+          }
+          const codeDate = data.codeLastModified || data.lastUpdated;
+          if (codeDate) {
+            document.getElementById("run-time").textContent =
+              `${fmt(today)} · 마지막 업데이트 ${codeDate}`;
           }
         } catch (e) {
           console.error("🚨 [자비스 알림] 데이터 로드 실패:", e.message);

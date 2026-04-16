@@ -23,7 +23,7 @@ import axios from "axios";
 const REPORT_ID = "pc-e2e";
 const REPORT_TITLE = "운영환경 PC E2E 테스트";
 const JANDI_WEBHOOK_URL =
-  "https://wh.jandi.com/connect-api/webhook/24103837/4c878ba74e1e0cf15180f85bdd47c1f6";
+  "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
 const DASHBOARD_URL = "https://hanssem-qa-system.vercel.app";
 const SAMPLE_GOODS_ID = "837513";
 
@@ -128,7 +128,10 @@ test.afterAll(async () => {
     ),
   );
 
-  try {
+  // 잔디 알림 (GitHub Actions 에서만 전송)
+  if (!process.env.CI) {
+    console.log("⏭️ 로컬 실행 — 잔디 알림 스킵");
+  } else try {
     const failTestText =
       failedTests.length > 0 ? failedTests.slice(0, 10).join("\n") : "없음";
     await axios.post(JANDI_WEBHOOK_URL, {
