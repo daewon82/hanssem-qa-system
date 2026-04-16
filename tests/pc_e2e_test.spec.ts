@@ -36,7 +36,7 @@ const failedTests: string[] = [];
 // ─── 유틸 ────────────────────────────────────────────────────
 async function waitForPageReady(page: Page, extra = 1500) {
   await page.waitForLoadState("domcontentloaded");
-  await page.waitForTimeout(extra);
+  await page.waitForLoadState("networkidle", { timeout: extra }).catch(() => {});
 }
 
 // ─── 전처리 ──────────────────────────────────────────────────
@@ -455,7 +455,6 @@ test.describe("10. 상품 상세 탭 전환", () => {
     const reviewTab = page.locator('[data-value="review"]').first();
     await expect(reviewTab).toBeVisible({ timeout: 8000 });
     await reviewTab.evaluate((el) => (el as HTMLElement).click());
-    await page.waitForTimeout(1000);
     await expect(page.locator('[data-value="review"]').first()).toBeVisible();
     console.log("[✓] 후기 탭 전환 확인");
   });
@@ -464,7 +463,6 @@ test.describe("10. 상품 상세 탭 전환", () => {
     const askTab = page.locator('[data-value="ask"]').first();
     await expect(askTab).toBeVisible({ timeout: 8000 });
     await askTab.evaluate((el) => (el as HTMLElement).click());
-    await page.waitForTimeout(1000);
     await expect(askTab).toBeVisible();
     console.log("[✓] 문의 탭 전환 확인");
   });
@@ -473,7 +471,6 @@ test.describe("10. 상품 상세 탭 전환", () => {
     const deliveryTab = page.locator('[data-value="delivery"]').first();
     await expect(deliveryTab).toBeVisible({ timeout: 8000 });
     await deliveryTab.evaluate((el) => (el as HTMLElement).click());
-    await page.waitForTimeout(1000);
     await expect(deliveryTab).toBeVisible();
     console.log("[✓] 배송 탭 전환 확인");
   });
@@ -526,11 +523,10 @@ test.describe("11. 상품 목록 정렬/필터", () => {
 // ─── 12. 인테리어 서브 페이지 ─────────────────────────────────
 test.describe("12. 인테리어 서브 페이지", () => {
   test("카테고리 페이지(/category/숫자) 진입 및 상품 노출", async ({ page }) => {
-    await page.goto("https://store.hanssem.com/category/20002");
+    const response = await page.goto("https://store.hanssem.com/category/20002");
     await waitForPageReady(page, 3000);
     await expect(page).toHaveTitle(/한샘/);
-    const response = await page.request.get("https://store.hanssem.com/category/20002");
-    expect(response.status()).toBeLessThan(400);
+    expect(response?.status()).toBeLessThan(400);
     console.log(`[✓] 카테고리 페이지 로딩: ${page.url()}`);
   });
 
