@@ -5,6 +5,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   test:
@@ -44,8 +46,6 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
         continue-on-error: true
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
       - name: Commit results
         run: |
@@ -59,20 +59,10 @@ jobs:
           git pull --rebase origin main
           git push
 
-      - name: Deploy to Vercel
-        run: |
-          for i in 1 2 3; do
-            echo "🚀 Vercel 배포 시도 $i/3"
-            npx vercel@latest --prod --token=${{ secrets.VERCEL_TOKEN }} --yes && echo "✅ 배포 성공" && exit 0
-            echo "⚠️ 배포 실패, 30초 후 재시도..."
-            sleep 30
-          done
-          echo "❌ 3회 시도 후 배포 실패"
-          exit 1
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
@@ -89,3 +79,15 @@ jobs:
           name: fail-evidence
           path: fail_evidence/
           retention-days: 30
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

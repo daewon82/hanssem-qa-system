@@ -13,7 +13,7 @@ const REPORT_ID = "mw-e2e";
 const REPORT_TITLE = "운영환경 MW E2E 테스트";
 const JANDI_WEBHOOK_URL =
   "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
-const DASHBOARD_URL = "https://hanssem-qa-system.vercel.app";
+const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system";
 const SAMPLE_GOODS_ID = "837513";
 
 // ─── 유틸 ────────────────────────────────────────────────────

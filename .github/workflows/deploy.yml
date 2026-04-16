@@ -1,7 +1,7 @@
-name: Deploy to Vercel
+name: Deploy to Vercel (비활성화 - GitHub Pages로 전환)
 
 on:
-  workflow_dispatch: # 수동 배포 전용
+  workflow_dispatch: # 수동으로도 실행하지 말 것 (GitHub Pages로 전환됨)
 
 permissions:
   contents: read
