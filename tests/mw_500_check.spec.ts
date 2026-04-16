@@ -6,7 +6,7 @@ import axios from "axios";
 // import { google } from "googleapis";
 
 // [설정]
-const TARGET_DOMAIN = "https://store.hanssem.com";
+const TARGET_DOMAIN = "https://m.store.hanssem.com";
 const MAX_LINKS = 50;
 
 const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
@@ -117,7 +117,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
             (h) =>
               h &&
               h.startsWith("http") &&
-              h.includes("store.hanssem.com") &&
+              h.includes("m.store.hanssem.com") &&
               !h.includes("#"),
           ),
       );
