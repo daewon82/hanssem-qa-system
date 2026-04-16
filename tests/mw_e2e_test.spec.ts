@@ -19,7 +19,7 @@ const SAMPLE_GOODS_ID = "837513";
 // ─── 유틸 ────────────────────────────────────────────────────
 async function waitForPageReady(page: Page, extra = 1500) {
   await page.waitForLoadState("domcontentloaded");
-  await page.waitForLoadState("networkidle", { timeout: extra }).catch(() => {});
+  await page.waitForTimeout(extra);
 }
 
 // ─── 전체를 하나의 describe로 감싸서 afterAll이 정확히 1번만 실행되도록 보장 ──
@@ -350,6 +350,7 @@ test.describe("MW E2E 테스트", () => {
       const reviewTab = page.locator('[data-value="review"]').first();
       await expect(reviewTab).toBeVisible({ timeout: 8000 });
       await reviewTab.evaluate((el) => (el as HTMLElement).click());
+      await page.waitForTimeout(1000);
       await expect(page.locator('[data-value="review"]').first()).toBeVisible();
       console.log("[✓] 후기 탭 전환 확인");
     });
@@ -373,10 +374,11 @@ test.describe("MW E2E 테스트", () => {
   // ─── 12. 인테리어 서브 페이지 ────────────────────────────────
   test.describe("12. 인테리어 서브 페이지", () => {
     test("카테고리 페이지(/category/숫자) 진입 및 상품 노출", async ({ page }) => {
-      const response = await page.goto("https://m.store.hanssem.com/category/20002");
+      await page.goto("https://m.store.hanssem.com/category/20002");
       await waitForPageReady(page, 3000);
       await expect(page).toHaveTitle(/한샘/);
-      expect(response?.status()).toBeLessThan(400);
+      const response = await page.request.get("https://m.store.hanssem.com/category/20002");
+      expect(response.status()).toBeLessThan(400);
       console.log(`[✓] 카테고리 페이지 로딩: ${page.url()}`);
     });
 
