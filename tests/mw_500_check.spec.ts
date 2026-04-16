@@ -65,7 +65,7 @@ const DASHBOARD_URL = normalizeUrl("https://hanssem-qa-system.vercel.app");
 //   return client;
 // }
 
-test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) => {
+test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) => {
   test.setTimeout(7200000);
 
   const linkPool = new Set<string>();
