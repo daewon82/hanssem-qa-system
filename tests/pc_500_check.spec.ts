@@ -7,7 +7,7 @@ import axios from "axios";
 
 // [설정]
 const TARGET_DOMAIN = "https://store.hanssem.com";
-const MAX_LINKS = 50;
+const MAX_LINKS = 500;
 
 const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
 // const TEMPLATE_GID = 1626254051;
