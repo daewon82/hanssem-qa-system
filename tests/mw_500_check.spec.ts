@@ -226,6 +226,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
       loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
       httpStatus = "Timeout/Error";
       try {
+        await page.evaluate(() => window.stop()).catch(() => {});
         const safeUrl = nextLink.replace(/[/\\?%*:|"<>]/g, "-");
         await page.screenshot({
           path: `fail_evidence/${safeUrl}.png`,
