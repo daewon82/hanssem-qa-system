@@ -35,7 +35,7 @@ export default defineConfig({
     },
     {
       name: "MW_Chrome",
-      use: { ...devices["Pixel 5"] },
+      use: { ...devices["Pixel 5"], baseURL: "https://m.store.hanssem.com" },
       testMatch: ["**/mw_*.spec.ts"],
     },
   ],
