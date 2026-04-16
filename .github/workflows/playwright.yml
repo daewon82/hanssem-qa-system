@@ -1,7 +1,9 @@
 name: Playwright Tests
 
 on:
-  workflow_dispatch: # 수동 실행 버튼 (외부 크론 또는 직접 실행)
+  schedule:
+    - cron: "0 23 * * *" # UTC 23:00 = KST 08:00 매일 자동 실행
+  workflow_dispatch: # 수동 실행
 
 permissions:
   contents: write
