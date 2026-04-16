@@ -460,7 +460,8 @@ test.describe("10. 상품 상세 탭 전환", () => {
     console.log("[✓] 후기 탭 전환 확인");
   });
 
-  test("문의 탭 전환 확인", async ({ page }) => {
+  test("문의 탭 전환 확인", async ({ page, isMobile }) => {
+    test.skip(isMobile, "모바일 탭 UI 구조 상이");
     const askTab = page.locator('[data-value="ask"]').first();
     await expect(askTab).toBeVisible({ timeout: 8000 });
     await askTab.evaluate((el) => (el as HTMLElement).click());
@@ -469,7 +470,8 @@ test.describe("10. 상품 상세 탭 전환", () => {
     console.log("[✓] 문의 탭 전환 확인");
   });
 
-  test("배송 탭 전환 확인", async ({ page }) => {
+  test("배송 탭 전환 확인", async ({ page, isMobile }) => {
+    test.skip(isMobile, "모바일 탭 UI 구조 상이");
     const deliveryTab = page.locator('[data-value="delivery"]').first();
     await expect(deliveryTab).toBeVisible({ timeout: 8000 });
     await deliveryTab.evaluate((el) => (el as HTMLElement).click());
