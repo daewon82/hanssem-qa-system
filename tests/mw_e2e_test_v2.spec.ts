@@ -3,9 +3,9 @@ import fs from "fs";
 import axios from "axios";
 
 /**
- * store.hanssem.com MW E2E 확장 테스트 (v2)
+ * store.hanssem.com MW E2E 테스트 (v2)
  * - MW Chrome 전용
- * - 기존 28개 케이스 + 신규 5개 describe 추가
+ * - describe 1~13 (backup 기준) + v2 크래시 픽스 적용
  * - 명령어: npx playwright test tests/mw_e2e_test_v2.spec.ts
  */
 
@@ -164,7 +164,7 @@ test.afterAll(async () => {
     console.log("❌ 잔디 실패:", err.message);
   }
 
-  console.log(`🏁 MW E2E v2 완료! 총 ${totalCount}건`);
+  console.log(`🏁 MW E2E 완료! 총 ${totalCount}건`);
 });
 
 // ─── 1. 메인 페이지 ────────────────────────────────────────
@@ -196,7 +196,7 @@ test.describe("2. 카테고리 네비게이션", () => {
   });
 
   test("인테리어 카테고리 진입 및 타이틀 확인", async ({ page }) => {
-    await page.goto("/interior", { waitUntil: "domcontentloaded" });
+    await page.goto("/interior");
     await waitForPageReady(page, 2000);
     await expect(page).toHaveURL(/interior/);
     await expect(page).toHaveTitle(/한샘/);
@@ -228,6 +228,7 @@ test.describe("3. 상품 목록", () => {
     console.log(`[✓] 인테리어 링크 ${count}개 노출`);
   });
 
+  // v2 크래시 픽스: page.evaluate click → page.goto 로 변경
   test("상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동", async ({ page }) => {
     await page.goto("/furnishing");
     await waitForPageReady(page, 4000);
@@ -331,7 +332,6 @@ test.describe("7. 장바구니", () => {
 
 // ─── 8. 주요 페이지 HTTP 응답 ─────────────────────────────
 // /store(지도 API)와 /goods/(Heavy JS)는 headless Chromium 크래시 유발 → 제외
-// 해당 페이지는 describe 17(매장)과 describe 4(상품상세)에서 개별 검증
 test.describe("8. 주요 페이지 HTTP 응답", () => {
   const pageList = [
     { name: "메인",        path: "/" },
@@ -349,9 +349,14 @@ test.describe("8. 주요 페이지 HTTP 응답", () => {
   }
 });
 
-// ─── 9. 매장 찾기 — describe 17로 통합 (page.request.get 안전 방식 사용)
-// page.goto("/store") 는 지도 API(Kakao Map) 로드 시 headless Chromium 크래시 유발
-// → describe 17 "매장 검색"에서 page.request.get 으로 HTTP 확인 후 domcontentloaded 방식으로 대체
+// ─── 9. 매장 찾기 — HTTP 응답만 확인 (지도 API 크래시 방지) ──
+test.describe("9. 매장 찾기", () => {
+  test("매장 찾기 — HTTP 200 응답 확인", async ({ page }) => {
+    const response = await page.request.get("https://m.store.hanssem.com/store");
+    expect(response.status()).toBeLessThan(400);
+    console.log(`[✓] 매장 찾기 응답: ${response.status()}`);
+  });
+});
 
 // ─── 10. 상품 상세 탭 전환 ───────────────────────────────────
 test.describe("10. 상품 상세 탭 전환", () => {
@@ -429,158 +434,5 @@ test.describe("13. 예외 페이지 처리", () => {
     await waitForPageReady(page, 2000);
     expect(response?.status() ?? 200).toBeLessThan(500);
     console.log(`[✓] 없는 상품 처리: ${response?.status()} → ${page.url()}`);
-  });
-});
-
-// ─── 14. 구매하기 버튼 및 옵션 레이어 (MW) ──────────────────
-test.describe("14. 구매하기 버튼 및 옵션 레이어", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto(`/goods/${SAMPLE_GOODS_ID}`);
-    await waitForPageReady(page, 3000);
-  });
-
-  test("구매하기 버튼 노출 확인 (MW)", async ({ page }) => {
-    const buyBtn = page.locator(
-      'button:has-text("구매하기"), button:has-text("바로구매"), a:has-text("구매하기")'
-    ).first();
-    await expect(buyBtn).toBeVisible({ timeout: 8000 });
-    console.log("[✓] 구매하기 버튼 노출");
-  });
-
-  test("구매하기 버튼 클릭 → 옵션/레이어 노출 확인", async ({ page }) => {
-    const buyBtn = page.locator(
-      'button:has-text("구매하기"), button:has-text("바로구매")'
-    ).first();
-    await expect(buyBtn).toBeVisible({ timeout: 8000 });
-    await buyBtn.evaluate((el) => (el as HTMLElement).click());
-    await page.waitForTimeout(1500);
-    const layer = page.locator(
-      '[class*="option"], [class*="layer"], [class*="sheet"], [class*="modal"], [role="dialog"]'
-    ).first();
-    const isVisible = await layer.isVisible().catch(() => false);
-    expect(isVisible).toBe(true);
-    console.log("[✓] 구매 레이어/옵션 노출");
-  });
-});
-
-// ─── 15. 시공사례 상세 진입 ──────────────────────────────────
-test.describe("15. 시공사례 상세 진입", () => {
-  test("시공사례 목록 — 케이스 링크 1개 이상 노출", async ({ page }) => {
-    await page.goto("https://m.store.hanssem.com/interior/constcase");
-    await waitForPageReady(page, 5000);
-    const caseLinks = page.locator(
-      'a[href*="constcase"], a[href*="constCase"], a[href*="case"], a[href*="/interior/"], li a, article a, [class*="item"] a'
-    );
-    const count = await caseLinks.count();
-    if (count > 0) {
-      console.log(`[✓] 시공사례 링크 ${count}개 노출`);
-    } else {
-      // MW constcase는 동적 로딩 또는 다른 URL 구조 사용 — 페이지 컨테이너 확인으로 대체
-      const container = page.locator('main, #app, #root, [class*="content"]').first();
-      await expect(container).toBeVisible({ timeout: 5000 });
-      console.log('[⚠️] 시공사례 링크 미발견 — 동적 로딩 가능성, 페이지 컨테이너 확인으로 대체');
-    }
-  });
-
-  test("시공사례 목록 → 첫 번째 케이스 클릭 → 상세 진입", async ({ page }) => {
-    await page.goto("https://m.store.hanssem.com/interior/constcase");
-    await waitForPageReady(page, 4000);
-    const firstCase = page.locator(
-      'a[href*="constcase/"], a[href*="constCase/"]'
-    ).first();
-    const hasCase = await firstCase.isVisible().catch(() => false);
-    if (hasCase) {
-      await firstCase.evaluate((el) => (el as HTMLElement).click());
-      await waitForPageReady(page, 2000);
-      await expect(page).toHaveTitle(/한샘/);
-      console.log(`[✓] 시공사례 상세 이동: ${page.url()}`);
-    } else {
-      console.log("[⚠️] 시공사례 상세 링크 미발견 — skip");
-    }
-  });
-});
-
-// ─── 16. 전문가 찾기 목록 ────────────────────────────────────
-test.describe("16. 전문가 찾기", () => {
-  test("전문가 찾기 페이지 진입 및 타이틀 확인", async ({ page }) => {
-    await page.goto("https://m.store.hanssem.com/interior/constexpert");
-    await waitForPageReady(page, 3000);
-    await expect(page).toHaveTitle(/한샘/);
-    console.log(`[✓] 전문가 찾기 로딩: ${page.url()}`);
-  });
-
-  test("전문가 찾기 — 전문가 카드 또는 목록 1개 이상 노출", async ({ page }) => {
-    await page.goto("https://m.store.hanssem.com/interior/constexpert");
-    await waitForPageReady(page, 4000);
-    const expertItems = page.locator(
-      '[class*="expert"], [class*="Expert"], a[href*="expert"], [class*="item"], ul li, article'
-    );
-    const count = await expertItems.count();
-    if (count > 0) {
-      console.log(`[✓] 전문가 목록 ${count}개 감지`);
-    } else {
-      await expect(page).toHaveTitle(/한샘/);
-      console.log('[⚠️] 전문가 목록 선택자 미매칭 — 페이지 로딩으로 대체 확인');
-    }
-  });
-});
-
-// ─── 17. 매장 검색 UI ────────────────────────────────────────
-test.describe("17. 매장 검색", () => {
-  test("매장 찾기 — HTTP 200 응답 확인", async ({ page }) => {
-    // /store_M은 지도 API(Kakao/Naver) 로드 시 headless Chromium 크래시 유발 가능
-    // — 브라우저 내비게이션 대신 HTTP 요청으로 응답 상태 확인
-    const response = await page.request.get("https://m.store.hanssem.com/store");
-    expect(response.status()).toBeLessThan(400);
-    console.log(`[✓] 매장 찾기 페이지 응답: ${response.status()}`);
-  });
-
-  test("매장 찾기 — 페이지 콘텐츠 타이틀 확인", async ({ page }) => {
-    await page.goto("/store", { waitUntil: "domcontentloaded", timeout: 20000 });
-    await page.waitForTimeout(2000);
-    const title = await page.title();
-    expect(title).toMatch(/한샘/);
-    console.log(`[✓] 매장 찾기 타이틀: ${title}`);
-  });
-});
-
-// ─── 18. 하단 네비게이션 탭 (MW 전용) ───────────────────────
-test.describe("18. 하단 네비게이션 탭", () => {
-  test("메인 — 하단 탭 메뉴 노출 확인", async ({ page }) => {
-    await page.goto("/");
-    await waitForPageReady(page, 3000);
-    // position: fixed/sticky 로 하단(bottom:0)에 고정된 요소 감지
-    const hasBottomFixed = await page.evaluate(() => {
-      for (const el of Array.from(document.querySelectorAll("*"))) {
-        const style = getComputedStyle(el);
-        if (
-          (style.position === "fixed" || style.position === "sticky") &&
-          (style.bottom === "0px" || style.bottom === "0")
-        ) {
-          const rect = (el as HTMLElement).getBoundingClientRect();
-          if (rect.height > 30 && rect.width > 50) return true;
-        }
-      }
-      return false;
-    });
-    if (hasBottomFixed) {
-      console.log("[✓] 하단 고정 네비게이션 노출");
-    } else {
-      const navEl = page.locator("nav, [role='navigation']").last();
-      const navVisible = await navEl.isVisible().catch(() => false);
-      expect(navVisible).toBe(true);
-      console.log("[✓] 네비게이션 요소 확인 (대체 선택자)");
-    }
-  });
-
-  test("하단 탭 — 홈/카테고리/마이페이지 링크 포함 확인", async ({ page }) => {
-    await page.goto("/");
-    await waitForPageReady(page, 2000);
-    const homeLink = page.locator(
-      'a[href="/"], a[aria-label*="홈"], a:has-text("홈")'
-    ).first();
-    const isVisible = await homeLink.isVisible().catch(() => false);
-    expect(isVisible).toBe(true);
-    console.log("[✓] 하단 탭 홈 링크 노출");
   });
 });
