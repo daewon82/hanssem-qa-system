@@ -462,7 +462,7 @@
             ? `<span class="badge badge-warn">경고</span>`
             : `<span class="badge badge-fail">실패</span>`;
 
-        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json" };
+        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json" };
         const detailFile = detailFileMap[r.id];
         const sheetBtn = detailFile
           ? `<a href="detail.html?id=${r.id}" class="rc4-sheet-btn">
