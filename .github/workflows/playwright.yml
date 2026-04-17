@@ -59,16 +59,11 @@ jobs:
           git pull --rebase origin main
           git push
 
-      - name: Deploy to Vercel
-        run: |
-          for i in 1 2 3; do
-            npx vercel@latest --prod --token=${{ secrets.VERCEL_TOKEN }} && break
-            echo "재시도 ${i}..."
-            sleep 30
-          done
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
