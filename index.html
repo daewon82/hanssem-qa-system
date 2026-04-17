@@ -780,6 +780,7 @@
               btn.style.background = "var(--blue)";
               btn.disabled = false;
             }, 3000);
+            setTimeout(() => initProgress(), 5000);
           } else if (res.status === 401) {
             localStorage.removeItem("gh_pat");
             alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
@@ -798,7 +799,65 @@
         }
       }
 
+      /* ── 로딩 링 제어 ────────────────────────────────────────── */
+      const RING_IDS = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
+      let progressTimer = null;
+
+      function setRingsVisible(visible) {
+        RING_IDS.forEach(id => {
+          const el = document.getElementById("ring-" + id);
+          if (el) el.style.display = visible ? "flex" : "none";
+        });
+      }
+
+      function setRunBtn(running) {
+        const btn = document.getElementById("run-test-btn");
+        if (!btn) return;
+        if (running) {
+          btn.disabled = true;
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="white" stroke-width="1.5" stroke-dasharray="3 2"/></svg> 실행 중`;
+          btn.style.background = "var(--text-sub)";
+          btn.style.cursor = "not-allowed";
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
+          btn.style.background = "var(--blue)";
+          btn.style.cursor = "pointer";
+        }
+      }
+
+      async function pollWorkflowStatus() {
+        const token = localStorage.getItem("gh_pat");
+        if (!token) return;
+        try {
+          const res = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
+            { headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" } }
+          );
+          if (!res.ok) return;
+          const data = await res.json();
+          const latest = data.workflow_runs?.[0];
+          const running = latest && (latest.status === "in_progress" || latest.status === "queued");
+          setRingsVisible(running);
+          setRunBtn(running);
+          if (!running && progressTimer) {
+            clearInterval(progressTimer);
+            progressTimer = null;
+          }
+        } catch (e) {
+          console.log("Workflow status check error:", e.message);
+        }
+      }
+
+      function initProgress() {
+        if (!progressTimer) {
+          pollWorkflowStatus();
+          progressTimer = setInterval(pollWorkflowStatus, 30000);
+        }
+      }
+
       loadStats();
+      initProgress();
     </script>
   </body>
 </html>
