@@ -406,7 +406,21 @@
     </div>
 
     <!-- ── 테스트 결과 리포트 (4-column) ──────────────────── -->
-    <div class="section-label">테스트 결과 리포트</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:20px;">
+      <div class="section-label" style="margin:0">테스트 결과 리포트</div>
+      <button id="run-test-btn" onclick="runWorkflow()" style="
+        display:flex;align-items:center;gap:6px;
+        background:var(--blue);color:#fff;
+        border:none;border-radius:6px;
+        padding:6px 14px;font-size:12px;font-weight:600;
+        cursor:pointer;transition:opacity .15s;
+      ">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <polygon points="3,2 11,6.5 3,11" fill="white"/>
+        </svg>
+        테스트 실행
+      </button>
+    </div>
     <div class="cards-grid-4" id="cards-grid">
       <div class="rc4-card" style="grid-column:1/-1">
         <div style="text-align:center;padding:30px 0;color:var(--text-hint);font-size:13px;">데이터를 불러오는 중...</div>
@@ -693,6 +707,60 @@
         } catch (e) {
           console.error("🚨 [자비스 알림] 데이터 로드 실패:", e.message);
           showError("테스트 결과 파일(results.json)을 불러올 수 없습니다.<br>테스트를 먼저 실행하거나 파일 경로를 확인해주세요.");
+        }
+      }
+
+      async function runWorkflow() {
+        const btn = document.getElementById("run-test-btn");
+        let token = localStorage.getItem("gh_pat_token");
+
+        if (!token) {
+          token = prompt("GitHub Personal Access Token을 입력하세요.\n(workflow 권한 필요, 이후 브라우저에 저장됩니다)");
+          if (!token) return;
+          localStorage.setItem("gh_pat_token", token.trim());
+          token = token.trim();
+        }
+
+        btn.disabled = true;
+        btn.textContent = "실행 중...";
+
+        try {
+          const res = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/dispatches",
+            {
+              method: "POST",
+              headers: {
+                "Accept": "application/vnd.github+json",
+                "Authorization": `Bearer ${token}`,
+                "X-GitHub-Api-Version": "2022-11-28",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ ref: "main" }),
+            }
+          );
+
+          if (res.status === 204) {
+            btn.textContent = "✅ 실행 요청 완료";
+            btn.style.background = "var(--green)";
+            setTimeout(() => {
+              btn.textContent = "테스트 실행";
+              btn.style.background = "var(--blue)";
+              btn.disabled = false;
+            }, 3000);
+          } else if (res.status === 401) {
+            alert("토큰이 유효하지 않습니다. 다시 입력해주세요.");
+            localStorage.removeItem("gh_pat_token");
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
+          } else {
+            alert(`요청 실패 (HTTP ${res.status})`);
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
+          }
+        } catch (e) {
+          alert("네트워크 오류: " + e.message);
+          btn.disabled = false;
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
         }
       }
 
