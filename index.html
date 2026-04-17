@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>한샘몰 서비스 품질 현황 대시보드</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg-page: #f0f2f5;
+        --bg-card: #ffffff;
+        --bg-stat: #f6f8fa;
+        --border: #e4e8ed;
+        --text-main: #1a1a2e;
+        --text-sub: #5a6477;
+        --text-hint: #9aa3b0;
+        --blue: #1a4f9c;
+        --blue-light: #eff4ff;
+        --teal: #00695c;
+        --green: #2e7d32;
+        --green-bg: #e8f5e9;
+        --red: #c62828;
+        --red-bg: #ffebee;
+        --amber: #e65100;
+        --amber-bg: #fff8e1;
+        --gray-bg: #f3f4f6;
+        --radius: 10px;
+        --radius-sm: 6px;
+      }
+
+      body {
+        font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+        background: var(--bg-page);
+        color: var(--text-main);
+        padding: 24px;
+        min-height: 100vh;
+      }
+
+      /* ── Header ─────────────────────────────────────── */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .header-left { display: flex; align-items: center; gap: 10px; }
+      .logo-box {
+        width: 34px; height: 34px;
+        background: var(--blue);
+        border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .logo-box svg { width: 18px; height: 18px; }
+      .title-main { font-size: 16px; font-weight: 700; color: var(--text-main); }
+      .title-sub  { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+      .header-right { display: flex; align-items: center; gap: 10px; }
+      .sys-badge {
+        font-size: 11px; font-weight: 600;
+        padding: 3px 10px; border-radius: 12px;
+        background: var(--green-bg); color: var(--green);
+      }
+      .run-time { font-size: 11px; color: var(--text-hint); }
+
+      /* ── Section Label ──────────────────────────────── */
+      .section-label {
+        font-size: 12px; font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 10px; margin-top: 20px;
+      }
+
+      /* ── Chart ──────────────────────────────────────── */
+      .chart-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px;
+      }
+      .chart-header {
+        display: flex; align-items: flex-start;
+        justify-content: flex-start;
+        margin-bottom: 12px;
+      }
+      .chart-title  { font-size: 13px; font-weight: 700; color: var(--text-main); }
+      .chart-subtitle { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+      .chart-legend {
+        display: flex; align-items: center;
+        gap: 14px; font-size: 11px; color: var(--text-sub);
+      }
+      .legend-line {
+        display: inline-block; width: 18px; height: 2px;
+        border-radius: 1px; vertical-align: middle; margin-right: 4px;
+      }
+      .chart-wrap { position: relative; height: 170px; }
+      .chart-wrap svg { width: 100%; height: 100%; }
+
+      /* ── Badges ─────────────────────────────────────── */
+      .badge {
+        font-size: 10px; font-weight: 700;
+        padding: 2px 8px; border-radius: 10px;
+      }
+      .badge-pass { background: var(--green-bg); color: var(--green); }
+      .badge-fail { background: var(--red-bg);   color: var(--red); }
+      .badge-warn { background: var(--amber-bg); color: var(--amber); }
+      .badge-skip { background: var(--gray-bg);  color: var(--text-sub); }
+
+      /* ── 4-Column Cards Grid ────────────────────────── */
+      .cards-grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .rc4-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .rc4-card.placeholder {
+        background: var(--bg-stat);
+        border-style: dashed;
+        border-color: #c9cdd4;
+      }
+
+      /* Card Header */
+      .rc4-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .rc4-icon {
+        width: 40px; height: 40px;
+        border-radius: 8px;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        flex-shrink: 0;
+        line-height: 1.15;
+        color: white;
+      }
+      .rc4-icon .abbr1 { font-size: 13px; font-weight: 800; }
+      .rc4-icon .abbr2 { font-size: 9px;  font-weight: 600; opacity: 0.85; }
+      .rc4-icon.gray   { background: #c9cdd4 !important; }
+
+      .rc4-title-block { flex: 1; }
+      .rc4-title  { font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+      .rc4-updated { font-size: 10px; color: var(--text-hint); margin-bottom: 4px; }
+
+      /* Large Rate Number */
+      .rc4-rate {
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -1px;
+      }
+      .rc4-rate.green { color: var(--green); }
+      .rc4-rate.amber { color: var(--amber); }
+      .rc4-rate.red   { color: var(--red); }
+      .rc4-rate.gray  { color: var(--text-hint); }
+
+      /* Progress Bar */
+      .rc4-prog-track {
+        height: 8px;
+        background: var(--bg-stat);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .rc4-prog-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.4s ease;
+      }
+
+      /* Stats Row */
+      .rc4-stats-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .rc4-stat-item {
+        background: var(--bg-stat);
+        border-radius: var(--radius-sm);
+        padding: 8px;
+        text-align: center;
+      }
+      .rc4-stat-label { font-size: 10px; color: var(--text-hint); margin-bottom: 3px; }
+      .rc4-stat-val   { font-size: 20px; font-weight: 700; color: var(--text-main); }
+      .rc4-stat-val.green { color: var(--green); }
+      .rc4-stat-val.red   { color: var(--red); }
+
+      /* Fail URL Section */
+      .rc4-fails-section { flex: 1; }
+      .rc4-fails-title {
+        font-size: 11px; font-weight: 600;
+        color: var(--text-sub);
+        display: flex; align-items: center; gap: 6px;
+        margin-bottom: 6px;
+      }
+      .rc4-fail-count {
+        background: var(--red-bg);
+        color: var(--red);
+        font-size: 10px;
+        padding: 1px 6px;
+        border-radius: 8px;
+        font-weight: 700;
+      }
+      .rc4-fail-list {
+        list-style: none;
+        max-height: 130px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .rc4-fail-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        font-size: 10px;
+        padding: 5px 7px;
+        background: var(--bg-stat);
+        border-radius: 4px;
+      }
+      .rc4-fail-item a {
+        color: var(--red);
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 500;
+        flex: 1;
+        min-width: 0;
+      }
+      .rc4-fail-item a:hover { text-decoration: underline; }
+      .rc4-fail-meta { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+      .rc4-fail-dur { color: var(--text-hint); font-size: 9px; }
+      .rc4-fail-reason {
+        font-size: 9px; font-weight: 700;
+        padding: 1px 5px; border-radius: 4px;
+        background: var(--red-bg); color: var(--red);
+        white-space: nowrap;
+      }
+      .rc4-fail-reason.perf { background: var(--amber-bg); color: var(--amber); }
+      .rc4-fail-reason.conn { background: #f3f4f6; color: var(--text-sub); }
+      .rc4-fail-empty {
+        font-size: 11px; color: var(--text-hint);
+        padding: 10px 0; text-align: center;
+      }
+
+      /* Sheet Button */
+      .rc4-sheet-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 14px;
+        background: var(--blue);
+        color: white;
+        font-size: 11px; font-weight: 600;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-top: auto;
+        transition: opacity 0.15s;
+      }
+      .rc4-sheet-btn:hover { opacity: 0.85; }
+
+      /* Placeholder msg */
+      .rc4-placeholder-msg {
+        font-size: 12px; color: var(--text-hint);
+        text-align: center; padding: 24px 0;
+        flex: 1; display: flex; align-items: center; justify-content: center;
+      }
+
+      /* Error box */
+      .error-box {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--red);
+        font-size: 13px;
+        line-height: 1.8;
+      }
+      .error-box .err-icon { font-size: 28px; margin-bottom: 8px; }
+
+      /* ── Incident Summary Card ──────────────────────── */
+      .incident-summary-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 12px;
+      }
+      .inc-stats { display: flex; align-items: center; gap: 0; }
+      .inc-stat  { text-align: center; padding: 0 24px; }
+      .inc-stat + .inc-stat { border-left: 1px solid var(--border); }
+      .inc-stat-val { font-size: 36px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+      .inc-stat-val.total    { color: var(--text-main); }
+      .inc-stat-val.hotfix   { color: var(--red); }
+      .inc-stat-val.unplanned{ color: var(--amber); }
+      .inc-stat-label { font-size: 10px; color: var(--text-hint); margin-top: 5px; }
+      .detail-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 11px 20px;
+        background: var(--blue); color: white;
+        font-size: 12px; font-weight: 600;
+        border-radius: 6px; text-decoration: none;
+        white-space: nowrap;
+        transition: opacity 0.15s;
+        flex-shrink: 0;
+      }
+      .detail-btn:hover { opacity: 0.85; }
+      .inc-period { font-size: 10px; color: var(--text-hint); margin-top: 6px; }
+
+      /* ── Loading Ring ───────────────────────────────── */
+      @keyframes ring-rotate { to { transform: rotate(1turn); } }
+      @keyframes ring-fade { 0%,100%{opacity:1} 50%{opacity:0.45} }
+      .run-ring-wrap {
+        display: flex; flex-direction: column;
+        align-items: center; gap: 5px;
+      }
+      .run-ring {
+        width: 54px; height: 54px;
+        border-radius: 50%;
+        border: 4px solid #edf0f5;
+        border-top-color: currentColor;
+        border-right-color: currentColor;
+        animation: ring-rotate 1.1s cubic-bezier(0.4,0,0.6,1) infinite;
+        flex-shrink: 0;
+        filter: drop-shadow(0 0 4px currentColor);
+      }
+      .run-ring-label {
+        font-size: 9px; font-weight: 700;
+        letter-spacing: 0.6px; color: currentColor;
+        animation: ring-fade 1.5s ease-in-out infinite;
+      }
+
+      /* Responsive */
+      @media (max-width: 1200px) {
+        .cards-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 640px) {
+        body { padding: 14px; }
+        .cards-grid-4 { grid-template-columns: 1fr; }
+        .incident-summary-card { flex-direction: column; align-items: flex-start; }
+        .inc-stat { padding: 0 16px; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── Header ──────────────────────────────────────────── -->
+    <div class="header">
+      <div class="header-left">
+        <div class="logo-box">
+          <svg viewBox="0 0 18 18" fill="none">
+            <rect x="2"  y="2"  width="6" height="6" rx="1.5" fill="white" />
+            <rect x="10" y="2"  width="6" height="6" rx="1.5" fill="white" opacity=".6" />
+            <rect x="2"  y="10" width="6" height="6" rx="1.5" fill="white" opacity=".6" />
+            <rect x="10" y="10" width="6" height="6" rx="1.5" fill="white" opacity=".3" />
+          </svg>
+        </div>
+        <div>
+          <div class="title-main">한샘몰 서비스 품질 관리 시스템</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="sys-badge" id="sys-status">시스템 정상</span>
+        <span class="run-time" id="run-time"></span>
+      </div>
+    </div>
+
+    <!-- ── 월별 긴급 배포 건수 ─────────────────────────────── -->
+    <div class="section-label" style="margin-top:4px">월별 긴급 배포 건수</div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">월별 긴급 배포 건수</div>
+          <div class="chart-subtitle" id="chart-range">2026년 1월 ~ 현재</div>
+          <div class="chart-legend" style="margin-top:8px">
+            <span><span style="display:inline-block;width:11px;height:11px;background:#1a4f9c;border-radius:2px;vertical-align:middle;margin-right:4px"></span>FE 프론트엔드</span>
+            <span><span style="display:inline-block;width:11px;height:11px;background:#e65100;border-radius:2px;vertical-align:middle;margin-right:4px"></span>BE 백엔드</span>
+            <span><span style="display:inline-block;width:11px;height:11px;background:#2e7d32;border-radius:2px;vertical-align:middle;margin-right:4px"></span>APP 모바일</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-wrap" id="chart-wrap">
+        <div style="text-align:center;padding:60px 0;color:var(--text-hint);font-size:13px;">차트 데이터 로드 중...</div>
+      </div>
+    </div>
+
+    <!-- ── 장애 현황 요약 ────────────────────────────────── -->
+    <div class="incident-summary-card" id="incident-summary-card">
+      <div class="inc-stats">
+        <div class="inc-stat">
+          <div class="inc-stat-val total" id="inc-total">—</div>
+          <div class="inc-stat-label">총 장애 건수</div>
+        </div>
+        <div class="inc-stat">
+          <div class="inc-stat-val" style="color:var(--blue)" id="inc-fe">—</div>
+          <div class="inc-stat-label">FE 프론트엔드</div>
+        </div>
+        <div class="inc-stat">
+          <div class="inc-stat-val" style="color:var(--amber)" id="inc-be">—</div>
+          <div class="inc-stat-label">BE 백엔드</div>
+        </div>
+        <div class="inc-stat">
+          <div class="inc-stat-val" style="color:var(--green)" id="inc-app">—</div>
+          <div class="inc-stat-label">APP 모바일</div>
+        </div>
+        <div class="inc-stat" style="border-left:none;padding-left:8px">
+          <div class="inc-stat-label" id="inc-period">—</div>
+        </div>
+      </div>
+      <a href="incidents.html" class="detail-btn">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 2h4v1H3v7h7V8h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/><path d="M8 2h3v3h-1V3.7L6.85 6.85l-.7-.7L9.3 3H8V2z" fill="currentColor"/></svg>
+        장애 상세 내용 보기
+      </a>
+    </div>
+
+    <!-- ── 테스트 결과 리포트 (4-column) ──────────────────── -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:20px;">
+      <div class="section-label" style="margin:0">테스트 결과 리포트</div>
+      <button id="run-test-btn" onclick="runWorkflow()" style="
+        display:flex;align-items:center;gap:6px;
+        background:var(--blue);color:#fff;
+        border:none;border-radius:6px;
+        padding:6px 14px;font-size:12px;font-weight:600;
+        cursor:pointer;transition:opacity .15s;
+      ">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <polygon points="3,2 11,6.5 3,11" fill="white"/>
+        </svg>
+        테스트 실행
+      </button>
+    </div>
+    <div class="cards-grid-4" id="cards-grid">
+      <div class="rc4-card" style="grid-column:1/-1">
+        <div style="text-align:center;padding:30px 0;color:var(--text-hint);font-size:13px;">데이터를 불러오는 중...</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:4px;" id="footer-updated"></div>
+
+    <script>
+      /* ── 리포트 설정 ──────────────────────────────────────── */
+      const REPORT_CONFIGS = [
+        { id: "pc-landing", title: "PC 랜딩 500",  abbr1: "PC",  abbr2: "랜딩", iconBg: "#1A4F9C" },
+        { id: "pc-e2e",     title: "PC E2E",        abbr1: "PC",  abbr2: "E2E",  iconBg: "#1A4F9C" },
+        { id: "mw-landing", title: "MW 랜딩 500",   abbr1: "MW",  abbr2: "랜딩", iconBg: "#00695C" },
+        { id: "mw-e2e",     title: "MW E2E",         abbr1: "MW",  abbr2: "E2E",  iconBg: "#00695C" },
+      ];
+
+      const passColor = (r) => r >= 95 ? "#2E7D32" : r >= 90 ? "#E65100" : "#C62828";
+      const passClass = (r) => r >= 95 ? "green"   : r >= 90 ? "amber"   : "red";
+
+      /* ── 개별 카드 렌더링 ──────────────────────────────────── */
+      function renderCard(cfg, r) {
+        const rate = parseFloat(r.passRate || 0);
+        const cls  = passClass(rate);
+        const bar  = passColor(rate);
+
+        const failCases = (r.cases || []).filter(c => c.status === "fail");
+        const failCountBadge = r.fail > 0
+          ? `<span class="rc4-fail-count">${r.fail}건</span>` : "";
+
+        const failItems = failCases.length > 0
+          ? failCases.slice(0, 15).map(c => {
+              const url = c.url || "";
+              const display = url.length > 55 ? "…" + url.slice(-52) : url;
+              const reason = c.reason || "";
+              const reasonClass = reason === "성능 지연" ? "perf"
+                                : reason === "접속 실패" ? "conn" : "";
+              const reasonBadge = reason
+                ? `<span class="rc4-fail-reason ${reasonClass}">${reason}</span>` : "";
+              return `<li class="rc4-fail-item">
+                <a href="${url}" target="_blank" rel="noopener" title="${url}">${display}</a>
+                <span class="rc4-fail-meta">
+                  ${reasonBadge}
+                  <span class="rc4-fail-dur">${c.duration || ""}</span>
+                </span>
+              </li>`;
+            }).join("")
+          : `<li class="rc4-fail-empty">실패 항목 없음</li>`;
+
+        const statusBadge = rate >= 95
+          ? `<span class="badge badge-pass">정상</span>`
+          : rate >= 90
+            ? `<span class="badge badge-warn">경고</span>`
+            : `<span class="badge badge-fail">실패</span>`;
+
+        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json" };
+        const detailFile = detailFileMap[r.id];
+        const sheetBtn = detailFile
+          ? `<a href="detail.html?id=${r.id}" class="rc4-sheet-btn">
+               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                 <path d="M2 2h4v1H3v6h6V7h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/>
+                 <path d="M7 2h3v3h-1V3.7L5.85 6.85l-.7-.7L8.3 3H7V2z" fill="currentColor"/>
+               </svg>
+               리포트 상세보기
+             </a>`
+          : r.sheetUrl
+            ? `<a href="${r.sheetUrl}" target="_blank" rel="noopener" class="rc4-sheet-btn">
+                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                   <path d="M2 2h4v1H3v6h6V7h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/>
+                   <path d="M7 2h3v3h-1V3.7L5.85 6.85l-.7-.7L8.3 3H7V2z" fill="currentColor"/>
+                 </svg>
+                 리포트 상세보기
+               </a>`
+            : "";
+
+        const updatedLine = r.lastUpdated
+          ? `<div class="rc4-updated">최근 실행: ${r.lastUpdated}</div>`
+          : "";
+
+        return `
+          <div class="rc4-card">
+            <div class="rc4-head">
+              <div class="rc4-icon" style="background:${cfg.iconBg}">
+                <span class="abbr1">${cfg.abbr1}</span>
+                <span class="abbr2">${cfg.abbr2}</span>
+              </div>
+              <div class="rc4-title-block">
+                <div class="rc4-title">${cfg.title}</div>
+                ${updatedLine}
+                ${statusBadge}
+              </div>
+              <div id="ring-${r.id}" style="display:none;margin-left:auto;align-self:center;flex-shrink:0">
+                <div class="run-ring-wrap" style="color:${cfg.iconBg}">
+                  <div class="run-ring"></div>
+                  <span class="run-ring-label">실행중</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rc4-rate ${cls}">${rate}%</div>
+
+            <div class="rc4-prog-track">
+              <div class="rc4-prog-fill" style="width:${rate}%;background:${bar}"></div>
+            </div>
+
+            <div class="rc4-stats-row">
+              <div class="rc4-stat-item">
+                <div class="rc4-stat-label">전체</div>
+                <div class="rc4-stat-val">${r.total || 0}</div>
+              </div>
+              <div class="rc4-stat-item">
+                <div class="rc4-stat-label">통과</div>
+                <div class="rc4-stat-val green">${r.pass || 0}</div>
+              </div>
+              <div class="rc4-stat-item">
+                <div class="rc4-stat-label">실패</div>
+                <div class="rc4-stat-val red">${r.fail || 0}</div>
+              </div>
+            </div>
+
+            <div class="rc4-fails-section">
+              <div class="rc4-fails-title">실패 URL ${failCountBadge}</div>
+              <ul class="rc4-fail-list">${failItems}</ul>
+            </div>
+
+            ${sheetBtn}
+          </div>`;
+      }
+
+      function renderPlaceholder(cfg) {
+        return `
+          <div class="rc4-card placeholder">
+            <div class="rc4-head">
+              <div class="rc4-icon gray">
+                <span class="abbr1">${cfg.abbr1}</span>
+                <span class="abbr2">${cfg.abbr2}</span>
+              </div>
+              <div class="rc4-title-block">
+                <div class="rc4-title">${cfg.title}</div>
+                <span class="badge badge-skip">미실행</span>
+              </div>
+              <div id="ring-${cfg.id}" style="display:none;margin-left:auto;align-self:center;flex-shrink:0">
+                <div class="run-ring-wrap" style="color:${cfg.iconBg}">
+                  <div class="run-ring"></div>
+                  <span class="run-ring-label">실행중</span>
+                </div>
+              </div>
+            </div>
+            <div class="rc4-rate gray">—</div>
+            <div class="rc4-placeholder-msg">테스트가 아직 실행되지 않았습니다</div>
+          </div>`;
+      }
+
+      /* ── 카드 그리드 렌더링 ────────────────────────────────── */
+      function renderCards(reports) {
+        document.getElementById("cards-grid").innerHTML = REPORT_CONFIGS
+          .map(cfg => {
+            const r = reports.find(rep => rep.id === cfg.id);
+            return r ? renderCard(cfg, r) : renderPlaceholder(cfg);
+          })
+          .join("");
+      }
+
+      /* ── 차트 렌더링 (그룹 막대: FE/BE) ───────────────────── */
+      function renderIncidentChart(byMonth) {
+        if (!byMonth || byMonth.length === 0) {
+          document.getElementById("chart-wrap").innerHTML =
+            `<div style="text-align:center;padding:60px 0;color:var(--text-hint);font-size:13px;">차트 데이터가 없습니다.</div>`;
+          return;
+        }
+
+        const W = 860, PAD_L = 46, PAD_R = 20, PAD_T = 24, PAD_B = 44;
+        const chartW = W - PAD_L - PAD_R, chartH = 120;
+        const n = byMonth.length;
+
+        const allVals = byMonth.flatMap(m => [m.fe || 0, m.be || 0, m.app || 0]);
+        const maxVal  = Math.max(...allVals, 4);
+        const yTop    = Math.ceil(maxVal / 2) * 2 + 2;
+        const yPos    = v => PAD_T + chartH - (v / yTop) * chartH;
+
+        const groupW = chartW / n;
+        const barW   = Math.min(22, (groupW - 24) / 3);
+        const barGap = 4;
+
+        /* grid lines */
+        let grid = "";
+        for (let i = 0; i <= 4; i++) {
+          const v = Math.round((i / 4) * yTop);
+          const y = yPos(v);
+          grid += `<line x1="${PAD_L}" y1="${y}" x2="${W - PAD_R}" y2="${y}" stroke="#e4e8ed" stroke-width="0.5"/>
+                   <text x="${PAD_L - 6}" y="${y + 4}" font-size="10" fill="#9aa3b0" text-anchor="end" font-family="'Pretendard',sans-serif">${v}</text>`;
+        }
+
+        /* bars + labels */
+        let bars = "", xlabels = "";
+        byMonth.forEach((m, i) => {
+          const cx       = PAD_L + (i + 0.5) * groupW;
+          const totalW   = 3 * barW + 2 * barGap;
+          const feX      = cx - totalW / 2;
+          const beX      = feX + barW + barGap;
+          const appX     = beX + barW + barGap;
+          const feH  = Math.max(((m.fe  || 0) / yTop) * chartH, m.fe  ? 2 : 0);
+          const beH  = Math.max(((m.be  || 0) / yTop) * chartH, m.be  ? 2 : 0);
+          const appH = Math.max(((m.app || 0) / yTop) * chartH, m.app ? 2 : 0);
+          const feY  = PAD_T + chartH - feH;
+          const beY  = PAD_T + chartH - beH;
+          const appY = PAD_T + chartH - appH;
+
+          bars += `
+            <rect x="${feX.toFixed(1)}" y="${feY.toFixed(1)}" width="${barW}" height="${feH.toFixed(1)}" fill="#1A4F9C" rx="3"/>
+            ${m.fe  ? `<text x="${(feX  + barW / 2).toFixed(1)}" y="${(feY  - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#1A4F9C" font-family="'Pretendard',sans-serif">${m.fe}</text>`  : ""}
+            <rect x="${beX.toFixed(1)}" y="${beY.toFixed(1)}" width="${barW}" height="${beH.toFixed(1)}" fill="#E65100" rx="3"/>
+            ${m.be  ? `<text x="${(beX  + barW / 2).toFixed(1)}" y="${(beY  - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#E65100" font-family="'Pretendard',sans-serif">${m.be}</text>`  : ""}
+            <rect x="${appX.toFixed(1)}" y="${appY.toFixed(1)}" width="${barW}" height="${appH.toFixed(1)}" fill="#2E7D32" rx="3"/>
+            ${m.app ? `<text x="${(appX + barW / 2).toFixed(1)}" y="${(appY - 5).toFixed(1)}" font-size="11" font-weight="700" text-anchor="middle" fill="#2E7D32" font-family="'Pretendard',sans-serif">${m.app}</text>` : ""}`;
+
+          const shortLabel = m.label.replace("2026년 ", "").replace("월", "월");
+          xlabels += `
+            <text x="${cx.toFixed(1)}" y="${PAD_T + chartH + 16}" font-size="11" text-anchor="middle" fill="#5a6477" font-family="'Pretendard',sans-serif">${shortLabel}</text>
+            <text x="${cx.toFixed(1)}" y="${PAD_T + chartH + 30}" font-size="10" text-anchor="middle" fill="#9aa3b0" font-family="'Pretendard',sans-serif">합계 ${m.count || 0}건</text>`;
+        });
+
+        const svgH = PAD_T + chartH + PAD_B;
+        document.getElementById("chart-wrap").innerHTML = `
+          <svg viewBox="0 0 ${W} ${svgH}" width="100%" height="${svgH}px" xmlns="http://www.w3.org/2000/svg">
+            ${grid}${bars}${xlabels}
+          </svg>`;
+
+        document.getElementById("chart-range").textContent =
+          `${byMonth[0].label} ~ ${byMonth[byMonth.length - 1].label}`;
+      }
+
+      /* ── Error ───────────────────────────────────────────── */
+      function showError(msg) {
+        const h = `<div class="error-box"><div class="err-icon">⚠️</div>${msg}</div>`;
+        document.getElementById("cards-grid").innerHTML =
+          `<div class="rc4-card" style="grid-column:1/-1">${h}</div>`;
+        document.getElementById("chart-wrap").innerHTML = h;
+        const badge = document.getElementById("sys-status");
+        badge.textContent = "데이터 없음";
+        badge.style.background = "#FFEBEE";
+        badge.style.color = "#C62828";
+      }
+
+      /* ── Main ────────────────────────────────────────────── */
+      async function loadStats() {
+        const today = new Date();
+        const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+        const fmt = d =>
+          `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${dayNames[d.getDay()]})`;
+
+        const timeStr = `${String(today.getHours()).padStart(2,'0')}:${String(today.getMinutes()).padStart(2,'0')}`;
+        document.getElementById("run-time").textContent =
+          `조회일자 : ${fmt(today)} ${timeStr}`;
+
+        try {
+          const res = await fetch("results.json?t=" + Date.now());
+          if (!res.ok) throw new Error(`서버 응답 오류 (HTTP ${res.status})`);
+
+          const data = await res.json();
+          if (!data?.reports || !Array.isArray(data.reports)) {
+            throw new Error("리포트 형식이 올바르지 않거나 데이터가 없습니다.");
+          }
+
+          console.log("✅ 데이터 로드 성공:", data.reports.length, "개의 리포트 확인");
+
+          renderCards(data.reports);
+          renderIncidentChart(data.incidents?.byMonth || []);
+
+          if (data.incidents) {
+            const inc = data.incidents;
+            document.getElementById("inc-total").textContent  = inc.total    || 0;
+            document.getElementById("inc-fe").textContent     = inc.feCount  || 0;
+            document.getElementById("inc-be").textContent     = inc.beCount  || 0;
+            document.getElementById("inc-app").textContent    = inc.appCount || 0;
+            document.getElementById("inc-period").textContent = inc.period   || "";
+          }
+
+          const hasFailure = data.reports.some(r => (r.fail || 0) > 0);
+          if (hasFailure) {
+            const badge = document.getElementById("sys-status");
+            badge.textContent = "실패 감지";
+            badge.style.background = "#FFEBEE";
+            badge.style.color = "#C62828";
+          }
+
+          if (data.lastUpdated) {
+            document.getElementById("footer-updated").textContent =
+              "마지막 수정 버전: " + data.lastUpdated;
+          }
+          const codeDate = data.codeLastModified || data.lastUpdated;
+          if (codeDate) {
+            document.getElementById("run-time").textContent =
+              `조회일자 : ${fmt(today)} ${timeStr}`;
+          }
+        } catch (e) {
+          console.error("🚨 [자비스 알림] 데이터 로드 실패:", e.message);
+          showError("테스트 결과 파일(results.json)을 불러올 수 없습니다.<br>테스트를 먼저 실행하거나 파일 경로를 확인해주세요.");
+        }
+      }
+
+      async function runWorkflow() {
+        const btn = document.getElementById("run-test-btn");
+        btn.disabled = true;
+        btn.textContent = "실행 중...";
+
+        try {
+          const res = await fetch("/.netlify/functions/trigger", { method: "POST" });
+
+          if (res.status === 204) {
+            btn.textContent = "✅ 실행 요청 완료";
+            btn.style.background = "var(--green)";
+            setTimeout(initProgress, 5000);
+            setTimeout(() => {
+              btn.textContent = "테스트 실행";
+              btn.style.background = "var(--blue)";
+              btn.disabled = false;
+            }, 3000);
+          } else {
+            const msg = await res.text();
+            alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
+          }
+        } catch (e) {
+          alert("네트워크 오류: " + e.message);
+          btn.disabled = false;
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
+        }
+      }
+
+      /* ── 워크플로우 실행 감지 + 로딩 링 제어 ────────────────── */
+      const RING_IDS = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
+      let progressTimer = null;
+
+      function setRingsVisible(visible) {
+        RING_IDS.forEach(id => {
+          const el = document.getElementById("ring-" + id);
+          if (el) el.style.display = visible ? "block" : "none";
+        });
+      }
+
+      async function pollWorkflowStatus() {
+        try {
+          const res = await fetch("/.netlify/functions/status");
+          if (!res.ok) return;
+          const { running } = await res.json();
+          setRingsVisible(running);
+          if (!running && progressTimer) {
+            clearInterval(progressTimer);
+            progressTimer = null;
+          }
+        } catch (e) {
+          console.log("Workflow status check error:", e.message);
+        }
+      }
+
+      function initProgress() {
+        if (!progressTimer) {
+          pollWorkflowStatus();
+          progressTimer = setInterval(pollWorkflowStatus, 30000);
+        }
+      }
+
+      loadStats();
+      initProgress();
+    </script>
+  </body>
+</html>

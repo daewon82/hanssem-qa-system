@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>리포트 상세보기</title>
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --text-main: #1a1e2d;
+      --text-sub: #4b5568;
+      --text-hint: #9ca3af;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --blue: #1d4ed8;
+      --border: #e5e7eb;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text-main); font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", sans-serif; font-size: 13px; min-height: 100vh; }
+
+    /* ── 헤더 ── */
+    .page-header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .back-btn:hover { opacity: 0.75; }
+    .page-title { font-size: 15px; font-weight: 700; }
+    .page-updated { font-size: 11px; color: var(--text-hint); margin-left: auto; }
+
+    /* ── 요약 ── */
+    .summary-bar {
+      display: flex;
+      gap: 12px;
+      padding: 16px 24px;
+      flex-wrap: wrap;
+    }
+    .sum-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      text-align: center;
+      min-width: 90px;
+    }
+    .sum-val { font-size: 22px; font-weight: 800; }
+    .sum-val.green { color: var(--green); }
+    .sum-val.red   { color: var(--red); }
+    .sum-val.blue  { color: var(--blue); }
+    .sum-label { font-size: 10px; color: var(--text-hint); margin-top: 2px; }
+
+    /* ── 필터 ── */
+    .filter-bar {
+      padding: 0 24px 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-sub);
+      transition: all 0.15s;
+    }
+    .filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .filter-btn.fail-active { background: var(--red); color: #fff; border-color: var(--red); }
+    .search-input {
+      margin-left: auto;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      outline: none;
+      width: 220px;
+      color: var(--text-main);
+    }
+    .search-input:focus { border-color: var(--blue); }
+
+    /* ── 테이블 ── */
+    .table-wrap {
+      padding: 0 24px 40px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    thead th {
+      background: #f9fafb;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fafafa; }
+    tbody td { padding: 9px 12px; vertical-align: middle; }
+    .td-num { color: var(--text-hint); font-size: 11px; width: 40px; }
+    .td-name { font-size: 12px; font-weight: 600; max-width: 200px; }
+    .td-url  { font-size: 11px; color: var(--text-sub); max-width: 340px; word-break: break-all; }
+    .td-url a { color: var(--blue); text-decoration: none; }
+    .td-url a:hover { text-decoration: underline; }
+    .td-dur { font-size: 11px; color: var(--text-hint); white-space: nowrap; }
+    .td-reason { font-size: 11px; max-width: 160px; }
+    .badge-pass { background: var(--green-bg); color: var(--green); border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 700; }
+    .badge-fail { background: var(--red-bg);   color: var(--red);   border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 700; }
+    .reason-tag {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 10px;
+      font-weight: 600;
+      background: var(--red-bg);
+      color: var(--red);
+    }
+    .reason-tag.perf { background: var(--amber-bg); color: var(--amber); }
+    .reason-tag.conn { background: #f3f4f6; color: var(--text-sub); }
+
+    .empty-msg { text-align: center; padding: 40px; color: var(--text-hint); }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <a href="index.html" class="back-btn">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    대시보드
+  </a>
+  <div class="page-title" id="page-title">리포트 상세보기</div>
+  <div class="page-updated" id="page-updated"></div>
+</div>
+
+<div class="summary-bar" id="summary-bar"></div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all', this)">전체</button>
+  <button class="filter-btn" onclick="setFilter('pass', this)">통과만</button>
+  <button class="filter-btn fail-active" style="background:var(--card);color:var(--text-sub);border-color:var(--border)" id="fail-btn" onclick="setFilter('fail', this)">실패만</button>
+  <input class="search-input" id="search-input" placeholder="URL / 테스트명 검색..." oninput="renderTable()" />
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th class="td-num">#</th>
+        <th>테스트명 / URL</th>
+        <th>결과</th>
+        <th>소요시간</th>
+        <th>실패사유</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const reportId = params.get("id") || "";
+  const fileMap = {
+    "pc-landing": "pc_500.json",
+    "pc-e2e": "pc_e2e.json",
+    "mw-landing": "mw_500.json",
+    "mw-e2e": "mw_e2e.json",
+  };
+  const jsonFile = fileMap[reportId] || "pc_500.json";
+
+  let allCases = [];
+  let currentFilter = "all";
+
+  async function init() {
+    try {
+      const res = await fetch(jsonFile + "?t=" + Date.now());
+      const data = await res.json();
+
+      document.getElementById("page-title").textContent = data.title || "리포트 상세보기";
+      document.getElementById("page-updated").textContent = data.lastUpdated ? `최근 실행: ${data.lastUpdated}` : "";
+
+      const rate = parseFloat(data.passRate || 0);
+      const rateColor = rate >= 95 ? "green" : rate >= 90 ? "blue" : "red";
+      document.getElementById("summary-bar").innerHTML = `
+        <div class="sum-card"><div class="sum-val">${data.total || 0}</div><div class="sum-label">전체</div></div>
+        <div class="sum-card"><div class="sum-val green">${data.pass || 0}</div><div class="sum-label">통과</div></div>
+        <div class="sum-card"><div class="sum-val red">${data.fail || 0}</div><div class="sum-label">실패</div></div>
+        <div class="sum-card"><div class="sum-val ${rateColor}">${data.passRate || 0}%</div><div class="sum-label">통과율</div></div>
+      `;
+
+      allCases = data.cases || [];
+      renderTable();
+    } catch (e) {
+      document.getElementById("table-body").innerHTML =
+        `<tr><td colspan="5" class="empty-msg">데이터를 불러올 수 없습니다. 테스트를 먼저 실행해 주세요.</td></tr>`;
+    }
+  }
+
+  function setFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll(".filter-btn").forEach(b => {
+      b.classList.remove("active", "fail-active");
+      b.style.background = "var(--card)";
+      b.style.color = "var(--text-sub)";
+      b.style.borderColor = "var(--border)";
+    });
+    if (filter === "fail") {
+      btn.classList.add("fail-active");
+      btn.style.background = "var(--red)";
+      btn.style.color = "#fff";
+      btn.style.borderColor = "var(--red)";
+    } else {
+      btn.classList.add("active");
+      btn.style.background = "var(--blue)";
+      btn.style.color = "#fff";
+      btn.style.borderColor = "var(--blue)";
+    }
+    renderTable();
+  }
+
+  function renderTable() {
+    const keyword = (document.getElementById("search-input").value || "").toLowerCase();
+    const filtered = allCases.filter(c => {
+      if (currentFilter === "pass" && c.status !== "pass") return false;
+      if (currentFilter === "fail" && c.status !== "fail") return false;
+      if (keyword) {
+        const haystack = ((c.url || "") + " " + (c.name || "")).toLowerCase();
+        if (!haystack.includes(keyword)) return false;
+      }
+      return true;
+    });
+
+    if (!filtered.length) {
+      document.getElementById("table-body").innerHTML =
+        `<tr><td colspan="5" class="empty-msg">해당하는 결과가 없습니다.</td></tr>`;
+      return;
+    }
+
+    let num = 0;
+    document.getElementById("table-body").innerHTML = filtered.map(c => {
+      num++;
+      const isPass = c.status === "pass";
+      const badge = isPass
+        ? `<span class="badge-pass">PASS</span>`
+        : `<span class="badge-fail">FAIL</span>`;
+
+      const nameCell = c.name
+        ? `<div class="td-name">${escHtml(c.name)}</div>` : "";
+      const urlCell = c.url
+        ? `<div class="td-url"><a href="${escHtml(c.url)}" target="_blank" rel="noopener">${escHtml(c.url)}</a></div>` : "";
+
+      let reasonTag = "";
+      if (c.reason) {
+        const cls = c.reason === "성능 지연" ? "perf" : c.reason === "접속 실패" ? "conn" : "";
+        reasonTag = `<span class="reason-tag ${cls}">${escHtml(c.reason)}</span>`;
+      }
+
+      return `<tr>
+        <td class="td-num">${num}</td>
+        <td>${nameCell}${urlCell}</td>
+        <td>${badge}</td>
+        <td class="td-dur">${escHtml(c.duration || "")}</td>
+        <td class="td-reason">${reasonTag}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  init();
+</script>
+</body>
+</html>
