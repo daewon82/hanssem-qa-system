@@ -56,7 +56,7 @@ test.afterEach(async ({ page }, testInfo) => {
     passCount++;
   }
 
-  console.log(isPassed ? `  ✅ 통과 (${duration}s)` : `  ❌ 실패 (${duration}s)`);
+  console.log(isPassed ? `  ✅ 통과 (${duration}s)` : `  ❌ 실패 (${duration}s) — ${currentUrl}`);
 
   const failReason = isPassed
     ? ""
