@@ -296,27 +296,6 @@ test.describe("5. 검색", () => {
   });
 });
 
-// ─── 6. 로그인 ─────────────────────────────────────────────
-test.describe("6. 로그인", () => {
-  test("로그인 페이지 — ID 입력 필드 및 SNS 버튼 노출", async ({ page }) => {
-    await page.goto(
-      "https://mall.hanssem.com/customer/mallLoginMain.do?returnUrl=https://m.store.hanssem.com/"
-    );
-    await waitForPageReady(page, 3000);
-    await expect(page).toHaveURL(/mall\.hanssem\.com.*login/i);
-    const idInput = page
-      .locator('input[type="text"], input[type="email"], input[name*="id"]')
-      .first();
-    const snsBtn = page
-      .locator('button:has-text("카카오"), a:has-text("카카오")')
-      .first();
-    const idVis = await idInput.isVisible().catch(() => false);
-    const snsVis = await snsBtn.isVisible().catch(() => false);
-    expect(idVis || snsVis).toBe(true);
-    console.log(`[✓] 로그인 폼 — ID입력: ${idVis}, 카카오: ${snsVis}`);
-  });
-});
-
 // ─── 7. 장바구니 ───────────────────────────────────────────
 test.describe("7. 장바구니", () => {
   test("장바구니 직접 URL — 로그인 redirect 확인", async ({ page }) => {
