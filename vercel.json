@@ -1,6 +1,7 @@
 {
   "outputDirectory": "public",
   "buildCommand": "exit 0",
+  "installCommand": "echo skip",
   "headers": [
     {
       "source": "/results.json",
