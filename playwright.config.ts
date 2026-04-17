@@ -25,6 +25,14 @@ export default defineConfig({
     // 헤드리스 환경(GitHub Actions)에서 안정적 실행을 위한 설정
     ignoreHTTPSErrors: true,
     bypassCSP: true,
+    launchOptions: {
+      args: [
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+      ],
+    },
   },
 
   projects: [

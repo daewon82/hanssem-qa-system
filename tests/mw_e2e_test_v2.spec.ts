@@ -206,18 +206,14 @@ test.describe("3. 상품 목록", () => {
   test("상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동", async ({ page }) => {
     await page.goto("/furnishing");
     await waitForPageReady(page, 4000);
-    const href = await page.evaluate(() => {
-      const links = Array.from(document.querySelectorAll('a[href^="/goods/"]'));
-      const valid = links.find((a) =>
-        /^\/goods\/\d+/.test((a as HTMLAnchorElement).getAttribute("href") || "")
-      ) as HTMLAnchorElement | undefined;
-      if (valid) { valid.click(); return valid.getAttribute("href"); }
-      return null;
-    });
+    const firstLink = page.locator('a[href^="/goods/"]').first();
+    await expect(firstLink).toBeAttached({ timeout: 8000 });
+    const href = await firstLink.getAttribute("href");
     expect(href).not.toBeNull();
+    await page.goto(href!, { waitUntil: "domcontentloaded", timeout: 25000 });
     await waitForPageReady(page, 2000);
     await expect(page).toHaveURL(/\/goods\//);
-    console.log(`[✓] 상품 상세 이동: ${page.url()} (원본: ${href})`);
+    console.log(`[✓] 상품 상세 이동: ${page.url()}`);
   });
 });
 

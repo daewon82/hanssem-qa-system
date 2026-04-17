@@ -1,7 +1,5 @@
 {
   "outputDirectory": "public",
-  "buildCommand": null,
-  "framework": null,
   "headers": [
     {
       "source": "/results.json",
