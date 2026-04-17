@@ -59,10 +59,16 @@ jobs:
           git pull --rebase origin main
           git push
 
+      - name: Prepare Vercel prebuilt output
+        run: |
+          mkdir -p .vercel/output/static
+          cp -r public/. .vercel/output/static/
+          echo '{"version":3,"routes":[{"src":"/results.json","headers":{"Cache-Control":"no-store, no-cache, must-revalidate"}}]}' > .vercel/output/config.json
+
       - name: Deploy to Vercel
         run: |
           for i in 1 2 3; do
-            npx vercel@latest --prod --token=${{ secrets.VERCEL_TOKEN }} && break
+            npx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} && break
             echo "재시도 ${i}..."
             sleep 30
           done
