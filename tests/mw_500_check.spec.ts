@@ -172,6 +172,8 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   // -----------------------------
   // 메인 루프
   // -----------------------------
+  let consecutiveTimeouts = 0;
+
   while (visitedLinks.size < MAX_LINKS) {
     const nextLink = linkQueue.shift();
 
@@ -228,27 +230,45 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
     let loadTimeSec = "0.00";
     let httpStatus: string | number = "Error";
 
-    try {
-      const response = await page.goto(nextLink, {
-        waitUntil: "domcontentloaded",
-        timeout: 25000,
-      });
-      loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
-      httpStatus = response?.status() || "Error";
-      isPass = httpStatus === 200;
-      await collectLinksQuick();
-    } catch {
-      loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
-      httpStatus = "Timeout/Error";
+    const attemptGoto = async (): Promise<boolean> => {
       try {
-        await page.evaluate(() => window.stop()).catch(() => {});
-        const safeUrl = nextLink.replace(/[/\\?%*:|"<>]/g, "-");
-        await page.screenshot({
-          path: `fail_evidence/${safeUrl}.png`,
-          timeout: 5000,
+        const response = await page.goto(nextLink, {
+          waitUntil: "domcontentloaded",
+          timeout: 25000,
         });
+        loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
+        httpStatus = response?.status() || "Error";
+        isPass = httpStatus === 200;
+        if (isPass) await collectLinksQuick();
+        consecutiveTimeouts = 0;
+        return true;
       } catch {
-        // 스크린샷 실패 시 무시하고 계속 진행
+        return false;
+      }
+    };
+
+    const firstOk = await attemptGoto();
+    if (!firstOk) {
+      consecutiveTimeouts++;
+      const waitSec = consecutiveTimeouts >= 3 ? 60 : 20;
+      console.log(`  ⏳ 타임아웃 (연속 ${consecutiveTimeouts}회). ${waitSec}초 대기 후 재시도...`);
+      await page.waitForTimeout(waitSec * 1000);
+      if (consecutiveTimeouts >= 3) consecutiveTimeouts = 0;
+
+      const retryOk = await attemptGoto();
+      if (!retryOk) {
+        loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
+        httpStatus = "Timeout/Error";
+        try {
+          await page.evaluate(() => window.stop()).catch(() => {});
+          const safeUrl = nextLink.replace(/[/\\?%*:|"<>]/g, "-");
+          await page.screenshot({
+            path: `fail_evidence/${safeUrl}.png`,
+            timeout: 5000,
+          });
+        } catch {
+          // 스크린샷 실패 시 무시하고 계속 진행
+        }
       }
     }
 
