@@ -36,12 +36,17 @@ test.beforeAll(async () => {
   });
 });
 
+test.beforeEach(async ({}, testInfo) => {
+  console.log(`[점검] ${testInfo.title}`);
+});
+
 // ─── 각 테스트 후: 결과 기록 ────────────────────────────────
 test.afterEach(async ({ page }, testInfo) => {
   if (testInfo.status === "skipped") return;
 
   const isPassed = testInfo.status === "passed";
   const currentUrl = page.url();
+  const duration = (testInfo.duration / 1000).toFixed(2);
 
   if (!isPassed) {
     testInfo.annotations.push({ type: "url", description: currentUrl });
@@ -51,6 +56,8 @@ test.afterEach(async ({ page }, testInfo) => {
     passCount++;
   }
 
+  console.log(isPassed ? `  ✅ 통과 (${duration}s)` : `  ❌ 실패 (${duration}s)`);
+
   const failReason = isPassed
     ? ""
     : testInfo.errors?.[0]?.message?.split("\n")[0]?.slice(0, 60) ?? "실패";
@@ -59,7 +66,7 @@ test.afterEach(async ({ page }, testInfo) => {
     name: testInfo.title,
     url: currentUrl,
     status: isPassed ? "pass" : "fail",
-    duration: `${(testInfo.duration / 1000).toFixed(2)}s`,
+    duration: `${duration}s`,
     reason: failReason,
   });
 });

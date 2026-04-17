@@ -318,6 +318,28 @@ public/results.json public/pc_500.json public/pc_e2e.json public/mw_500.json pub
 - 감싸지 않으면 `afterAll`이 describe 블록 수만큼 반복 실행되어 결과가 덮어써짐
 - **pc_e2e_test.spec.ts**: 모듈 레벨 변수 사용 (describe 미사용) — 구조 유지
 
+### 콘솔 로그 출력 규칙
+
+모든 테스트 파일의 결과 출력은 아래 포맷으로 통일한다.
+
+**랜딩 테스트 (500 check):**
+```
+[현재/전체] 점검 중: URL
+  ✅ 통과 (Xs)
+  ❌ 실패 (Xs)
+```
+
+**E2E 테스트:**
+```
+[점검] 테스트명
+  ✅ 통과 (Xs)
+  ❌ 실패 (Xs)
+```
+
+- 중간 과정 로그 (어떤 항목 확인 중인지)는 자유 형식 허용
+- **결과 출력(`✅`/`❌`)만 반드시 위 포맷 준수**
+- E2E는 `test.beforeEach`에서 `[점검] 테스트명` 출력, `test.afterEach`에서 결과 출력
+
 ### Git 배포 규칙
 - `git push --force` 금지 — Actions 권한 오류 발생
 - 항상 `git pull --rebase origin main && git push` 사용
