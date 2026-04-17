@@ -73,7 +73,25 @@ test.afterEach(async ({ page }, testInfo) => {
 
 // ─── 전체 완료 후: 리포트 저장 ────────────────────────────
 test.afterAll(async () => {
-  const totalCount = passCount + failCount;
+  // 브라우저 크래시로 워커가 재시작되면 afterAll이 여러 번 실행됨
+  // 기존 JSON을 읽어 누적 저장 — 같은 테스트명은 최신 결과로 덮어씀
+  let priorCases: any[] = [];
+  try {
+    const raw = fs.readFileSync("public/mw_e2e.json", "utf8");
+    const prior = JSON.parse(raw);
+    if (Array.isArray(prior.cases)) priorCases = prior.cases;
+  } catch {}
+
+  const merged = [...priorCases];
+  for (const c of caseResults) {
+    const idx = merged.findIndex((m) => m.name === c.name);
+    if (idx >= 0) merged[idx] = c;
+    else merged.push(c);
+  }
+
+  const totalCount = merged.length;
+  const passCount = merged.filter((c) => c.status === "pass").length;
+  const failCount = merged.filter((c) => c.status === "fail").length;
   const passRate =
     totalCount > 0 ? ((passCount / totalCount) * 100).toFixed(1) : "0";
   const kst = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
@@ -92,7 +110,7 @@ test.afterAll(async () => {
     pass: passCount,
     fail: failCount,
     passRate,
-    cases: caseResults.filter((c) => c.status === "fail"),
+    cases: merged.filter((c) => c.status === "fail"),
   };
 
   const reportIdx = existingData.reports.findIndex(
@@ -117,7 +135,7 @@ test.afterAll(async () => {
         pass: passCount,
         fail: failCount,
         passRate,
-        cases: caseResults,
+        cases: merged,
       },
       null,
       2,
@@ -312,14 +330,14 @@ test.describe("7. 장바구니", () => {
 });
 
 // ─── 8. 주요 페이지 HTTP 응답 ─────────────────────────────
+// /store(지도 API)와 /goods/(Heavy JS)는 headless Chromium 크래시 유발 → 제외
+// 해당 페이지는 describe 17(매장)과 describe 4(상품상세)에서 개별 검증
 test.describe("8. 주요 페이지 HTTP 응답", () => {
   const pageList = [
     { name: "메인",        path: "/" },
     { name: "가구/홈리빙", path: "/furnishing" },
     { name: "인테리어",    path: "/interior" },
     { name: "검색결과",    path: "/search/goods?searchKey=소파" },
-    { name: "상품상세",    path: `/goods/${SAMPLE_GOODS_ID}` },
-    { name: "매장찾기",    path: "/store" },
   ];
 
   for (const { name, path } of pageList) {
@@ -331,16 +349,9 @@ test.describe("8. 주요 페이지 HTTP 응답", () => {
   }
 });
 
-// ─── 9. 매장 찾기 ──────────────────────────────────────────
-test.describe("9. 매장 찾기", () => {
-  test("매장 찾기 페이지 직접 진입 및 타이틀 확인", async ({ page }) => {
-    await page.goto("/store");
-    await waitForPageReady(page, 2000);
-    await expect(page).toHaveTitle(/한샘/);
-    await expect(page.locator("header").first()).toBeVisible();
-    console.log(`[✓] 매장 찾기 페이지 로딩: ${page.url()}`);
-  });
-});
+// ─── 9. 매장 찾기 — describe 17로 통합 (page.request.get 안전 방식 사용)
+// page.goto("/store") 는 지도 API(Kakao Map) 로드 시 headless Chromium 크래시 유발
+// → describe 17 "매장 검색"에서 page.request.get 으로 HTTP 확인 후 domcontentloaded 방식으로 대체
 
 // ─── 10. 상품 상세 탭 전환 ───────────────────────────────────
 test.describe("10. 상품 상세 탭 전환", () => {
