@@ -1,3 +1,6 @@
+[build]
+  publish = "public"
+
 [[headers]]
   for = "/results.json"
   [headers.values]
