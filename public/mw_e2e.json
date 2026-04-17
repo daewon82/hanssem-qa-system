@@ -1,45 +1,38 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 16. 오후 5:14:48",
-  "total": 5,
+  "lastUpdated": "2026. 4. 17. AM 10:24:47",
+  "total": 4,
   "pass": 4,
-  "fail": 1,
-  "passRate": "80.0",
+  "fail": 0,
+  "passRate": "100.0",
   "cases": [
     {
-      "name": "페이지 정상 로딩 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/",
+      "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
+      "url": "https://m.store.hanssem.com/interior/constcase",
       "status": "pass",
-      "duration": "4.96s",
+      "duration": "6.55s",
       "reason": ""
     },
     {
-      "name": "헤더(GNB) 노출 확인",
-      "url": "https://m.store.hanssem.com/",
-      "status": "pass",
-      "duration": "4.75s",
-      "reason": ""
-    },
-    {
-      "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/furnishing",
-      "status": "pass",
-      "duration": "8.62s",
-      "reason": ""
-    },
-    {
-      "name": "인테리어 카테고리 진입 및 타이틀 확인",
+      "name": "인테리어 — 무료견적상담 링크 노출",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "7.38s",
+      "duration": "7.55s",
       "reason": ""
     },
     {
-      "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
-      "url": "about:blank",
-      "status": "fail",
-      "duration": "0.49s",
-      "reason": "Error: Channel closed"
+      "name": "기획전 페이지(mall.hanssem.com/plan) 200 응답",
+      "url": "https://mall.hanssem.com/plan/19523.html?planType=12",
+      "status": "pass",
+      "duration": "4.41s",
+      "reason": ""
+    },
+    {
+      "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
+      "url": "https://m.store.hanssem.com/not-exists-content",
+      "status": "pass",
+      "duration": "5.37s",
+      "reason": ""
     }
   ]
 }
