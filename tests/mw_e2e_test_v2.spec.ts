@@ -10,8 +10,8 @@ import axios from "axios";
  */
 
 // ─── 설정 ────────────────────────────────────────────────────
-const REPORT_ID = "mw-e2e-v2";
-const REPORT_TITLE = "운영환경 MW E2E 확장 테스트";
+const REPORT_ID = "mw-e2e";
+const REPORT_TITLE = "운영환경 MW E2E 테스트";
 const JANDI_WEBHOOK_URL =
   "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
 const DASHBOARD_URL = "https://elaborate-starship-5f4a82.netlify.app";
@@ -101,7 +101,7 @@ test.afterAll(async () => {
   fs.writeFileSync("public/results.json", JSON.stringify(existingData, null, 2));
 
   fs.writeFileSync(
-    "public/mw_e2e_v2.json",
+    "public/mw_e2e.json",
     JSON.stringify(
       {
         title: REPORT_TITLE,
