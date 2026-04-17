@@ -117,8 +117,8 @@ test.afterAll(async () => {
     ),
   );
 
-  if (!process.env.CI) {
-    console.log("⏭️ 로컬 실행 — 잔디 알림 스킵");
+  if (true) { // 잔디 알림 임시 중단
+    console.log("⏭️ 잔디 알림 임시 중단");
   } else try {
     const failTestText =
       failedTests.length > 0 ? failedTests.slice(0, 10).join("\n") : "없음";

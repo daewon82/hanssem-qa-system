@@ -400,8 +400,8 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   // -----------------------------
   // 잔디 알림 (GitHub Actions 에서만 전송)
   // -----------------------------
-  if (!process.env.CI) {
-    console.log("⏭️ 로컬 실행 — 잔디 알림 스킵");
+  if (true) { // 잔디 알림 임시 중단
+    console.log("⏭️ 잔디 알림 임시 중단");
   } else
     try {
       const failUrlText =
