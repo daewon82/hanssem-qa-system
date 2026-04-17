@@ -325,13 +325,25 @@
 
       /* ── Loading Ring ───────────────────────────────── */
       @keyframes ring-rotate { to { transform: rotate(1turn); } }
+      @keyframes ring-fade { 0%,100%{opacity:1} 50%{opacity:0.45} }
+      .run-ring-wrap {
+        display: flex; flex-direction: column;
+        align-items: center; gap: 5px;
+      }
       .run-ring {
-        width: 26px; height: 26px;
+        width: 54px; height: 54px;
         border-radius: 50%;
-        border: 3px solid #e4e8ed;
+        border: 4px solid #edf0f5;
         border-top-color: currentColor;
-        animation: ring-rotate 0.85s linear infinite;
+        border-right-color: currentColor;
+        animation: ring-rotate 1.1s cubic-bezier(0.4,0,0.6,1) infinite;
         flex-shrink: 0;
+        filter: drop-shadow(0 0 4px currentColor);
+      }
+      .run-ring-label {
+        font-size: 9px; font-weight: 700;
+        letter-spacing: 0.6px; color: currentColor;
+        animation: ring-fade 1.5s ease-in-out infinite;
       }
 
       /* Responsive */
@@ -523,8 +535,11 @@
                 ${updatedLine}
                 ${statusBadge}
               </div>
-              <div id="ring-${r.id}" style="display:none;margin-left:auto;align-self:flex-start;flex-shrink:0">
-                <div class="run-ring" style="color:${cfg.iconBg}"></div>
+              <div id="ring-${r.id}" style="display:none;margin-left:auto;align-self:center;flex-shrink:0">
+                <div class="run-ring-wrap" style="color:${cfg.iconBg}">
+                  <div class="run-ring"></div>
+                  <span class="run-ring-label">실행중</span>
+                </div>
               </div>
             </div>
 
@@ -570,8 +585,11 @@
                 <div class="rc4-title">${cfg.title}</div>
                 <span class="badge badge-skip">미실행</span>
               </div>
-              <div id="ring-${cfg.id}" style="display:none;margin-left:auto;align-self:flex-start;flex-shrink:0">
-                <div class="run-ring" style="color:${cfg.iconBg}"></div>
+              <div id="ring-${cfg.id}" style="display:none;margin-left:auto;align-self:center;flex-shrink:0">
+                <div class="run-ring-wrap" style="color:${cfg.iconBg}">
+                  <div class="run-ring"></div>
+                  <span class="run-ring-label">실행중</span>
+                </div>
               </div>
             </div>
             <div class="rc4-rate gray">—</div>
