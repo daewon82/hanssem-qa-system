@@ -7,7 +7,7 @@ import axios from "axios";
 
 // [설정]
 const TARGET_DOMAIN = "https://m.store.hanssem.com";
-const MAX_LINKS = 50;
+const MAX_LINKS = 500;
 
 const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
 // const TEMPLATE_GID = 1626254051;
@@ -31,7 +31,7 @@ const JANDI_WEBHOOK_URL =
 const normalizeUrl = (url: string) =>
   url.replace(/(https?:\/\/)+/g, "https://").replace(/\/$/, "");
 
-const DASHBOARD_URL = normalizeUrl("https://daewon82.github.io/hanssem-qa-system");
+const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system/";
 
 // 구글 인증
 // async function getAuthClient() {
@@ -400,8 +400,8 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   // -----------------------------
   // 잔디 알림 (GitHub Actions 에서만 전송)
   // -----------------------------
-  if (true) { // 잔디 알림 임시 중단
-    console.log("⏭️ 잔디 알림 임시 중단");
+  if (!process.env.CI) {
+    console.log("⏭️ 로컬 실행 — 잔디 알림 스킵");
   } else
     try {
       const failUrlText =
