@@ -31,7 +31,7 @@ const JANDI_WEBHOOK_URL =
 const normalizeUrl = (url: string) =>
   url.replace(/(https?:\/\/)+/g, "https://").replace(/\/$/, "");
 
-const DASHBOARD_URL = normalizeUrl("https://daewon82.github.io/hanssem-qa-system");
+const DASHBOARD_URL = normalizeUrl("https://hanssem-qa-system.vercel.app");
 
 // 구글 인증
 // async function getAuthClient() {
