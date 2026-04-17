@@ -266,6 +266,10 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       console.log(`  ❌ 실패 (${loadTimeSec}s)`);
     }
 
+    if (visitedLinks.size % 10 === 0 || visitedLinks.size === MAX_LINKS) {
+      console.log(`[PROGRESS] PC_500: ${visitedLinks.size}/500`);
+    }
+
     const failReason = isPass
       ? ""
       : httpStatus === "Timeout/Error"

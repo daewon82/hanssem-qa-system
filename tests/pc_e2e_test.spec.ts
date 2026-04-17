@@ -72,6 +72,7 @@ test.afterEach(async ({ page }, testInfo) => {
     duration: `${(testInfo.duration / 1000).toFixed(2)}s`,
     reason: failReason,
   });
+
 });
 
 // ─── 전체 완료 후: 리포트 저장 및 배포 ─────────────────────

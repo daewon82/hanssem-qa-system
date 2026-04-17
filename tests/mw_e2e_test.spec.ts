@@ -62,6 +62,7 @@ test.describe("MW E2E 테스트", () => {
       duration: `${(testInfo.duration / 1000).toFixed(2)}s`,
       reason: failReason,
     });
+
   });
 
   // ─── 전체 완료 후: 리포트 저장 ────────────────────────────

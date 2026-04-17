@@ -323,6 +323,17 @@
       .detail-btn:hover { opacity: 0.85; }
       .inc-period { font-size: 10px; color: var(--text-hint); margin-top: 6px; }
 
+      /* ── Loading Ring ───────────────────────────────── */
+      @keyframes ring-rotate { to { transform: rotate(1turn); } }
+      .run-ring {
+        width: 26px; height: 26px;
+        border-radius: 50%;
+        border: 3px solid #e4e8ed;
+        border-top-color: currentColor;
+        animation: ring-rotate 0.85s linear infinite;
+        flex-shrink: 0;
+      }
+
       /* Responsive */
       @media (max-width: 1200px) {
         .cards-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -512,6 +523,9 @@
                 ${updatedLine}
                 ${statusBadge}
               </div>
+              <div id="ring-${r.id}" style="display:none;margin-left:auto;align-self:flex-start;flex-shrink:0">
+                <div class="run-ring" style="color:${cfg.iconBg}"></div>
+              </div>
             </div>
 
             <div class="rc4-rate ${cls}">${rate}%</div>
@@ -555,6 +569,9 @@
               <div class="rc4-title-block">
                 <div class="rc4-title">${cfg.title}</div>
                 <span class="badge badge-skip">미실행</span>
+              </div>
+              <div id="ring-${cfg.id}" style="display:none;margin-left:auto;align-self:flex-start;flex-shrink:0">
+                <div class="run-ring" style="color:${cfg.iconBg}"></div>
               </div>
             </div>
             <div class="rc4-rate gray">—</div>
@@ -742,6 +759,7 @@
           if (res.status === 204) {
             btn.textContent = "✅ 실행 요청 완료";
             btn.style.background = "var(--green)";
+            setTimeout(initProgress, 5000);
             setTimeout(() => {
               btn.textContent = "테스트 실행";
               btn.style.background = "var(--blue)";
@@ -764,7 +782,50 @@
         }
       }
 
+      /* ── 워크플로우 실행 감지 + 로딩 링 제어 ────────────────── */
+      const GITHUB_REPO = "daewon82/hanssem-qa-system";
+      const RING_IDS = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
+      let progressTimer = null;
+
+      function setRingsVisible(visible) {
+        RING_IDS.forEach(id => {
+          const el = document.getElementById("ring-" + id);
+          if (el) el.style.display = visible ? "block" : "none";
+        });
+      }
+
+      async function pollWorkflowStatus() {
+        const token = localStorage.getItem("gh_pat_token");
+        if (!token) return;
+        try {
+          const res = await fetch(
+            `https://api.github.com/repos/${GITHUB_REPO}/actions/runs?status=in_progress&per_page=5`,
+            { headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" } }
+          );
+          if (!res.ok) return;
+          const { workflow_runs } = await res.json();
+          const running = (workflow_runs || []).some(r =>
+            r.path?.includes("playwright") || r.name?.includes("Playwright")
+          );
+          setRingsVisible(running);
+          if (!running && progressTimer) {
+            clearInterval(progressTimer);
+            progressTimer = null;
+          }
+        } catch (e) {
+          console.log("Workflow status check error:", e.message);
+        }
+      }
+
+      function initProgress() {
+        if (localStorage.getItem("gh_pat_token") && !progressTimer) {
+          pollWorkflowStatus();
+          progressTimer = setInterval(pollWorkflowStatus, 30000);
+        }
+      }
+
       loadStats();
+      initProgress();
     </script>
   </body>
 </html>
