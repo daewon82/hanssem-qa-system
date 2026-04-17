@@ -1,3 +1,12 @@
 {
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "buildCommand": "echo 'static site'",
+  "headers": [
+    {
+      "source": "/results.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" }
+      ]
+    }
+  ]
 }
