@@ -1,5 +1,7 @@
 {
   "outputDirectory": "public",
+  "installCommand": "",
+  "buildCommand": "",
   "headers": [
     {
       "source": "/results.json",
