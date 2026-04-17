@@ -747,32 +747,11 @@
 
       async function runWorkflow() {
         const btn = document.getElementById("run-test-btn");
-        let token = localStorage.getItem("gh_pat_token");
-
-        if (!token) {
-          token = prompt("GitHub Personal Access Token을 입력하세요.\n(workflow 권한 필요, 이후 브라우저에 저장됩니다)");
-          if (!token) return;
-          localStorage.setItem("gh_pat_token", token.trim());
-          token = token.trim();
-        }
-
         btn.disabled = true;
         btn.textContent = "실행 중...";
 
         try {
-          const res = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/dispatches",
-            {
-              method: "POST",
-              headers: {
-                "Accept": "application/vnd.github+json",
-                "Authorization": `Bearer ${token}`,
-                "X-GitHub-Api-Version": "2022-11-28",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ ref: "main" }),
-            }
-          );
+          const res = await fetch("/.netlify/functions/trigger", { method: "POST" });
 
           if (res.status === 204) {
             btn.textContent = "✅ 실행 요청 완료";
@@ -783,13 +762,9 @@
               btn.style.background = "var(--blue)";
               btn.disabled = false;
             }, 3000);
-          } else if (res.status === 401) {
-            alert("토큰이 유효하지 않습니다. 다시 입력해주세요.");
-            localStorage.removeItem("gh_pat_token");
-            btn.disabled = false;
-            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
           } else {
-            alert(`요청 실패 (HTTP ${res.status})`);
+            const msg = await res.text();
+            alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
             btn.disabled = false;
             btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
           }
@@ -801,7 +776,6 @@
       }
 
       /* ── 워크플로우 실행 감지 + 로딩 링 제어 ────────────────── */
-      const GITHUB_REPO = "daewon82/hanssem-qa-system";
       const RING_IDS = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
       let progressTimer = null;
 
@@ -813,18 +787,10 @@
       }
 
       async function pollWorkflowStatus() {
-        const token = localStorage.getItem("gh_pat_token");
-        if (!token) return;
         try {
-          const res = await fetch(
-            `https://api.github.com/repos/${GITHUB_REPO}/actions/runs?status=in_progress&per_page=5`,
-            { headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" } }
-          );
+          const res = await fetch("/.netlify/functions/status");
           if (!res.ok) return;
-          const { workflow_runs } = await res.json();
-          const running = (workflow_runs || []).some(r =>
-            r.path?.includes("playwright") || r.name?.includes("Playwright")
-          );
+          const { running } = await res.json();
           setRingsVisible(running);
           if (!running && progressTimer) {
             clearInterval(progressTimer);
@@ -836,7 +802,7 @@
       }
 
       function initProgress() {
-        if (localStorage.getItem("gh_pat_token") && !progressTimer) {
+        if (!progressTimer) {
           pollWorkflowStatus();
           progressTimer = setInterval(pollWorkflowStatus, 30000);
         }
