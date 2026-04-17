@@ -745,11 +745,57 @@
         }
       }
 
-      function runWorkflow() {
-        window.open(
-          "https://github.com/daewon82/hanssem-qa-system/actions/workflows/playwright.yml",
-          "_blank"
-        );
+      async function runWorkflow() {
+        let token = localStorage.getItem("gh_pat");
+        if (!token) {
+          token = prompt("GitHub Personal Access Token을 입력하세요\n(workflow 스코프 필요, 최초 1회만 입력)");
+          if (!token) return;
+          localStorage.setItem("gh_pat", token.trim());
+          token = token.trim();
+        }
+
+        const btn = document.getElementById("run-test-btn");
+        btn.disabled = true;
+        btn.textContent = "요청 중...";
+
+        try {
+          const res = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/dispatches",
+            {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/vnd.github+json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ ref: "main" }),
+            }
+          );
+
+          if (res.status === 204) {
+            btn.textContent = "✅ 실행 요청 완료";
+            btn.style.background = "var(--green)";
+            setTimeout(() => {
+              btn.textContent = "테스트 실행";
+              btn.style.background = "var(--blue)";
+              btn.disabled = false;
+            }, 3000);
+          } else if (res.status === 401) {
+            localStorage.removeItem("gh_pat");
+            alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
+          } else {
+            const msg = await res.text();
+            alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
+          }
+        } catch (e) {
+          alert("네트워크 오류: " + e.message);
+          btn.disabled = false;
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
+        }
       }
 
       loadStats();
