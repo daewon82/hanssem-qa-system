@@ -1,6 +1,6 @@
 {
   "outputDirectory": "public",
-  "buildCommand": "echo 'static site'",
+  "buildCommand": "exit 0",
   "headers": [
     {
       "source": "/results.json",
