@@ -1,7 +1,9 @@
 name: Daily Trigger (KST 08:00)
 
 on:
-  workflow_dispatch: # 비활성화 — playwright.yml에 스케줄 직접 통합됨
+  schedule:
+    - cron: "0 23 * * *" # UTC 23:00 = KST 08:00
+  workflow_dispatch: # 수동 테스트용
 
 jobs:
   trigger:
