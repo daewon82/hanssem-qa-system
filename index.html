@@ -746,22 +746,45 @@
       }
 
       async function runWorkflow() {
+        let token = localStorage.getItem("gh_pat");
+        if (!token) {
+          token = prompt("GitHub Personal Access Token을 입력하세요\n(workflow 스코프 필요, 최초 1회만 입력)");
+          if (!token) return;
+          localStorage.setItem("gh_pat", token.trim());
+          token = token.trim();
+        }
+
         const btn = document.getElementById("run-test-btn");
         btn.disabled = true;
-        btn.textContent = "실행 중...";
+        btn.textContent = "요청 중...";
 
         try {
-          const res = await fetch("/.netlify/functions/trigger", { method: "POST" });
+          const res = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/dispatches",
+            {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/vnd.github+json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ ref: "main" }),
+            }
+          );
 
           if (res.status === 204) {
             btn.textContent = "✅ 실행 요청 완료";
             btn.style.background = "var(--green)";
-            setTimeout(initProgress, 5000);
             setTimeout(() => {
               btn.textContent = "테스트 실행";
               btn.style.background = "var(--blue)";
               btn.disabled = false;
             }, 3000);
+          } else if (res.status === 401) {
+            localStorage.removeItem("gh_pat");
+            alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
           } else {
             const msg = await res.text();
             alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
@@ -775,41 +798,7 @@
         }
       }
 
-      /* ── 워크플로우 실행 감지 + 로딩 링 제어 ────────────────── */
-      const RING_IDS = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
-      let progressTimer = null;
-
-      function setRingsVisible(visible) {
-        RING_IDS.forEach(id => {
-          const el = document.getElementById("ring-" + id);
-          if (el) el.style.display = visible ? "block" : "none";
-        });
-      }
-
-      async function pollWorkflowStatus() {
-        try {
-          const res = await fetch("/.netlify/functions/status");
-          if (!res.ok) return;
-          const { running } = await res.json();
-          setRingsVisible(running);
-          if (!running && progressTimer) {
-            clearInterval(progressTimer);
-            progressTimer = null;
-          }
-        } catch (e) {
-          console.log("Workflow status check error:", e.message);
-        }
-      }
-
-      function initProgress() {
-        if (!progressTimer) {
-          pollWorkflowStatus();
-          progressTimer = setInterval(pollWorkflowStatus, 30000);
-        }
-      }
-
       loadStats();
-      initProgress();
     </script>
   </body>
 </html>
