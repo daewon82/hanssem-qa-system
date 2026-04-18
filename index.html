@@ -347,41 +347,6 @@
       }
 
       /* ── Per-card loading progress bar ─────────────────── */
-      .lp-bar-wrap {
-        display: none; /* JS로 flex 전환 */
-        align-items: center;
-        gap: 8px;
-      }
-      .lp-bar-track {
-        flex: 1;
-        height: 4px;
-        background: #edf0f5;
-        border-radius: 2px;
-        overflow: hidden;
-      }
-      .lp-bar-fill {
-        height: 100%;
-        border-radius: 2px;
-        transition: width 5s ease;
-        position: relative;
-        overflow: hidden;
-      }
-      .lp-bar-fill::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
-        transform: translateX(-100%);
-        animation: lp-shimmer 1.8s ease-in-out infinite;
-      }
-      @keyframes lp-shimmer { to { transform: translateX(300%); } }
-      .lp-pct-text {
-        font-size: 10px;
-        font-weight: 700;
-        width: 32px;
-        text-align: right;
-        flex-shrink: 0;
-      }
 
       /* ── Section Header Row ────────────────────────────── */
       .section-header-row {
@@ -656,13 +621,6 @@
               <div class="rc4-prog-fill" style="width:${rate}%;background:${bar}"></div>
             </div>
 
-            <div class="lp-bar-wrap" id="lprog-${r.id}">
-              <div class="lp-bar-track">
-                <div class="lp-bar-fill" id="lp-fill-${r.id}" style="background:${cfg.iconBg}"></div>
-              </div>
-              <span class="lp-pct-text" id="lp-pct-${r.id}" style="color:${cfg.iconBg}">0%</span>
-            </div>
-
             <div class="rc4-stats-row">
               <div class="rc4-stat-item">
                 <div class="rc4-stat-label">전체</div>
@@ -707,12 +665,6 @@
               </div>
             </div>
             <div class="rc4-rate gray">—</div>
-            <div class="lp-bar-wrap" id="lprog-${cfg.id}">
-              <div class="lp-bar-track">
-                <div class="lp-bar-fill" id="lp-fill-${cfg.id}" style="background:${cfg.iconBg}"></div>
-              </div>
-              <span class="lp-pct-text" id="lp-pct-${cfg.id}" style="color:${cfg.iconBg}">0%</span>
-            </div>
             <div class="rc4-placeholder-msg">테스트가 아직 실행되지 않았습니다</div>
           </div>`;
       }
@@ -912,13 +864,12 @@
           );
 
           if (res.status === 204) {
-            // dispatch 확정 후 _dispatchTime 설정하고 폴링 시작
             _dispatchTime = Date.now();
-            _runStartTime = Date.now();
             _wasRunning = true;
-            setCardLoading("pc-landing", "active", 0);
-            initProgress(); // _dispatchTime 설정 후 호출해야 grace period 작동
-            if (!animTimer) animTimer = setInterval(tickAnimation, 10000);
+            // progress.json 업데이트 전까지 setup 구간: 첫 카드 0% 표시
+            setCardLoading(PHASE_ORDER[0], "active", 0);
+            PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
+            initProgress();
           } else if (res.status === 401) {
             setRunBtn(false);
             alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
@@ -934,17 +885,18 @@
       }
 
       /* ── 단계별 로딩 제어 ──────────────────────────────────── */
-      // 워크플로우 run_started_at 기준 각 테스트 시작 시점(초) / 소요 시간(초)
+      // 각 테스트가 시작할 때 progress.json을 gh-pages에 기록 → 대시보드가 폴링
       const PHASE_ORDER = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
-      // 50개 링크 기준 단축 타이밍 (setup 7분 + 랜딩 2분 + E2E 5분 x2)
-      const PHASE_START = { "pc-landing": 420, "pc-e2e": 540,  "mw-landing": 840,  "mw-e2e": 960  };
-      const PHASE_DUR   = { "pc-landing": 120, "pc-e2e": 300,  "mw-landing": 120,  "mw-e2e": 240  };
+      const PHASE_DUR   = { "pc-landing": 120, "pc-e2e": 300, "mw-landing": 120, "mw-e2e": 240 };
       const phaseCompletedTime = {};
-      let _runStartTime  = null;
       let _wasRunning    = false;
       let _dispatchTime  = null;
-      let progressTimer  = null;
-      let animTimer      = null;
+      let _runStartedAt  = null;   // GitHub API run_started_at (stale 판별용)
+      let _currentPhase  = null;   // progress.json에서 읽은 현재 단계
+      let _phaseStartedAt = null;  // progress.json의 startedAt 타임스탬프
+      let progressTimer  = null;   // pollWorkflowStatus 30초 인터벌
+      let phaseTimer     = null;   // pollProgress 15초 인터벌
+      let animTimer      = null;   // applyProgressState 10초 인터벌 (% 업데이트)
 
       function setRunBtn(running) {
         const btn = document.getElementById("run-test-btn");
@@ -964,18 +916,11 @@
 
       function setCardLoading(id, state, pct) {
         const ring  = document.getElementById("ring-"       + id);
-        const lprog = document.getElementById("lprog-"      + id);
-        const fill  = document.getElementById("lp-fill-"    + id);
-        const pctEl = document.getElementById("lp-pct-"     + id);
         const label = document.getElementById("ring-label-" + id);
         const isActive = state === "active";
-        if (ring)  ring.style.display  = isActive ? "flex" : "none";
-        if (lprog) lprog.style.display = isActive ? "flex" : "none";
+        if (ring) ring.style.display = isActive ? "flex" : "none";
         if (isActive) {
-          const p = Math.round(pct || 0);
-          if (fill)  fill.style.width  = p + "%";
-          if (pctEl) pctEl.textContent = p + "%";
-          if (label) label.textContent = p + "%";
+          if (label) label.textContent = Math.round(pct || 0) + "%";
         } else if (label) {
           label.textContent = "실행중";
         }
@@ -992,31 +937,42 @@
         }
       }
 
-      function updateLoadingState(elapsedSec) {
-        const firstStart = PHASE_START[PHASE_ORDER[0]];
-        // setup 구간: 첫 번째 카드를 0%로 계속 표시
-        if (elapsedSec < firstStart) {
-          setCardLoading(PHASE_ORDER[0], "active", 0);
-          PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
-          return;
-        }
+      // progress.json 기반으로 현재 단계 카드에 로딩 표시
+      function applyProgressState() {
+        if (!_currentPhase || !PHASE_ORDER.includes(_currentPhase)) return;
         PHASE_ORDER.forEach(id => {
-          const start = PHASE_START[id];
-          const end   = start + PHASE_DUR[id];
-          if (elapsedSec < start) {
-            setCardLoading(id, "idle");
-          } else if (elapsedSec < end) {
-            const pct = Math.min(95, ((elapsedSec - start) / PHASE_DUR[id]) * 100);
+          const pIdx = PHASE_ORDER.indexOf(id);
+          const cIdx = PHASE_ORDER.indexOf(_currentPhase);
+          if (pIdx < cIdx) {
+            setCardLoading(id, "done");
+          } else if (id === _currentPhase) {
+            const elapsed = _phaseStartedAt ? (Date.now() - _phaseStartedAt) / 1000 : 0;
+            const pct = Math.min(95, (elapsed / (PHASE_DUR[id] || 120)) * 100);
             setCardLoading(id, "active", pct);
           } else {
-            setCardLoading(id, "done");
+            setCardLoading(id, "idle");
           }
         });
       }
 
-      function tickAnimation() {
-        if (!_runStartTime) return;
-        updateLoadingState((Date.now() - _runStartTime) / 1000);
+      // 15초마다 progress.json 폴링 → 실제 실행 중인 단계 반영
+      async function pollProgress() {
+        try {
+          const res = await fetch("progress.json?t=" + Date.now());
+          if (!res.ok) return;
+          const data = await res.json();
+          const phase = data.phase;
+          const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
+          // 이전 실행의 stale 데이터면 setup 상태 유지 (첫 카드 0%)
+          if (_runStartedAt && startedAt && startedAt < _runStartedAt - 30000) {
+            setCardLoading(PHASE_ORDER[0], "active", 0);
+            PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
+            return;
+          }
+          _currentPhase   = (phase && PHASE_ORDER.includes(phase)) ? phase : null;
+          _phaseStartedAt = startedAt;
+          if (_currentPhase) applyProgressState();
+        } catch (_) {}
       }
 
       async function pollWorkflowStatus() {
@@ -1033,21 +989,22 @@
           const running = latest.status === "in_progress" || latest.status === "queued";
           if (running) {
             setRunBtn(true);
-            _runStartTime = new Date(latest.run_started_at || latest.created_at).getTime();
-            if (!animTimer) animTimer = setInterval(tickAnimation, 10000);
+            _runStartedAt = new Date(latest.run_started_at || latest.created_at).getTime();
             _wasRunning = true;
-            tickAnimation();
           } else {
             // dispatch 직후 60초 유예: API에 새 실행이 아직 안 잡혔을 수 있음
             if (_dispatchTime && Date.now() - _dispatchTime < 60000) return;
             setRunBtn(false);
+            if (phaseTimer)    { clearInterval(phaseTimer);    phaseTimer = null; }
             if (animTimer)     { clearInterval(animTimer);     animTimer = null; }
             if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
             PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
             if (_wasRunning) {
-              _wasRunning = false;
-              _runStartTime = null;
-              _dispatchTime = null;
+              _wasRunning    = false;
+              _dispatchTime  = null;
+              _runStartedAt  = null;
+              _currentPhase  = null;
+              _phaseStartedAt = null;
               Object.keys(phaseCompletedTime).forEach(k => delete phaseCompletedTime[k]);
               setTimeout(loadStats, 5000);
             }
@@ -1061,6 +1018,13 @@
         if (!progressTimer) {
           pollWorkflowStatus();
           progressTimer = setInterval(pollWorkflowStatus, 30000);
+        }
+        if (!phaseTimer) {
+          pollProgress();
+          phaseTimer = setInterval(pollProgress, 15000);
+        }
+        if (!animTimer) {
+          animTimer = setInterval(applyProgressState, 10000);
         }
       }
 
