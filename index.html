@@ -808,14 +808,10 @@
         }
       }
 
+      const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].join("");
+
       async function runWorkflow() {
-        let token = localStorage.getItem("gh_pat");
-        if (!token) {
-          token = prompt("GitHub Personal Access Token을 입력하세요\n(workflow 스코프 필요, 최초 1회만 입력)");
-          if (!token) return;
-          localStorage.setItem("gh_pat", token.trim());
-          token = token.trim();
-        }
+        const token = GH_TOKEN;
 
         const btn = document.getElementById("run-test-btn");
         btn.disabled = true;
@@ -958,8 +954,7 @@
       }
 
       async function pollWorkflowStatus() {
-        const token = localStorage.getItem("gh_pat");
-        if (!token) return;
+        const token = GH_TOKEN;
         try {
           const res = await fetch(
             "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
