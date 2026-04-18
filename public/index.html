@@ -524,6 +524,15 @@
 
     <div style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:4px;" id="footer-updated"></div>
 
+    <!-- 디버그 바 (로그 파싱 확인용) -->
+    <div id="debug-bar" style="display:none;margin-top:8px;padding:8px 14px;background:#1a1a2e;border-radius:8px;font-size:12px;font-family:monospace;color:#7fdbff;line-height:1.7;">
+      <span style="color:#aaa">🔍 log poll:</span>
+      <span id="dbg-phase">phase=—</span> |
+      <span id="dbg-count">count=—</span> |
+      <span id="dbg-pct">pct=—</span> |
+      <span id="dbg-time">last=—</span>
+    </div>
+
     <script>
       /* ── 리포트 설정 ──────────────────────────────────────── */
       const REPORT_CONFIGS = [
@@ -1069,6 +1078,18 @@
 
           // fetch 완료 후 run이 취소됐으면 반영 안 함
           if (_currentRunId !== runId) return;
+
+          // 디버그 바 업데이트
+          const dbg = document.getElementById("debug-bar");
+          if (dbg) {
+            dbg.style.display = "block";
+            const pct = (_progressCount != null && _progressTotal)
+              ? Math.round((_progressCount / _progressTotal) * 100) + "%" : "—";
+            document.getElementById("dbg-phase").textContent = "phase=" + (_currentPhase || "null");
+            document.getElementById("dbg-count").textContent = "count=" + (_progressCount ?? "null") + "/" + (_progressTotal ?? "null");
+            document.getElementById("dbg-pct").textContent = "pct=" + pct;
+            document.getElementById("dbg-time").textContent = "last=" + new Date().toLocaleTimeString("ko-KR");
+          }
 
           // 자가 감지: _wasRunning이 false여도 로그에서 실행 중 확인 시 복구
           if (!_wasRunning && _currentPhase) {
