@@ -31,6 +31,8 @@ async function waitForPageReady(page: Page, extra = 1500) {
 
 const stripAnsi = (str: string) => str.replace(/\x1B\[[0-9;]*m/g, "").trim();
 
+test.describe("MW E2E 테스트", () => {
+
 // ─── 전처리 ──────────────────────────────────────────────────
 test.beforeAll(async () => {
   ["public", "fail_evidence"].forEach((dir) => {
@@ -422,3 +424,5 @@ test.describe("13. 예외 페이지 처리", () => {
     console.log(`[✓] 없는 상품 처리: ${response?.status()} → ${page.url()}`);
   });
 });
+
+}); // MW E2E 테스트 describe 끝
