@@ -779,7 +779,9 @@
           );
           if (!apiRes.ok) throw new Error(`서버 응답 오류 (HTTP ${apiRes.status})`);
           const apiJson = await apiRes.json();
-          const data = JSON.parse(atob((apiJson.content || "").replace(/\n/g, "")));
+          const raw = (apiJson.content || "").replace(/\n/g, "");
+          const bytes = Uint8Array.from(atob(raw), c => c.charCodeAt(0));
+          const data = JSON.parse(new TextDecoder("utf-8").decode(bytes));
           if (!data?.reports || !Array.isArray(data.reports)) {
             throw new Error("리포트 형식이 올바르지 않거나 데이터가 없습니다.");
           }
@@ -1011,7 +1013,8 @@
           if (!res.ok) { if (_wasRunning) applyProgressState(); return; }
           const apiData = await res.json();
           const raw = (apiData.content || "").replace(/\n/g, "");
-          const data = JSON.parse(atob(raw));
+          const rawBytes = Uint8Array.from(atob(raw), c => c.charCodeAt(0));
+          const data = JSON.parse(new TextDecoder("utf-8").decode(rawBytes));
           const phase = data.phase;
           const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
           if (_runStartedAt && startedAt && startedAt < _runStartedAt - 30000) {
