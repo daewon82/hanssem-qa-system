@@ -971,18 +971,21 @@
       // _wasRunning 가드 없음: progress.json 자체로 실행 중 감지 가능 (자가 복구)
       async function pollProgress() {
         try {
+          // Contents API (기본 JSON) → base64 디코드로 파일 내용 추출
           const res = await fetch(
             "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/progress.json?ref=gh-pages",
             {
               headers: {
                 "Authorization": `Bearer ${GH_TOKEN}`,
-                "Accept": "application/vnd.github.raw+json"
+                "Accept": "application/vnd.github+json"
               },
               cache: "no-store"
             }
           );
           if (!res.ok) { if (_wasRunning) applyProgressState(); return; }
-          const data = await res.json();
+          const apiData = await res.json();
+          const raw = (apiData.content || "").replace(/\n/g, "");
+          const data = JSON.parse(atob(raw));
           const phase = data.phase;
           const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
 
