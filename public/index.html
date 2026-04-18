@@ -806,7 +806,24 @@
 
         const btn = document.getElementById("run-test-btn");
         btn.disabled = true;
-        btn.textContent = "요청 중...";
+        btn.textContent = "확인 중...";
+
+        // 이미 실행 중인지 먼저 확인
+        try {
+          const checkRes = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
+            { headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" } }
+          );
+          if (checkRes.ok) {
+            const checkData = await checkRes.json();
+            const latest = checkData.workflow_runs?.[0];
+            if (latest && (latest.status === "in_progress" || latest.status === "queued")) {
+              setRunBtn(true);
+              initProgress();
+              return;
+            }
+          }
+        } catch (_) { /* 확인 실패 시 그냥 진행 */ }
 
         try {
           const res = await fetch(
