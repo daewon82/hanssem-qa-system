@@ -346,6 +346,43 @@
         animation: ring-fade 1.5s ease-in-out infinite;
       }
 
+      /* ── Per-card loading progress bar ─────────────────── */
+      .lp-bar-wrap {
+        display: none; /* JS로 flex 전환 */
+        align-items: center;
+        gap: 8px;
+      }
+      .lp-bar-track {
+        flex: 1;
+        height: 4px;
+        background: #edf0f5;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .lp-bar-fill {
+        height: 100%;
+        border-radius: 2px;
+        transition: width 5s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .lp-bar-fill::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+        transform: translateX(-100%);
+        animation: lp-shimmer 1.8s ease-in-out infinite;
+      }
+      @keyframes lp-shimmer { to { transform: translateX(300%); } }
+      .lp-pct-text {
+        font-size: 10px;
+        font-weight: 700;
+        width: 32px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+
       /* Responsive */
       @media (max-width: 1200px) {
         .cards-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -418,8 +455,12 @@
           <div class="inc-stat-val" style="color:var(--green)" id="inc-app">—</div>
           <div class="inc-stat-label">APP 모바일</div>
         </div>
-        <div class="inc-stat" style="border-left:none;padding-left:8px">
-          <div class="inc-stat-label" id="inc-period">—</div>
+        <div class="inc-stat" style="border-left:1px solid var(--border);padding-left:20px;text-align:left">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+            <span style="background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;letter-spacing:0.5px">N</span>
+            <span style="font-size:11px;color:var(--text-sub);font-weight:500">최근 장애 발생일</span>
+          </div>
+          <div id="inc-period" style="font-size:18px;font-weight:800;color:var(--red);line-height:1.2;letter-spacing:-0.3px">—</div>
         </div>
       </div>
       <a href="incidents.html" class="detail-btn">
@@ -456,9 +497,9 @@
       /* ── 리포트 설정 ──────────────────────────────────────── */
       const REPORT_CONFIGS = [
         { id: "pc-landing", title: "PC 랜딩 500",  abbr1: "PC",  abbr2: "랜딩", iconBg: "#1A4F9C" },
-        { id: "pc-e2e",     title: "PC E2E",        abbr1: "PC",  abbr2: "E2E",  iconBg: "#1A4F9C" },
-        { id: "mw-landing", title: "MW 랜딩 500",   abbr1: "MW",  abbr2: "랜딩", iconBg: "#00695C" },
-        { id: "mw-e2e",     title: "MW E2E",         abbr1: "MW",  abbr2: "E2E",  iconBg: "#00695C" },
+        { id: "pc-e2e",     title: "PC E2E",       abbr1: "PC",  abbr2: "E2E",  iconBg: "#1A4F9C" },
+        { id: "mw-landing", title: "MW 랜딩 500",  abbr1: "MW",  abbr2: "랜딩", iconBg: "#00695C" },
+        { id: "mw-e2e",     title: "MW E2E",        abbr1: "MW",  abbr2: "E2E",  iconBg: "#00695C" },
       ];
 
       const passColor = (r) => r >= 95 ? "#2E7D32" : r >= 90 ? "#E65100" : "#C62828";
@@ -538,7 +579,7 @@
               <div id="ring-${r.id}" style="display:none;margin-left:auto;align-self:center;flex-shrink:0">
                 <div class="run-ring-wrap" style="color:${cfg.iconBg}">
                   <div class="run-ring"></div>
-                  <span class="run-ring-label">실행중</span>
+                  <span class="run-ring-label" id="ring-label-${r.id}">실행중</span>
                 </div>
               </div>
             </div>
@@ -547,6 +588,13 @@
 
             <div class="rc4-prog-track">
               <div class="rc4-prog-fill" style="width:${rate}%;background:${bar}"></div>
+            </div>
+
+            <div class="lp-bar-wrap" id="lprog-${r.id}">
+              <div class="lp-bar-track">
+                <div class="lp-bar-fill" id="lp-fill-${r.id}" style="background:${cfg.iconBg}"></div>
+              </div>
+              <span class="lp-pct-text" id="lp-pct-${r.id}" style="color:${cfg.iconBg}">0%</span>
             </div>
 
             <div class="rc4-stats-row">
@@ -588,11 +636,17 @@
               <div id="ring-${cfg.id}" style="display:none;margin-left:auto;align-self:center;flex-shrink:0">
                 <div class="run-ring-wrap" style="color:${cfg.iconBg}">
                   <div class="run-ring"></div>
-                  <span class="run-ring-label">실행중</span>
+                  <span class="run-ring-label" id="ring-label-${cfg.id}">실행중</span>
                 </div>
               </div>
             </div>
             <div class="rc4-rate gray">—</div>
+            <div class="lp-bar-wrap" id="lprog-${cfg.id}">
+              <div class="lp-bar-track">
+                <div class="lp-bar-fill" id="lp-fill-${cfg.id}" style="background:${cfg.iconBg}"></div>
+              </div>
+              <span class="lp-pct-text" id="lp-pct-${cfg.id}" style="color:${cfg.iconBg}">0%</span>
+            </div>
             <div class="rc4-placeholder-msg">테스트가 아직 실행되지 않았습니다</div>
           </div>`;
       }
@@ -719,7 +773,11 @@
             document.getElementById("inc-fe").textContent     = inc.feCount  || 0;
             document.getElementById("inc-be").textContent     = inc.beCount  || 0;
             document.getElementById("inc-app").textContent    = inc.appCount || 0;
-            document.getElementById("inc-period").textContent = inc.period   || "";
+            const recentRaw = inc.byMonth?.[0]?.list?.[0]?.date || inc.lastUpdated || "";
+            if (recentRaw) {
+              const [y, m, d] = recentRaw.split("-");
+              document.getElementById("inc-period").textContent = `${y}년 ${parseInt(m)}월 ${parseInt(d)}일`;
+            }
           }
 
           const hasFailure = data.reports.some(r => (r.fail || 0) > 0);
@@ -756,7 +814,24 @@
 
         const btn = document.getElementById("run-test-btn");
         btn.disabled = true;
-        btn.textContent = "요청 중...";
+        btn.textContent = "확인 중...";
+
+        // 이미 실행 중인지 먼저 확인
+        try {
+          const checkRes = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
+            { headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" } }
+          );
+          if (checkRes.ok) {
+            const checkData = await checkRes.json();
+            const latest = checkData.workflow_runs?.[0];
+            if (latest && (latest.status === "in_progress" || latest.status === "queued")) {
+              setRunBtn(true);
+              initProgress();
+              return;
+            }
+          }
+        } catch (_) { /* 확인 실패 시 그냥 진행 */ }
 
         try {
           const res = await fetch(
@@ -776,7 +851,7 @@
             btn.textContent = "✅ 실행 요청 완료";
             btn.style.background = "var(--green)";
             setTimeout(() => {
-              btn.textContent = "테스트 실행";
+              btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
               btn.style.background = "var(--blue)";
               btn.disabled = false;
             }, 3000);
@@ -799,23 +874,24 @@
         }
       }
 
-      /* ── 로딩 링 제어 ────────────────────────────────────────── */
-      const RING_IDS = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
+      /* ── 단계별 로딩 제어 ──────────────────────────────────── */
+      // 워크플로우 run_started_at 기준 각 테스트 시작 시점(초) / 소요 시간(초)
+      const PHASE_ORDER = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
+      // 50개 링크 기준 단축 타이밍 (setup 7분 + 랜딩 2분 + E2E 5분 x2)
+      const PHASE_START = { "pc-landing": 420, "pc-e2e": 540,  "mw-landing": 840,  "mw-e2e": 960  };
+      const PHASE_DUR   = { "pc-landing": 120, "pc-e2e": 300,  "mw-landing": 120,  "mw-e2e": 240  };
+      const phaseCompletedTime = {};
+      let _runStartTime = null;
+      let _wasRunning   = false;
       let progressTimer = null;
-
-      function setRingsVisible(visible) {
-        RING_IDS.forEach(id => {
-          const el = document.getElementById("ring-" + id);
-          if (el) el.style.display = visible ? "flex" : "none";
-        });
-      }
+      let animTimer     = null;
 
       function setRunBtn(running) {
         const btn = document.getElementById("run-test-btn");
         if (!btn) return;
         if (running) {
           btn.disabled = true;
-          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="white" stroke-width="1.5" stroke-dasharray="3 2"/></svg> 실행 중`;
+          btn.innerHTML = `<span style="display:inline-block;width:8px;height:8px;border:2px solid rgba(255,255,255,0.9);border-top-color:transparent;border-radius:50%;animation:ring-rotate 0.8s linear infinite;vertical-align:middle;margin-right:2px"></span> 테스트 실행 중`;
           btn.style.background = "var(--text-sub)";
           btn.style.cursor = "not-allowed";
         } else {
@@ -824,6 +900,56 @@
           btn.style.background = "var(--blue)";
           btn.style.cursor = "pointer";
         }
+      }
+
+      function setCardLoading(id, state, pct) {
+        const ring  = document.getElementById("ring-"       + id);
+        const lprog = document.getElementById("lprog-"      + id);
+        const fill  = document.getElementById("lp-fill-"    + id);
+        const pctEl = document.getElementById("lp-pct-"     + id);
+        const label = document.getElementById("ring-label-" + id);
+        const isActive = state === "active";
+        if (ring)  ring.style.display  = isActive ? "flex" : "none";
+        if (lprog) lprog.style.display = isActive ? "flex" : "none";
+        if (isActive) {
+          const p = Math.round(pct || 0);
+          if (fill)  fill.style.width  = p + "%";
+          if (pctEl) pctEl.textContent = p + "%";
+          if (label) label.textContent = p + "%";
+        } else if (label) {
+          label.textContent = "실행중";
+        }
+        if (state === "done" && !phaseCompletedTime[id]) {
+          phaseCompletedTime[id] = new Date();
+          const card  = ring?.closest(".rc4-card");
+          const updEl = card?.querySelector(".rc4-updated");
+          if (updEl) {
+            const d  = phaseCompletedTime[id];
+            const hh = String(d.getHours()).padStart(2, "0");
+            const mm = String(d.getMinutes()).padStart(2, "0");
+            updEl.textContent = `완료: ${hh}:${mm}`;
+          }
+        }
+      }
+
+      function updateLoadingState(elapsedSec) {
+        PHASE_ORDER.forEach(id => {
+          const start = PHASE_START[id];
+          const end   = start + PHASE_DUR[id];
+          if (elapsedSec < start) {
+            setCardLoading(id, "waiting");
+          } else if (elapsedSec < end) {
+            const pct = Math.min(95, ((elapsedSec - start) / PHASE_DUR[id]) * 100);
+            setCardLoading(id, "active", pct);
+          } else {
+            setCardLoading(id, "done");
+          }
+        });
+      }
+
+      function tickAnimation() {
+        if (!_runStartTime) return;
+        updateLoadingState((Date.now() - _runStartTime) / 1000);
       }
 
       async function pollWorkflowStatus() {
@@ -837,12 +963,24 @@
           if (!res.ok) return;
           const data = await res.json();
           const latest = data.workflow_runs?.[0];
-          const running = latest && (latest.status === "in_progress" || latest.status === "queued");
-          setRingsVisible(running);
+          if (!latest) return;
+          const running = latest.status === "in_progress" || latest.status === "queued";
           setRunBtn(running);
-          if (!running && progressTimer) {
-            clearInterval(progressTimer);
-            progressTimer = null;
+          if (running) {
+            _runStartTime = new Date(latest.run_started_at || latest.created_at).getTime();
+            if (!animTimer) animTimer = setInterval(tickAnimation, 10000);
+            _wasRunning = true;
+            tickAnimation();
+          } else {
+            if (animTimer)     { clearInterval(animTimer);     animTimer = null; }
+            if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
+            if (_wasRunning) {
+              _wasRunning = false;
+              _runStartTime = null;
+              Object.keys(phaseCompletedTime).forEach(k => delete phaseCompletedTime[k]);
+              setTimeout(loadStats, 5000);
+            }
           }
         } catch (e) {
           console.log("Workflow status check error:", e.message);
