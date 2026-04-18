@@ -831,10 +831,20 @@
       async function runWorkflow() {
         const token = GH_TOKEN;
 
-        // 버튼 클릭 즉시 비활성화 (중복 클릭 방지) — initProgress는 dispatch 확정 후 호출
+        // 버튼 클릭 즉시 비활성화 (중복 클릭 방지)
         setRunBtn(true);
 
-        // 이미 실행 중인지 먼저 확인
+        // localStorage로 이미 실행 중인지 우선 확인 (API보다 빠름)
+        try {
+          const _stored = JSON.parse(localStorage.getItem("qa_running") || "null");
+          if (_stored && Date.now() - _stored.ts < 5 * 60 * 60 * 1000) {
+            _wasRunning = true;
+            initProgress(); // 이미 실행 중 → 폴링만 시작
+            return;
+          }
+        } catch (_) {}
+
+        // GitHub API로 실행 중 여부 2차 확인
         try {
           const checkRes = await fetch(
             "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
@@ -844,7 +854,9 @@
             const checkData = await checkRes.json();
             const latest = checkData.workflow_runs?.[0];
             if (latest && (latest.status === "in_progress" || latest.status === "queued")) {
-              initProgress(); // 이미 실행 중 → 폴링 시작
+              _wasRunning = true;
+              localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
+              initProgress();
               return;
             }
           }
@@ -867,6 +879,7 @@
           if (res.status === 204) {
             _dispatchTime = Date.now();
             _wasRunning = true;
+            localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
             // progress.json 업데이트 전까지 setup 구간: 첫 카드 0% 표시
             setCardLoading(PHASE_ORDER[0], "active", 0);
             PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
@@ -899,6 +912,15 @@
       let progressTimer  = null;   // pollWorkflowStatus 30초 인터벌
       let phaseTimer     = null;   // pollProgress 15초 인터벌
       let animTimer      = null;   // applyProgressState 10초 인터벌
+
+      // 새로고침 후에도 실행 상태 즉시 복원 (API 응답 전에도)
+      try {
+        const _stored = JSON.parse(localStorage.getItem("qa_running") || "null");
+        if (_stored && Date.now() - _stored.ts < 5 * 60 * 60 * 1000) {
+          _wasRunning = true;
+          setRunBtn(true);
+        }
+      } catch (_) {}
 
       function setRunBtn(running) {
         const btn = document.getElementById("run-test-btn");
@@ -1052,6 +1074,7 @@
               _progressCount = null;
               _progressTotal = null;
               Object.keys(phaseCompletedTime).forEach(k => delete phaseCompletedTime[k]);
+              localStorage.removeItem("qa_running");
               setTimeout(loadStats, 5000);
             }
           }
