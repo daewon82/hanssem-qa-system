@@ -175,6 +175,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
   // 메인 루프
   // -----------------------------
   let consecutiveTimeouts = 0;
+  let lastProgressUpdate = 0;
 
   while (visitedLinks.size < MAX_LINKS) {
     const nextLink = linkQueue.shift();
@@ -310,7 +311,12 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
     }
 
     if (visitedLinks.size % 10 === 0 || visitedLinks.size === MAX_LINKS) {
-      console.log(`[PROGRESS] MW_500: ${visitedLinks.size}/500`);
+      console.log(`[PROGRESS] MW_500: ${visitedLinks.size}/${MAX_LINKS}`);
+    }
+
+    if (Date.now() - lastProgressUpdate > 15000) {
+      await updateProgress("mw-landing", visitedLinks.size, MAX_LINKS);
+      lastProgressUpdate = Date.now();
     }
 
     const failReason = isPass

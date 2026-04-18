@@ -783,6 +783,7 @@
           console.log("✅ 데이터 로드 성공:", data.reports.length, "개의 리포트 확인");
 
           renderCards(data.reports);
+          if (_wasRunning) applyProgressState(); // 카드 재렌더 후 로딩 상태 복원
           renderIncidentChart(data.incidents?.byMonth || []);
 
           if (data.incidents) {
@@ -893,10 +894,11 @@
       let _dispatchTime  = null;
       let _runStartedAt  = null;   // GitHub API run_started_at (stale 판별용)
       let _currentPhase  = null;   // progress.json에서 읽은 현재 단계
-      let _phaseStartedAt = null;  // progress.json의 startedAt 타임스탬프
+      let _progressCount = null;   // landing 테스트 현재 진행 건수
+      let _progressTotal = null;   // landing 테스트 전체 건수 (MAX_LINKS)
       let progressTimer  = null;   // pollWorkflowStatus 30초 인터벌
       let phaseTimer     = null;   // pollProgress 15초 인터벌
-      let animTimer      = null;   // applyProgressState 10초 인터벌 (% 업데이트)
+      let animTimer      = null;   // applyProgressState 10초 인터벌
 
       function setRunBtn(running) {
         const btn = document.getElementById("run-test-btn");
@@ -914,15 +916,15 @@
         }
       }
 
-      function setCardLoading(id, state, pct) {
-        const ring  = document.getElementById("ring-"       + id);
-        const label = document.getElementById("ring-label-" + id);
+      function setCardLoading(id, state, label) {
+        const ring     = document.getElementById("ring-"       + id);
+        const labelEl  = document.getElementById("ring-label-" + id);
         const isActive = state === "active";
         if (ring) ring.style.display = isActive ? "flex" : "none";
         if (isActive) {
-          if (label) label.textContent = Math.round(pct || 0) + "%";
-        } else if (label) {
-          label.textContent = "실행중";
+          if (labelEl) labelEl.textContent = label || "";
+        } else if (labelEl) {
+          labelEl.textContent = "실행중";
         }
         if (state === "done" && !phaseCompletedTime[id]) {
           phaseCompletedTime[id] = new Date();
@@ -937,18 +939,28 @@
         }
       }
 
-      // progress.json 기반으로 현재 단계 카드에 로딩 표시
+      // 실행 중 플래그가 on이면 현재 단계 카드의 로딩 아이콘을 항상 유지
       function applyProgressState() {
-        if (!_currentPhase || !PHASE_ORDER.includes(_currentPhase)) return;
+        if (!_wasRunning) return;
+        if (!_currentPhase) {
+          // 단계 신호 오기 전(setup): 첫 카드 스피너만 표시
+          setCardLoading(PHASE_ORDER[0], "active", "");
+          PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
+          return;
+        }
+        const isLanding = _currentPhase.includes("landing");
         PHASE_ORDER.forEach(id => {
           const pIdx = PHASE_ORDER.indexOf(id);
           const cIdx = PHASE_ORDER.indexOf(_currentPhase);
           if (pIdx < cIdx) {
             setCardLoading(id, "done");
           } else if (id === _currentPhase) {
-            const elapsed = _phaseStartedAt ? (Date.now() - _phaseStartedAt) / 1000 : 0;
-            const pct = Math.min(95, (elapsed / (PHASE_DUR[id] || 120)) * 100);
-            setCardLoading(id, "active", pct);
+            // landing: count/total 기반 실제 %, E2E: 스피너만
+            let label = "";
+            if (isLanding && _progressCount != null && _progressTotal) {
+              label = Math.round((_progressCount / _progressTotal) * 100) + "%";
+            }
+            setCardLoading(id, "active", label);
           } else {
             setCardLoading(id, "idle");
           }
@@ -957,22 +969,28 @@
 
       // 15초마다 progress.json 폴링 → 실제 실행 중인 단계 반영
       async function pollProgress() {
+        if (!_wasRunning) return;
         try {
           const res = await fetch("progress.json?t=" + Date.now());
-          if (!res.ok) return;
+          if (!res.ok) { applyProgressState(); return; }
           const data = await res.json();
           const phase = data.phase;
           const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
-          // 이전 실행의 stale 데이터면 setup 상태 유지 (첫 카드 0%)
+          // 이전 실행의 stale 데이터 → 현재 단계 유지, 변경 안 함
           if (_runStartedAt && startedAt && startedAt < _runStartedAt - 30000) {
-            setCardLoading(PHASE_ORDER[0], "active", 0);
-            PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
+            applyProgressState();
             return;
           }
-          _currentPhase   = (phase && PHASE_ORDER.includes(phase)) ? phase : null;
-          _phaseStartedAt = startedAt;
-          if (_currentPhase) applyProgressState();
-        } catch (_) {}
+          // 유효한 단계만 업데이트 (idle/done이 와도 실행 중엔 현재 단계 유지)
+          if (phase && PHASE_ORDER.includes(phase)) {
+            _currentPhase  = phase;
+            _progressCount = data.count ?? null;
+            _progressTotal = data.total ?? null;
+          }
+          applyProgressState();
+        } catch (_) {
+          applyProgressState(); // 폴링 실패해도 현재 상태 유지
+        }
       }
 
       async function pollWorkflowStatus() {
@@ -1004,7 +1022,8 @@
               _dispatchTime  = null;
               _runStartedAt  = null;
               _currentPhase  = null;
-              _phaseStartedAt = null;
+              _progressCount = null;
+              _progressTotal = null;
               Object.keys(phaseCompletedTime).forEach(k => delete phaseCompletedTime[k]);
               setTimeout(loadStats, 5000);
             }

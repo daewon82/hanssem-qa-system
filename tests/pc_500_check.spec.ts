@@ -161,6 +161,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
   // 메인 루프
   // -----------------------------
   let consecutiveTimeouts = 0;
+  let lastProgressUpdate = 0;
 
   while (visitedLinks.size < MAX_LINKS) {
     const nextLink = Array.from(linkPool).find((l) => !visitedLinks.has(l));
@@ -289,7 +290,12 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
     }
 
     if (visitedLinks.size % 10 === 0 || visitedLinks.size === MAX_LINKS) {
-      console.log(`[PROGRESS] PC_500: ${visitedLinks.size}/500`);
+      console.log(`[PROGRESS] PC_500: ${visitedLinks.size}/${MAX_LINKS}`);
+    }
+
+    if (Date.now() - lastProgressUpdate > 15000) {
+      await updateProgress("pc-landing", visitedLinks.size, MAX_LINKS);
+      lastProgressUpdate = Date.now();
     }
 
     const failReason = isPass
