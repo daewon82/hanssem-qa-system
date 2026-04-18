@@ -4,9 +4,7 @@
   "description": "한샘몰 서비스 품질 관리 시스템",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test",
-    "deploy": "vercel --prod",
-    "report": "npx playwright test && vercel --prod"
+    "test": "npx playwright test"
   },
   "keywords": [],
   "author": "dwlee",
