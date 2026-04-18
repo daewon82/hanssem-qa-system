@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 19. AM 12:36:13",
+  "lastUpdated": "2026. 4. 19. AM 12:36:54",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -701,12 +701,20 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 19. AM 12:19:13",
-      "total": 17,
-      "pass": 17,
-      "fail": 0,
-      "passRate": "100.0",
-      "cases": []
+      "lastUpdated": "2026. 4. 19. AM 12:36:54",
+      "total": 2,
+      "pass": 1,
+      "fail": 1,
+      "passRate": "50.0",
+      "cases": [
+        {
+          "name": "헤더(GNB) 노출 확인",
+          "url": "https://m.store.hanssem.com/",
+          "status": "fail",
+          "duration": "30.05s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
+        }
+      ]
     },
     {
       "id": "pc-e2e-v2",
