@@ -524,6 +524,15 @@
 
     <div style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:4px;" id="footer-updated"></div>
 
+    <!-- 디버그 바 (로그 파싱 확인용) -->
+    <div id="debug-bar" style="display:none;margin-top:8px;padding:8px 14px;background:#1a1a2e;border-radius:8px;font-size:12px;font-family:monospace;color:#7fdbff;line-height:1.7;">
+      <span style="color:#aaa">🔍 log poll:</span>
+      <span id="dbg-phase">phase=—</span> |
+      <span id="dbg-count">count=—</span> |
+      <span id="dbg-pct">pct=—</span> |
+      <span id="dbg-time">last=—</span>
+    </div>
+
     <script>
       /* ── 리포트 설정 ──────────────────────────────────────── */
       const REPORT_CONFIGS = [
@@ -899,20 +908,19 @@
       }
 
       /* ── 단계별 로딩 제어 ──────────────────────────────────── */
-      // 각 테스트가 시작할 때 progress.json을 gh-pages에 기록 → 대시보드가 폴링
       const PHASE_ORDER = ["pc-landing", "pc-e2e", "mw-landing", "mw-e2e"];
-      const PHASE_DUR   = { "pc-landing": 120, "pc-e2e": 300, "mw-landing": 120, "mw-e2e": 240 };
       const phaseCompletedTime = {};
       let _wasRunning    = false;
       let _dispatchTime  = null;
-      let _runStartedAt  = null;   // GitHub API run_started_at (stale 판별용)
-      let _currentPhase  = null;   // progress.json에서 읽은 현재 단계
-      let _progressCount = null;   // landing 테스트 현재 진행 건수
-      let _progressTotal = null;   // landing 테스트 전체 건수 (MAX_LINKS)
-      let progressTimer  = null;   // pollWorkflowStatus 30초 인터벌
-      let phaseTimer     = null;   // pollProgress 15초 인터벌
-      let animTimer      = null;   // applyProgressState 10초 인터벌
-      let _lastValidPhaseTime = null; // pollProgress가 마지막으로 유효한 phase를 본 시각
+      let _runStartedAt  = null;
+      let _currentRunId  = null;   // 현재 실행 중인 workflow run ID
+      let _currentPhase  = null;
+      let _progressCount = null;
+      let _progressTotal = null;
+      let progressTimer  = null;   // pollWorkflowStatus 30초
+      let phaseTimer     = null;   // pollJobLogs 10초
+      let animTimer      = null;   // applyProgressState 10초
+      let _lastValidPhaseTime = null;
 
       // 새로고침 후에도 실행 상태 즉시 복원 (API 응답 전에도)
       try {
@@ -966,8 +974,11 @@
       function applyProgressState() {
         if (!_wasRunning) return;
         if (!_currentPhase) {
-          // 단계 신호 오기 전(setup): 첫 카드 0% 표시
-          setCardLoading(PHASE_ORDER[0], "active", "0%");
+          // setup 구간: count가 있으면 실제 %, 없으면 0%
+          const label = (_progressCount != null && _progressTotal)
+            ? Math.round((_progressCount / _progressTotal) * 100) + "%"
+            : "0%";
+          setCardLoading(PHASE_ORDER[0], "active", label);
           PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
           return;
         }
@@ -992,20 +1003,120 @@
         });
       }
 
-      // 15초마다 progress.json 폴링 → 실제 실행 중인 단계 반영
-      // _wasRunning 가드 없음: progress.json 자체로 실행 중 감지 가능 (자가 복구)
-      async function pollProgress() {
+      // 10초마다 GitHub Actions job 로그를 읽어 카운트/단계 파싱
+      async function pollJobLogs() {
         try {
-          // Contents API (기본 JSON) → base64 디코드로 파일 내용 추출
+          // run ID가 없으면 최신 run에서 가져오기 (자가 감지 포함)
+          const capturedRunId = _currentRunId; // 취소 race condition 방지용 스냅샷
+          let runId = _currentRunId;
+          if (!runId) {
+            const runsRes = await fetch(
+              "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
+              { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
+            );
+            if (!runsRes.ok) { if (_wasRunning) applyProgressState(); return; }
+            const runsData = await runsRes.json();
+            const latest = runsData.workflow_runs?.[0];
+            if (!latest || (latest.status !== "in_progress" && latest.status !== "queued")) {
+              if (_wasRunning) applyProgressState();
+              return;
+            }
+            runId = latest.id;
+            _currentRunId = runId;
+          }
+
+          // 취소 후 cleanup이 된 경우 즉시 중단
+          if (capturedRunId !== null && _currentRunId !== capturedRunId) return;
+
+          // 실행 중인 job 찾기
+          const jobsRes = await fetch(
+            `https://api.github.com/repos/daewon82/hanssem-qa-system/actions/runs/${runId}/jobs`,
+            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
+          );
+          if (!jobsRes.ok) { if (_wasRunning) applyProgressState(); return; }
+          const jobsData = await jobsRes.json();
+          const inProgressJob = (jobsData.jobs || []).find(j => j.status === "in_progress");
+          if (!inProgressJob) { if (_wasRunning) applyProgressState(); return; }
+
+          // job 로그 가져오기 (302 리다이렉트 따라가기)
+          const logRes = await fetch(
+            `https://api.github.com/repos/daewon82/hanssem-qa-system/actions/jobs/${inProgressJob.id}/logs`,
+            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
+          );
+          if (!logRes.ok) { if (_wasRunning) applyProgressState(); return; }
+          const logText = await logRes.text();
+
+          // phase 파싱: "진행상태 업데이트: pc-landing" 패턴
+          const phaseMatches = [...logText.matchAll(/진행상태\s+업데이트:\s+([\w-]+)/g)];
+          if (phaseMatches.length > 0) {
+            const newPhase = phaseMatches[phaseMatches.length - 1][1];
+            if (PHASE_ORDER.includes(newPhase)) {
+              if (newPhase !== _currentPhase) {
+                if (_currentPhase && !phaseCompletedTime[_currentPhase]) {
+                  phaseCompletedTime[_currentPhase] = new Date();
+                }
+                _currentPhase = newPhase;
+                _progressCount = null;
+                _progressTotal = null;
+              }
+              _lastValidPhaseTime = Date.now();
+            }
+          }
+
+          // count/total + phase 파싱: "[X/Y] 점검 중: URL" — URL 도메인으로 phase 자동 감지
+          const countMatches = [...logText.matchAll(/\[(\d+)\/(\d+)\]\s+점검\s+중:\s+(https?:\/\/\S+)/g)];
+          if (countMatches.length > 0) {
+            const last = countMatches[countMatches.length - 1];
+            _progressCount = parseInt(last[1]);
+            _progressTotal = parseInt(last[2]);
+            if (!_currentPhase) {
+              const url = last[3];
+              _currentPhase = url.includes("m.store.hanssem.com") ? "mw-landing" : "pc-landing";
+              _lastValidPhaseTime = Date.now();
+            }
+          }
+
+          // fetch 완료 후 run이 취소됐으면 반영 안 함
+          if (_currentRunId !== runId) return;
+
+          // 디버그 바 업데이트
+          const dbg = document.getElementById("debug-bar");
+          if (dbg) {
+            dbg.style.display = "block";
+            const pct = (_progressCount != null && _progressTotal)
+              ? Math.round((_progressCount / _progressTotal) * 100) + "%" : "—";
+            document.getElementById("dbg-phase").textContent = "phase=" + (_currentPhase || "null");
+            document.getElementById("dbg-count").textContent = "count=" + (_progressCount ?? "null") + "/" + (_progressTotal ?? "null");
+            document.getElementById("dbg-pct").textContent = "pct=" + pct;
+            document.getElementById("dbg-time").textContent = "last=" + new Date().toLocaleTimeString("ko-KR");
+          }
+
+          // 자가 감지: _wasRunning이 false여도 로그에서 실행 중 확인 시 복구
+          if (!_wasRunning && _currentPhase) {
+            _wasRunning = true;
+            setRunBtn(true);
+            localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
+            if (!animTimer) animTimer = setInterval(applyProgressState, 10000);
+            if (!progressTimer) {
+              pollWorkflowStatus();
+              progressTimer = setInterval(pollWorkflowStatus, 30000);
+            }
+          }
+
+          if (_wasRunning) applyProgressState();
+        } catch (e) {
+          console.log("Job log polling error:", e.message);
+          // CORS 등 실패 시 progress.json fallback
+          await pollProgressFallback();
+        }
+      }
+
+      // pollJobLogs 실패 시 fallback: progress.json (Contents API)
+      async function pollProgressFallback() {
+        try {
           const res = await fetch(
             "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/progress.json?ref=gh-pages",
-            {
-              headers: {
-                "Authorization": `Bearer ${GH_TOKEN}`,
-                "Accept": "application/vnd.github+json"
-              },
-              cache: "no-store"
-            }
+            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
           );
           if (!res.ok) { if (_wasRunning) applyProgressState(); return; }
           const apiData = await res.json();
@@ -1013,32 +1124,26 @@
           const data = JSON.parse(atob(raw));
           const phase = data.phase;
           const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
-
-          // 이전 실행의 stale 데이터 → 현재 단계 유지, 변경 안 함
           if (_runStartedAt && startedAt && startedAt < _runStartedAt - 30000) {
-            if (_wasRunning) applyProgressState();
-            return;
+            if (_wasRunning) applyProgressState(); return;
           }
-
-          // 유효한 단계 + 6시간 이내 → 실행 중으로 판단 (새로고침·다른 기기에서도 복구)
           const isRecentStart = startedAt && (Date.now() - startedAt < 6 * 60 * 60 * 1000);
           if (phase && PHASE_ORDER.includes(phase) && isRecentStart) {
+            if (phase !== _currentPhase) {
+              if (_currentPhase && !phaseCompletedTime[_currentPhase]) phaseCompletedTime[_currentPhase] = new Date();
+              _currentPhase = phase;
+            }
+            if (data.count != null) _progressCount = data.count;
+            if (data.total != null) _progressTotal = data.total;
+            _lastValidPhaseTime = Date.now();
             if (!_wasRunning) {
-              // progress.json으로 실행 중 자가 감지 → 플래그·버튼·타이머 초기화
               _wasRunning = true;
               setRunBtn(true);
-              if (!animTimer)    animTimer    = setInterval(applyProgressState, 10000);
-              if (!progressTimer) {
-                pollWorkflowStatus();
-                progressTimer = setInterval(pollWorkflowStatus, 30000);
-              }
+              localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
+              if (!animTimer) animTimer = setInterval(applyProgressState, 10000);
+              if (!progressTimer) { pollWorkflowStatus(); progressTimer = setInterval(pollWorkflowStatus, 30000); }
             }
-            _currentPhase  = phase;
-            _progressCount = data.count ?? null;
-            _progressTotal = data.total ?? null;
-            _lastValidPhaseTime = Date.now(); // phase 전환 감지를 위한 타임스탬프
           }
-
           if (_wasRunning) applyProgressState();
         } catch (_) {
           if (_wasRunning) applyProgressState();
@@ -1057,16 +1162,19 @@
           const latest = data.workflow_runs?.[0];
           if (!latest) return;
           const running = latest.status === "in_progress" || latest.status === "queued";
+          const cancelled = latest.conclusion === "cancelled" || latest.conclusion === "failure" || latest.conclusion === "timed_out";
           if (running) {
             setRunBtn(true);
             _runStartedAt = new Date(latest.run_started_at || latest.created_at).getTime();
+            _currentRunId = latest.id;
             _wasRunning = true;
-            applyProgressState(); // 실행 감지 즉시 로딩 아이콘 표시 (모바일 포함)
+            applyProgressState();
           } else {
-            // dispatch 직후 60초 유예: API에 새 실행이 아직 안 잡혔을 수 있음
-            if (_dispatchTime && Date.now() - _dispatchTime < 60000) return;
-            // progress.json에서 최근 5분 내 유효 phase를 봤으면 단계 전환 중 → 아직 종료 아님
-            if (_lastValidPhaseTime && Date.now() - _lastValidPhaseTime < 5 * 60 * 1000) return;
+            // 취소/실패 시 유예 없이 즉시 종료
+            if (!cancelled) {
+              if (_dispatchTime && Date.now() - _dispatchTime < 300000) return;
+              if (_lastValidPhaseTime && Date.now() - _lastValidPhaseTime < 5 * 60 * 1000) return;
+            }
             setRunBtn(false);
             if (phaseTimer)    { clearInterval(phaseTimer);    phaseTimer = null; }
             if (animTimer)     { clearInterval(animTimer);     animTimer = null; }
@@ -1076,6 +1184,7 @@
               _wasRunning    = false;
               _dispatchTime  = null;
               _runStartedAt  = null;
+              _currentRunId  = null;
               _currentPhase  = null;
               _progressCount = null;
               _progressTotal = null;
@@ -1096,8 +1205,8 @@
           progressTimer = setInterval(pollWorkflowStatus, 30000);
         }
         if (!phaseTimer) {
-          pollProgress();
-          phaseTimer = setInterval(pollProgress, 15000);
+          pollJobLogs();
+          phaseTimer = setInterval(pollJobLogs, 10000);
         }
         if (!animTimer) {
           animTimer = setInterval(applyProgressState, 10000);
