@@ -1,22 +1,49 @@
 {
   "lastUpdated": "2026. 4. 18. AM 9:44:27",
   "incidents": {
-    "total": 27,
-    "hotfix": 27,
-    "feCount": 11,
+    "total": 30,
+    "hotfix": 30,
+    "feCount": 14,
     "beCount": 15,
     "appCount": 1,
-    "lastUpdated": "2026-04-16",
-    "period": "2026-01-06 ~ 2026-04-16",
+    "lastUpdated": "2026-04-18",
+    "period": "2026-01-06 ~ 2026-04-18",
     "byMonth": [
       {
         "month": "2026-04",
         "label": "2026년 4월",
-        "count": 8,
-        "fe": 3,
+        "count": 11,
+        "fe": 6,
         "be": 5,
         "app": 0,
         "list": [
+          {
+            "no": 11,
+            "date": "2026-04-17",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "김지헌",
+            "summary": "쌤위크 상품 컴포넌트 상품노출건수 체크 방식 수정",
+            "jiraLink": ""
+          },
+          {
+            "no": 10,
+            "date": "2026-04-17",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "쌤위크 한샘몰 어드민 리액트 구간 배포",
+            "jiraLink": "https://hanssem.atlassian.net/browse/HSMALL-15686"
+          },
+          {
+            "no": 9,
+            "date": "2026-04-17",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "쌤위크 한샘몰 리액트 구간 배포",
+            "jiraLink": ""
+          },
           {
             "no": 8,
             "date": "2026-04-16",
