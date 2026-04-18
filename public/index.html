@@ -773,10 +773,14 @@
           `조회일자 : ${fmt(today)} ${timeStr}`;
 
         try {
-          const res = await fetch("results.json?t=" + Date.now());
-          if (!res.ok) throw new Error(`서버 응답 오류 (HTTP ${res.status})`);
-
-          const data = await res.json();
+          // GitHub Contents API로 직접 fetch (CDN 캐시 우회, 항상 최신 데이터)
+          const apiRes = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/results.json?ref=gh-pages",
+            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
+          );
+          if (!apiRes.ok) throw new Error(`서버 응답 오류 (HTTP ${apiRes.status})`);
+          const apiJson = await apiRes.json();
+          const data = JSON.parse(atob((apiJson.content || "").replace(/\n/g, "")));
           if (!data?.reports || !Array.isArray(data.reports)) {
             throw new Error("리포트 형식이 올바르지 않거나 데이터가 없습니다.");
           }
@@ -832,23 +836,14 @@
       const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].join("");
 
       async function runWorkflow() {
+        // 이미 실행 중이면 즉시 차단 (중복 실행 방지)
+        if (_wasRunning) return;
         const token = GH_TOKEN;
 
-        // 버튼 클릭 즉시 비활성화 + 전체 카드 로딩 표시 (API 응답 전에 즉시)
+        // 버튼 클릭 즉시 비활성화 (로딩 표시는 실행 확인 후)
         setRunBtn(true);
-        PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
 
-        // localStorage로 이미 실행 중인지 우선 확인 (API보다 빠름)
-        try {
-          const _stored = JSON.parse(localStorage.getItem("qa_running") || "null");
-          if (_stored && Date.now() - _stored.ts < 5 * 60 * 60 * 1000) {
-            _wasRunning = true;
-            initProgress(); // 이미 실행 중 → 폴링만 시작
-            return;
-          }
-        } catch (_) {}
-
-        // GitHub API로 실행 중 여부 2차 확인
+        // GitHub API로 실행 중 여부 확인
         try {
           const checkRes = await fetch(
             "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
@@ -858,13 +853,20 @@
             const checkData = await checkRes.json();
             const latest = checkData.workflow_runs?.[0];
             if (latest && (latest.status === "in_progress" || latest.status === "queued")) {
+              // 이미 실행 중 → 폴링만 시작, 새 dispatch 차단
               _wasRunning = true;
               localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
+              PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
               initProgress();
               return;
             }
           }
-        } catch (_) { /* 확인 실패 시 그냥 진행 */ }
+        } catch (_) { /* API 실패 시 dispatch 시도 */ }
+
+        // 재진입 방지: API 응답 대기 중 다른 경로로 실행 중 감지된 경우
+        if (_wasRunning) return;
+
+        PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
 
         try {
           const res = await fetch(
