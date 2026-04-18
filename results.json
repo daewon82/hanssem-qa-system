@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 19. AM 12:16:45",
+  "lastUpdated": "2026. 4. 19. AM 12:17:12",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -701,14 +701,14 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 19. AM 12:16:45",
-      "total": 7,
-      "pass": 6,
+      "lastUpdated": "2026. 4. 19. AM 12:17:12",
+      "total": 3,
+      "pass": 2,
       "fail": 1,
-      "passRate": "85.7",
+      "passRate": "66.7",
       "cases": [
         {
-          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
+          "name": "상품 상세 — 상품 이미지 노출",
           "url": "",
           "status": "fail",
           "duration": "5.47s",
