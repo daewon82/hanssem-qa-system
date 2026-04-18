@@ -1,9 +1,7 @@
 name: Playwright Tests
 
 on:
-  schedule:
-    - cron: "30 22 * * *" # UTC 22:30 = KST 07:30 매일 자동 실행
-  workflow_dispatch: # 수동 실행
+  workflow_dispatch: # daily-trigger.yml 또는 수동 실행
 
 permissions:
   contents: write
