@@ -968,10 +968,20 @@
       }
 
       // 15초마다 progress.json 폴링 → 실제 실행 중인 단계 반영
+      // CDN 캐시 우회: GitHub Contents API로 직접 읽어 항상 최신값 보장
       async function pollProgress() {
         if (!_wasRunning) return;
         try {
-          const res = await fetch("progress.json?t=" + Date.now());
+          const res = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/progress.json?ref=gh-pages",
+            {
+              headers: {
+                "Authorization": `Bearer ${GH_TOKEN}`,
+                "Accept": "application/vnd.github.raw+json"
+              },
+              cache: "no-store"
+            }
+          );
           if (!res.ok) { applyProgressState(); return; }
           const data = await res.json();
           const phase = data.phase;
