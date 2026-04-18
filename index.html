@@ -1019,6 +1019,8 @@
             if (phase !== _currentPhase) {
               if (_currentPhase && !phaseCompletedTime[_currentPhase]) phaseCompletedTime[_currentPhase] = new Date();
               _currentPhase = phase;
+              // 단계 전환 = 이전 단계 완료 → 결과 즉시 갱신
+              setTimeout(loadStats, 3000);
             }
             if (data.count != null) _progressCount = data.count;
             if (data.total != null) _progressTotal = data.total;
