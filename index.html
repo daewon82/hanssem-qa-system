@@ -840,8 +840,10 @@
       async function runWorkflow() {
         const token = GH_TOKEN;
 
-        // 버튼 클릭 즉시 비활성화 (중복 클릭 방지)
+        // 버튼 클릭 즉시 비활성화 + 첫 카드 로딩 표시 (API 응답 전에 즉시)
         setRunBtn(true);
+        setCardLoading(PHASE_ORDER[0], "active", "0%");
+        PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
 
         // localStorage로 이미 실행 중인지 우선 확인 (API보다 빠름)
         try {
@@ -889,16 +891,15 @@
             _dispatchTime = Date.now();
             _wasRunning = true;
             localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
-            // progress.json 업데이트 전까지 setup 구간: 첫 카드 0% 표시
-            setCardLoading(PHASE_ORDER[0], "active", "0%");
-            PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
             initProgress();
           } else if (res.status === 401) {
             setRunBtn(false);
+            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
             alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
           } else {
             const msg = await res.text();
             setRunBtn(false);
+            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
             alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
           }
         } catch (e) {
