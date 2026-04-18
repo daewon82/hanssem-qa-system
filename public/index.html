@@ -455,8 +455,12 @@
           <div class="inc-stat-val" style="color:var(--green)" id="inc-app">—</div>
           <div class="inc-stat-label">APP 모바일</div>
         </div>
-        <div class="inc-stat" style="border-left:none;padding-left:8px">
-          <div class="inc-stat-label" id="inc-period">—</div>
+        <div class="inc-stat" style="border-left:1px solid var(--border);padding-left:20px;text-align:left">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+            <span style="background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;letter-spacing:0.5px">N</span>
+            <span style="font-size:11px;color:var(--text-sub);font-weight:500">최근 장애 발생일</span>
+          </div>
+          <div id="inc-period" style="font-size:18px;font-weight:800;color:var(--red);line-height:1.2;letter-spacing:-0.3px">—</div>
         </div>
       </div>
       <a href="incidents.html" class="detail-btn">
@@ -769,7 +773,11 @@
             document.getElementById("inc-fe").textContent     = inc.feCount  || 0;
             document.getElementById("inc-be").textContent     = inc.beCount  || 0;
             document.getElementById("inc-app").textContent    = inc.appCount || 0;
-            document.getElementById("inc-period").textContent = inc.period   || "";
+            const recentRaw = inc.byMonth?.[0]?.list?.[0]?.date || inc.lastUpdated || "";
+            if (recentRaw) {
+              const [y, m, d] = recentRaw.split("-");
+              document.getElementById("inc-period").textContent = `${y}년 ${parseInt(m)}월 ${parseInt(d)}일`;
+            }
           }
 
           const hasFailure = data.reports.some(r => (r.fail || 0) > 0);
