@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 19. AM 1:02:56",
+  "lastUpdated": "2026. 4. 19. AM 1:06:37",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -701,20 +701,12 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 19. AM 12:40:03",
-      "total": 2,
-      "pass": 1,
-      "fail": 1,
-      "passRate": "50.0",
-      "cases": [
-        {
-          "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
-          "url": "https://m.store.hanssem.com/goods/999999999",
-          "status": "fail",
-          "duration": "2.86s",
-          "reason": "Error: expect(received).toBeLessThan(expected)"
-        }
-      ]
+      "lastUpdated": "2026. 4. 19. AM 1:06:37",
+      "total": 27,
+      "pass": 27,
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "pc-e2e-v2",
