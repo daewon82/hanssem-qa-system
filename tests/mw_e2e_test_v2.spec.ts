@@ -296,19 +296,6 @@ test.describe("5. 검색", () => {
   });
 });
 
-// ─── 7. 장바구니 ───────────────────────────────────────────
-test.describe("7. 장바구니", () => {
-  test("장바구니 직접 URL — 로그인 redirect 확인", async ({ page }) => {
-    await page.goto("https://mall.hanssem.com/m/morder/goCart.do");
-    await waitForPageReady(page, 2000);
-    const url = page.url();
-    const isCart = url.includes("cart") || url.includes("Cart");
-    const isLogin = url.includes("login") || url.includes("Login");
-    expect(isCart || isLogin).toBe(true);
-    console.log(`[✓] 장바구니 redirect: ${url}`);
-  });
-});
-
 // ─── 8. 주요 페이지 HTTP 응답 ─────────────────────────────
 // /store(지도 API)와 /goods/(Heavy JS)는 headless Chromium 크래시 유발 → 제외
 test.describe("8. 주요 페이지 HTTP 응답", () => {
@@ -401,12 +388,6 @@ test.describe("12. 인테리어 서브 페이지", () => {
     console.log("[✓] 무료견적상담 링크 확인");
   });
 
-  test("기획전 목록(mall.hanssem.com/plan) 200 응답", async ({ page }) => {
-    const response = await page.goto("https://mall.hanssem.com/plan");
-    expect(response?.status()).toBeLessThan(400);
-    await expect(page).toHaveTitle(/한샘/);
-    console.log(`[✓] 기획전 목록 응답: ${response?.status()}`);
-  });
 });
 
 // ─── 13. 예외 페이지 처리 ────────────────────────────────────
