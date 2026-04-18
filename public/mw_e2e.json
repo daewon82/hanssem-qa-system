@@ -1,10 +1,10 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 18. AM 9:44:27",
-  "total": 35,
-  "pass": 35,
-  "fail": 0,
-  "passRate": "100.0",
+  "lastUpdated": "2026. 4. 18. AM 11:43:30",
+  "total": 36,
+  "pass": 34,
+  "fail": 2,
+  "passRate": "94.4",
   "cases": [
     {
       "name": "하단 탭 — 홈/카테고리/마이페이지 링크 포함 확인",
@@ -17,84 +17,84 @@
       "name": "페이지 정상 로딩 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/",
       "status": "pass",
-      "duration": "6.45s",
+      "duration": "7.41s",
       "reason": ""
     },
     {
       "name": "헤더(GNB) 노출 확인",
       "url": "https://m.store.hanssem.com/",
       "status": "pass",
-      "duration": "8.34s",
+      "duration": "5.00s",
       "reason": ""
     },
     {
       "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "8.78s",
+      "duration": "8.90s",
       "reason": ""
     },
     {
       "name": "인테리어 카테고리 진입 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "8.57s",
+      "duration": "5.69s",
       "reason": ""
     },
     {
       "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
       "url": "https://m.store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "10.67s",
+      "duration": "9.33s",
       "reason": ""
     },
     {
       "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "8.81s",
+      "duration": "10.94s",
       "reason": ""
     },
     {
       "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
       "url": "https://m.store.hanssem.com/goods/799220",
       "status": "pass",
-      "duration": "14.38s",
+      "duration": "12.84s",
       "reason": ""
     },
     {
       "name": "상품 상세 — 상품명(H1) 노출",
       "url": "https://m.store.hanssem.com/goods/837513",
       "status": "pass",
-      "duration": "8.02s",
+      "duration": "10.04s",
       "reason": ""
     },
     {
       "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
       "url": "https://m.store.hanssem.com/goods/837513",
       "status": "pass",
-      "duration": "9.70s",
+      "duration": "10.40s",
       "reason": ""
     },
     {
       "name": "상품 상세 — 상품 이미지 노출",
       "url": "https://m.store.hanssem.com/goods/837513",
       "status": "pass",
-      "duration": "7.53s",
+      "duration": "9.68s",
       "reason": ""
     },
     {
       "name": "검색 결과 페이지 — 정상 로딩 및 타이틀",
       "url": "https://m.store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
       "status": "pass",
-      "duration": "5.58s",
+      "duration": "4.82s",
       "reason": ""
     },
     {
       "name": "검색 결과 — 영문 키워드",
       "url": "https://m.store.hanssem.com/search/goods?searchKey=sofa",
       "status": "pass",
-      "duration": "9.49s",
+      "duration": "4.72s",
       "reason": ""
     },
     {
@@ -108,70 +108,70 @@
       "name": "장바구니 직접 URL — 로그인 redirect 확인",
       "url": "https://mall.hanssem.com/m/morder/goCart.do",
       "status": "pass",
-      "duration": "5.61s",
+      "duration": "4.86s",
       "reason": ""
     },
     {
       "name": "메인 200 응답",
       "url": "https://m.store.hanssem.com/",
       "status": "pass",
-      "duration": "3.98s",
+      "duration": "3.48s",
       "reason": ""
     },
     {
       "name": "가구/홈리빙 200 응답",
       "url": "https://m.store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "6.87s",
+      "duration": "5.53s",
       "reason": ""
     },
     {
       "name": "인테리어 200 응답",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "4.35s",
+      "duration": "3.71s",
       "reason": ""
     },
     {
       "name": "검색결과 200 응답",
       "url": "https://m.store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
       "status": "pass",
-      "duration": "5.46s",
+      "duration": "6.07s",
       "reason": ""
     },
     {
       "name": "상품정보 탭 → 후기 탭 전환 확인",
       "url": "https://m.store.hanssem.com/goods/837513?tab=review",
       "status": "pass",
-      "duration": "8.82s",
+      "duration": "9.48s",
       "reason": ""
     },
     {
       "name": "검색 결과 0건 — 없는 키워드",
       "url": "https://m.store.hanssem.com/search/goods?searchKey=zzzzxxx%ED%95%9C%EC%83%98%EC%97%86%EB%8A%94%EC%83%81%ED%92%88xyz",
       "status": "pass",
-      "duration": "8.24s",
+      "duration": "10.60s",
       "reason": ""
     },
     {
       "name": "카테고리 페이지(/category/숫자) 진입 및 상품 노출",
-      "url": "https://m.store.hanssem.com/category/20002",
-      "status": "pass",
-      "duration": "11.03s",
-      "reason": ""
+      "url": "chrome-error://chromewebdata/",
+      "status": "fail",
+      "duration": "5.43s",
+      "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
     },
     {
       "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
       "url": "https://m.store.hanssem.com/interior/constcase",
       "status": "pass",
-      "duration": "8.21s",
+      "duration": "6.01s",
       "reason": ""
     },
     {
       "name": "인테리어 — 무료견적상담 링크 노출",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "8.68s",
+      "duration": "9.36s",
       "reason": ""
     },
     {
@@ -185,7 +185,7 @@
       "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
       "url": "https://m.store.hanssem.com/not-exists-content",
       "status": "pass",
-      "duration": "5.96s",
+      "duration": "4.92s",
       "reason": ""
     },
     {
@@ -234,7 +234,7 @@
       "name": "매장 찾기 — HTTP 200 응답 확인",
       "url": "about:blank",
       "status": "pass",
-      "duration": "4.96s",
+      "duration": "6.38s",
       "reason": ""
     },
     {
@@ -250,6 +250,13 @@
       "status": "pass",
       "duration": "6.71s",
       "reason": ""
+    },
+    {
+      "name": "기획전 목록(mall.hanssem.com/plan) 200 응답",
+      "url": "https://mall.hanssem.com/plan/",
+      "status": "fail",
+      "duration": "0.88s",
+      "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLess"
     }
   ]
 }
