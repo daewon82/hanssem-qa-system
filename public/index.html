@@ -461,6 +461,7 @@
             <span style="font-size:11px;color:var(--text-sub);font-weight:500">최근 장애 발생일</span>
           </div>
           <div id="inc-period" style="font-size:18px;font-weight:800;color:var(--red);line-height:1.2;letter-spacing:-0.3px">—</div>
+          <div id="inc-recent-summary" style="font-size:11px;color:var(--text-sub);margin-top:5px;font-weight:500;max-width:220px;line-height:1.4">—</div>
         </div>
       </div>
       <a href="incidents.html" class="detail-btn">
@@ -773,10 +774,14 @@
             document.getElementById("inc-fe").textContent     = inc.feCount  || 0;
             document.getElementById("inc-be").textContent     = inc.beCount  || 0;
             document.getElementById("inc-app").textContent    = inc.appCount || 0;
-            const recentRaw = inc.byMonth?.[0]?.list?.[0]?.date || inc.lastUpdated || "";
+            const recentItem = inc.byMonth?.[0]?.list?.[0];
+            const recentRaw = recentItem?.date || inc.lastUpdated || "";
             if (recentRaw) {
               const [y, m, d] = recentRaw.split("-");
               document.getElementById("inc-period").textContent = `${y}년 ${parseInt(m)}월 ${parseInt(d)}일`;
+            }
+            if (recentItem?.summary) {
+              document.getElementById("inc-recent-summary").textContent = recentItem.summary;
             }
           }
 
