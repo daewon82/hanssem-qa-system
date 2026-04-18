@@ -1,6 +1,6 @@
 {
   "title": "운영환경 PC 500개 랜딩 테스트",
-  "lastUpdated": "2026. 4. 18. PM 6:52:04",
+  "lastUpdated": "2026. 4. 18. PM 7:10:25",
   "total": 50,
   "pass": 50,
   "fail": 0,
@@ -10,245 +10,245 @@
       "name": "furnishing",
       "url": "https://store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "7.22s",
+      "duration": "0.64s",
       "reason": ""
     },
     {
       "name": "20070",
       "url": "https://store.hanssem.com/category/20070",
       "status": "pass",
-      "duration": "3.19s",
+      "duration": "3.10s",
       "reason": ""
     },
     {
       "name": "20071",
       "url": "https://store.hanssem.com/category/20071",
       "status": "pass",
-      "duration": "0.84s",
+      "duration": "1.97s",
       "reason": ""
     },
     {
       "name": "20072",
       "url": "https://store.hanssem.com/category/20072",
       "status": "pass",
-      "duration": "2.94s",
+      "duration": "2.04s",
       "reason": ""
     },
     {
       "name": "20073",
       "url": "https://store.hanssem.com/category/20073",
       "status": "pass",
-      "duration": "2.56s",
+      "duration": "1.67s",
       "reason": ""
     },
     {
       "name": "20074",
       "url": "https://store.hanssem.com/category/20074",
       "status": "pass",
-      "duration": "0.74s",
+      "duration": "1.74s",
       "reason": ""
     },
     {
       "name": "20075",
       "url": "https://store.hanssem.com/category/20075",
       "status": "pass",
-      "duration": "2.12s",
+      "duration": "1.58s",
       "reason": ""
     },
     {
       "name": "20076",
       "url": "https://store.hanssem.com/category/20076",
       "status": "pass",
-      "duration": "0.61s",
+      "duration": "0.52s",
       "reason": ""
     },
     {
       "name": "20077",
       "url": "https://store.hanssem.com/category/20077",
       "status": "pass",
-      "duration": "0.89s",
+      "duration": "2.13s",
       "reason": ""
     },
     {
       "name": "20109",
       "url": "https://store.hanssem.com/category/20109",
       "status": "pass",
-      "duration": "2.65s",
+      "duration": "2.39s",
       "reason": ""
     },
     {
       "name": "RANK",
       "url": "https://store.hanssem.com/furnishing/RANK",
       "status": "pass",
-      "duration": "5.06s",
+      "duration": "0.83s",
       "reason": ""
     },
     {
       "name": "DEAL",
       "url": "https://store.hanssem.com/furnishing/DEAL",
       "status": "pass",
-      "duration": "3.54s",
+      "duration": "0.48s",
       "reason": ""
     },
     {
       "name": "shorts",
       "url": "https://store.hanssem.com/shorts",
       "status": "pass",
-      "duration": "0.45s",
+      "duration": "0.35s",
       "reason": ""
     },
     {
       "name": "interior",
       "url": "https://store.hanssem.com/interior",
       "status": "pass",
-      "duration": "0.53s",
+      "duration": "0.42s",
       "reason": ""
     },
     {
       "name": "20002",
       "url": "https://store.hanssem.com/category/20002",
       "status": "pass",
-      "duration": "0.56s",
+      "duration": "0.42s",
       "reason": ""
     },
     {
       "name": "20003",
       "url": "https://store.hanssem.com/category/20003",
       "status": "pass",
-      "duration": "0.39s",
+      "duration": "0.36s",
       "reason": ""
     },
     {
       "name": "20004",
       "url": "https://store.hanssem.com/category/20004",
       "status": "pass",
-      "duration": "0.55s",
+      "duration": "0.38s",
       "reason": ""
     },
     {
       "name": "20005",
       "url": "https://store.hanssem.com/category/20005",
       "status": "pass",
-      "duration": "1.01s",
+      "duration": "0.96s",
       "reason": ""
     },
     {
       "name": "20006",
       "url": "https://store.hanssem.com/category/20006",
       "status": "pass",
-      "duration": "0.68s",
+      "duration": "0.77s",
       "reason": ""
     },
     {
       "name": "19488",
       "url": "https://store.hanssem.com/plan/19488",
       "status": "pass",
-      "duration": "0.42s",
+      "duration": "0.36s",
       "reason": ""
     },
     {
       "name": "constcase",
       "url": "https://store.hanssem.com/interior/constcase",
       "status": "pass",
-      "duration": "0.60s",
+      "duration": "0.49s",
       "reason": ""
     },
     {
       "name": "magazine",
       "url": "https://store.hanssem.com/interior/magazine",
       "status": "pass",
-      "duration": "0.46s",
+      "duration": "0.36s",
       "reason": ""
     },
     {
       "name": "19646",
       "url": "https://store.hanssem.com/plan/19646",
       "status": "pass",
-      "duration": "0.46s",
+      "duration": "0.40s",
       "reason": ""
     },
     {
       "name": "19313",
       "url": "https://store.hanssem.com/plan/19313",
       "status": "pass",
-      "duration": "0.88s",
+      "duration": "0.86s",
       "reason": ""
     },
     {
       "name": "19475",
       "url": "https://store.hanssem.com/plan/19475",
       "status": "pass",
-      "duration": "0.97s",
+      "duration": "0.92s",
       "reason": ""
     },
     {
       "name": "19312",
       "url": "https://store.hanssem.com/plan/19312",
       "status": "pass",
-      "duration": "0.48s",
+      "duration": "0.38s",
       "reason": ""
     },
     {
       "name": "19316",
       "url": "https://store.hanssem.com/plan/19316",
       "status": "pass",
-      "duration": "0.52s",
+      "duration": "0.54s",
       "reason": ""
     },
     {
       "name": "19315",
       "url": "https://store.hanssem.com/plan/19315",
       "status": "pass",
-      "duration": "0.66s",
+      "duration": "0.69s",
       "reason": ""
     },
     {
       "name": "19314",
       "url": "https://store.hanssem.com/plan/19314",
       "status": "pass",
-      "duration": "0.56s",
+      "duration": "0.61s",
       "reason": ""
     },
     {
       "name": "19445",
       "url": "https://store.hanssem.com/plan/19445",
       "status": "pass",
-      "duration": "0.60s",
+      "duration": "0.59s",
       "reason": ""
     },
     {
       "name": "19494",
       "url": "https://store.hanssem.com/plan/19494",
       "status": "pass",
-      "duration": "0.46s",
+      "duration": "0.36s",
       "reason": ""
     },
     {
       "name": "19646?anchorID=nv-01",
       "url": "https://store.hanssem.com/plan/19646?anchorID=nv-01",
       "status": "pass",
-      "duration": "0.47s",
+      "duration": "0.41s",
       "reason": ""
     },
     {
       "name": "799220",
       "url": "https://store.hanssem.com/goods/799220",
       "status": "pass",
-      "duration": "1.88s",
+      "duration": "1.65s",
       "reason": ""
     },
     {
       "name": "644540",
       "url": "https://store.hanssem.com/goods/644540",
       "status": "pass",
-      "duration": "0.95s",
+      "duration": "1.49s",
       "reason": ""
     },
     {
       "name": "799215",
       "url": "https://store.hanssem.com/goods/799215",
       "status": "pass",
-      "duration": "1.61s",
+      "duration": "1.34s",
       "reason": ""
     },
     {
@@ -262,63 +262,63 @@
       "name": "1115049",
       "url": "https://store.hanssem.com/goods/1115049",
       "status": "pass",
-      "duration": "1.64s",
+      "duration": "0.99s",
       "reason": ""
     },
     {
       "name": "1070411",
       "url": "https://store.hanssem.com/goods/1070411",
       "status": "pass",
-      "duration": "1.13s",
+      "duration": "0.97s",
       "reason": ""
     },
     {
       "name": "37964",
       "url": "https://store.hanssem.com/goods/37964",
       "status": "pass",
-      "duration": "1.15s",
+      "duration": "1.05s",
       "reason": ""
     },
     {
       "name": "1064854",
       "url": "https://store.hanssem.com/goods/1064854",
       "status": "pass",
-      "duration": "1.26s",
+      "duration": "1.14s",
       "reason": ""
     },
     {
       "name": "487623",
       "url": "https://store.hanssem.com/goods/487623",
       "status": "pass",
-      "duration": "0.91s",
+      "duration": "1.22s",
       "reason": ""
     },
     {
       "name": "1028853",
       "url": "https://store.hanssem.com/goods/1028853",
       "status": "pass",
-      "duration": "1.36s",
+      "duration": "1.20s",
       "reason": ""
     },
     {
       "name": "819864",
       "url": "https://store.hanssem.com/goods/819864",
       "status": "pass",
-      "duration": "0.77s",
+      "duration": "1.08s",
       "reason": ""
     },
     {
       "name": "891268",
       "url": "https://store.hanssem.com/goods/891268",
       "status": "pass",
-      "duration": "1.07s",
+      "duration": "1.06s",
       "reason": ""
     },
     {
       "name": "803701",
       "url": "https://store.hanssem.com/goods/803701",
       "status": "pass",
-      "duration": "1.03s",
+      "duration": "0.80s",
       "reason": ""
     },
     {
@@ -332,28 +332,28 @@
       "name": "811400",
       "url": "https://store.hanssem.com/goods/811400",
       "status": "pass",
-      "duration": "0.80s",
+      "duration": "1.46s",
       "reason": ""
     },
     {
       "name": "703950",
       "url": "https://store.hanssem.com/goods/703950",
       "status": "pass",
-      "duration": "1.26s",
+      "duration": "0.75s",
       "reason": ""
     },
     {
       "name": "1077505",
       "url": "https://store.hanssem.com/goods/1077505",
       "status": "pass",
-      "duration": "0.85s",
+      "duration": "1.04s",
       "reason": ""
     },
     {
       "name": "1085902",
       "url": "https://store.hanssem.com/goods/1085902",
       "status": "pass",
-      "duration": "1.09s",
+      "duration": "1.17s",
       "reason": ""
     }
   ]
