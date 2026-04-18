@@ -249,6 +249,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
 
     const firstOk = await attemptGoto();
     if (!firstOk) {
+      // 네트워크/타임아웃 오류 → 재시도
       consecutiveTimeouts++;
       const waitSec = consecutiveTimeouts >= 3 ? 60 : 20;
       console.log(`  ⏳ 타임아웃 (연속 ${consecutiveTimeouts}회). ${waitSec}초 대기 후 재시도...`);
@@ -270,6 +271,11 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
           // 스크린샷 실패 시 무시하고 계속 진행
         }
       }
+    } else if (!isPass && typeof httpStatus === "number" && httpStatus >= 500) {
+      // 5xx 서버 오류 → 5초 후 1회 재시도 (순간 오류 false positive 방지)
+      console.log(`  ⏳ ${httpStatus} 오류. 5초 후 재시도...`);
+      await page.waitForTimeout(5000);
+      await attemptGoto();
     }
 
     // 구글 시트 실시간 기록 (비활성화)
