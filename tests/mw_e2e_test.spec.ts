@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
-import { updateProgress } from "./utils";
+import { updateProgress, publishResults } from "./utils";
 
 /**
  * store.hanssem.com MW E2E 테스트
@@ -128,6 +128,12 @@ test.afterAll(async () => {
       null,
       2,
     ),
+  );
+
+  await publishResults(
+    newReport,
+    { title: REPORT_TITLE, lastUpdated: kst, total: totalCount, pass: passCount, fail: failCount, passRate, cases: caseResults },
+    "mw_e2e.json"
   );
 
   if (!process.env.CI) {

@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
-import { updateProgress } from "./utils";
+import { updateProgress, publishResults } from "./utils";
 // import { GoogleSpreadsheet } from "google-spreadsheet";
 // import { authenticate } from "@google-cloud/local-auth";
 // import { google } from "googleapis";
@@ -392,6 +392,15 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       null,
       2,
     ),
+  );
+
+  // -----------------------------
+  // 결과 즉시 gh-pages 반영
+  // -----------------------------
+  await publishResults(
+    newReport,
+    { title: "운영환경 PC 500개 랜딩 테스트", lastUpdated: kst, total: totalCount, pass: passCount, fail: failCount, passRate, cases: caseResults },
+    "pc_500.json"
   );
 
   // -----------------------------
