@@ -994,11 +994,18 @@
       }
 
       function updateLoadingState(elapsedSec) {
+        const firstStart = PHASE_START[PHASE_ORDER[0]];
+        // setup 구간: 첫 번째 카드를 0%로 계속 표시
+        if (elapsedSec < firstStart) {
+          setCardLoading(PHASE_ORDER[0], "active", 0);
+          PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
+          return;
+        }
         PHASE_ORDER.forEach(id => {
           const start = PHASE_START[id];
           const end   = start + PHASE_DUR[id];
           if (elapsedSec < start) {
-            setCardLoading(id, "waiting");
+            setCardLoading(id, "idle");
           } else if (elapsedSec < end) {
             const pct = Math.min(95, ((elapsedSec - start) / PHASE_DUR[id]) * 100);
             setCardLoading(id, "active", pct);
@@ -1025,8 +1032,8 @@
           const latest = data.workflow_runs?.[0];
           if (!latest) return;
           const running = latest.status === "in_progress" || latest.status === "queued";
-          setRunBtn(running);
           if (running) {
+            setRunBtn(true);
             _runStartTime = new Date(latest.run_started_at || latest.created_at).getTime();
             if (!animTimer) animTimer = setInterval(tickAnimation, 10000);
             _wasRunning = true;
@@ -1034,6 +1041,7 @@
           } else {
             // dispatch 직후 60초 유예: API에 새 실행이 아직 안 잡혔을 수 있음
             if (_dispatchTime && Date.now() - _dispatchTime < 60000) return;
+            setRunBtn(false);
             if (animTimer)     { clearInterval(animTimer);     animTimer = null; }
             if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
             PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
