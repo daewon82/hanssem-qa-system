@@ -968,9 +968,8 @@
       }
 
       // 15초마다 progress.json 폴링 → 실제 실행 중인 단계 반영
-      // CDN 캐시 우회: GitHub Contents API로 직접 읽어 항상 최신값 보장
+      // _wasRunning 가드 없음: progress.json 자체로 실행 중 감지 가능 (자가 복구)
       async function pollProgress() {
-        if (!_wasRunning) return;
         try {
           const res = await fetch(
             "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/progress.json?ref=gh-pages",
@@ -982,24 +981,38 @@
               cache: "no-store"
             }
           );
-          if (!res.ok) { applyProgressState(); return; }
+          if (!res.ok) { if (_wasRunning) applyProgressState(); return; }
           const data = await res.json();
           const phase = data.phase;
           const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
+
           // 이전 실행의 stale 데이터 → 현재 단계 유지, 변경 안 함
           if (_runStartedAt && startedAt && startedAt < _runStartedAt - 30000) {
-            applyProgressState();
+            if (_wasRunning) applyProgressState();
             return;
           }
-          // 유효한 단계만 업데이트 (idle/done이 와도 실행 중엔 현재 단계 유지)
-          if (phase && PHASE_ORDER.includes(phase)) {
+
+          // 유효한 단계 + 6시간 이내 → 실행 중으로 판단 (새로고침·다른 기기에서도 복구)
+          const isRecentStart = startedAt && (Date.now() - startedAt < 6 * 60 * 60 * 1000);
+          if (phase && PHASE_ORDER.includes(phase) && isRecentStart) {
+            if (!_wasRunning) {
+              // progress.json으로 실행 중 자가 감지 → 플래그·버튼·타이머 초기화
+              _wasRunning = true;
+              setRunBtn(true);
+              if (!animTimer)    animTimer    = setInterval(applyProgressState, 10000);
+              if (!progressTimer) {
+                pollWorkflowStatus();
+                progressTimer = setInterval(pollWorkflowStatus, 30000);
+              }
+            }
             _currentPhase  = phase;
             _progressCount = data.count ?? null;
             _progressTotal = data.total ?? null;
           }
-          applyProgressState();
+
+          if (_wasRunning) applyProgressState();
         } catch (_) {
-          applyProgressState(); // 폴링 실패해도 현재 상태 유지
+          if (_wasRunning) applyProgressState();
         }
       }
 
