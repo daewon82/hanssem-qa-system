@@ -1009,6 +1009,7 @@
             setRunBtn(true);
             _runStartedAt = new Date(latest.run_started_at || latest.created_at).getTime();
             _wasRunning = true;
+            applyProgressState(); // 실행 감지 즉시 로딩 아이콘 표시 (모바일 포함)
           } else {
             // dispatch 직후 60초 유예: API에 새 실행이 아직 안 잡혔을 수 있음
             if (_dispatchTime && Date.now() - _dispatchTime < 60000) return;
