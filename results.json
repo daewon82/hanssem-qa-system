@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 19. AM 12:39:50",
+  "lastUpdated": "2026. 4. 19. AM 12:40:03",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -701,18 +701,18 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 19. AM 12:39:50",
-      "total": 23,
-      "pass": 22,
+      "lastUpdated": "2026. 4. 19. AM 12:40:03",
+      "total": 2,
+      "pass": 1,
       "fail": 1,
-      "passRate": "95.7",
+      "passRate": "50.0",
       "cases": [
         {
-          "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
-          "url": "",
+          "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
+          "url": "https://m.store.hanssem.com/goods/999999999",
           "status": "fail",
-          "duration": "5.49s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+          "duration": "2.86s",
+          "reason": "Error: expect(received).toBeLessThan(expected)"
         }
       ]
     },
