@@ -965,8 +965,11 @@
       function applyProgressState() {
         if (!_wasRunning) return;
         if (!_currentPhase) {
-          // 단계 신호 오기 전(setup): 첫 카드 0% 표시
-          setCardLoading(PHASE_ORDER[0], "active", "0%");
+          // setup 구간: count가 있으면 실제 %, 없으면 0%
+          const label = (_progressCount != null && _progressTotal)
+            ? Math.round((_progressCount / _progressTotal) * 100) + "%"
+            : "0%";
+          setCardLoading(PHASE_ORDER[0], "active", label);
           PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
           return;
         }
@@ -1047,12 +1050,17 @@
             }
           }
 
-          // count/total 파싱: "[X/Y] 점검 중:" 패턴 (마지막 값 사용)
-          const countMatches = [...logText.matchAll(/\[(\d+)\/(\d+)\]\s+점검\s+중/g)];
+          // count/total + phase 파싱: "[X/Y] 점검 중: URL" — URL 도메인으로 phase 자동 감지
+          const countMatches = [...logText.matchAll(/\[(\d+)\/(\d+)\]\s+점검\s+중:\s+(https?:\/\/\S+)/g)];
           if (countMatches.length > 0) {
             const last = countMatches[countMatches.length - 1];
             _progressCount = parseInt(last[1]);
             _progressTotal = parseInt(last[2]);
+            if (!_currentPhase) {
+              const url = last[3];
+              _currentPhase = url.includes("m.store.hanssem.com") ? "mw-landing" : "pc-landing";
+              _lastValidPhaseTime = Date.now();
+            }
           }
 
           // 자가 감지: _wasRunning이 false여도 로그에서 실행 중 확인 시 복구
