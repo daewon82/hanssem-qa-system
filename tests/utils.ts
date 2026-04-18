@@ -8,7 +8,7 @@ export async function updateProgress(
   count?: number,
   total?: number
 ): Promise<void> {
-  if (!process.env.CI || !process.env.GITHUB_TOKEN) return;
+  if (!process.env.GITHUB_ACTIONS || !process.env.GITHUB_TOKEN) return;
   const headers = {
     Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     "Content-Type": "application/json",
