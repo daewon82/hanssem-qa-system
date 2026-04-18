@@ -914,29 +914,22 @@
           );
 
           if (res.status === 204) {
-            btn.textContent = "✅ 실행 요청 완료";
-            btn.style.background = "var(--green)";
-            setTimeout(() => {
-              btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
-              btn.style.background = "var(--blue)";
-              btn.disabled = false;
-            }, 3000);
-            setTimeout(() => initProgress(), 5000);
+            // 즉시 첫 번째 카드 로딩 표시 (API에 run_started_at 잡히기 전 임시)
+            _runStartTime = Date.now();
+            _wasRunning = true;
+            setCardLoading("pc-landing", "active", 0);
+            if (!animTimer) animTimer = setInterval(tickAnimation, 10000);
           } else if (res.status === 401) {
-            localStorage.removeItem("gh_pat");
+            setRunBtn(false);
             alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
-            btn.disabled = false;
-            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
           } else {
             const msg = await res.text();
+            setRunBtn(false);
             alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
-            btn.disabled = false;
-            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
           }
         } catch (e) {
+          setRunBtn(false);
           alert("네트워크 오류: " + e.message);
-          btn.disabled = false;
-          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> 테스트 실행`;
         }
       }
 
