@@ -383,15 +383,80 @@
         flex-shrink: 0;
       }
 
-      /* Responsive */
+      /* ── Section Header Row ────────────────────────────── */
+      .section-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        margin-top: 20px;
+      }
+
+      /* ── Responsive ─────────────────────────────────────── */
       @media (max-width: 1200px) {
         .cards-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
-      @media (max-width: 640px) {
-        body { padding: 14px; }
+
+      @media (max-width: 768px) {
+        /* 차트 */
+        .chart-wrap { height: 140px; }
+        .chart-legend { flex-wrap: wrap; gap: 8px; }
+
+        /* 장애 카드 */
+        .incident-summary-card {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 14px;
+          padding: 16px;
+        }
+        .inc-stats {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0;
+        }
+        .inc-stat {
+          padding: 10px 12px;
+          text-align: center;
+          border-left: none !important;
+          border-bottom: 1px solid var(--border);
+        }
+        .inc-stat:nth-child(2) { border-left: 1px solid var(--border) !important; }
+        .inc-stat:nth-child(4) { border-left: 1px solid var(--border) !important; }
+        .inc-stat:last-child {
+          grid-column: 1 / -1;
+          border-bottom: none;
+          padding-left: 12px !important;
+          text-align: left !important;
+        }
+        .inc-stat-val { font-size: 28px; }
+        .detail-btn { width: 100%; justify-content: center; }
+
+        /* 테스트 카드 */
         .cards-grid-4 { grid-template-columns: 1fr; }
-        .incident-summary-card { flex-direction: column; align-items: flex-start; }
-        .inc-stat { padding: 0 16px; }
+        .rc4-sheet-btn { width: 100%; justify-content: center; }
+      }
+
+      @media (max-width: 640px) {
+        body { padding: 12px; }
+
+        /* 헤더 */
+        .header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 14px; }
+        .header-right { width: 100%; flex-wrap: wrap; }
+        .title-main { font-size: 14px; }
+
+        /* 차트 */
+        .chart-card { padding: 12px; }
+        .chart-wrap { height: 120px; }
+
+        /* 섹션 헤더 + 실행 버튼 */
+        .section-header-row { flex-direction: column; align-items: stretch; gap: 8px; }
+        #run-test-btn { width: 100%; justify-content: center; padding: 10px 14px; font-size: 13px; }
+
+        /* 테스트 카드 */
+        .rc4-card { padding: 14px; }
+        .rc4-rate { font-size: 40px; }
+        .rc4-stat-val { font-size: 18px; }
+        .rc4-fail-list { max-height: 100px; }
       }
     </style>
   </head>
@@ -471,7 +536,7 @@
     </div>
 
     <!-- ── 테스트 결과 리포트 (4-column) ──────────────────── -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:20px;">
+    <div class="section-header-row">
       <div class="section-label" style="margin:0">테스트 결과 리포트</div>
       <button id="run-test-btn" onclick="runWorkflow()" style="
         display:flex;align-items:center;gap:6px;
