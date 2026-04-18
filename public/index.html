@@ -927,6 +927,9 @@
         const _stored = JSON.parse(localStorage.getItem("qa_running") || "null");
         if (_stored && Date.now() - _stored.ts < 5 * 60 * 60 * 1000) {
           _wasRunning = true;
+          if (_stored.phase) _currentPhase = _stored.phase;
+          if (_stored.count != null) _progressCount = _stored.count;
+          if (_stored.total != null) _progressTotal = _stored.total;
           setRunBtn(true);
         }
       } catch (_) {}
@@ -1145,6 +1148,11 @@
             if (data.count != null) _progressCount = data.count;
             if (data.total != null) _progressTotal = data.total;
             _lastValidPhaseTime = Date.now();
+            // 새로고침 복원을 위해 localStorage에 최신 phase/count 저장
+            try {
+              const prev = JSON.parse(localStorage.getItem("qa_running") || "{}");
+              localStorage.setItem("qa_running", JSON.stringify({ ...prev, ts: prev.ts || Date.now(), phase: _currentPhase, count: _progressCount, total: _progressTotal }));
+            } catch (_) {}
             if (!_wasRunning) {
               _wasRunning = true;
               setRunBtn(true);
