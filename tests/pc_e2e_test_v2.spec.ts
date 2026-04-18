@@ -386,10 +386,8 @@ test.describe("7. 장바구니", () => {
     console.log(`[✓] 장바구니 이동: ${page.url()}`);
   });
 
-  test("장바구니 직접 URL — 로그인 redirect 확인", async ({ page, isMobile }) => {
-    const cartUrl = isMobile
-      ? "https://mall.hanssem.com/m/morder/goCart.do"
-      : "https://mall.hanssem.com/order/goCart.do?util=shopping";
+  test("장바구니 직접 URL — 로그인 redirect 확인", async ({ page }) => {
+    const cartUrl = "https://mall.hanssem.com/order/goCart.do?util=shopping";
     await page.goto(cartUrl);
     await waitForPageReady(page, 2000);
     const url = page.url();

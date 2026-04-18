@@ -40,27 +40,30 @@ test.beforeEach(async ({}, testInfo) => {
   console.log(`[점검] ${testInfo.title}`);
 });
 
+const stripAnsi = (str: string) => str.replace(/\x1B\[[0-9;]*m/g, "").trim();
+
 // ─── 각 테스트 후: 결과 기록 ────────────────────────────────
 test.afterEach(async ({ page }, testInfo) => {
   if (testInfo.status === "skipped") return;
 
   const isPassed = testInfo.status === "passed";
-  const currentUrl = page.url();
+  const rawUrl = page.url();
+  const currentUrl = rawUrl.startsWith("chrome-error://") ? "" : rawUrl;
   const duration = (testInfo.duration / 1000).toFixed(2);
 
   if (!isPassed) {
     testInfo.annotations.push({ type: "url", description: currentUrl });
     failCount++;
-    failedTests.push(`${testInfo.title}\n  ${currentUrl}`);
+    failedTests.push(`${testInfo.title}\n  ${currentUrl || "페이지 로딩 실패"}`);
   } else {
     passCount++;
   }
 
-  console.log(isPassed ? `  ✅ 통과 (${duration}s)` : `  ❌ 실패 (${duration}s) — ${currentUrl}`);
+  console.log(isPassed ? `  ✅ 통과 (${duration}s)` : `  ❌ 실패 (${duration}s) — ${currentUrl || "페이지 로딩 실패"}`);
 
   const failReason = isPassed
     ? ""
-    : testInfo.errors?.[0]?.message?.split("\n")[0]?.slice(0, 60) ?? "실패";
+    : stripAnsi(testInfo.errors?.[0]?.message?.split("\n")[0] ?? "실패").slice(0, 60);
 
   caseResults.push({
     name: testInfo.title,
@@ -293,6 +296,19 @@ test.describe("5. 검색", () => {
     await waitForPageReady(page, 2000);
     await expect(page).toHaveURL(/search/);
     console.log(`[✓] 영문 검색: ${page.url()}`);
+  });
+});
+
+// ─── 7. 장바구니 ───────────────────────────────────────────
+test.describe("7. 장바구니", () => {
+  test("장바구니 직접 URL — 로그인 redirect 확인", async ({ page }) => {
+    await page.goto("https://mall.hanssem.com/m/morder/goCart.do");
+    await waitForPageReady(page, 2000);
+    const url = page.url();
+    const isCart = url.includes("cart") || url.includes("Cart");
+    const isLogin = url.includes("login") || url.includes("Login");
+    expect(isCart || isLogin).toBe(true);
+    console.log(`[✓] 장바구니 redirect: ${url}`);
   });
 });
 

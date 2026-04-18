@@ -318,7 +318,10 @@ public/results.json public/pc_500.json public/pc_e2e.json public/mw_500.json pub
 ### URL / 도메인 규칙
 - **PC 테스트**: `store.hanssem.com` 도메인만 테스트
 - **MW 테스트**: `m.store.hanssem.com` 도메인만 테스트
-- 로그인/인증: `mall.hanssem.com` 예외적 허용 (별도 인증 도메인)
+- **mall.hanssem.com 규칙**:
+  - `mall.hanssem.com/m/...` (경로에 `/m/` 포함) → **MW URL** — MW 테스트에서만 허용
+  - `mall.hanssem.com/...` (경로에 `/m/` 없음) → **PC URL** — PC 테스트에서만 허용
+  - 예: `mall.hanssem.com/m/morder/goCart.do` → MW, `mall.hanssem.com/order/goCart.do` → PC
 - 링크 수집 시 도메인 필터링 철저히 구분
 
 ### 실패 판정 기준
