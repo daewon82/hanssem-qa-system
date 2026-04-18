@@ -878,9 +878,9 @@
       async function runWorkflow() {
         const token = GH_TOKEN;
 
-        const btn = document.getElementById("run-test-btn");
-        btn.disabled = true;
-        btn.textContent = "확인 중...";
+        // 버튼 클릭 즉시 로딩 상태로 전환 (중복 클릭 방지)
+        setRunBtn(true);
+        initProgress();
 
         // 이미 실행 중인지 먼저 확인
         try {
