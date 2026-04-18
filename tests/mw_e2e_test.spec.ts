@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
+import { updateProgress } from "./utils";
 
 /**
  * store.hanssem.com MW E2E 테스트
@@ -35,6 +36,7 @@ test.beforeAll(async () => {
   ["public", "fail_evidence"].forEach((dir) => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
   });
+  await updateProgress("mw-e2e");
 });
 
 test.beforeEach(async ({}, testInfo: any) => {

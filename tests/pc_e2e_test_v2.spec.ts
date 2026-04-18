@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
+import { updateProgress } from "./utils";
 
 /**
  * store.hanssem.com PC E2E 확장 테스트 (v2)
@@ -41,6 +42,7 @@ test.beforeAll(async () => {
   ["public", "fail_evidence"].forEach((dir) => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
   });
+  await updateProgress("pc-e2e");
 });
 
 test.beforeEach(async ({}, testInfo) => {

@@ -1,6 +1,7 @@
 import { test } from "@playwright/test";
 import fs from "fs";
 import axios from "axios";
+import { updateProgress } from "./utils";
 // import { GoogleSpreadsheet } from "google-spreadsheet";
 // import { authenticate } from "@google-cloud/local-auth";
 // import { google } from "googleapis";
@@ -67,6 +68,7 @@ const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system/";
 
 test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) => {
   test.setTimeout(7200000);
+  await updateProgress("pc-landing");
 
   const linkPool = new Set<string>();
   const visitedLinks = new Set<string>();
