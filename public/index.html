@@ -998,6 +998,7 @@
       async function pollJobLogs() {
         try {
           // run ID가 없으면 최신 run에서 가져오기 (자가 감지 포함)
+          const capturedRunId = _currentRunId; // 취소 race condition 방지용 스냅샷
           let runId = _currentRunId;
           if (!runId) {
             const runsRes = await fetch(
@@ -1014,6 +1015,9 @@
             runId = latest.id;
             _currentRunId = runId;
           }
+
+          // 취소 후 cleanup이 된 경우 즉시 중단
+          if (capturedRunId !== null && _currentRunId !== capturedRunId) return;
 
           // 실행 중인 job 찾기
           const jobsRes = await fetch(
@@ -1062,6 +1066,9 @@
               _lastValidPhaseTime = Date.now();
             }
           }
+
+          // fetch 완료 후 run이 취소됐으면 반영 안 함
+          if (_currentRunId !== runId) return;
 
           // 자가 감지: _wasRunning이 false여도 로그에서 실행 중 확인 시 복구
           if (!_wasRunning && _currentPhase) {
