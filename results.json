@@ -325,7 +325,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 18. PM 9:03:04",
+      "lastUpdated": "2026. 4. 19. AM 12:09:05",
       "total": 50,
       "pass": 50,
       "fail": 0,
@@ -1073,5 +1073,5 @@
       "cases": []
     }
   ],
-  "codeLastModified": "NaN. NaN. NaN. NaN:NaN"
+  "codeLastModified": "2026. 4. 19. 00:05"
 }
