@@ -825,6 +825,8 @@
           console.error("🚨 [자비스 알림] 데이터 로드 실패:", e.message);
           showError("테스트 결과 파일(results.json)을 불러올 수 없습니다.<br>테스트를 먼저 실행하거나 파일 경로를 확인해주세요.");
         }
+        // 카드 렌더링 완료 후 실행 상태 복원 (새로고침 시 즉시 로딩 아이콘 표시)
+        if (_wasRunning) applyProgressState();
       }
 
       const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].join("");
