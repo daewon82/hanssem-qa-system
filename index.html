@@ -881,7 +881,7 @@
             _wasRunning = true;
             localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
             // progress.json 업데이트 전까지 setup 구간: 첫 카드 0% 표시
-            setCardLoading(PHASE_ORDER[0], "active", 0);
+            setCardLoading(PHASE_ORDER[0], "active", "0%");
             PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
             initProgress();
           } else if (res.status === 401) {
@@ -945,7 +945,7 @@
         const isActive = state === "active";
         if (ring) ring.style.display = isActive ? "flex" : "none";
         if (isActive) {
-          if (labelEl) labelEl.textContent = label || "";
+          if (labelEl) labelEl.textContent = (label !== undefined && label !== null && label !== "") ? String(label) : "";
         } else if (labelEl) {
           labelEl.textContent = "실행중";
         }
@@ -966,8 +966,8 @@
       function applyProgressState() {
         if (!_wasRunning) return;
         if (!_currentPhase) {
-          // 단계 신호 오기 전(setup): 첫 카드 스피너만 표시
-          setCardLoading(PHASE_ORDER[0], "active", "");
+          // 단계 신호 오기 전(setup): 첫 카드 0% 표시
+          setCardLoading(PHASE_ORDER[0], "active", "0%");
           PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
           return;
         }
