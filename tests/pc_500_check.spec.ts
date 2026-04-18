@@ -32,6 +32,23 @@ const JANDI_WEBHOOK_URL =
 const normalizeUrl = (url: string) =>
   url.replace(/(https?:\/\/)+/g, "https://").replace(/\/$/, "");
 
+const EXCLUDE_EXTENSIONS = [".pdf", ".jpg", ".jpeg", ".png", ".gif", ".svg", ".ico", ".css", ".js", ".woff", ".woff2", ".ttf", ".zip", ".xlsx", ".docx", ".mp4", ".webp"];
+const EXCLUDE_PATH_PATTERNS = ["/api/", "/__/", "/v1/", "/v2/", "/static/", "/assets/"];
+
+const isValidPageUrl = (rawUrl: string): boolean => {
+  try {
+    const u = new URL(rawUrl);
+    if (rawUrl.length > 400) return false;
+    if (u.pathname.includes("http")) return false;
+    const path = u.pathname.toLowerCase();
+    if (EXCLUDE_EXTENSIONS.some((ext) => path.endsWith(ext))) return false;
+    if (EXCLUDE_PATH_PATTERNS.some((p) => path.includes(p))) return false;
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system/";
 
 // 구글 인증
@@ -125,15 +142,8 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       );
 
       rawLinks.forEach((l) => {
-        try {
-          const url = new URL(l);
-          // 경로에 프로토콜이 포함된 잘못된 URL 제외
-          if (url.pathname.includes("http")) return;
-        } catch {
-          return;
-        }
-
         if (
+          isValidPageUrl(l) &&
           !EXCLUDE_KEYWORDS.some((k) => l.includes(k)) &&
           !visitedLinks.has(l) &&
           !linkPool.has(l) &&

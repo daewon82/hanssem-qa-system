@@ -22,6 +22,7 @@ let passCount = 0;
 let failCount = 0;
 const caseResults: any[] = [];
 const failedTests: string[] = [];
+let hasPublished = false;
 
 // ─── 유틸 ────────────────────────────────────────────────────
 async function waitForPageReady(page: Page, extra = 1500) {
@@ -79,6 +80,8 @@ test.afterEach(async ({ page }, testInfo) => {
 
 // ─── 전체 완료 후: 리포트 저장 ────────────────────────────
 test.afterAll(async () => {
+  if (hasPublished) return;
+  hasPublished = true;
   const totalCount = passCount + failCount;
   const passRate =
     totalCount > 0 ? ((passCount / totalCount) * 100).toFixed(1) : "0";
