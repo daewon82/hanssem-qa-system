@@ -912,6 +912,7 @@
       let progressTimer  = null;   // pollWorkflowStatus 30초 인터벌
       let phaseTimer     = null;   // pollProgress 15초 인터벌
       let animTimer      = null;   // applyProgressState 10초 인터벌
+      let _lastValidPhaseTime = null; // pollProgress가 마지막으로 유효한 phase를 본 시각
 
       // 새로고침 후에도 실행 상태 즉시 복원 (API 응답 전에도)
       try {
@@ -979,8 +980,10 @@
           } else if (id === _currentPhase) {
             // landing: count/total 기반 실제 %, E2E: 스피너만
             let label = "";
-            if (isLanding && _progressCount != null && _progressTotal) {
-              label = Math.round((_progressCount / _progressTotal) * 100) + "%";
+            if (isLanding) {
+              label = (_progressCount != null && _progressTotal)
+                ? Math.round((_progressCount / _progressTotal) * 100) + "%"
+                : "0%";
             }
             setCardLoading(id, "active", label);
           } else {
@@ -1033,6 +1036,7 @@
             _currentPhase  = phase;
             _progressCount = data.count ?? null;
             _progressTotal = data.total ?? null;
+            _lastValidPhaseTime = Date.now(); // phase 전환 감지를 위한 타임스탬프
           }
 
           if (_wasRunning) applyProgressState();
@@ -1061,6 +1065,8 @@
           } else {
             // dispatch 직후 60초 유예: API에 새 실행이 아직 안 잡혔을 수 있음
             if (_dispatchTime && Date.now() - _dispatchTime < 60000) return;
+            // progress.json에서 최근 5분 내 유효 phase를 봤으면 단계 전환 중 → 아직 종료 아님
+            if (_lastValidPhaseTime && Date.now() - _lastValidPhaseTime < 5 * 60 * 1000) return;
             setRunBtn(false);
             if (phaseTimer)    { clearInterval(phaseTimer);    phaseTimer = null; }
             if (animTimer)     { clearInterval(animTimer);     animTimer = null; }
@@ -1073,6 +1079,7 @@
               _currentPhase  = null;
               _progressCount = null;
               _progressTotal = null;
+              _lastValidPhaseTime = null;
               Object.keys(phaseCompletedTime).forEach(k => delete phaseCompletedTime[k]);
               localStorage.removeItem("qa_running");
               setTimeout(loadStats, 5000);
