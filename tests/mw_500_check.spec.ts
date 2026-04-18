@@ -68,7 +68,7 @@ const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system/";
 
 test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) => {
   test.setTimeout(7200000);
-  await updateProgress("mw-landing");
+  await updateProgress("mw-landing", 0, MAX_LINKS);
 
   const linkPool = new Set<string>();
   const linkQueue: string[] = [];
@@ -314,7 +314,7 @@ test("운영환경 한샘몰 MW 랜딩 테스트", async ({ page }, testInfo) =>
       console.log(`[PROGRESS] MW_500: ${visitedLinks.size}/${MAX_LINKS}`);
     }
 
-    if (Date.now() - lastProgressUpdate > 15000) {
+    if (Date.now() - lastProgressUpdate > 5000) {
       await updateProgress("mw-landing", visitedLinks.size, MAX_LINKS);
       lastProgressUpdate = Date.now();
     }

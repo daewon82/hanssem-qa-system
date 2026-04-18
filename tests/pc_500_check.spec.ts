@@ -68,7 +68,7 @@ const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system/";
 
 test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) => {
   test.setTimeout(7200000);
-  await updateProgress("pc-landing");
+  await updateProgress("pc-landing", 0, MAX_LINKS);
 
   const linkPool = new Set<string>();
   const visitedLinks = new Set<string>();
@@ -293,7 +293,7 @@ test("운영환경 한샘몰 PC 랜딩 테스트", async ({ page }, testInfo) =>
       console.log(`[PROGRESS] PC_500: ${visitedLinks.size}/${MAX_LINKS}`);
     }
 
-    if (Date.now() - lastProgressUpdate > 15000) {
+    if (Date.now() - lastProgressUpdate > 5000) {
       await updateProgress("pc-landing", visitedLinks.size, MAX_LINKS);
       lastProgressUpdate = Date.now();
     }
