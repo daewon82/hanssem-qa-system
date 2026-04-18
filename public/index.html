@@ -347,41 +347,6 @@
       }
 
       /* ── Per-card loading progress bar ─────────────────── */
-      .lp-bar-wrap {
-        display: none; /* JS로 flex 전환 */
-        align-items: center;
-        gap: 8px;
-      }
-      .lp-bar-track {
-        flex: 1;
-        height: 4px;
-        background: #edf0f5;
-        border-radius: 2px;
-        overflow: hidden;
-      }
-      .lp-bar-fill {
-        height: 100%;
-        border-radius: 2px;
-        transition: width 5s ease;
-        position: relative;
-        overflow: hidden;
-      }
-      .lp-bar-fill::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
-        transform: translateX(-100%);
-        animation: lp-shimmer 1.8s ease-in-out infinite;
-      }
-      @keyframes lp-shimmer { to { transform: translateX(300%); } }
-      .lp-pct-text {
-        font-size: 10px;
-        font-weight: 700;
-        width: 32px;
-        text-align: right;
-        flex-shrink: 0;
-      }
 
       /* ── Section Header Row ────────────────────────────── */
       .section-header-row {
@@ -656,13 +621,6 @@
               <div class="rc4-prog-fill" style="width:${rate}%;background:${bar}"></div>
             </div>
 
-            <div class="lp-bar-wrap" id="lprog-${r.id}">
-              <div class="lp-bar-track">
-                <div class="lp-bar-fill" id="lp-fill-${r.id}" style="background:${cfg.iconBg}"></div>
-              </div>
-              <span class="lp-pct-text" id="lp-pct-${r.id}" style="color:${cfg.iconBg}">0%</span>
-            </div>
-
             <div class="rc4-stats-row">
               <div class="rc4-stat-item">
                 <div class="rc4-stat-label">전체</div>
@@ -707,12 +665,6 @@
               </div>
             </div>
             <div class="rc4-rate gray">—</div>
-            <div class="lp-bar-wrap" id="lprog-${cfg.id}">
-              <div class="lp-bar-track">
-                <div class="lp-bar-fill" id="lp-fill-${cfg.id}" style="background:${cfg.iconBg}"></div>
-              </div>
-              <span class="lp-pct-text" id="lp-pct-${cfg.id}" style="color:${cfg.iconBg}">0%</span>
-            </div>
             <div class="rc4-placeholder-msg">테스트가 아직 실행되지 않았습니다</div>
           </div>`;
       }
@@ -964,18 +916,11 @@
 
       function setCardLoading(id, state, pct) {
         const ring  = document.getElementById("ring-"       + id);
-        const lprog = document.getElementById("lprog-"      + id);
-        const fill  = document.getElementById("lp-fill-"    + id);
-        const pctEl = document.getElementById("lp-pct-"     + id);
         const label = document.getElementById("ring-label-" + id);
         const isActive = state === "active";
-        if (ring)  ring.style.display  = isActive ? "flex" : "none";
-        if (lprog) lprog.style.display = isActive ? "flex" : "none";
+        if (ring) ring.style.display = isActive ? "flex" : "none";
         if (isActive) {
-          const p = Math.round(pct || 0);
-          if (fill)  fill.style.width  = p + "%";
-          if (pctEl) pctEl.textContent = p + "%";
-          if (label) label.textContent = p + "%";
+          if (label) label.textContent = Math.round(pct || 0) + "%";
         } else if (label) {
           label.textContent = "실행중";
         }
