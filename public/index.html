@@ -1003,47 +1003,60 @@
         });
       }
 
+      function dbgShow(msg) {
+        const el = document.getElementById("debug-bar");
+        if (!el) return;
+        el.style.display = "block";
+        document.getElementById("dbg-time").textContent = new Date().toLocaleTimeString("ko-KR") + " — " + msg;
+      }
+
       // 10초마다 GitHub Actions job 로그를 읽어 카운트/단계 파싱
       async function pollJobLogs() {
         try {
+          dbgShow("polling...");
           // run ID가 없으면 최신 run에서 가져오기 (자가 감지 포함)
           const capturedRunId = _currentRunId; // 취소 race condition 방지용 스냅샷
           let runId = _currentRunId;
           if (!runId) {
+            dbgShow("run ID 조회 중...");
             const runsRes = await fetch(
               "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
               { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
             );
-            if (!runsRes.ok) { if (_wasRunning) applyProgressState(); return; }
+            if (!runsRes.ok) { dbgShow("runs API 실패 " + runsRes.status); if (_wasRunning) applyProgressState(); return; }
             const runsData = await runsRes.json();
             const latest = runsData.workflow_runs?.[0];
             if (!latest || (latest.status !== "in_progress" && latest.status !== "queued")) {
+              dbgShow("실행 중인 run 없음 (status=" + latest?.status + ")");
               if (_wasRunning) applyProgressState();
               return;
             }
             runId = latest.id;
             _currentRunId = runId;
+            dbgShow("run ID=" + runId);
           }
 
           // 취소 후 cleanup이 된 경우 즉시 중단
-          if (capturedRunId !== null && _currentRunId !== capturedRunId) return;
+          if (capturedRunId !== null && _currentRunId !== capturedRunId) { dbgShow("run 취소됨 — 중단"); return; }
 
           // 실행 중인 job 찾기
+          dbgShow("jobs 조회 중 (runId=" + runId + ")");
           const jobsRes = await fetch(
             `https://api.github.com/repos/daewon82/hanssem-qa-system/actions/runs/${runId}/jobs`,
             { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
           );
-          if (!jobsRes.ok) { if (_wasRunning) applyProgressState(); return; }
+          if (!jobsRes.ok) { dbgShow("jobs API 실패 " + jobsRes.status); if (_wasRunning) applyProgressState(); return; }
           const jobsData = await jobsRes.json();
           const inProgressJob = (jobsData.jobs || []).find(j => j.status === "in_progress");
-          if (!inProgressJob) { if (_wasRunning) applyProgressState(); return; }
+          if (!inProgressJob) { dbgShow("in_progress job 없음 (jobs=" + (jobsData.jobs||[]).map(j=>j.status).join(",") + ")"); if (_wasRunning) applyProgressState(); return; }
 
           // job 로그 가져오기 (302 리다이렉트 따라가기)
+          dbgShow("logs 가져오는 중 (jobId=" + inProgressJob.id + ")");
           const logRes = await fetch(
             `https://api.github.com/repos/daewon82/hanssem-qa-system/actions/jobs/${inProgressJob.id}/logs`,
             { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
           );
-          if (!logRes.ok) { if (_wasRunning) applyProgressState(); return; }
+          if (!logRes.ok) { dbgShow("logs API 실패 " + logRes.status); if (_wasRunning) applyProgressState(); return; }
           const logText = await logRes.text();
 
           // phase 파싱: "진행상태 업데이트: pc-landing" 패턴
@@ -1080,16 +1093,12 @@
           if (_currentRunId !== runId) return;
 
           // 디버그 바 업데이트
-          const dbg = document.getElementById("debug-bar");
-          if (dbg) {
-            dbg.style.display = "block";
-            const pct = (_progressCount != null && _progressTotal)
-              ? Math.round((_progressCount / _progressTotal) * 100) + "%" : "—";
-            document.getElementById("dbg-phase").textContent = "phase=" + (_currentPhase || "null");
-            document.getElementById("dbg-count").textContent = "count=" + (_progressCount ?? "null") + "/" + (_progressTotal ?? "null");
-            document.getElementById("dbg-pct").textContent = "pct=" + pct;
-            document.getElementById("dbg-time").textContent = "last=" + new Date().toLocaleTimeString("ko-KR");
-          }
+          const pct = (_progressCount != null && _progressTotal)
+            ? Math.round((_progressCount / _progressTotal) * 100) + "%" : "—";
+          document.getElementById("dbg-phase").textContent = "phase=" + (_currentPhase || "null");
+          document.getElementById("dbg-count").textContent = "count=" + (_progressCount ?? "null") + "/" + (_progressTotal ?? "null");
+          document.getElementById("dbg-pct").textContent = "pct=" + pct;
+          dbgShow("파싱완료");
 
           // 자가 감지: _wasRunning이 false여도 로그에서 실행 중 확인 시 복구
           if (!_wasRunning && _currentPhase) {
