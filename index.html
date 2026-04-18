@@ -878,9 +878,8 @@
       async function runWorkflow() {
         const token = GH_TOKEN;
 
-        // 버튼 클릭 즉시 로딩 상태로 전환 (중복 클릭 방지)
+        // 버튼 클릭 즉시 비활성화 (중복 클릭 방지) — initProgress는 dispatch 확정 후 호출
         setRunBtn(true);
-        initProgress();
 
         // 이미 실행 중인지 먼저 확인
         try {
@@ -892,8 +891,7 @@
             const checkData = await checkRes.json();
             const latest = checkData.workflow_runs?.[0];
             if (latest && (latest.status === "in_progress" || latest.status === "queued")) {
-              setRunBtn(true);
-              initProgress();
+              initProgress(); // 이미 실행 중 → 폴링 시작
               return;
             }
           }
@@ -914,11 +912,12 @@
           );
 
           if (res.status === 204) {
-            // 즉시 첫 번째 카드 로딩 표시 (API에 run_started_at 잡히기 전 임시)
+            // dispatch 확정 후 _dispatchTime 설정하고 폴링 시작
             _dispatchTime = Date.now();
             _runStartTime = Date.now();
             _wasRunning = true;
             setCardLoading("pc-landing", "active", 0);
+            initProgress(); // _dispatchTime 설정 후 호출해야 grace period 작동
             if (!animTimer) animTimer = setInterval(tickAnimation, 10000);
           } else if (res.status === 401) {
             setRunBtn(false);
