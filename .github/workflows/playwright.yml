@@ -46,6 +46,7 @@ jobs:
         continue-on-error: true
         env:
           CI: "" # 잔디 알림 임시 중단 (복구 시 이 env 블록 삭제)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit results
         run: |
