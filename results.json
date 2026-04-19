@@ -325,7 +325,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 19. AM 9:04:54",
+      "lastUpdated": "2026. 4. 19. AM 9:04:32",
       "total": 50,
       "pass": 50,
       "fail": 0,
@@ -690,7 +690,7 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 19. AM 9:14:20",
+      "lastUpdated": "2026. 4. 19. AM 9:12:03",
       "total": 50,
       "pass": 50,
       "fail": 0,
@@ -1073,5 +1073,5 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 19. 00:49"
+  "codeLastModified": "NaN. NaN. NaN. NaN:NaN"
 }
