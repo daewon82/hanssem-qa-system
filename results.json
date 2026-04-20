@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. PM 4:11:14",
+  "lastUpdated": "2026. 4. 20. PM 4:11:18",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -1085,17 +1085,17 @@
     {
       "id": "stg-pc-e2e",
       "title": "Stage PC E2E 테스트",
-      "lastUpdated": "2026. 4. 20. PM 4:11:14",
+      "lastUpdated": "2026. 4. 20. PM 4:11:18",
       "total": 1,
       "pass": 0,
       "fail": 1,
       "passRate": "0.0",
       "cases": [
         {
-          "name": "메인 200 응답",
+          "name": "가구/홈리빙 200 응답",
           "url": "chrome-error://chromewebdata/",
           "status": "fail",
-          "duration": "0.06s",
+          "duration": "0.07s",
           "reason": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://stg-"
         }
       ]
