@@ -1,16 +1,16 @@
 {
   "title": "Stage MW E2E 테스트",
-  "lastUpdated": "2026. 4. 20. PM 4:12:54",
+  "lastUpdated": "2026. 4. 20. PM 4:12:58",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "상품 상세 — 상품 이미지 노출",
+      "name": "검색 결과 페이지 — 정상 로딩 및 타이틀",
       "url": "",
       "status": "fail",
-      "duration": "0.63s",
+      "duration": "0.61s",
       "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://stg-m.s"
     }
   ]
