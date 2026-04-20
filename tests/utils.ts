@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const REPO = "daewon82/hanssem-qa-system";
-const API_URL = `https://api.github.com/repos/${REPO}/contents/progress.json`;
+
+function getProgressApiUrl(phase: string): string {
+  const file = phase.startsWith("stg-") ? "stg_progress.json" : "progress.json";
+  return `https://api.github.com/repos/${REPO}/contents/${file}`;
+}
 
 async function ghPagesWrite(path: string, contentObj: object, message: string): Promise<void> {
   const headers = {
@@ -21,18 +25,21 @@ export async function publishResults(
   fullDataPath: string
 ): Promise<void> {
   if (!process.env.GITHUB_ACTIONS || !process.env.GITHUB_TOKEN) return;
+  const isStage = report.id.startsWith("stg-");
+  const arrayKey = isStage ? "stageReports" : "reports";
   try {
     await ghPagesWrite(fullDataPath, fullData, `results: ${fullDataPath}`);
     const resultsUrl = `https://api.github.com/repos/${REPO}/contents/results.json`;
     const headers = { Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, "Content-Type": "application/json" };
     const getRes = await axios.get(`${resultsUrl}?ref=gh-pages`, { headers }).catch(() => null);
     const sha = getRes?.data?.sha;
-    let existing: any = { lastUpdated: report.lastUpdated, reports: [] };
+    let existing: any = { lastUpdated: report.lastUpdated, reports: [], stageReports: [] };
     if (getRes?.data?.content) {
       existing = JSON.parse(Buffer.from(getRes.data.content.replace(/\n/g, ""), "base64").toString("utf8"));
     }
-    const idx = existing.reports.findIndex((r: any) => r.id === report.id);
-    if (idx >= 0) existing.reports[idx] = report; else existing.reports.push(report);
+    if (!existing[arrayKey]) existing[arrayKey] = [];
+    const idx = existing[arrayKey].findIndex((r: any) => r.id === report.id);
+    if (idx >= 0) existing[arrayKey][idx] = report; else existing[arrayKey].push(report);
     existing.lastUpdated = report.lastUpdated;
     const content = Buffer.from(JSON.stringify(existing, null, 2)).toString("base64");
     await axios.put(resultsUrl, { message: `results: ${report.id} [skip ci]`, content, branch: "gh-pages", ...(sha ? { sha } : {}) }, { headers });
@@ -48,13 +55,14 @@ export async function updateProgress(
   total?: number
 ): Promise<void> {
   if (!process.env.GITHUB_ACTIONS || !process.env.GITHUB_TOKEN) return;
+  const apiUrl = getProgressApiUrl(phase);
   const headers = {
     Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     "Content-Type": "application/json",
   };
   try {
     const getRes = await axios
-      .get(`${API_URL}?ref=gh-pages`, { headers })
+      .get(`${apiUrl}?ref=gh-pages`, { headers })
       .catch(() => null);
     const sha = getRes?.data?.sha;
     const payload: any = { phase, startedAt: new Date().toISOString() };
@@ -62,7 +70,7 @@ export async function updateProgress(
     if (total !== undefined) payload.total = total;
     const content = Buffer.from(JSON.stringify(payload)).toString("base64");
     await axios.put(
-      API_URL,
+      apiUrl,
       {
         message: `progress: ${phase}${count !== undefined ? ` ${count}/${total}` : ""} [skip ci]`,
         content,

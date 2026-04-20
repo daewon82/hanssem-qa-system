@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
-  testMatch: "**/*.spec.ts",
+  testMatch: ["**/pc_*.spec.ts", "**/mw_*.spec.ts"],
   timeout: 7200000, // 500개 점검을 위한 2시간 타임아웃
   fullyParallel: false,
   workers: 1, // 순차 실행 고정

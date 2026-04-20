@@ -486,6 +486,64 @@ const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].joi
 
 ---
 
+## Stage 환경 테스트 (계획)
+
+### 개요
+대시보드를 **운영환경**과 **Stage 환경** 두 영역으로 분리하고, 각각 독립적인 테스트 실행 버튼을 제공.
+
+### Stage 환경 URL
+| 용도 | 운영 | Stage |
+|---|---|---|
+| PC 스토어 | `https://store.hanssem.com` | `https://stg-store.hanssem.com` |
+| MW 스토어 | `https://m.store.hanssem.com` | `https://stg-m.store.hanssem.com` |
+| MW 리모델링/매장찾기 | `https://m.remodeling.hanssem.com` | `https://stg-m.remodeling.hanssem.com` |
+| Mall (로그인/장바구니/마이페이지 등) | `https://mall.hanssem.com` | `https://stagemall.hanssem.com` |
+
+예시:
+- 매장찾기: `https://stg-m.remodeling.hanssem.com/shop/search?referrer=bnb`
+- 마이페이지: `https://stagemall.hanssem.com/m/mmypage/myPageMain.do`
+
+### Stage 환경 /etc/hosts 설정 (CI 에서 필수)
+Stage 테스트 실행 시 GitHub Actions의 `/etc/hosts`에 아래 항목을 추가해야 함:
+
+```
+10.2.4.81 stg-image.hanssem.com
+10.2.4.83 image2.hanssem.com
+```
+
+워크플로우에서 `sudo bash -c "echo '...' >> /etc/hosts"` 형태로 주입.
+
+### 대시보드 UI 변경 계획
+- 현재 단일 섹션 → 운영환경 섹션 + Stage 환경 섹션으로 분리
+- 각 섹션에 독립 "테스트 실행" 버튼
+- Stage 전용 워크플로우 (`stage-playwright.yml`) 별도 생성
+- Stage 결과 JSON: `public/stg_pc_500.json`, `public/stg_pc_e2e.json`, `public/stg_mw_500.json`, `public/stg_mw_e2e.json`
+- results.json에 `stageReports` 섹션 추가 (운영 `reports` 와 분리)
+
+### Stage 전용 테스트 파일 (구현 완료)
+- `tests/stg_pc_500_check.spec.ts` — Stage PC 랜딩
+- `tests/stg_pc_e2e_test.spec.ts` — Stage PC E2E
+- `tests/stg_mw_500_check.spec.ts` — Stage MW 랜딩
+- `tests/stg_mw_e2e_test.spec.ts` — Stage MW E2E
+
+### Stage 진행상태 파일
+- `public/stg_progress.json` — Stage 테스트 진행상태 (prod의 `progress.json`과 분리)
+- `utils.ts`의 `updateProgress()`에서 phase가 `stg-` 접두사면 자동으로 `stg_progress.json`에 기록
+
+### results.json 구조 변경
+- `reports[]` — 운영환경 결과 (기존)
+- `stageReports[]` — Stage 환경 결과 (신규)
+- `utils.ts`의 `publishResults()`에서 `report.id`가 `stg-` 시작이면 자동으로 `stageReports`에 기록
+
+### 대시보드 섹션 분리
+- 운영환경 섹션 (PRODUCTION 배지, 초록) + Stage 환경 섹션 (STAGING 배지, 보라)
+- 운영 실행: `playwright.yml` dispatch → `runWorkflow()`
+- Stage 실행: `stage-playwright.yml` dispatch → `runStageWorkflow()`
+- Stage progress 폴링: `stg_progress.json` (gh-pages)
+- Stage workflow 상태: `stage-playwright.yml/runs` API
+
+---
+
 ## 스프레드시트 (비활성화)
 
 구글 시트 연동 코드는 모두 주석 처리됨 (인증 토큰 관리 복잡도로 비활성화).  
