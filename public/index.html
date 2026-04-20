@@ -415,7 +415,7 @@
 
         /* 섹션 헤더 + 실행 버튼 */
         .section-header-row { flex-direction: column; align-items: stretch; gap: 8px; }
-        #run-test-btn, #run-stg-test-btn { width: 100%; justify-content: center; padding: 10px 14px; font-size: 13px; }
+        #run-test-btn { width: 100%; justify-content: center; padding: 10px 14px; font-size: 13px; }
 
         /* 테스트 카드 */
         .rc4-card { padding: 14px; }
@@ -521,40 +521,11 @@
       </div>
     </div>
 
-    <!-- ── Stage 환경 테스트 ─────────────────────────────── -->
-    <div class="section-header-row" style="margin-top:32px">
-      <div class="section-label" style="margin:0;font-size:26px;font-weight:700;color:var(--text-main)">Stage 환경 테스트 결과 리포트</div>
-      <button id="run-stg-test-btn" onclick="runStageWorkflow()" style="
-        display:flex;align-items:center;gap:6px;
-        background:#7B1FA2;color:#fff;
-        border:none;border-radius:6px;
-        padding:6px 14px;font-size:12px;font-weight:600;
-        cursor:pointer;transition:opacity .15s;
-      ">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-          <polygon points="3,2 11,6.5 3,11" fill="white"/>
-        </svg>
-        테스트 실행
-      </button>
-    </div>
-    <div class="cards-grid-4" id="stg-cards-grid">
-      <div class="rc4-card" style="grid-column:1/-1">
-        <div style="text-align:center;padding:30px 0;color:var(--text-hint);font-size:13px;">데이터를 불러오는 중...</div>
-      </div>
-    </div>
-
     <div style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:4px;" id="footer-updated"></div>
 
 
     <script>
       /* ── 리포트 설정 ──────────────────────────────────────── */
-      const STG_REPORT_CONFIGS = [
-        { id: "stg-pc-landing", title: "Stage PC 랜딩", abbr1: "PC",  abbr2: "랜딩", iconBg: "#7B1FA2" },
-        { id: "stg-pc-e2e",     title: "Stage PC E2E",  abbr1: "PC",  abbr2: "E2E",  iconBg: "#7B1FA2" },
-        { id: "stg-mw-landing", title: "Stage MW 랜딩", abbr1: "MW",  abbr2: "랜딩", iconBg: "#512DA8" },
-        { id: "stg-mw-e2e",     title: "Stage MW E2E",  abbr1: "MW",  abbr2: "E2E",  iconBg: "#512DA8" },
-      ];
-
       const REPORT_CONFIGS = [
         { id: "pc-landing", title: "PC 랜딩 500",  abbr1: "PC",  abbr2: "랜딩", iconBg: "#1A4F9C" },
         { id: "pc-e2e",     title: "PC E2E",       abbr1: "PC",  abbr2: "E2E",  iconBg: "#1A4F9C" },
@@ -600,7 +571,7 @@
             ? `<span class="badge badge-warn">경고</span>`
             : `<span class="badge badge-fail">실패</span>`;
 
-        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json", "stg-pc-landing": "stg_pc_500.json", "stg-pc-e2e": "stg_pc_e2e.json", "stg-mw-landing": "stg_mw_500.json", "stg-mw-e2e": "stg_mw_e2e.json" };
+        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json" };
         const detailFile = detailFileMap[r.id];
         const sheetBtn = detailFile
           ? `<a href="detail.html?id=${r.id}" class="rc4-sheet-btn">
@@ -703,15 +674,6 @@
         document.getElementById("cards-grid").innerHTML = REPORT_CONFIGS
           .map(cfg => {
             const r = reports.find(rep => rep.id === cfg.id);
-            return r ? renderCard(cfg, r) : renderPlaceholder(cfg);
-          })
-          .join("");
-      }
-
-      function renderStageCards(stageReports) {
-        document.getElementById("stg-cards-grid").innerHTML = STG_REPORT_CONFIGS
-          .map(cfg => {
-            const r = stageReports.find(rep => rep.id === cfg.id);
             return r ? renderCard(cfg, r) : renderPlaceholder(cfg);
           })
           .join("");
@@ -828,8 +790,6 @@
 
           renderCards(data.reports);
           if (_wasRunning) applyProgressState(); // 카드 재렌더 후 로딩 상태 복원
-          renderStageCards(data.stageReports || []);
-          if (_stgWasRunning) applyStgProgressState();
           renderIncidentChart(data.incidents?.byMonth || []);
 
           if (data.incidents) {
@@ -849,8 +809,7 @@
             }
           }
 
-          const hasFailure = data.reports.some(r => (r.fail || 0) > 0) ||
-                             (data.stageReports || []).some(r => (r.fail || 0) > 0);
+          const hasFailure = data.reports.some(r => (r.fail || 0) > 0);
           if (hasFailure) {
             const badge = document.getElementById("sys-status");
             badge.textContent = "실패 감지";
@@ -1154,230 +1113,8 @@
         }
       }
 
-      /* ── Stage 상태 ─────────────────────────────────────── */
-      const STG_PHASE_ORDER = ["stg-pc-landing", "stg-pc-e2e", "stg-mw-landing", "stg-mw-e2e"];
-      const stgPhaseCompletedTime = {};
-      let _stgWasRunning    = false;
-      let _stgDispatchTime  = null;
-      let _stgRunStartedAt  = null;
-      let _stgCurrentPhase  = null;
-      let _stgProgressCount = null;
-      let _stgProgressTotal = null;
-      let stgProgressTimer  = null;
-      let stgPhaseTimer     = null;
-      let stgAnimTimer      = null;
-      let _stgLastValidPhaseTime = null;
-
-      try {
-        const _stgStored = JSON.parse(localStorage.getItem("qa_stg_running") || "null");
-        if (_stgStored && Date.now() - _stgStored.ts < 5 * 60 * 60 * 1000) {
-          _stgWasRunning = true;
-          setStgRunBtn(true);
-        }
-      } catch (_) {}
-
-      function setStgRunBtn(running) {
-        const btn = document.getElementById("run-stg-test-btn");
-        if (!btn) return;
-        if (running) {
-          btn.disabled = true;
-          btn.innerHTML = `<span style="display:inline-block;width:8px;height:8px;border:2px solid rgba(255,255,255,0.9);border-top-color:transparent;border-radius:50%;animation:ring-rotate 0.8s linear infinite;vertical-align:middle;margin-right:2px"></span> Stage 테스트 실행 중`;
-          btn.style.background = "var(--text-sub)";
-          btn.style.cursor = "not-allowed";
-        } else {
-          btn.disabled = false;
-          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="white"/></svg> Stage 테스트 실행`;
-          btn.style.background = "#7B1FA2";
-          btn.style.cursor = "pointer";
-        }
-      }
-
-      function applyStgProgressState() {
-        if (!_stgWasRunning) return;
-        if (!_stgCurrentPhase) {
-          const label = (_stgProgressCount != null && _stgProgressTotal)
-            ? Math.round((_stgProgressCount / _stgProgressTotal) * 100) + "%"
-            : "0%";
-          setCardLoading(STG_PHASE_ORDER[0], "active", label);
-          STG_PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
-          return;
-        }
-        const isLanding = _stgCurrentPhase.includes("landing");
-        STG_PHASE_ORDER.forEach(id => {
-          const pIdx = STG_PHASE_ORDER.indexOf(id);
-          const cIdx = STG_PHASE_ORDER.indexOf(_stgCurrentPhase);
-          if (pIdx < cIdx) {
-            setCardLoading(id, "done");
-          } else if (id === _stgCurrentPhase) {
-            let label = "";
-            if (isLanding) {
-              label = (_stgProgressCount != null && _stgProgressTotal)
-                ? Math.round((_stgProgressCount / _stgProgressTotal) * 100) + "%"
-                : "0%";
-            }
-            setCardLoading(id, "active", label);
-          } else {
-            setCardLoading(id, "idle");
-          }
-        });
-      }
-
-      async function pollStgProgressFallback() {
-        try {
-          const res = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/stg_progress.json?ref=gh-pages",
-            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
-          );
-          if (!res.ok) { if (_stgWasRunning) applyStgProgressState(); return; }
-          const apiData = await res.json();
-          const raw = (apiData.content || "").replace(/\n/g, "");
-          const rawBytes = Uint8Array.from(atob(raw), c => c.charCodeAt(0));
-          const data = JSON.parse(new TextDecoder("utf-8").decode(rawBytes));
-          const phase = data.phase;
-          const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
-          if (_stgRunStartedAt && startedAt && startedAt < _stgRunStartedAt - 30000) {
-            if (_stgWasRunning) applyStgProgressState(); return;
-          }
-          const isRecentStart = startedAt && (Date.now() - startedAt < 6 * 60 * 60 * 1000);
-          if (phase && STG_PHASE_ORDER.includes(phase) && isRecentStart) {
-            if (phase !== _stgCurrentPhase) {
-              if (_stgCurrentPhase && !stgPhaseCompletedTime[_stgCurrentPhase]) stgPhaseCompletedTime[_stgCurrentPhase] = new Date();
-              _stgCurrentPhase = phase;
-              setTimeout(loadStats, 3000);
-            }
-            if (data.count != null) _stgProgressCount = data.count;
-            if (data.total != null) _stgProgressTotal = data.total;
-            _stgLastValidPhaseTime = Date.now();
-          }
-          if (_stgWasRunning) applyStgProgressState();
-        } catch (_) {
-          if (_stgWasRunning) applyStgProgressState();
-        }
-      }
-
-      async function pollStgWorkflowStatus() {
-        try {
-          const res = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/stage-playwright.yml/runs?per_page=1",
-            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" } }
-          );
-          if (!res.ok) return;
-          const data = await res.json();
-          const latest = data.workflow_runs?.[0];
-          if (!latest) return;
-          const running = latest.status === "in_progress" || latest.status === "queued";
-          const cancelled = latest.conclusion === "cancelled" || latest.conclusion === "failure" || latest.conclusion === "timed_out";
-          if (running) {
-            setStgRunBtn(true);
-            _stgRunStartedAt = new Date(latest.run_started_at || latest.created_at).getTime();
-            _stgWasRunning = true;
-            applyStgProgressState();
-          } else {
-            if (!cancelled) {
-              if (_stgDispatchTime && Date.now() - _stgDispatchTime < 300000) return;
-              if (_stgLastValidPhaseTime && Date.now() - _stgLastValidPhaseTime < 5 * 60 * 1000) return;
-            }
-            setStgRunBtn(false);
-            if (stgPhaseTimer)    { clearInterval(stgPhaseTimer);    stgPhaseTimer = null; }
-            if (stgAnimTimer)     { clearInterval(stgAnimTimer);     stgAnimTimer = null; }
-            if (stgProgressTimer) { clearInterval(stgProgressTimer); stgProgressTimer = null; }
-            STG_PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
-            if (_stgWasRunning) {
-              _stgWasRunning = false;
-              _stgDispatchTime = null;
-              _stgRunStartedAt = null;
-              _stgCurrentPhase = null;
-              _stgProgressCount = null;
-              _stgProgressTotal = null;
-              _stgLastValidPhaseTime = null;
-              Object.keys(stgPhaseCompletedTime).forEach(k => delete stgPhaseCompletedTime[k]);
-              localStorage.removeItem("qa_stg_running");
-              setTimeout(loadStats, 5000);
-            }
-          }
-        } catch (e) {
-          console.log("Stage workflow status check error:", e.message);
-        }
-      }
-
-      function initStgProgress() {
-        if (!stgProgressTimer) {
-          pollStgWorkflowStatus();
-          stgProgressTimer = setInterval(pollStgWorkflowStatus, 30000);
-        }
-        if (!stgPhaseTimer) {
-          pollStgProgressFallback();
-          stgPhaseTimer = setInterval(pollStgProgressFallback, 10000);
-        }
-        if (!stgAnimTimer) {
-          stgAnimTimer = setInterval(applyStgProgressState, 10000);
-        }
-      }
-
-      async function runStageWorkflow() {
-        if (_stgWasRunning) return;
-        setStgRunBtn(true);
-
-        try {
-          const checkRes = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/stage-playwright.yml/runs?per_page=1",
-            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" } }
-          );
-          if (checkRes.ok) {
-            const checkData = await checkRes.json();
-            const latest = checkData.workflow_runs?.[0];
-            if (latest && (latest.status === "in_progress" || latest.status === "queued")) {
-              _stgWasRunning = true;
-              localStorage.setItem("qa_stg_running", JSON.stringify({ ts: Date.now() }));
-              STG_PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
-              initStgProgress();
-              return;
-            }
-          }
-        } catch (_) { /* API 실패 시 dispatch 시도 */ }
-
-        if (_stgWasRunning) return;
-
-        STG_PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
-
-        try {
-          const res = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/stage-playwright.yml/dispatches",
-            {
-              method: "POST",
-              headers: {
-                "Authorization": `Bearer ${GH_TOKEN}`,
-                "Accept": "application/vnd.github+json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ ref: "main" }),
-            }
-          );
-
-          if (res.status === 204) {
-            _stgDispatchTime = Date.now();
-            _stgWasRunning = true;
-            localStorage.setItem("qa_stg_running", JSON.stringify({ ts: Date.now() }));
-            initStgProgress();
-          } else if (res.status === 401) {
-            setStgRunBtn(false);
-            STG_PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
-            alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
-          } else {
-            const msg = await res.text();
-            setStgRunBtn(false);
-            STG_PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
-            alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
-          }
-        } catch (e) {
-          setStgRunBtn(false);
-          alert("네트워크 오류: " + e.message);
-        }
-      }
-
       loadStats();
       initProgress();
-      initStgProgress();
     </script>
   </body>
 </html>

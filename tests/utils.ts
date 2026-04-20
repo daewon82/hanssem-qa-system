@@ -3,8 +3,7 @@ import axios from "axios";
 const REPO = "daewon82/hanssem-qa-system";
 
 function getProgressApiUrl(phase: string): string {
-  const file = phase.startsWith("stg-") ? "stg_progress.json" : "progress.json";
-  return `https://api.github.com/repos/${REPO}/contents/${file}`;
+  return `https://api.github.com/repos/${REPO}/contents/progress.json`;
 }
 
 async function ghPagesWrite(path: string, contentObj: object, message: string): Promise<void> {
@@ -25,8 +24,7 @@ export async function publishResults(
   fullDataPath: string
 ): Promise<void> {
   if (!process.env.GITHUB_ACTIONS || !process.env.GITHUB_TOKEN) return;
-  const isStage = report.id.startsWith("stg-");
-  const arrayKey = isStage ? "stageReports" : "reports";
+  const arrayKey = "reports";
   try {
     await ghPagesWrite(fullDataPath, fullData, `results: ${fullDataPath}`);
     const resultsUrl = `https://api.github.com/repos/${REPO}/contents/results.json`;
