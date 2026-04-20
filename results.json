@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. AM 11:50:33",
+  "lastUpdated": "2026. 4. 20. AM 11:51:42",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -701,17 +701,17 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 20. AM 11:50:33",
-      "total": 5,
-      "pass": 4,
+      "lastUpdated": "2026. 4. 20. AM 11:51:42",
+      "total": 7,
+      "pass": 6,
       "fail": 1,
-      "passRate": "80.0",
+      "passRate": "85.7",
       "cases": [
         {
-          "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
+          "name": "검색 결과 — 영문 키워드",
           "url": "",
           "status": "fail",
-          "duration": "5.57s",
+          "duration": "5.56s",
           "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
         }
       ]
