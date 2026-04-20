@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. PM 2:46:02",
+  "lastUpdated": "2026. 4. 20. PM 2:48:33",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -701,14 +701,14 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 20. PM 2:46:02",
-      "total": 2,
-      "pass": 1,
+      "lastUpdated": "2026. 4. 20. PM 2:48:33",
+      "total": 21,
+      "pass": 20,
       "fail": 1,
-      "passRate": "50.0",
+      "passRate": "95.2",
       "cases": [
         {
-          "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
+          "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
           "url": "",
           "status": "fail",
           "duration": "5.50s",
