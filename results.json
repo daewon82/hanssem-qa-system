@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. AM 10:03:25",
+  "lastUpdated": "2026. 4. 20. AM 10:04:43",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -470,20 +470,12 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 20. AM 10:03:25",
+      "lastUpdated": "2026. 4. 20. AM 10:04:43",
       "total": 10,
-      "pass": 9,
-      "fail": 1,
-      "passRate": "90.0",
-      "cases": [
-        {
-          "name": "인테리어 200 응답",
-          "url": "",
-          "status": "fail",
-          "duration": "5.45s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
-        }
-      ]
+      "pass": 10,
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "pc-e2e-v2",
