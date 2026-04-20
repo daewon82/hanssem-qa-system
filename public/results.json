@@ -1,22 +1,31 @@
 {
   "lastUpdated": "2026. 4. 20. PM 2:48:33",
   "incidents": {
-    "total": 30,
-    "hotfix": 30,
-    "feCount": 14,
+    "total": 31,
+    "hotfix": 31,
+    "feCount": 15,
     "beCount": 15,
     "appCount": 1,
-    "lastUpdated": "2026-04-18",
-    "period": "2026-01-06 ~ 2026-04-18",
+    "lastUpdated": "2026-04-20",
+    "period": "2026-01-06 ~ 2026-04-20",
     "byMonth": [
       {
         "month": "2026-04",
         "label": "2026년 4월",
-        "count": 11,
-        "fe": 6,
+        "count": 12,
+        "fe": 7,
         "be": 5,
         "app": 0,
         "list": [
+          {
+            "no": 12,
+            "date": "2026-04-20",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "박대윤",
+            "summary": "모바일 전시 컴포넌트 성능 개선으로 한샘몰 리액트 구간 배포",
+            "jiraLink": ""
+          },
           {
             "no": 11,
             "date": "2026-04-17",
