@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. PM 5:01:12",
+  "lastUpdated": "2026. 4. 20. PM 5:05:10",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -718,20 +718,12 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 20. PM 2:48:33",
-      "total": 21,
-      "pass": 20,
-      "fail": 1,
-      "passRate": "95.2",
-      "cases": [
-        {
-          "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
-          "url": "",
-          "status": "fail",
-          "duration": "5.50s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
-        }
-      ]
+      "lastUpdated": "2026. 4. 20. PM 5:05:10",
+      "total": 27,
+      "pass": 27,
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "pc-e2e-v2",
