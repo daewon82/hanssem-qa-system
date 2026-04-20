@@ -1,38 +1,59 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 20. AM 9:35:52",
-  "total": 4,
-  "pass": 4,
-  "fail": 0,
-  "passRate": "100.0",
+  "lastUpdated": "2026. 4. 20. AM 10:02:11",
+  "total": 7,
+  "pass": 6,
+  "fail": 1,
+  "passRate": "85.7",
   "cases": [
     {
-      "name": "카테고리 페이지(/category/숫자) 진입 및 상품 노출",
-      "url": "https://m.store.hanssem.com/category/20002",
+      "name": "페이지 정상 로딩 및 타이틀 확인",
+      "url": "https://m.store.hanssem.com/",
       "status": "pass",
-      "duration": "7.42s",
+      "duration": "6.86s",
       "reason": ""
     },
     {
-      "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
-      "url": "https://m.store.hanssem.com/interior/constcase",
+      "name": "헤더(GNB) 노출 확인",
+      "url": "https://m.store.hanssem.com/",
       "status": "pass",
-      "duration": "6.01s",
+      "duration": "10.02s",
       "reason": ""
     },
     {
-      "name": "인테리어 — 무료견적상담 링크 노출",
+      "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
+      "url": "https://m.store.hanssem.com/furnishing",
+      "status": "pass",
+      "duration": "12.40s",
+      "reason": ""
+    },
+    {
+      "name": "인테리어 카테고리 진입 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "8.57s",
+      "duration": "6.38s",
       "reason": ""
     },
     {
-      "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
-      "url": "https://m.store.hanssem.com/not-exists-content",
+      "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
+      "url": "https://m.store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "5.19s",
+      "duration": "11.27s",
       "reason": ""
+    },
+    {
+      "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
+      "url": "https://m.store.hanssem.com/interior",
+      "status": "pass",
+      "duration": "9.80s",
+      "reason": ""
+    },
+    {
+      "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
+      "url": "https://m.store.hanssem.com/furnishing",
+      "status": "fail",
+      "duration": "16.64s",
+      "reason": "Error: expect(page).toHaveURL(expected) failed"
     }
   ]
 }
