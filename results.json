@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. PM 4:10:31",
+  "lastUpdated": "2026. 4. 20. PM 4:10:34",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -1085,17 +1085,17 @@
     {
       "id": "stg-pc-e2e",
       "title": "Stage PC E2E 테스트",
-      "lastUpdated": "2026. 4. 20. PM 4:10:31",
+      "lastUpdated": "2026. 4. 20. PM 4:10:34",
       "total": 1,
       "pass": 0,
       "fail": 1,
       "passRate": "0.0",
       "cases": [
         {
-          "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
+          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
           "url": "chrome-error://chromewebdata/",
           "status": "fail",
-          "duration": "0.20s",
+          "duration": "0.30s",
           "reason": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://stg-"
         }
       ]
