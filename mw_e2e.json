@@ -1,23 +1,44 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 20. PM 7:15:10",
-  "total": 2,
-  "pass": 1,
+  "lastUpdated": "2026. 4. 20. PM 7:15:55",
+  "total": 5,
+  "pass": 4,
   "fail": 1,
-  "passRate": "50.0",
+  "passRate": "80.0",
   "cases": [
     {
-      "name": "페이지 정상 로딩 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/",
+      "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
+      "url": "https://m.store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "10.29s",
+      "duration": "8.71s",
       "reason": ""
     },
     {
-      "name": "헤더(GNB) 노출 확인",
+      "name": "인테리어 카테고리 진입 및 타이틀 확인",
+      "url": "https://m.store.hanssem.com/interior",
+      "status": "pass",
+      "duration": "7.24s",
+      "reason": ""
+    },
+    {
+      "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
+      "url": "https://m.store.hanssem.com/furnishing",
+      "status": "pass",
+      "duration": "10.02s",
+      "reason": ""
+    },
+    {
+      "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
+      "url": "https://m.store.hanssem.com/interior",
+      "status": "pass",
+      "duration": "7.92s",
+      "reason": ""
+    },
+    {
+      "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
       "url": "",
       "status": "fail",
-      "duration": "5.49s",
+      "duration": "5.48s",
       "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
     }
   ]
