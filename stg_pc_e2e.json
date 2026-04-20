@@ -1,16 +1,16 @@
 {
   "title": "Stage PC E2E 테스트",
-  "lastUpdated": "2026. 4. 20. PM 4:10:24",
+  "lastUpdated": "2026. 4. 20. PM 4:10:27",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "인테리어 카테고리 진입 및 타이틀 확인",
+      "name": "GNB 가구/홈리빙 링크 클릭 → 페이지 이동 (PC)",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
-      "duration": "0.15s",
+      "duration": "0.06s",
       "reason": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://stg-"
     }
   ]
