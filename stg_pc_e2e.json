@@ -1,17 +1,17 @@
 {
   "title": "Stage PC E2E 테스트",
-  "lastUpdated": "2026. 4. 20. PM 4:12:08",
+  "lastUpdated": "2026. 4. 20. PM 4:12:12",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "인테리어 — 무료견적상담 링크 노출",
+      "name": "기획전 페이지 200 응답",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
-      "duration": "0.07s",
-      "reason": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://stg-"
+      "duration": "0.65s",
+      "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://stagema"
     }
   ]
 }
