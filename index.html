@@ -501,10 +501,7 @@
 
     <!-- ── 테스트 결과 리포트 (4-column) ──────────────────── -->
     <div class="section-header-row">
-      <div>
-        <div style="display:inline-flex;align-items:center;gap:5px;background:var(--green-bg);color:var(--green);font-size:11px;font-weight:700;padding:3px 9px;border-radius:10px;margin-bottom:6px">운영환경 PRODUCTION</div>
-        <div class="section-label" style="margin:0;font-size:26px;font-weight:700;color:var(--text-main)">테스트 결과 리포트</div>
-      </div>
+      <div class="section-label" style="margin:0;font-size:26px;font-weight:700;color:var(--text-main)">운영 환경 테스트 결과 리포트</div>
       <button id="run-test-btn" onclick="runWorkflow()" style="
         display:flex;align-items:center;gap:6px;
         background:var(--blue);color:#fff;
@@ -526,10 +523,7 @@
 
     <!-- ── Stage 환경 테스트 ─────────────────────────────── -->
     <div class="section-header-row" style="margin-top:32px">
-      <div>
-        <div style="display:inline-flex;align-items:center;gap:5px;background:#f3e5f5;color:#7B1FA2;font-size:11px;font-weight:700;padding:3px 9px;border-radius:10px;margin-bottom:6px">Stage 환경 STAGING</div>
-        <div class="section-label" style="margin:0;font-size:26px;font-weight:700;color:var(--text-main)">Stage 테스트 리포트</div>
-      </div>
+      <div class="section-label" style="margin:0;font-size:26px;font-weight:700;color:var(--text-main)">Stage 환경 테스트 결과 리포트</div>
       <button id="run-stg-test-btn" onclick="runStageWorkflow()" style="
         display:flex;align-items:center;gap:6px;
         background:#7B1FA2;color:#fff;
@@ -540,7 +534,7 @@
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
           <polygon points="3,2 11,6.5 3,11" fill="white"/>
         </svg>
-        Stage 테스트 실행
+        테스트 실행
       </button>
     </div>
     <div class="cards-grid-4" id="stg-cards-grid">
