@@ -1,17 +1,17 @@
 {
   "title": "Stage MW E2E 테스트",
-  "lastUpdated": "2026. 4. 20. PM 4:13:10",
+  "lastUpdated": "2026. 4. 20. PM 4:13:14",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "장바구니 직접 URL — 로그인 redirect 확인",
+      "name": "메인 200 응답",
       "url": "",
       "status": "fail",
       "duration": "0.64s",
-      "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://stagema"
+      "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://stg-m.s"
     }
   ]
 }
