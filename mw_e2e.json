@@ -1,44 +1,58 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 20. AM 11:50:33",
-  "total": 5,
-  "pass": 4,
+  "lastUpdated": "2026. 4. 20. AM 11:51:42",
+  "total": 7,
+  "pass": 6,
   "fail": 1,
-  "passRate": "80.0",
+  "passRate": "85.7",
   "cases": [
     {
-      "name": "페이지 정상 로딩 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/",
-      "status": "pass",
-      "duration": "7.13s",
-      "reason": ""
-    },
-    {
-      "name": "헤더(GNB) 노출 확인",
-      "url": "https://m.store.hanssem.com/",
-      "status": "pass",
-      "duration": "6.66s",
-      "reason": ""
-    },
-    {
-      "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/furnishing",
-      "status": "pass",
-      "duration": "10.26s",
-      "reason": ""
-    },
-    {
-      "name": "인테리어 카테고리 진입 및 타이틀 확인",
+      "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "12.67s",
+      "duration": "8.94s",
       "reason": ""
     },
     {
-      "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
+      "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
+      "url": "https://m.store.hanssem.com/goods/1077505",
+      "status": "pass",
+      "duration": "15.47s",
+      "reason": ""
+    },
+    {
+      "name": "상품 상세 — 상품명(H1) 노출",
+      "url": "https://m.store.hanssem.com/goods/837513",
+      "status": "pass",
+      "duration": "8.32s",
+      "reason": ""
+    },
+    {
+      "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
+      "url": "https://m.store.hanssem.com/goods/837513",
+      "status": "pass",
+      "duration": "7.24s",
+      "reason": ""
+    },
+    {
+      "name": "상품 상세 — 상품 이미지 노출",
+      "url": "https://m.store.hanssem.com/goods/837513",
+      "status": "pass",
+      "duration": "8.14s",
+      "reason": ""
+    },
+    {
+      "name": "검색 결과 페이지 — 정상 로딩 및 타이틀",
+      "url": "https://m.store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
+      "status": "pass",
+      "duration": "10.38s",
+      "reason": ""
+    },
+    {
+      "name": "검색 결과 — 영문 키워드",
       "url": "",
       "status": "fail",
-      "duration": "5.57s",
+      "duration": "5.56s",
       "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
     }
   ]
