@@ -1,13 +1,13 @@
 {
   "title": "Stage MW E2E 테스트",
-  "lastUpdated": "2026. 4. 20. PM 4:13:47",
+  "lastUpdated": "2026. 4. 20. PM 4:13:51",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "검색 결과 0건 — 없는 키워드",
+      "name": "카테고리 페이지 진입 및 상품 노출",
       "url": "",
       "status": "fail",
       "duration": "0.64s",
