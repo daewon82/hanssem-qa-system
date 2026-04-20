@@ -1,16 +1,16 @@
 {
   "title": "Stage MW E2E 테스트",
-  "lastUpdated": "2026. 4. 20. PM 4:13:23",
+  "lastUpdated": "2026. 4. 20. PM 4:13:27",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "인테리어 200 응답",
+      "name": "검색결과 200 응답",
       "url": "",
       "status": "fail",
-      "duration": "0.74s",
+      "duration": "0.63s",
       "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://stg-m.s"
     }
   ]
