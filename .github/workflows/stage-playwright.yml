@@ -24,6 +24,13 @@ jobs:
         run: |
           sudo bash -c "echo '10.2.4.81 stg-image.hanssem.com' >> /etc/hosts"
           sudo bash -c "echo '10.2.4.83 image2.hanssem.com' >> /etc/hosts"
+          sudo bash -c "echo '10.206.210.44 stg-store.hanssem.com' >> /etc/hosts"
+          sudo bash -c "echo '10.206.211.202 stg-store.hanssem.com' >> /etc/hosts"
+          sudo bash -c "echo '10.206.211.216 stg-m.store.hanssem.com' >> /etc/hosts"
+          sudo bash -c "echo '10.206.210.199 stg-m.store.hanssem.com' >> /etc/hosts"
+          sudo bash -c "echo '10.200.4.136 stagemall.hanssem.com' >> /etc/hosts"
+          sudo bash -c "echo '10.206.211.161 stg-m.remodeling.hanssem.com' >> /etc/hosts"
+          sudo bash -c "echo '10.206.210.63 stg-m.remodeling.hanssem.com' >> /etc/hosts"
           echo "✅ /etc/hosts 설정 완료"
           cat /etc/hosts | grep hanssem
 
