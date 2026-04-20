@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. PM 7:14:51",
+  "lastUpdated": "2026. 4. 20. PM 7:15:10",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -710,12 +710,20 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 20. PM 5:05:10",
-      "total": 27,
-      "pass": 27,
-      "fail": 0,
-      "passRate": "100.0",
-      "cases": []
+      "lastUpdated": "2026. 4. 20. PM 7:15:10",
+      "total": 2,
+      "pass": 1,
+      "fail": 1,
+      "passRate": "50.0",
+      "cases": [
+        {
+          "name": "헤더(GNB) 노출 확인",
+          "url": "",
+          "status": "fail",
+          "duration": "5.49s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+        }
+      ]
     },
     {
       "id": "pc-e2e-v2",
