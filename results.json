@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. AM 10:02:11",
+  "lastUpdated": "2026. 4. 20. AM 10:03:25",
   "incidents": {
     "total": 30,
     "hotfix": 30,
@@ -470,18 +470,18 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 20. AM 10:02:11",
-      "total": 7,
-      "pass": 6,
+      "lastUpdated": "2026. 4. 20. AM 10:03:25",
+      "total": 10,
+      "pass": 9,
       "fail": 1,
-      "passRate": "85.7",
+      "passRate": "90.0",
       "cases": [
         {
-          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
-          "url": "https://m.store.hanssem.com/furnishing",
+          "name": "인테리어 200 응답",
+          "url": "",
           "status": "fail",
-          "duration": "16.64s",
-          "reason": "Error: expect(page).toHaveURL(expected) failed"
+          "duration": "5.45s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
         }
       ]
     },
