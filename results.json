@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. PM 7:15:55",
+  "lastUpdated": "2026. 4. 20. PM 7:17:33",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -710,18 +710,18 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 20. PM 7:15:55",
-      "total": 5,
-      "pass": 4,
+      "lastUpdated": "2026. 4. 20. PM 7:17:33",
+      "total": 14,
+      "pass": 13,
       "fail": 1,
-      "passRate": "80.0",
+      "passRate": "92.9",
       "cases": [
         {
-          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
-          "url": "",
+          "name": "매장 찾기 페이지 직접 진입 및 타이틀 확인",
+          "url": "https://m.store.hanssem.com/store",
           "status": "fail",
-          "duration": "5.48s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+          "duration": "10.81s",
+          "reason": "Error: expect(page).toHaveTitle(expected) failed"
         }
       ]
     },
