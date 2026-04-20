@@ -1,16 +1,16 @@
 {
   "title": "Stage PC E2E 테스트",
-  "lastUpdated": "2026. 4. 20. PM 4:10:49",
+  "lastUpdated": "2026. 4. 20. PM 4:10:52",
   "total": 1,
   "pass": 0,
   "fail": 1,
   "passRate": "0.0",
   "cases": [
     {
-      "name": "상품 상세 — 상품 이미지 노출",
+      "name": "검색 아이콘 클릭 → 검색창 → 결과 이동 (PC)",
       "url": "chrome-error://chromewebdata/",
       "status": "fail",
-      "duration": "0.10s",
+      "duration": "0.14s",
       "reason": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://stg-"
     }
   ]
