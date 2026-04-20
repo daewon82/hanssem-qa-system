@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 20. PM 4:26:36",
+  "lastUpdated": "2026. 4. 20. PM 4:27:21",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -1094,17 +1094,17 @@
     {
       "id": "stg-pc-e2e",
       "title": "Stage PC E2E 테스트",
-      "lastUpdated": "2026. 4. 20. PM 4:26:36",
+      "lastUpdated": "2026. 4. 20. PM 4:27:21",
       "total": 1,
       "pass": 0,
       "fail": 1,
       "passRate": "0.0",
       "cases": [
         {
-          "name": "페이지 정상 로딩 및 타이틀 확인",
+          "name": "헤더(GNB) 노출 확인",
           "url": "about:blank",
           "status": "fail",
-          "duration": "30.05s",
+          "duration": "30.08s",
           "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
         }
       ]
