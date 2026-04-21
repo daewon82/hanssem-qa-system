@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 21. PM 3:11:52",
+  "lastUpdated": "2026. 4. 21. PM 3:12:14",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -718,20 +718,12 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 21. PM 3:11:52",
-      "total": 3,
+      "lastUpdated": "2026. 4. 21. PM 3:12:14",
+      "total": 2,
       "pass": 2,
-      "fail": 1,
-      "passRate": "66.7",
-      "cases": [
-        {
-          "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
-          "url": "https://m.store.hanssem.com/interior/constcase",
-          "status": "fail",
-          "duration": "30.05s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
-        }
-      ]
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "pc-e2e-v2",
