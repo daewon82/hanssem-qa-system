@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 21. PM 4:23:08",
+  "lastUpdated": "2026. 4. 21. PM 5:17:48",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,7 +334,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 21. PM 3:57:23",
+      "lastUpdated": "2026. 4. 21. PM 4:51:18",
       "total": 500,
       "pass": 500,
       "fail": 0,
@@ -345,7 +345,7 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 21. PM 4:03:08",
+      "lastUpdated": "2026. 4. 21. PM 4:56:57",
       "total": 49,
       "pass": 49,
       "fail": 0,
@@ -355,28 +355,36 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 21. PM 4:19:38",
+      "lastUpdated": "2026. 4. 21. PM 5:14:15",
       "total": 500,
-      "pass": 500,
-      "fail": 0,
-      "passRate": "100.0",
+      "pass": 499,
+      "fail": 1,
+      "passRate": "99.8",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": []
+      "cases": [
+        {
+          "name": "1058860",
+          "url": "https://m.store.hanssem.com/goods/1058860",
+          "status": "fail",
+          "duration": "2.01s",
+          "reason": "502"
+        }
+      ]
     },
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 21. PM 4:23:08",
+      "lastUpdated": "2026. 4. 21. PM 5:17:48",
       "total": 27,
       "pass": 26,
       "fail": 1,
       "passRate": "96.3",
       "cases": [
         {
-          "name": "상품 상세 — 상품명(H1) 노출",
+          "name": "헤더(GNB) 노출 확인",
           "url": "",
           "status": "fail",
-          "duration": "5.50s",
+          "duration": "5.45s",
           "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
         }
       ]
@@ -746,5 +754,5 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 21. 15:25"
+  "codeLastModified": "2026. 4. 21. 16:33"
 }
