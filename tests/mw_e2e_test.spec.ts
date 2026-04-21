@@ -82,10 +82,25 @@ test.afterEach(async ({ page }, testInfo) => {
 test.afterAll(async () => {
   if (hasPublished) return;
   hasPublished = true;
-  const totalCount = passCount + failCount;
-  const passRate =
-    totalCount > 0 ? ((passCount / totalCount) * 100).toFixed(1) : "0";
+
+  // 워커 재시작 시 이전 실행 결과와 머지 (테스트 실패로 인한 재시작 대응)
+  let prevCases: any[] = [];
+  try {
+    const prev = JSON.parse(fs.readFileSync("public/mw_e2e.json", "utf8"));
+    prevCases = prev.cases || [];
+  } catch {}
+  const runNames = new Set(caseResults.map((c: any) => c.name));
+  const mergedCases = [...prevCases.filter((c: any) => !runNames.has(c.name)), ...caseResults];
+
+  const mergedPass  = mergedCases.filter((c: any) => c.status === "pass").length;
+  const mergedFail  = mergedCases.filter((c: any) => c.status === "fail").length;
+  const totalCount  = mergedPass + mergedFail;
+  const passRate    = totalCount > 0 ? ((mergedPass / totalCount) * 100).toFixed(1) : "0";
   const kst = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+
+  // 잔디: 워커 재시작이면 이전 전송 내역 확인 후 마지막 실행에서만 전송
+  const JANDI_FLAG = "/tmp/.mw_e2e_jandi_sent";
+  const isLastRun  = !fs.existsSync(JANDI_FLAG);
 
   let existingData: any = { lastUpdated: kst, reports: [] };
   try {
@@ -98,10 +113,10 @@ test.afterAll(async () => {
     title: REPORT_TITLE,
     lastUpdated: kst,
     total: totalCount,
-    pass: passCount,
-    fail: failCount,
+    pass: mergedPass,
+    fail: mergedFail,
     passRate,
-    cases: caseResults.filter((c) => c.status === "fail"),
+    cases: mergedCases.filter((c: any) => c.status === "fail"),
   };
 
   const reportIdx = existingData.reports.findIndex(
@@ -123,10 +138,10 @@ test.afterAll(async () => {
         title: REPORT_TITLE,
         lastUpdated: kst,
         total: totalCount,
-        pass: passCount,
-        fail: failCount,
+        pass: mergedPass,
+        fail: mergedFail,
         passRate,
-        cases: caseResults,
+        cases: mergedCases,
       },
       null,
       2,
@@ -135,23 +150,25 @@ test.afterAll(async () => {
 
   await publishResults(
     newReport,
-    { title: REPORT_TITLE, lastUpdated: kst, total: totalCount, pass: passCount, fail: failCount, passRate, cases: caseResults },
+    { title: REPORT_TITLE, lastUpdated: kst, total: totalCount, pass: mergedPass, fail: mergedFail, passRate, cases: mergedCases },
     "mw_e2e.json"
   );
 
   if (!process.env.CI) {
     console.log("⏭️ 로컬 실행 — 잔디 알림 스킵");
+  } else if (!isLastRun) {
+    console.log("⏭️ 워커 재시작 중간 완료 — 잔디 최종 전송 대기");
   } else try {
-    const failTestText =
-      failedTests.length > 0 ? failedTests.slice(0, 10).join("\n") : "없음";
+    fs.writeFileSync(JANDI_FLAG, "1");
+    const failList = mergedCases.filter((c: any) => c.status === "fail");
+    const failTestText = failList.length > 0
+      ? failList.slice(0, 10).map((c: any) => `${c.name}\n  ${c.url || "페이지 로딩 실패"}`).join("\n")
+      : "없음";
     await axios.post(JANDI_WEBHOOK_URL, {
-      body: `[${REPORT_TITLE}] 결과: ${passCount} 성공 / ${failCount} 실패`,
-      connectColor: failCount > 0 ? "#FF4444" : "#00C73C",
+      body: `[${REPORT_TITLE}] 결과: ${mergedPass} 성공 / ${mergedFail} 실패`,
+      connectColor: mergedFail > 0 ? "#FF4444" : "#00C73C",
       connectInfo: [
-        {
-          title: "결과 요약",
-          description: `총 ${totalCount}건 / 통과율 ${passRate}%`,
-        },
+        { title: "결과 요약", description: `총 ${totalCount}건 / 통과율 ${passRate}%` },
         { title: "실패 테스트", description: failTestText },
         { title: "📊 리포트 보기", description: DASHBOARD_URL },
       ],
