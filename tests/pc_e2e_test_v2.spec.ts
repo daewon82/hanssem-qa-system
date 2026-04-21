@@ -101,7 +101,7 @@ test.afterAll(async () => {
     pass: passCount,
     fail: failCount,
     passRate,
-    cases: caseResults,
+    cases: caseResults.filter((c: any) => c.status === "fail"),
   };
 
   const reportIdx = existingData.reports.findIndex(

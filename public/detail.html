@@ -152,6 +152,36 @@
     .reason-tag.conn { background: #f3f4f6; color: var(--text-sub); }
 
     .empty-msg { text-align: center; padding: 40px; color: var(--text-hint); }
+
+    /* ── 페이징 ── */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      padding: 20px 24px 40px;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--card);
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .page-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+    .page-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .page-btn:disabled { opacity: 0.35; cursor: default; }
+    .page-ellipsis { font-size: 12px; color: var(--text-hint); padding: 0 4px; line-height: 32px; }
   </style>
 </head>
 <body>
@@ -173,7 +203,7 @@
   <button class="filter-btn active" onclick="setFilter('all', this)">전체</button>
   <button class="filter-btn" onclick="setFilter('pass', this)">통과만</button>
   <button class="filter-btn fail-active" style="background:var(--card);color:var(--text-sub);border-color:var(--border)" id="fail-btn" onclick="setFilter('fail', this)">실패만</button>
-  <input class="search-input" id="search-input" placeholder="URL / 테스트명 검색..." oninput="renderTable()" />
+  <input class="search-input" id="search-input" placeholder="URL / 테스트명 검색..." oninput="currentPage=1;renderTable()" />
 </div>
 
 <div class="table-wrap">
@@ -190,6 +220,7 @@
     <tbody id="table-body"></tbody>
   </table>
 </div>
+<div class="pagination" id="pagination"></div>
 
 <script>
   const params = new URLSearchParams(location.search);
@@ -204,6 +235,8 @@
 
   let allCases = [];
   let currentFilter = "all";
+  let currentPage = 1;
+  const PAGE_SIZE = 50;
 
   async function init() {
     try {
@@ -222,7 +255,10 @@
         <div class="sum-card"><div class="sum-val ${rateColor}">${data.passRate || 0}%</div><div class="sum-label">통과율</div></div>
       `;
 
-      allCases = data.cases || [];
+      allCases = (data.cases || []).sort((a, b) => {
+        if (a.status === b.status) return 0;
+        return a.status === "fail" ? -1 : 1;
+      });
       renderTable();
     } catch (e) {
       document.getElementById("table-body").innerHTML =
@@ -232,6 +268,7 @@
 
   function setFilter(filter, btn) {
     currentFilter = filter;
+    currentPage = 1;
     document.querySelectorAll(".filter-btn").forEach(b => {
       b.classList.remove("active", "fail-active");
       b.style.background = "var(--card)";
@@ -267,11 +304,18 @@
     if (!filtered.length) {
       document.getElementById("table-body").innerHTML =
         `<tr><td colspan="5" class="empty-msg">해당하는 결과가 없습니다.</td></tr>`;
+      document.getElementById("pagination").innerHTML = "";
       return;
     }
 
-    let num = 0;
-    document.getElementById("table-body").innerHTML = filtered.map(c => {
+    const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+    let num = start;
+    document.getElementById("table-body").innerHTML = pageItems.map(c => {
       num++;
       const isPass = c.status === "pass";
       const badge = isPass
@@ -297,6 +341,43 @@
         <td class="td-reason">${reasonTag}</td>
       </tr>`;
     }).join("");
+
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    const el = document.getElementById("pagination");
+    if (totalPages <= 1) { el.innerHTML = ""; return; }
+
+    const pages = [];
+    const delta = 2;
+    const left = currentPage - delta;
+    const right = currentPage + delta;
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= left && i <= right)) {
+        pages.push(i);
+      }
+    }
+
+    let html = `<button class="page-btn" ${currentPage === 1 ? "disabled" : ""} onclick="goPage(${currentPage - 1})">&#8249;</button>`;
+    let prev = null;
+    for (const p of pages) {
+      if (prev !== null && p - prev > 1) {
+        html += `<span class="page-ellipsis">…</span>`;
+      }
+      html += `<button class="page-btn${p === currentPage ? " active" : ""}" onclick="goPage(${p})">${p}</button>`;
+      prev = p;
+    }
+    html += `<button class="page-btn" ${currentPage === totalPages ? "disabled" : ""} onclick="goPage(${currentPage + 1})">&#8250;</button>`;
+
+    el.innerHTML = html;
+  }
+
+  function goPage(p) {
+    currentPage = p;
+    renderTable();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function escHtml(s) {

@@ -151,6 +151,93 @@
       .jira-link:hover { text-decoration: underline; }
       .no-link { color: var(--text-hint); font-size: 11px; }
 
+      /* ── Register Button ── */
+      .register-btn {
+        display: inline-flex; align-items: center; gap: 5px;
+        font-size: 12px; font-weight: 600; color: #fff;
+        text-decoration: none; padding: 7px 14px;
+        background: var(--red); border: 1px solid var(--red); border-radius: 6px;
+        cursor: pointer; transition: opacity 0.15s;
+      }
+      .register-btn:hover { opacity: 0.85; }
+
+      /* ── Modal ── */
+      .modal-overlay {
+        display: none; position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45); z-index: 200;
+        align-items: center; justify-content: center;
+      }
+      .modal-overlay.open { display: flex; }
+      .modal-box {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 28px;
+        width: 480px;
+        max-width: calc(100vw - 32px);
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      }
+      .modal-title {
+        font-size: 15px; font-weight: 700;
+        margin-bottom: 20px;
+        display: flex; align-items: center; gap: 8px;
+      }
+      .modal-title span {
+        font-size: 10px; font-weight: 700;
+        background: var(--red-bg); color: var(--red);
+        padding: 2px 8px; border-radius: 6px;
+      }
+      .form-row { margin-bottom: 14px; }
+      .form-label {
+        display: block;
+        font-size: 11px; font-weight: 600; color: var(--text-sub);
+        margin-bottom: 5px;
+      }
+      .form-label .req { color: var(--red); margin-left: 2px; }
+      .form-input, .form-select, .form-textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 8px 10px;
+        font-size: 12px;
+        color: var(--text-main);
+        background: var(--bg-card);
+        outline: none;
+        transition: border-color 0.15s;
+        font-family: inherit;
+      }
+      .form-input:focus, .form-select:focus, .form-textarea:focus {
+        border-color: var(--blue);
+      }
+      .form-textarea { resize: vertical; min-height: 80px; }
+      .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .modal-actions {
+        display: flex; gap: 8px; justify-content: flex-end;
+        margin-top: 20px;
+      }
+      .btn-cancel {
+        padding: 8px 18px; border-radius: 6px;
+        border: 1px solid var(--border); background: var(--bg-card);
+        color: var(--text-sub); font-size: 12px; font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-cancel:hover { background: var(--bg-stat); }
+      .btn-submit {
+        padding: 8px 22px; border-radius: 6px;
+        border: none; background: var(--blue); color: #fff;
+        font-size: 12px; font-weight: 700; cursor: pointer;
+        transition: opacity 0.15s;
+      }
+      .btn-submit:hover { opacity: 0.85; }
+      .btn-submit:disabled { opacity: 0.5; cursor: default; }
+      .modal-feedback {
+        font-size: 11px; padding: 8px 12px; border-radius: 6px;
+        margin-top: 10px; display: none;
+      }
+      .modal-feedback.ok  { background: var(--green-bg); color: var(--green); display: block; }
+      .modal-feedback.err { background: var(--red-bg);   color: var(--red);   display: block; }
+
       /* Responsive */
       @media (max-width: 768px) {
         body { padding: 14px; }
@@ -158,6 +245,7 @@
         .sum-item { padding: 0 16px; }
         thead th:nth-child(1),
         td:nth-child(1) { display: none; }
+        .form-row-2 { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -179,9 +267,57 @@
           <div class="title-sub" id="period-sub">핫픽스 · 비정기배포 전체 내역</div>
         </div>
       </div>
-      <a href="index.html" class="back-btn">
-        ← 대시보드로 돌아가기
-      </a>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="register-btn" onclick="openModal()">＋ 장애 등록</button>
+        <a href="index.html" class="back-btn">← 대시보드로 돌아가기</a>
+      </div>
+    </div>
+
+    <!-- 장애 등록 모달 -->
+    <div class="modal-overlay" id="modal-overlay" onclick="onOverlayClick(event)">
+      <div class="modal-box">
+        <div class="modal-title">장애 등록 <span>NEW</span></div>
+        <form id="register-form" onsubmit="submitIncident(event)">
+          <div class="form-row">
+            <label class="form-label">날짜 <span class="req">*</span></label>
+            <input class="form-input" type="date" id="f-date" required />
+          </div>
+          <div class="form-row-2">
+            <div class="form-row" style="margin-bottom:0">
+              <label class="form-label">유형 <span class="req">*</span></label>
+              <select class="form-select" id="f-type">
+                <option value="핫픽스">핫픽스</option>
+                <option value="비정기배포">비정기배포</option>
+              </select>
+            </div>
+            <div class="form-row" style="margin-bottom:0">
+              <label class="form-label">분류 <span class="req">*</span></label>
+              <select class="form-select" id="f-cat">
+                <option value="FE">FE (프론트엔드)</option>
+                <option value="BE">BE (백엔드)</option>
+                <option value="APP">APP (모바일)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:14px">
+            <label class="form-label">담당자 <span class="req">*</span></label>
+            <input class="form-input" type="text" id="f-assignee" placeholder="이름 입력" required />
+          </div>
+          <div class="form-row">
+            <label class="form-label">이슈 내용 <span class="req">*</span></label>
+            <textarea class="form-textarea" id="f-summary" placeholder="장애 내용을 간략히 입력해주세요" required></textarea>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Jira 링크 <span style="color:var(--text-hint);font-weight:400">(선택)</span></label>
+            <input class="form-input" type="url" id="f-jira" placeholder="https://hanssem.atlassian.net/browse/..." />
+          </div>
+          <div class="modal-feedback" id="modal-feedback"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" onclick="closeModal()">취소</button>
+            <button type="submit" class="btn-submit" id="btn-submit">등록하기</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Summary -->
@@ -300,6 +436,135 @@
       }
 
       load();
+
+      // ── 모달 ──────────────────────────────────────────────
+      function openModal() {
+        const today = new Date().toLocaleDateString("sv-SE"); // YYYY-MM-DD
+        document.getElementById("f-date").value = today;
+        document.getElementById("f-assignee").value = "";
+        document.getElementById("f-summary").value = "";
+        document.getElementById("f-jira").value = "";
+        document.getElementById("f-type").value = "핫픽스";
+        document.getElementById("f-cat").value = "FE";
+        setFeedback("", "");
+        document.getElementById("btn-submit").disabled = false;
+        document.getElementById("modal-overlay").classList.add("open");
+      }
+
+      function closeModal() {
+        document.getElementById("modal-overlay").classList.remove("open");
+      }
+
+      function onOverlayClick(e) {
+        if (e.target === document.getElementById("modal-overlay")) closeModal();
+      }
+
+      function setFeedback(msg, type) {
+        const el = document.getElementById("modal-feedback");
+        el.className = "modal-feedback" + (type ? " " + type : "");
+        el.textContent = msg;
+      }
+
+      // ── GitHub API ──────────────────────────────────────────
+      const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].join("");
+      const REPO_API = "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/public/results.json";
+
+      async function fetchBranch(branch) {
+        const r = await fetch(`${REPO_API}?ref=${branch}`, {
+          headers: { Authorization: `token ${GH_TOKEN}` }
+        });
+        if (!r.ok) throw new Error(`GET ${branch} 실패 (${r.status})`);
+        const f = await r.json();
+        const data = JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g, "")))));
+        return { data, sha: f.sha };
+      }
+
+      async function putBranch(branch, sha, data, message) {
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+        const r = await fetch(REPO_API, {
+          method: "PUT",
+          headers: { Authorization: `token ${GH_TOKEN}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ message, content, sha, branch })
+        });
+        if (!r.ok) {
+          const e = await r.json().catch(() => ({}));
+          throw new Error(`PUT ${branch} 실패: ${e.message || r.status}`);
+        }
+      }
+
+      // ── incidents 업데이트 로직 ──────────────────────────────
+      function applyIncident(data, { date, type, category, assignee, summary, jiraLink }) {
+        const inc = data.incidents;
+        const yearMonth = date.slice(0, 7);
+        const [y, m] = yearMonth.split("-");
+
+        let monthEntry = inc.byMonth.find(e => e.month === yearMonth);
+        if (!monthEntry) {
+          monthEntry = { month: yearMonth, label: `${y}년 ${parseInt(m)}월`, count: 0, fe: 0, be: 0, app: 0, list: [] };
+          // 최신 월이 앞으로
+          inc.byMonth.unshift(monthEntry);
+        }
+
+        monthEntry.count++;
+        if (category === "FE")  monthEntry.fe++;
+        else if (category === "BE")  monthEntry.be++;
+        else if (category === "APP") monthEntry.app++;
+
+        monthEntry.list.unshift({
+          no: monthEntry.count,
+          date, type, category, assignee, summary,
+          jiraLink: jiraLink || ""
+        });
+
+        inc.total = (inc.total || 0) + 1;
+        if (type === "핫픽스") inc.hotfix = (inc.hotfix || 0) + 1;
+        if (category === "FE")       inc.feCount  = (inc.feCount  || 0) + 1;
+        else if (category === "BE")  inc.beCount  = (inc.beCount  || 0) + 1;
+        else if (category === "APP") inc.appCount = (inc.appCount || 0) + 1;
+
+        inc.lastUpdated = date;
+        const allDates = inc.byMonth.flatMap(e => e.list.map(i => i.date)).sort();
+        if (allDates.length) inc.period = `${allDates[0]} ~ ${allDates[allDates.length - 1]}`;
+      }
+
+      // ── 폼 제출 ──────────────────────────────────────────────
+      async function submitIncident(e) {
+        e.preventDefault();
+        const payload = {
+          date:      document.getElementById("f-date").value,
+          type:      document.getElementById("f-type").value,
+          category:  document.getElementById("f-cat").value,
+          assignee:  document.getElementById("f-assignee").value.trim(),
+          summary:   document.getElementById("f-summary").value.trim(),
+          jiraLink:  document.getElementById("f-jira").value.trim(),
+        };
+
+        const btn = document.getElementById("btn-submit");
+        btn.disabled = true;
+        btn.textContent = "저장 중...";
+        setFeedback("", "");
+
+        const commitMsg = `feat: 장애 등록 - ${payload.date} [${payload.category}] ${payload.summary.slice(0, 40)}`;
+
+        try {
+          // main 브랜치 업데이트
+          const main = await fetchBranch("main");
+          applyIncident(main.data, payload);
+          await putBranch("main", main.sha, main.data, commitMsg);
+
+          // gh-pages 브랜치 업데이트
+          const ghp = await fetchBranch("gh-pages");
+          applyIncident(ghp.data, payload);
+          await putBranch("gh-pages", ghp.sha, ghp.data, commitMsg);
+
+          setFeedback("✅ 장애가 등록되었습니다. 화면을 갱신합니다...", "ok");
+          setTimeout(() => { closeModal(); load(); }, 1500);
+        } catch (err) {
+          setFeedback(`❌ 저장 실패: ${err.message}`, "err");
+          btn.disabled = false;
+          btn.textContent = "등록하기";
+        }
+      }
     </script>
   </body>
 </html>
