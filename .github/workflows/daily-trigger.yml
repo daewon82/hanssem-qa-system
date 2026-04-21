@@ -1,8 +1,8 @@
-name: Daily Trigger (KST 07:30)
+name: Daily Trigger (KST 07:00)
 
 on:
   schedule:
-    - cron: "30 22 * * *" # UTC 22:30 = KST 07:30
+    - cron: "0 22 * * *" # UTC 22:00 = KST 07:00
   workflow_dispatch: # 수동 테스트용
 
 jobs:
