@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 21. PM 4:51:18",
+  "lastUpdated": "2026. 4. 21. PM 4:56:57",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,7 +345,7 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 21. PM 4:03:08",
+      "lastUpdated": "2026. 4. 21. PM 4:56:57",
       "total": 49,
       "pass": 49,
       "fail": 0,
