@@ -238,6 +238,39 @@
       .modal-feedback.ok  { background: var(--green-bg); color: var(--green); display: block; }
       .modal-feedback.err { background: var(--red-bg);   color: var(--red);   display: block; }
 
+      /* ── Password Modal ── */
+      .pw-modal-overlay {
+        display: none; position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45); z-index: 300;
+        align-items: center; justify-content: center;
+      }
+      .pw-modal-overlay.open { display: flex; }
+      .pw-modal-box {
+        background: var(--bg-card);
+        border-radius: 12px; padding: 28px 28px 24px;
+        width: 340px; max-width: calc(100vw - 32px);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      }
+      .pw-modal-title {
+        font-size: 14px; font-weight: 700; margin-bottom: 6px;
+        display: flex; align-items: center; gap: 7px;
+      }
+      .pw-modal-desc { font-size: 11px; color: var(--text-hint); margin-bottom: 16px; }
+      .pw-error {
+        display: none; font-size: 11px; color: var(--red);
+        background: var(--red-bg); border-radius: 5px;
+        padding: 6px 10px; margin-top: 8px;
+      }
+
+      /* ── Delete ── */
+      .del-btn {
+        border: none; background: none; cursor: pointer;
+        color: var(--text-hint); padding: 4px 6px; border-radius: 4px;
+        transition: color 0.15s, background 0.15s; line-height: 1;
+      }
+      .del-btn:hover { color: var(--red); background: var(--red-bg); }
+      .del-btn:disabled { opacity: 0.4; cursor: default; }
+
       /* Responsive */
       @media (max-width: 768px) {
         body { padding: 14px; }
@@ -270,6 +303,26 @@
       <div style="display:flex;gap:8px;align-items:center;">
         <button class="register-btn" onclick="openModal()">＋ 장애 등록</button>
         <a href="index.html" class="back-btn">← 대시보드로 돌아가기</a>
+      </div>
+    </div>
+
+    <!-- 비밀번호 모달 -->
+    <div class="pw-modal-overlay" id="pw-modal">
+      <div class="pw-modal-box">
+        <div class="pw-modal-title">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <rect x="2" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M5 6V4a2.5 2.5 0 015 0v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          삭제 비밀번호 확인
+        </div>
+        <div class="pw-modal-desc">장애 항목 삭제는 비밀번호 확인 후 진행됩니다.</div>
+        <input class="form-input" type="password" id="pw-input" placeholder="비밀번호 입력" autocomplete="off" />
+        <div class="pw-error" id="pw-error">비밀번호가 올바르지 않습니다.</div>
+        <div class="modal-actions" style="margin-top:16px">
+          <button type="button" class="btn-cancel" onclick="closePwModal(false)">취소</button>
+          <button type="button" class="btn-submit" onclick="submitPw()">확인</button>
+        </div>
       </div>
     </div>
 
@@ -373,7 +426,7 @@
 
       function renderMonth(m, globalOffset) {
         const rows = m.list.map((item, idx) => `
-          <tr>
+          <tr id="row-${m.month}-${idx}">
             <td class="date">${String(globalOffset + idx + 1).padStart(2, "0")}</td>
             <td class="date">${item.date}</td>
             <td>${typeBadge(item.type)}</td>
@@ -381,6 +434,14 @@
             <td style="font-weight:500">${item.assignee}</td>
             <td class="summary">${item.summary}</td>
             <td>${jiraCell(item.jiraLink)}</td>
+            <td style="width:36px;text-align:center">
+              <button class="del-btn" id="del-${m.month}-${idx}"
+                onclick="confirmDelete('${m.month}', ${idx})" title="삭제">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path d="M2 3h9M5 3V2h3v1M4 3l.5 7h4L9 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </td>
           </tr>`).join("");
 
         return `
@@ -403,6 +464,7 @@
                   <th style="width:72px">담당자</th>
                   <th>이슈 내용</th>
                   <th style="width:110px">Jira</th>
+                  <th style="width:36px"></th>
                 </tr>
               </thead>
               <tbody>${rows}</tbody>
@@ -490,6 +552,93 @@
           const e = await r.json().catch(() => ({}));
           throw new Error(`PUT ${branch} 실패: ${e.message || r.status}`);
         }
+      }
+
+      // ── 장애 삭제 ────────────────────────────────────────────
+      const DEL_PW = ["2022","0371"].join("");
+      let _delResolve = null;
+
+      function openPwModal(monthKey, idx) {
+        document.getElementById("pw-input").value = "";
+        document.getElementById("pw-error").style.display = "none";
+        document.getElementById("pw-modal").classList.add("open");
+        setTimeout(() => document.getElementById("pw-input").focus(), 80);
+        return new Promise(resolve => { _delResolve = resolve; });
+      }
+
+      function closePwModal(result) {
+        document.getElementById("pw-modal").classList.remove("open");
+        if (_delResolve) { _delResolve(result); _delResolve = null; }
+      }
+
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") closePwModal(false);
+        if (e.key === "Enter" && document.getElementById("pw-modal").classList.contains("open")) submitPw();
+      });
+
+      function submitPw() {
+        const val = document.getElementById("pw-input").value;
+        if (val !== DEL_PW) {
+          document.getElementById("pw-error").style.display = "block";
+          document.getElementById("pw-input").value = "";
+          document.getElementById("pw-input").focus();
+          return;
+        }
+        closePwModal(true);
+      }
+
+      async function confirmDelete(monthKey, idx) {
+        const ok = await openPwModal(monthKey, idx);
+        if (!ok) return;
+
+        const row = document.getElementById(`row-${monthKey}-${idx}`);
+        const summary = row ? row.querySelector("td.summary")?.textContent?.trim() : "";
+        if (!confirm(`아래 장애 항목을 삭제하시겠습니까?\n\n"${summary}"\n\n이 작업은 되돌릴 수 없습니다.`)) return;
+
+        const btn = document.getElementById(`del-${monthKey}-${idx}`);
+        if (btn) { btn.disabled = true; btn.style.opacity = "0.4"; }
+
+        try {
+          const commitMsg = `feat: 장애 삭제 - ${monthKey}`;
+          const main = await fetchBranch("main");
+          removeIncident(main.data, monthKey, idx);
+          await putBranch("main", main.sha, main.data, commitMsg);
+
+          const ghp = await fetchBranch("gh-pages");
+          removeIncident(ghp.data, monthKey, idx);
+          await putBranch("gh-pages", ghp.sha, ghp.data, commitMsg);
+
+          await load();
+        } catch (err) {
+          alert(`삭제 실패: ${err.message}`);
+          if (btn) { btn.disabled = false; btn.style.opacity = ""; }
+        }
+      }
+
+      function removeIncident(data, monthKey, idx) {
+        const inc = data.incidents;
+        const monthEntry = inc.byMonth.find(m => m.month === monthKey);
+        if (!monthEntry || !monthEntry.list[idx]) return;
+
+        const removed = monthEntry.list.splice(idx, 1)[0];
+        monthEntry.count = Math.max(0, (monthEntry.count || 1) - 1);
+        if (removed.category === "FE")       monthEntry.fe  = Math.max(0, (monthEntry.fe  || 1) - 1);
+        else if (removed.category === "BE")  monthEntry.be  = Math.max(0, (monthEntry.be  || 1) - 1);
+        else if (removed.category === "APP") monthEntry.app = Math.max(0, (monthEntry.app || 1) - 1);
+
+        if (monthEntry.list.length === 0) {
+          inc.byMonth = inc.byMonth.filter(m => m.month !== monthKey);
+        }
+
+        inc.total    = Math.max(0, (inc.total    || 1) - 1);
+        if (removed.type === "핫픽스")         inc.hotfix   = Math.max(0, (inc.hotfix   || 1) - 1);
+        if (removed.category === "FE")         inc.feCount  = Math.max(0, (inc.feCount  || 1) - 1);
+        else if (removed.category === "BE")    inc.beCount  = Math.max(0, (inc.beCount  || 1) - 1);
+        else if (removed.category === "APP")   inc.appCount = Math.max(0, (inc.appCount || 1) - 1);
+
+        const allDates = inc.byMonth.flatMap(m => m.list.map(i => i.date)).sort();
+        inc.period      = allDates.length ? `${allDates[0]} ~ ${allDates[allDates.length - 1]}` : "";
+        inc.lastUpdated = new Date().toISOString().slice(0, 10);
       }
 
       // ── incidents 업데이트 로직 ──────────────────────────────
