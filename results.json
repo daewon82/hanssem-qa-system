@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 21. AM 10:42:29",
+  "lastUpdated": "2026. 4. 21. PM 2:45:00",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,7 +334,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 21. AM 10:17:59",
+      "lastUpdated": "2026. 4. 21. PM 2:45:00",
       "total": 500,
       "pass": 500,
       "fail": 0,
