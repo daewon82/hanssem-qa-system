@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 22. AM 9:13:39",
+  "lastUpdated": "2026. 4. 22. AM 9:15:40",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,20 +345,12 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 22. AM 9:13:39",
-      "total": 33,
-      "pass": 32,
-      "fail": 1,
-      "passRate": "97.0",
-      "cases": [
-        {
-          "name": "가구/홈리빙 — 정렬 변경 (낮은가격순) → 상품 목록 유지",
-          "url": "https://store.hanssem.com/furnishing",
-          "status": "fail",
-          "duration": "7.80s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGrea"
-        }
-      ]
+      "lastUpdated": "2026. 4. 22. AM 9:15:40",
+      "total": 16,
+      "pass": 16,
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "mw-landing",
