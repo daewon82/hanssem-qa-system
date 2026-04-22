@@ -1,53 +1,11 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 22. AM 9:37:13",
+  "lastUpdated": "2026. 4. 22. PM 4:11:56",
   "total": 27,
-  "pass": 25,
-  "fail": 2,
-  "passRate": "92.6",
+  "pass": 24,
+  "fail": 3,
+  "passRate": "88.9",
   "cases": [
-    {
-      "name": "페이지 정상 로딩 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/",
-      "status": "pass",
-      "duration": "6.74s",
-      "reason": ""
-    },
-    {
-      "name": "헤더(GNB) 노출 확인",
-      "url": "https://m.store.hanssem.com/",
-      "status": "pass",
-      "duration": "10.12s",
-      "reason": ""
-    },
-    {
-      "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/furnishing",
-      "status": "pass",
-      "duration": "16.75s",
-      "reason": ""
-    },
-    {
-      "name": "인테리어 카테고리 진입 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/interior",
-      "status": "pass",
-      "duration": "6.77s",
-      "reason": ""
-    },
-    {
-      "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
-      "url": "https://m.store.hanssem.com/furnishing",
-      "status": "pass",
-      "duration": "10.56s",
-      "reason": ""
-    },
-    {
-      "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
-      "url": "https://m.store.hanssem.com/interior",
-      "status": "pass",
-      "duration": "10.64s",
-      "reason": ""
-    },
     {
       "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
       "url": "",
@@ -194,6 +152,48 @@
       "status": "pass",
       "duration": "5.98s",
       "reason": ""
+    },
+    {
+      "name": "페이지 정상 로딩 및 타이틀 확인",
+      "url": "https://m.store.hanssem.com/",
+      "status": "pass",
+      "duration": "6.59s",
+      "reason": ""
+    },
+    {
+      "name": "헤더(GNB) 노출 확인",
+      "url": "https://m.store.hanssem.com/",
+      "status": "pass",
+      "duration": "10.14s",
+      "reason": ""
+    },
+    {
+      "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
+      "url": "https://m.store.hanssem.com/furnishing",
+      "status": "pass",
+      "duration": "8.47s",
+      "reason": ""
+    },
+    {
+      "name": "인테리어 카테고리 진입 및 타이틀 확인",
+      "url": "https://m.store.hanssem.com/interior",
+      "status": "pass",
+      "duration": "6.48s",
+      "reason": ""
+    },
+    {
+      "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
+      "url": "https://m.store.hanssem.com/furnishing",
+      "status": "pass",
+      "duration": "11.82s",
+      "reason": ""
+    },
+    {
+      "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
+      "url": "https://m.store.hanssem.com/interior",
+      "status": "fail",
+      "duration": "30.06s",
+      "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
     }
   ]
 }
