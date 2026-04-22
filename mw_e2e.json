@@ -1,25 +1,11 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 22. AM 9:34:45",
+  "lastUpdated": "2026. 4. 22. AM 9:35:03",
   "total": 27,
-  "pass": 26,
-  "fail": 1,
-  "passRate": "96.3",
+  "pass": 25,
+  "fail": 2,
+  "passRate": "92.6",
   "cases": [
-    {
-      "name": "상품 상세 — 상품명(H1) 노출",
-      "url": "https://m.store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "8.97s",
-      "reason": ""
-    },
-    {
-      "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
-      "url": "https://m.store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "9.90s",
-      "reason": ""
-    },
     {
       "name": "상품 상세 — 상품 이미지 노출",
       "url": "https://m.store.hanssem.com/goods/837513",
@@ -193,6 +179,20 @@
       "url": "",
       "status": "fail",
       "duration": "5.59s",
+      "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+    },
+    {
+      "name": "상품 상세 — 상품명(H1) 노출",
+      "url": "https://m.store.hanssem.com/goods/837513",
+      "status": "pass",
+      "duration": "8.30s",
+      "reason": ""
+    },
+    {
+      "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
+      "url": "",
+      "status": "fail",
+      "duration": "5.61s",
       "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
     }
   ]
