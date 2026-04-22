@@ -1,142 +1,142 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 21. PM 5:17:48",
+  "lastUpdated": "2026. 4. 22. AM 9:37:13",
   "total": 27,
-  "pass": 26,
-  "fail": 1,
-  "passRate": "96.3",
+  "pass": 25,
+  "fail": 2,
+  "passRate": "92.6",
   "cases": [
     {
       "name": "페이지 정상 로딩 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/",
       "status": "pass",
-      "duration": "9.41s",
+      "duration": "6.74s",
       "reason": ""
     },
     {
       "name": "헤더(GNB) 노출 확인",
-      "url": "",
-      "status": "fail",
-      "duration": "5.45s",
-      "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+      "url": "https://m.store.hanssem.com/",
+      "status": "pass",
+      "duration": "10.12s",
+      "reason": ""
     },
     {
       "name": "가구/홈리빙 카테고리 진입 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "10.89s",
+      "duration": "16.75s",
       "reason": ""
     },
     {
       "name": "인테리어 카테고리 진입 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "6.57s",
+      "duration": "6.77s",
       "reason": ""
     },
     {
       "name": "가구/홈리빙 상품 목록 — 상품 링크 1개 이상 노출",
       "url": "https://m.store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "10.36s",
+      "duration": "10.56s",
       "reason": ""
     },
     {
       "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "9.03s",
+      "duration": "10.64s",
       "reason": ""
     },
     {
       "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
-      "url": "https://m.store.hanssem.com/goods/1077505",
-      "status": "pass",
-      "duration": "14.10s",
-      "reason": ""
+      "url": "",
+      "status": "fail",
+      "duration": "5.59s",
+      "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
     },
     {
       "name": "상품 상세 — 상품명(H1) 노출",
       "url": "https://m.store.hanssem.com/goods/837513",
       "status": "pass",
-      "duration": "8.97s",
+      "duration": "8.30s",
       "reason": ""
     },
     {
       "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
-      "url": "https://m.store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "9.90s",
-      "reason": ""
+      "url": "",
+      "status": "fail",
+      "duration": "5.61s",
+      "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
     },
     {
       "name": "상품 상세 — 상품 이미지 노출",
       "url": "https://m.store.hanssem.com/goods/837513",
       "status": "pass",
-      "duration": "6.78s",
+      "duration": "7.77s",
       "reason": ""
     },
     {
       "name": "검색 결과 페이지 — 정상 로딩 및 타이틀",
       "url": "https://m.store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
       "status": "pass",
-      "duration": "6.18s",
+      "duration": "5.37s",
       "reason": ""
     },
     {
       "name": "검색 결과 — 영문 키워드",
       "url": "https://m.store.hanssem.com/search/goods?searchKey=sofa",
       "status": "pass",
-      "duration": "5.02s",
+      "duration": "9.28s",
       "reason": ""
     },
     {
       "name": "로그인 페이지 — ID 입력 필드 및 SNS 버튼 노출",
       "url": "https://mall.hanssem.com/customer/mallLoginMain.do?returnUrl=https://m.store.hanssem.com/",
       "status": "pass",
-      "duration": "7.02s",
+      "duration": "6.99s",
       "reason": ""
     },
     {
       "name": "장바구니 직접 URL — 로그인 redirect 확인",
       "url": "https://mall.hanssem.com/m/morder/goCart.do",
       "status": "pass",
-      "duration": "4.86s",
+      "duration": "5.48s",
       "reason": ""
     },
     {
       "name": "메인 200 응답",
       "url": "https://m.store.hanssem.com/",
       "status": "pass",
-      "duration": "3.13s",
+      "duration": "6.77s",
       "reason": ""
     },
     {
       "name": "가구/홈리빙 200 응답",
       "url": "https://m.store.hanssem.com/furnishing",
       "status": "pass",
-      "duration": "4.91s",
+      "duration": "7.19s",
       "reason": ""
     },
     {
       "name": "인테리어 200 응답",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "4.07s",
+      "duration": "5.84s",
       "reason": ""
     },
     {
       "name": "검색결과 200 응답",
       "url": "https://m.store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
       "status": "pass",
-      "duration": "2.96s",
+      "duration": "4.43s",
       "reason": ""
     },
     {
       "name": "상품상세 200 응답",
       "url": "https://m.store.hanssem.com/goods/837513",
       "status": "pass",
-      "duration": "3.67s",
+      "duration": "4.34s",
       "reason": ""
     },
     {
@@ -150,49 +150,49 @@
       "name": "매장 찾기 페이지 직접 진입 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/store_M",
       "status": "pass",
-      "duration": "5.30s",
+      "duration": "5.44s",
       "reason": ""
     },
     {
       "name": "상품정보 탭 → 후기 탭 전환 확인",
-      "url": "https://m.store.hanssem.com/goods/837513?tab=review",
+      "url": "https://m.store.hanssem.com/goods/837513",
       "status": "pass",
-      "duration": "7.86s",
+      "duration": "7.90s",
       "reason": ""
     },
     {
       "name": "검색 결과 0건 — 없는 키워드",
       "url": "https://m.store.hanssem.com/search/goods?searchKey=zzzzxxx%ED%95%9C%EC%83%98%EC%97%86%EB%8A%94%EC%83%81%ED%92%88xyz",
       "status": "pass",
-      "duration": "7.72s",
+      "duration": "6.94s",
       "reason": ""
     },
     {
       "name": "카테고리 페이지(/category/숫자) 진입 및 상품 노출",
       "url": "https://m.store.hanssem.com/category/20002",
       "status": "pass",
-      "duration": "8.53s",
+      "duration": "7.61s",
       "reason": ""
     },
     {
       "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
       "url": "https://m.store.hanssem.com/interior/constcase",
       "status": "pass",
-      "duration": "9.25s",
+      "duration": "7.78s",
       "reason": ""
     },
     {
       "name": "인테리어 — 무료견적상담 링크 노출",
       "url": "https://m.store.hanssem.com/interior",
       "status": "pass",
-      "duration": "10.09s",
+      "duration": "9.84s",
       "reason": ""
     },
     {
       "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
       "url": "https://m.store.hanssem.com/not-exists-content",
       "status": "pass",
-      "duration": "5.12s",
+      "duration": "5.98s",
       "reason": ""
     }
   ]

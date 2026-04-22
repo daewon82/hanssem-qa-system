@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 21. PM 5:17:48",
+  "lastUpdated": "2026. 4. 22. AM 9:37:13",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,7 +334,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 21. PM 4:51:18",
+      "lastUpdated": "2026. 4. 22. AM 9:09:26",
       "total": 500,
       "pass": 500,
       "fail": 0,
@@ -345,9 +345,9 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 21. PM 4:56:57",
-      "total": 49,
-      "pass": 49,
+      "lastUpdated": "2026. 4. 22. AM 9:15:40",
+      "total": 16,
+      "pass": 16,
       "fail": 0,
       "passRate": "100.0",
       "cases": []
@@ -355,36 +355,35 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 21. PM 5:14:15",
+      "lastUpdated": "2026. 4. 22. AM 9:33:32",
       "total": 500,
-      "pass": 499,
-      "fail": 1,
-      "passRate": "99.8",
+      "pass": 500,
+      "fail": 0,
+      "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": [
-        {
-          "name": "1058860",
-          "url": "https://m.store.hanssem.com/goods/1058860",
-          "status": "fail",
-          "duration": "2.01s",
-          "reason": "502"
-        }
-      ]
+      "cases": []
     },
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 21. PM 5:17:48",
+      "lastUpdated": "2026. 4. 22. AM 9:37:13",
       "total": 27,
-      "pass": 26,
-      "fail": 1,
-      "passRate": "96.3",
+      "pass": 25,
+      "fail": 2,
+      "passRate": "92.6",
       "cases": [
         {
-          "name": "헤더(GNB) 노출 확인",
+          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
           "url": "",
           "status": "fail",
-          "duration": "5.45s",
+          "duration": "5.59s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+        },
+        {
+          "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
+          "url": "",
+          "status": "fail",
+          "duration": "5.61s",
           "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
         }
       ]
@@ -754,5 +753,5 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 21. 16:33"
+  "codeLastModified": "NaN. NaN. NaN. NaN:NaN"
 }
