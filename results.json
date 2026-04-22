@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 22. AM 9:33:32",
+  "lastUpdated": "2026. 4. 22. AM 9:34:45",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -366,17 +366,17 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 21. PM 5:17:48",
+      "lastUpdated": "2026. 4. 22. AM 9:34:45",
       "total": 27,
       "pass": 26,
       "fail": 1,
       "passRate": "96.3",
       "cases": [
         {
-          "name": "헤더(GNB) 노출 확인",
+          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
           "url": "",
           "status": "fail",
-          "duration": "5.45s",
+          "duration": "5.59s",
           "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
         }
       ]
