@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 22. AM 9:37:13",
+  "lastUpdated": "2026. 4. 22. PM 4:15:35",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,7 +334,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 22. AM 9:09:26",
+      "lastUpdated": "2026. 4. 22. PM 3:44:47",
       "total": 500,
       "pass": 500,
       "fail": 0,
@@ -345,9 +345,9 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 22. AM 9:15:40",
-      "total": 16,
-      "pass": 16,
+      "lastUpdated": "2026. 4. 22. PM 3:51:02",
+      "total": 49,
+      "pass": 49,
       "fail": 0,
       "passRate": "100.0",
       "cases": []
@@ -355,7 +355,7 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 22. AM 9:33:32",
+      "lastUpdated": "2026. 4. 22. PM 4:10:35",
       "total": 500,
       "pass": 500,
       "fail": 0,
@@ -366,25 +366,25 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 22. AM 9:37:13",
+      "lastUpdated": "2026. 4. 22. PM 4:15:35",
       "total": 27,
       "pass": 25,
       "fail": 2,
       "passRate": "92.6",
       "cases": [
         {
-          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
-          "url": "",
+          "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
+          "url": "https://m.store.hanssem.com/interior",
           "status": "fail",
-          "duration": "5.59s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+          "duration": "30.06s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
         },
         {
           "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
-          "url": "",
+          "url": "about:blank",
           "status": "fail",
-          "duration": "5.61s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+          "duration": "30.07s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
         }
       ]
     },
