@@ -553,13 +553,15 @@
 
 
     <script>
-      /* ── 리포트 설정 ──────────────────────────────────────── */
+      /* ── 리포트 설정 (PC 1행 / MW 2행 배치) ───────────────── */
       const REPORT_CONFIGS = [
+        // Row 1: PC
         { id: "pc-landing", title: "PC 500 Crawling Test", abbr1: "PC", abbr2: "CRAWL",  iconBg: "#1A4F9C" },
-        { id: "mw-landing", title: "MW 500 Crawling Test", abbr1: "MW", abbr2: "CRAWL",  iconBg: "#00695C" },
         { id: "pc-random",  title: "PC 200 Random Test",   abbr1: "PC", abbr2: "RANDOM", iconBg: "#6A1B9A" },
-        { id: "mw-random",  title: "MW 200 Random Test",   abbr1: "MW", abbr2: "RANDOM", iconBg: "#AD1457" },
         { id: "pc-e2e",     title: "PC E2E Test",          abbr1: "PC", abbr2: "E2E",    iconBg: "#E65100" },
+        // Row 2: MW
+        { id: "mw-landing", title: "MW 500 Crawling Test", abbr1: "MW", abbr2: "CRAWL",  iconBg: "#00695C" },
+        { id: "mw-random",  title: "MW 200 Random Test",   abbr1: "MW", abbr2: "RANDOM", iconBg: "#AD1457" },
         { id: "mw-e2e",     title: "MW E2E Test",          abbr1: "MW", abbr2: "E2E",    iconBg: "#2E7D32" },
       ];
 
