@@ -67,12 +67,12 @@ export default defineConfig({
     {
       name: "AutoE2E_Public_PC",
       use: { ...devices["Desktop Chrome"], locale: "ko-KR" },
-      testMatch: ["**/autoe2e/(navigation|search|furnishing|interior|category|store).spec.ts"],
+      testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
     },
     {
       name: "AutoE2E_Public_Mobile",
       use: { ...devices["Pixel 5"], locale: "ko-KR" },
-      testMatch: ["**/autoe2e/(navigation|search|furnishing|interior|category|store).spec.ts"],
+      testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
     },
     {
       name: "AutoE2E_Authed",
@@ -81,7 +81,7 @@ export default defineConfig({
         locale: "ko-KR",
         storageState: STORAGE_STATE,
       },
-      testMatch: ["**/autoe2e/(auth|cart|mypage|product).spec.ts"],
+      testMatch: /autoe2e[\\/](auth|cart|mypage|product)\.spec\.ts/,
     },
   ],
 });
