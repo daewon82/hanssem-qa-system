@@ -1,269 +1,1012 @@
 {
   "title": "운영환경 PC E2E 테스트",
-  "lastUpdated": "2026. 4. 23. PM 3:16:52",
-  "total": 37,
-  "pass": 37,
-  "fail": 0,
-  "passRate": "100.0",
+  "lastUpdated": "2026. 4. 23. PM 7:56:14",
+  "total": 91,
+  "pass": 76,
+  "fail": 5,
+  "skipped": 10,
+  "passRate": "93.8",
   "cases": [
     {
-      "name": "상품 상세 — 상품 이미지 노출",
-      "url": "https://store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "6.88s",
-      "reason": ""
-    },
-    {
-      "name": "검색 아이콘 클릭 → 검색창 → 검색어 입력 → 결과 이동 (PC)",
-      "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
-      "status": "pass",
-      "duration": "8.73s",
-      "reason": ""
-    },
-    {
-      "name": "검색 결과 페이지 — 정상 로딩 및 타이틀",
-      "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
-      "status": "pass",
-      "duration": "4.81s",
-      "reason": ""
-    },
-    {
-      "name": "검색 결과 — 영문 키워드",
-      "url": "https://store.hanssem.com/search/goods?searchKey=sofa",
-      "status": "pass",
-      "duration": "4.79s",
-      "reason": ""
-    },
-    {
-      "name": "로그인 버튼 클릭 → mall.hanssem.com 이동 (PC)",
-      "url": "https://mall.hanssem.com/customer/mallLoginMain.do?returnUrl=https%3A%2F%2Fstore.hanssem.com%2F",
-      "status": "pass",
-      "duration": "9.92s",
-      "reason": ""
-    },
-    {
-      "name": "로그인 페이지 — ID 입력 필드 및 SNS 버튼 노출",
-      "url": "https://mall.hanssem.com/customer/mallLoginMain.do?returnUrl=https://store.hanssem.com/",
-      "status": "pass",
-      "duration": "6.60s",
-      "reason": ""
-    },
-    {
-      "name": "장바구니 버튼 클릭 → mall.hanssem.com 이동 (PC)",
-      "url": "https://mall.hanssem.com/order/goCart.do?util=shopping",
-      "status": "pass",
-      "duration": "8.81s",
-      "reason": ""
-    },
-    {
-      "name": "장바구니 직접 URL — 로그인 redirect 확인",
-      "url": "https://mall.hanssem.com/order/goCart.do?util=shopping",
-      "status": "pass",
-      "duration": "4.75s",
-      "reason": ""
-    },
-    {
-      "name": "메인 200 응답",
-      "url": "https://store.hanssem.com/",
-      "status": "pass",
-      "duration": "2.78s",
-      "reason": ""
-    },
-    {
-      "name": "가구/홈리빙 200 응답",
-      "url": "https://store.hanssem.com/furnishing",
-      "status": "pass",
-      "duration": "3.35s",
-      "reason": ""
-    },
-    {
-      "name": "인테리어 200 응답",
-      "url": "https://store.hanssem.com/interior",
-      "status": "pass",
-      "duration": "3.24s",
-      "reason": ""
-    },
-    {
-      "name": "검색결과 200 응답",
-      "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
-      "status": "pass",
-      "duration": "2.90s",
-      "reason": ""
-    },
-    {
-      "name": "상품상세 200 응답",
-      "url": "https://store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "4.02s",
-      "reason": ""
-    },
-    {
-      "name": "매장찾기 200 응답",
-      "url": "https://store.hanssem.com/store",
-      "status": "pass",
-      "duration": "3.89s",
-      "reason": ""
-    },
-    {
-      "name": "매장 찾기 페이지 직접 진입 및 타이틀 확인",
-      "url": "https://store.hanssem.com/store",
-      "status": "pass",
-      "duration": "5.02s",
-      "reason": ""
-    },
-    {
-      "name": "GNB 매장 찾기 버튼 클릭 → 매장 검색 페이지 이동 (PC)",
-      "url": "https://store.hanssem.com/",
-      "status": "pass",
-      "duration": "5.95s",
-      "reason": ""
-    },
-    {
-      "name": "상품정보 탭 → 후기 탭 전환 확인",
-      "url": "https://store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "8.28s",
-      "reason": ""
-    },
-    {
-      "name": "문의 탭 전환 확인",
-      "url": "https://store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "7.81s",
-      "reason": ""
-    },
-    {
-      "name": "배송 탭 전환 확인",
-      "url": "https://store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "8.45s",
-      "reason": ""
-    },
-    {
-      "name": "가구/홈리빙 — 모든필터 버튼 노출 (PC)",
+      "name": "카테고리 로드 - 침실",
       "url": "https://store.hanssem.com/category/20070",
-      "status": "pass",
-      "duration": "8.82s",
-      "reason": ""
+      "status": "fail",
+      "duration": "40.09s",
+      "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "가구/홈리빙 — 정렬 변경 (낮은가격순) → 상품 목록 유지",
-      "url": "https://store.hanssem.com/furnishing",
+      "name": "카테고리 로드 - 거실",
+      "url": "",
       "status": "pass",
-      "duration": "7.48s",
-      "reason": ""
+      "duration": "9.91s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "검색 결과 0건 — 없는 키워드",
-      "url": "https://store.hanssem.com/search/goods?searchKey=zzzzxxx%ED%95%9C%EC%83%98%EC%97%86%EB%8A%94%EC%83%81%ED%92%88xyz",
+      "name": "카테고리 로드 - 다이닝",
+      "url": "",
       "status": "pass",
-      "duration": "6.34s",
-      "reason": ""
+      "duration": "5.41s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "카테고리 페이지(/category/숫자) 진입 및 상품 노출",
-      "url": "https://store.hanssem.com/category/20002",
+      "name": "카테고리 로드 - 옷장·드레스룸",
+      "url": "",
       "status": "pass",
-      "duration": "6.81s",
-      "reason": ""
+      "duration": "4.24s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
-      "url": "https://store.hanssem.com/interior/constcase",
+      "name": "카테고리 로드 - 키즈룸",
+      "url": "",
       "status": "pass",
-      "duration": "5.84s",
-      "reason": ""
+      "duration": "5.36s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "인테리어 — 무료견적상담 링크 노출",
-      "url": "https://store.hanssem.com/interior",
+      "name": "카테고리 로드 - 학생방",
+      "url": "",
       "status": "pass",
-      "duration": "7.11s",
-      "reason": ""
+      "duration": "6.56s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "기획전 페이지(mall.hanssem.com/plan) 200 응답",
-      "url": "https://mall.hanssem.com/plan/19523.html?planType=12",
+      "name": "카테고리 로드 - 홈오피스",
+      "url": "",
       "status": "pass",
-      "duration": "3.63s",
-      "reason": ""
+      "duration": "6.68s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
-      "url": "https://store.hanssem.com/not-exists-content",
+      "name": "카테고리 로드 - 홈&데코",
+      "url": "",
+      "status": "pass",
+      "duration": "8.49s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "카테고리 로드 - 커튼·블라인드",
+      "url": "",
+      "status": "pass",
+      "duration": "7.06s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC009 - 호텔침대 필터 칩 클릭",
+      "url": "https://store.hanssem.com/category/20070",
+      "status": "fail",
+      "duration": "30.34s",
+      "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "침실 BEST 상품 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "4.96s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "침실 라인업 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "4.90s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "침실 신상품 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "5.14s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "상품 링크 /goods/:id 패턴 확인",
+      "url": "",
+      "status": "pass",
+      "duration": "4.97s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC010 - 가죽소파 필터 칩 클릭",
+      "url": "",
+      "status": "pass",
+      "duration": "5.43s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "거실 BEST 상품 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "5.24s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC012 - 출산필수템 필터 칩 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "4.84s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "키즈룸 샘키즈 알아보기 섹션",
+      "url": "",
+      "status": "pass",
+      "duration": "5.85s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC015 - 암막커튼 필터 칩 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "4.34s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "모바일 뷰포트 메인 페이지 타이틀",
+      "url": "",
+      "status": "pass",
+      "duration": "3.17s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "모바일 뷰포트 카테고리 페이지",
+      "url": "",
       "status": "pass",
       "duration": "5.02s",
-      "reason": ""
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "category.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "상품 상세 — 옵션 선택 버튼 노출 확인",
-      "url": "https://store.hanssem.com/goods/837513",
+      "name": "TC005 - 홈퍼니싱 메인 페이지 로드",
+      "url": "",
+      "status": "pass",
+      "duration": "6.58s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "furnishing.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC006 - 더보기 버튼 표시 확인",
+      "url": "",
+      "status": "pass",
+      "duration": "6.84s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "furnishing.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "베스트셀러 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "6.98s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "furnishing.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "신상품 섹션 노출",
+      "url": "",
       "status": "pass",
       "duration": "6.86s",
-      "reason": ""
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "furnishing.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "상품 상세 — 옵션 선택 클릭 → 레이어/드롭다운 노출",
-      "url": "https://store.hanssem.com/goods/837513",
+      "name": "1분 홈투어 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "6.55s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "furnishing.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "베스트셀러 더보기 → /furnishing/RANK 이동",
+      "url": "",
+      "status": "pass",
+      "duration": "3.91s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "furnishing.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC007 - 인테리어 메인 페이지 로드",
+      "url": "",
+      "status": "pass",
+      "duration": "5.30s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC008 - 키친 공간 필터 칩 클릭",
+      "url": "",
+      "status": "pass",
+      "duration": "9.90s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "공간 필터 칩 - 거실 클릭",
+      "url": "",
+      "status": "pass",
+      "duration": "5.41s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "공간 필터 칩 - 침실 클릭",
+      "url": "",
+      "status": "pass",
+      "duration": "5.50s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "공간별 시공사례 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "5.62s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "고객 후기 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "5.56s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "무료상담 섹션 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "5.07s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "시공사례 링크 접근 가능",
+      "url": "",
+      "status": "pass",
+      "duration": "3.71s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "더보기 버튼 동작",
+      "url": "",
+      "status": "pass",
+      "duration": "3.62s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "시공사례 상세 이미지 클릭 시 진입 가능",
+      "url": "",
+      "status": "skipped",
+      "duration": "3.36s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "시공기사 찾기 진입점 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "5.32s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "인테리어 상담신청 접근점 존재",
+      "url": "",
+      "status": "pass",
+      "duration": "3.53s",
+      "reason": "",
+      "priority": "medium",
+      "project": "AutoE2E_Public_PC",
+      "file": "interior.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC001 - 메인 홈 페이지 정상 로드",
+      "url": "",
+      "status": "pass",
+      "duration": "7.87s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC002 - GNB 침실 카테고리 이동",
+      "url": "",
+      "status": "pass",
+      "duration": "5.68s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC003 - GNB 거실 카테고리 이동",
+      "url": "",
+      "status": "pass",
+      "duration": "5.33s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC016 - 카테고리 페이지 내 GNB 링크 존재",
+      "url": "",
+      "status": "pass",
+      "duration": "5.18s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "GNB - 다이닝 카테고리 이동",
+      "url": "",
+      "status": "pass",
+      "duration": "4.30s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "GNB - 키즈룸 카테고리 이동",
+      "url": "",
+      "status": "pass",
+      "duration": "4.52s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "GNB - 학생방 카테고리 이동",
+      "url": "",
+      "status": "pass",
+      "duration": "5.99s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "GNB - 홈오피스 카테고리 이동",
+      "url": "",
+      "status": "pass",
+      "duration": "4.43s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "GNB - 홈&데코 카테고리 이동",
+      "url": "",
+      "status": "pass",
+      "duration": "5.08s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "navigation.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC004 - 키워드 입력 후 검색 실행",
+      "url": "",
+      "status": "pass",
+      "duration": "5.11s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC017 - 검색창 포커스 시 탭 DOM 존재 확인",
+      "url": "",
+      "status": "pass",
+      "duration": "3.68s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "TC017 - 검색창 클릭 후 탭 활성화",
+      "url": "",
+      "status": "pass",
+      "duration": "4.75s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "검색창 DOM 존재 확인",
+      "url": "",
+      "status": "pass",
+      "duration": "4.23s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "홈퍼니싱 페이지 검색창 DOM 존재",
+      "url": "",
+      "status": "pass",
+      "duration": "3.82s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "통합검색 결과 - 페이지 로드",
+      "url": "",
+      "status": "pass",
+      "duration": "5.17s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "통합검색 결과 - 상품 리스트 노출",
+      "url": "",
+      "status": "fail",
+      "duration": "23.89s",
+      "reason": "Error: expect(locator).toBeVisible() failed",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재",
+      "url": "",
+      "status": "pass",
+      "duration": "4.75s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+      "url": "",
+      "status": "fail",
+      "duration": "18.94s",
+      "reason": "Error: expect(locator).toBeAttached() failed",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "통합검색 결과 - 정렬 변경 시 URL 또는 DOM 변화",
+      "url": "",
+      "status": "skipped",
+      "duration": "3.58s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Public_PC",
+      "file": "search.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "매장찾기 페이지 진입",
+      "url": "",
+      "status": "pass",
+      "duration": "4.59s",
+      "reason": "",
+      "priority": "low",
+      "project": "AutoE2E_Public_PC",
+      "file": "store.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "매장찾기 - 매장/지역 키워드 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "4.06s",
+      "reason": "",
+      "priority": "low",
+      "project": "AutoE2E_Public_PC",
+      "file": "store.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "정상 로그인 기능 확인",
+      "url": "",
       "status": "pass",
       "duration": "7.64s",
-      "reason": ""
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "auth.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "시공사례 목록 페이지 진입 및 목록 노출",
-      "url": "https://store.hanssem.com/interior/constcase",
+      "name": "정상 로그아웃 기능 확인",
+      "url": "",
       "status": "pass",
-      "duration": "6.25s",
-      "reason": ""
+      "duration": "11.80s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "auth.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "시공사례 목록 → 첫 번째 항목 클릭 → 상세 진입",
-      "url": "https://store.hanssem.com/interior/constcase",
+      "name": "잘못된 비밀번호 입력 시 로그인 실패",
+      "url": "",
       "status": "pass",
-      "duration": "7.30s",
-      "reason": ""
+      "duration": "6.91s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "auth.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "전문가 찾기 페이지 진입 및 목록 노출",
-      "url": "https://store.hanssem.com/interior/expert",
+      "name": "로그인 페이지 - 회원가입 버튼 노출",
+      "url": "",
       "status": "pass",
-      "duration": "5.71s",
-      "reason": ""
+      "duration": "3.20s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "auth.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "전문가 찾기 — 전문가 카드/목록 1개 이상 노출",
-      "url": "https://store.hanssem.com/interior/expert",
+      "name": "로그인 페이지 - 아이디/비밀번호 찾기 버튼 노출",
+      "url": "",
       "status": "pass",
-      "duration": "6.85s",
-      "reason": ""
+      "duration": "4.42s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "auth.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "매장 찾기 — 검색 입력 필드 노출 (PC)",
-      "url": "https://store.hanssem.com/store",
+      "name": "장바구니 페이지 진입",
+      "url": "",
       "status": "pass",
-      "duration": "6.00s",
-      "reason": ""
+      "duration": "2.70s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "cart.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "매장 찾기 — 지역 필터 또는 매장 목록 노출",
-      "url": "https://store.hanssem.com/store",
+      "name": "장바구니 페이지 - 총 결제예정금액 섹션 노출",
+      "url": "",
       "status": "pass",
-      "duration": "7.16s",
-      "reason": ""
+      "duration": "1.53s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "cart.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "붙박이장 관련 링크 노출 확인",
-      "url": "https://store.hanssem.com/interior",
+      "name": "카테고리 상품 담기 - 장바구니 카운트 증가 검증",
+      "url": "",
+      "status": "skipped",
+      "duration": "10.00s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "cart.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "통합메인 장바구니 버튼 → 장바구니 페이지 이동",
+      "url": "",
       "status": "pass",
-      "duration": "6.43s",
-      "reason": ""
+      "duration": "4.92s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "cart.spec.ts",
+      "platform": "PC"
     },
     {
-      "name": "붙박이장 카테고리 페이지 진입 및 상품 노출",
+      "name": "MY 한샘 메인 진입",
+      "url": "",
+      "status": "pass",
+      "duration": "1.19s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "주문/배송 내역 페이지 진입",
+      "url": "",
+      "status": "pass",
+      "duration": "0.75s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "인테리어 상담 내역 페이지 진입",
+      "url": "",
+      "status": "pass",
+      "duration": "0.74s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "매장 상담 내역 페이지 진입",
+      "url": "",
+      "status": "pass",
+      "duration": "0.81s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "1:1 문의 페이지 진입",
+      "url": "",
+      "status": "pass",
+      "duration": "0.79s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "회원정보 변경 페이지 진입",
+      "url": "",
+      "status": "pass",
+      "duration": "0.80s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "배송지 관리 페이지 진입",
+      "url": "",
+      "status": "pass",
+      "duration": "0.73s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "MY 한샘 - 로그아웃 링크 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "4.36s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "배송지 관리 - \"배송지 추가\" 버튼 노출",
+      "url": "",
+      "status": "skipped",
+      "duration": "0.79s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "배송지 추가 → 리스트 노출 확인",
+      "url": "",
+      "status": "skipped",
+      "duration": "0.75s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "회원정보 수정 페이지 - 이메일/휴대폰 필드 노출",
+      "url": "",
+      "status": "skipped",
+      "duration": "0.79s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "1:1 문의 리스트 페이지 로드",
+      "url": "",
+      "status": "skipped",
+      "duration": "0.79s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "1:1 문의 - \"문의하기\" 또는 \"문의 작성\" 버튼 노출",
+      "url": "",
+      "status": "skipped",
+      "duration": "0.79s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "1:1 문의 작성 폼 - 제목/내용 입력 필드 노출",
+      "url": "",
+      "status": "skipped",
+      "duration": "1.52s",
+      "reason": "",
+      "priority": "high",
+      "project": "AutoE2E_Authed",
+      "file": "mypage.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "상품 상세 - 상품명 요소 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "7.41s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "product.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "상품 상세 - 가격 정보 노출 (원 단위)",
+      "url": "",
+      "status": "pass",
+      "duration": "7.32s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "product.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "상품 상세 - 장바구니 버튼 노출",
+      "url": "",
+      "status": "pass",
+      "duration": "7.85s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "product.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "상품 상세 - 구매하기/바로구매 버튼 노출",
       "url": "https://store.hanssem.com/category/20070",
+      "status": "fail",
+      "duration": "30.52s",
+      "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "product.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "상품 상세 - 구매하기 클릭 시 옵션/액션 반응",
+      "url": "",
+      "status": "skipped",
+      "duration": "7.79s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "product.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "커튼·블라인드 상품 상세 진입",
+      "url": "",
       "status": "pass",
-      "duration": "8.60s",
-      "reason": ""
+      "duration": "7.68s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "product.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "상품 상세 - 쿠폰 노출 여부 (있으면 통과)",
+      "url": "",
+      "status": "pass",
+      "duration": "7.18s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "product.spec.ts",
+      "platform": "PC"
+    },
+    {
+      "name": "상품 상세 - 쿠폰 다운로드 버튼 클릭 동작",
+      "url": "",
+      "status": "pass",
+      "duration": "8.92s",
+      "reason": "",
+      "priority": "critical",
+      "project": "AutoE2E_Authed",
+      "file": "product.spec.ts",
+      "platform": "PC"
     }
   ]
 }
