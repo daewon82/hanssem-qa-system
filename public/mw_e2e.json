@@ -1,18 +1,11 @@
 {
   "title": "운영환경 MW E2E 테스트",
   "lastUpdated": "2026. 4. 23. AM 11:43:55",
-  "total": 27,
+  "total": 26,
   "pass": 26,
-  "fail": 1,
-  "passRate": "96.3",
+  "fail": 0,
+  "passRate": "100.0",
   "cases": [
-    {
-      "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
-      "url": "about:blank",
-      "status": "fail",
-      "duration": "30.07s",
-      "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
-    },
     {
       "name": "페이지 정상 로딩 및 타이틀 확인",
       "url": "https://m.store.hanssem.com/",

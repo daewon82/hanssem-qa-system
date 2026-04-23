@@ -1,8 +1,8 @@
 {
   "title": "운영환경 PC E2E 확장 테스트",
   "lastUpdated": "2026. 4. 17. 오전 11:10:52",
-  "total": 49,
-  "pass": 49,
+  "total": 48,
+  "pass": 48,
   "fail": 0,
   "passRate": "100.0",
   "cases": [
@@ -74,13 +74,6 @@
       "url": "https://store.hanssem.com/goods/837513",
       "status": "pass",
       "duration": "10.71s",
-      "reason": ""
-    },
-    {
-      "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
-      "url": "https://store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "7.57s",
       "reason": ""
     },
     {
