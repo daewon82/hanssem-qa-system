@@ -830,5 +830,25 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 23. 17:32"
+  "codeLastModified": "2026. 4. 23. 19:20",
+  "coverage": {
+    "lastUpdated": "2026. 4. 23. PM 7:56:18",
+    "pc": {
+      "uniqueUrls": 300,
+      "todayTested": 439,
+      "todayPassed": 424,
+      "todayFailed": 5,
+      "cyclesCompleted": 0
+    },
+    "mw": {
+      "uniqueUrls": 300,
+      "todayTested": 398,
+      "todayPassed": 376,
+      "todayFailed": 2,
+      "cyclesCompleted": 1
+    },
+    "totalUniqueUrls": 600,
+    "todayTested": 837,
+    "todayPassRate": "95.6"
+  }
 }

@@ -553,13 +553,16 @@
 
 
     <script>
-      /* ── 리포트 설정 ──────────────────────────────────────── */
+      /* ── 리포트 설정 (PC 1행 / MW 2행 배치) ───────────────── */
       const REPORT_CONFIGS = [
+        // Row 1: PC
         { id: "pc-landing", title: "PC 500 Crawling Test", abbr1: "PC", abbr2: "CRAWL",  iconBg: "#1A4F9C" },
-        { id: "mw-landing", title: "MW 500 Crawling Test", abbr1: "MW", abbr2: "CRAWL",  iconBg: "#00695C" },
         { id: "pc-random",  title: "PC 200 Random Test",   abbr1: "PC", abbr2: "RANDOM", iconBg: "#6A1B9A" },
+        { id: "pc-e2e",     title: "PC E2E Test",          abbr1: "PC", abbr2: "E2E",    iconBg: "#E65100" },
+        // Row 2: MW
+        { id: "mw-landing", title: "MW 500 Crawling Test", abbr1: "MW", abbr2: "CRAWL",  iconBg: "#00695C" },
         { id: "mw-random",  title: "MW 200 Random Test",   abbr1: "MW", abbr2: "RANDOM", iconBg: "#AD1457" },
-        { id: "autoe2e",    title: "AutoE2E Functional Test", abbr1: "E2E", abbr2: "AUTO", iconBg: "#E65100" },
+        { id: "mw-e2e",     title: "MW E2E Test",          abbr1: "MW", abbr2: "E2E",    iconBg: "#2E7D32" },
       ];
 
       const passColor = (r) => r >= 95 ? "#2E7D32" : r >= 90 ? "#E65100" : "#C62828";
@@ -600,7 +603,7 @@
             ? `<span class="badge badge-warn">경고</span>`
             : `<span class="badge badge-fail">실패</span>`;
 
-        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json", "pc-random": "pc_random.json", "mw-random": "mw_random.json", "autoe2e": "autoe2e.json" };
+        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json", "pc-random": "pc_random.json", "mw-random": "mw_random.json" };
         const detailFile = detailFileMap[r.id];
         const sheetBtn = detailFile
           ? `<a href="detail.html?id=${r.id}" class="rc4-sheet-btn">
@@ -886,8 +889,9 @@
         if (_wasRunning) return;
         const token = GH_TOKEN;
 
-        // 버튼 클릭 즉시 비활성화 (로딩 표시는 실행 확인 후)
+        // ✅ 클릭 즉시: 버튼 비활성화 + 모든 카드 로딩 아이콘 표시 (API 응답 대기 없이)
         setRunBtn(true);
+        PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
 
         // GitHub API로 실행 중 여부 확인
         try {
@@ -902,7 +906,6 @@
               // 이미 실행 중 → 폴링만 시작, 새 dispatch 차단
               _wasRunning = true;
               localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
-              PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
               initProgress();
               return;
             }
@@ -911,8 +914,6 @@
 
         // 재진입 방지: API 응답 대기 중 다른 경로로 실행 중 감지된 경우
         if (_wasRunning) return;
-
-        PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
 
         try {
           const res = await fetch(
@@ -935,22 +936,25 @@
             initProgress();
           } else if (res.status === 401) {
             setRunBtn(false);
-            loadStats(); // 실패 시 원래 결과로 복구
+            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
+            loadStats();
             alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
           } else {
             const msg = await res.text();
             setRunBtn(false);
+            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
             loadStats();
             alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
           }
         } catch (e) {
           setRunBtn(false);
+          PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
           alert("네트워크 오류: " + e.message);
         }
       }
 
       /* ── 단계별 로딩 제어 ──────────────────────────────────── */
-      const PHASE_ORDER = ["pc-landing", "mw-landing", "pc-random", "mw-random", "autoe2e"];
+      const PHASE_ORDER = ["pc-landing", "mw-landing", "pc-random", "mw-random", "pc-e2e", "mw-e2e"];
       const phaseCompletedTime = {};
       let _wasRunning    = false;
       let _dispatchTime  = null;
@@ -1027,16 +1031,16 @@
           PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
           return;
         }
-        const isLanding = _currentPhase.includes("landing");
+        // landing / random 은 진행률 %, e2e 는 스피너만 (건수 판정 어려움)
+        const hasProgress = _currentPhase.includes("landing") || _currentPhase.includes("random");
         PHASE_ORDER.forEach(id => {
           const pIdx = PHASE_ORDER.indexOf(id);
           const cIdx = PHASE_ORDER.indexOf(_currentPhase);
           if (pIdx < cIdx) {
             setCardLoading(id, "done");
           } else if (id === _currentPhase) {
-            // landing: count/total 기반 실제 %, E2E: 스피너만
             let label = "";
-            if (isLanding) {
+            if (hasProgress) {
               label = (_progressCount != null && _progressTotal)
                 ? Math.round((_progressCount / _progressTotal) * 100) + "%"
                 : "0%";
