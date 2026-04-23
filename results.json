@@ -389,21 +389,32 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 8:50:13",
-      "total": 61,
+      "lastUpdated": "2026. 4. 23. PM 9:32:39",
+      "total": 62,
       "pass": 40,
-      "fail": 1,
-      "passRate": "97.6",
+      "fail": 2,
+      "passRate": "95.2",
       "cases": [
         {
-          "name": "TC008 - 키친 공간 필터 칩 클릭",
-          "url": "https://store.hanssem.com/interior",
+          "name": "카테고리 로드 - 학생방",
+          "url": "",
           "status": "fail",
-          "duration": "30.20s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "duration": "9.97s",
+          "reason": "Error: expect(locator).toContainText(expected) failed",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
-          "file": "interior.spec.ts",
+          "file": "category.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "카테고리 로드 - 커튼·블라인드",
+          "url": "https://store.hanssem.com/category/20109",
+          "status": "fail",
+          "duration": "5.72s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/category/20109",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "category.spec.ts",
           "platform": "MW"
         }
       ]
