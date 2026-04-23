@@ -54,7 +54,8 @@ test.afterEach(async ({ page }, testInfo) => {
   if (testInfo.status === "skipped") return;
 
   const isPassed = testInfo.status === "passed";
-  const currentUrl = page.url();
+  const rawUrl = page.url();
+  const currentUrl = (rawUrl.startsWith("chrome-error://") || rawUrl === "about:blank") ? "" : rawUrl;
   const duration = (testInfo.duration / 1000).toFixed(2);
 
   if (!isPassed) {

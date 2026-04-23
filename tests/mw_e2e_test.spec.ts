@@ -52,7 +52,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
   const isPassed = testInfo.status === "passed";
   const rawUrl = page.url();
-  const currentUrl = rawUrl.startsWith("chrome-error://") ? "" : rawUrl;
+  const currentUrl = (rawUrl.startsWith("chrome-error://") || rawUrl === "about:blank") ? "" : rawUrl;
   const duration = (testInfo.duration / 1000).toFixed(2);
 
   if (!isPassed) {
