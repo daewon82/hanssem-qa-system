@@ -1,10 +1,10 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 23. AM 10:35:40",
+  "lastUpdated": "2026. 4. 23. AM 10:37:04",
   "total": 27,
-  "pass": 24,
-  "fail": 3,
-  "passRate": "88.9",
+  "pass": 23,
+  "fail": 4,
+  "passRate": "85.2",
   "cases": [
     {
       "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
@@ -12,55 +12,6 @@
       "status": "fail",
       "duration": "30.07s",
       "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
-    },
-    {
-      "name": "매장찾기 200 응답",
-      "url": "https://m.store.hanssem.com/store_M",
-      "status": "pass",
-      "duration": "11.95s",
-      "reason": ""
-    },
-    {
-      "name": "매장 찾기 페이지 직접 진입 및 타이틀 확인",
-      "url": "https://m.store.hanssem.com/store_M",
-      "status": "pass",
-      "duration": "6.15s",
-      "reason": ""
-    },
-    {
-      "name": "상품정보 탭 → 후기 탭 전환 확인",
-      "url": "https://m.store.hanssem.com/goods/837513?tab=review",
-      "status": "pass",
-      "duration": "8.96s",
-      "reason": ""
-    },
-    {
-      "name": "검색 결과 0건 — 없는 키워드",
-      "url": "https://m.store.hanssem.com/search/goods?searchKey=zzzzxxx%ED%95%9C%EC%83%98%EC%97%86%EB%8A%94%EC%83%81%ED%92%88xyz",
-      "status": "pass",
-      "duration": "6.87s",
-      "reason": ""
-    },
-    {
-      "name": "카테고리 페이지(/category/숫자) 진입 및 상품 노출",
-      "url": "https://m.store.hanssem.com/category/20002",
-      "status": "pass",
-      "duration": "10.37s",
-      "reason": ""
-    },
-    {
-      "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
-      "url": "https://m.store.hanssem.com/interior/constcase",
-      "status": "pass",
-      "duration": "9.68s",
-      "reason": ""
-    },
-    {
-      "name": "인테리어 — 무료견적상담 링크 노출",
-      "url": "https://m.store.hanssem.com/interior",
-      "status": "pass",
-      "duration": "12.13s",
-      "reason": ""
     },
     {
       "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
@@ -194,6 +145,55 @@
       "status": "fail",
       "duration": "5.44s",
       "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+    },
+    {
+      "name": "매장찾기 200 응답",
+      "url": "https://m.store.hanssem.com/store_M",
+      "status": "pass",
+      "duration": "5.43s",
+      "reason": ""
+    },
+    {
+      "name": "매장 찾기 페이지 직접 진입 및 타이틀 확인",
+      "url": "https://m.store.hanssem.com/store_M",
+      "status": "pass",
+      "duration": "9.48s",
+      "reason": ""
+    },
+    {
+      "name": "상품정보 탭 → 후기 탭 전환 확인",
+      "url": "https://m.store.hanssem.com/goods/837513?tab=review",
+      "status": "pass",
+      "duration": "12.32s",
+      "reason": ""
+    },
+    {
+      "name": "검색 결과 0건 — 없는 키워드",
+      "url": "https://m.store.hanssem.com/search/goods?searchKey=zzzzxxx%ED%95%9C%EC%83%98%EC%97%86%EB%8A%94%EC%83%81%ED%92%88xyz",
+      "status": "pass",
+      "duration": "8.77s",
+      "reason": ""
+    },
+    {
+      "name": "카테고리 페이지(/category/숫자) 진입 및 상품 노출",
+      "url": "https://m.store.hanssem.com/category/20002",
+      "status": "pass",
+      "duration": "6.98s",
+      "reason": ""
+    },
+    {
+      "name": "인테리어 시공사례 페이지(/interior/constcase) 진입",
+      "url": "https://m.store.hanssem.com/interior/constcase",
+      "status": "pass",
+      "duration": "6.09s",
+      "reason": ""
+    },
+    {
+      "name": "인테리어 — 무료견적상담 링크 노출",
+      "url": "https://m.store.hanssem.com/interior",
+      "status": "fail",
+      "duration": "30.05s",
+      "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
     }
   ]
 }
