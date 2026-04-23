@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 9:18:03",
+  "lastUpdated": "2026. 4. 23. PM 9:32:39",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,7 +345,7 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 8:50:13",
+      "lastUpdated": "2026. 4. 23. PM 9:32:39",
       "total": 92,
       "pass": 80,
       "fail": 2,
@@ -355,7 +355,7 @@
           "name": "통합검색 결과 - 상품 리스트 노출",
           "url": "",
           "status": "fail",
-          "duration": "35.04s",
+          "duration": "35.76s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -366,7 +366,7 @@
           "name": "통합검색 결과 - 상품 리스트 노출",
           "url": "",
           "status": "fail",
-          "duration": "35.60s",
+          "duration": "35.68s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
