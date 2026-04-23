@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 6:07:51",
+  "lastUpdated": "2026. 4. 23. PM 6:12:18",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -726,6 +726,16 @@
       "lastUpdated": "2026. 4. 17. 오전 11:08:55",
       "total": 38,
       "pass": 38,
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
+    },
+    {
+      "id": "pc-random",
+      "title": "운영환경 PC 200개 랜덤 테스트",
+      "lastUpdated": "2026. 4. 23. PM 6:12:18",
+      "total": 200,
+      "pass": 200,
       "fail": 0,
       "passRate": "100.0",
       "cases": []
