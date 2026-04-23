@@ -37,9 +37,15 @@ export default defineConfig({
 
   projects: [
     {
+      // PC/MW 500 랜딩 크롤링 (내부에서 context 직접 생성 → PC→MW 순차)
+      name: "Crawling",
+      testMatch: ["**/pc_mw_*.spec.ts"],
+    },
+    {
       name: "PC_Chrome",
       use: { ...devices["Desktop Chrome"] },
       testMatch: ["**/pc_*.spec.ts"],
+      testIgnore: ["**/pc_mw_*.spec.ts"],
     },
     {
       name: "MW_Chrome",
