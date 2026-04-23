@@ -6,7 +6,7 @@ import { analyzeFailures } from "./ai-analyzer";
 import { updateCoverage } from "./coverage";
 
 // [공통 설정]
-const MAX_LINKS = 500;
+const MAX_LINKS = 100;
 const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system/";
 const JANDI_WEBHOOK_URL =
   "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
