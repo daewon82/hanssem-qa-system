@@ -538,8 +538,11 @@
       }
 
       async function fetchBranch(branch) {
-        const r = await fetch(`${apiUrl(branch)}?ref=${branch}`, {
-          headers: { Authorization: `token ${GH_TOKEN}` }
+        // 캐시 우회를 위해 timestamp + cache: no-store
+        const ts = Date.now();
+        const r = await fetch(`${apiUrl(branch)}?ref=${branch}&t=${ts}`, {
+          headers: { Authorization: `token ${GH_TOKEN}`, "Cache-Control": "no-cache" },
+          cache: "no-store"
         });
         if (!r.ok) throw new Error(`GET ${branch} 실패 (${r.status})`);
         const f = await r.json();
@@ -558,6 +561,29 @@
           const e = await r.json().catch(() => ({}));
           throw new Error(`PUT ${branch} 실패: ${e.message || r.status}`);
         }
+      }
+
+      // SHA 불일치(409) 시 재fetch하여 최신 SHA로 PUT 재시도 + 데이터 재가공
+      async function putBranchWithRetry(branch, message, mutator, maxRetries = 2) {
+        let lastErr;
+        for (let i = 0; i <= maxRetries; i++) {
+          try {
+            const latest = await fetchBranch(branch);
+            mutator(latest.data);
+            await putBranch(branch, latest.sha, latest.data, message);
+            return;
+          } catch (err) {
+            lastErr = err;
+            const msg = (err && err.message) || "";
+            if (msg.includes("does not match") || msg.includes("409")) {
+              console.warn(`⚠️ SHA 불일치 — 재시도 ${i + 1}/${maxRetries}`);
+              await new Promise(r => setTimeout(r, 500));
+              continue;
+            }
+            throw err;
+          }
+        }
+        throw lastErr;
       }
 
       // ── 장애 삭제 ────────────────────────────────────────────
@@ -606,13 +632,23 @@
 
         try {
           const commitMsg = `feat: 장애 삭제 - ${monthKey}`;
-          const main = await fetchBranch("main");
-          removeIncident(main.data, monthKey, idx);
-          await putBranch("main", main.sha, main.data, commitMsg);
+          // 삭제 시점의 대상 식별을 위해 스냅샷 저장 (재시도 시 idx 변동 대응 불가하므로 summary+date로 매칭)
+          const snapshot = await fetchBranch("main");
+          const target = snapshot.data.incidents.byMonth.find(m => m.month === monthKey)?.list[idx];
+          if (!target) throw new Error("대상 장애를 찾을 수 없습니다");
 
-          const ghp = await fetchBranch("gh-pages");
-          removeIncident(ghp.data, monthKey, idx);
-          await putBranch("gh-pages", ghp.sha, ghp.data, commitMsg);
+          const removeByTarget = (data) => {
+            const monthEntry = data.incidents.byMonth.find(m => m.month === monthKey);
+            if (!monthEntry) return;
+            const realIdx = monthEntry.list.findIndex(i =>
+              i.date === target.date && i.summary === target.summary && i.assignee === target.assignee
+            );
+            if (realIdx < 0) return;
+            removeIncident(data, monthKey, realIdx);
+          };
+
+          await putBranchWithRetry("main", commitMsg, removeByTarget);
+          await putBranchWithRetry("gh-pages", commitMsg, removeByTarget);
 
           await load();
         } catch (err) {
@@ -702,15 +738,9 @@
         const commitMsg = `feat: 장애 등록 - ${payload.date} [${payload.category}] ${payload.summary.slice(0, 40)}`;
 
         try {
-          // main 브랜치 업데이트
-          const main = await fetchBranch("main");
-          applyIncident(main.data, payload);
-          await putBranch("main", main.sha, main.data, commitMsg);
-
-          // gh-pages 브랜치 업데이트
-          const ghp = await fetchBranch("gh-pages");
-          applyIncident(ghp.data, payload);
-          await putBranch("gh-pages", ghp.sha, ghp.data, commitMsg);
+          const apply = (data) => applyIncident(data, payload);
+          await putBranchWithRetry("main", commitMsg, apply);
+          await putBranchWithRetry("gh-pages", commitMsg, apply);
 
           setFeedback("✅ 장애가 등록되었습니다. 화면을 갱신합니다...", "ok");
           setTimeout(() => { closeModal(); load(); }, 1500);
