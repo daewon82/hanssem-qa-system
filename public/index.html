@@ -559,8 +559,7 @@
         { id: "mw-landing", title: "MW 500 Crawling Test", abbr1: "MW", abbr2: "CRAWL",  iconBg: "#00695C" },
         { id: "pc-random",  title: "PC 200 Random Test",   abbr1: "PC", abbr2: "RANDOM", iconBg: "#6A1B9A" },
         { id: "mw-random",  title: "MW 200 Random Test",   abbr1: "MW", abbr2: "RANDOM", iconBg: "#AD1457" },
-        { id: "pc-e2e",     title: "PC E2E Test",          abbr1: "PC", abbr2: "E2E",    iconBg: "#E65100" },
-        { id: "mw-e2e",     title: "MW E2E Test",          abbr1: "MW", abbr2: "E2E",    iconBg: "#2E7D32" },
+        { id: "autoe2e",    title: "AutoE2E Functional Test", abbr1: "E2E", abbr2: "AUTO", iconBg: "#E65100" },
       ];
 
       const passColor = (r) => r >= 95 ? "#2E7D32" : r >= 90 ? "#E65100" : "#C62828";
@@ -601,7 +600,7 @@
             ? `<span class="badge badge-warn">경고</span>`
             : `<span class="badge badge-fail">실패</span>`;
 
-        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json", "pc-random": "pc_random.json", "mw-random": "mw_random.json" };
+        const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json", "pc-random": "pc_random.json", "mw-random": "mw_random.json", "autoe2e": "autoe2e.json" };
         const detailFile = detailFileMap[r.id];
         const sheetBtn = detailFile
           ? `<a href="detail.html?id=${r.id}" class="rc4-sheet-btn">
@@ -951,7 +950,7 @@
       }
 
       /* ── 단계별 로딩 제어 ──────────────────────────────────── */
-      const PHASE_ORDER = ["pc-landing", "mw-landing", "pc-random", "mw-random", "pc-e2e", "mw-e2e"];
+      const PHASE_ORDER = ["pc-landing", "mw-landing", "pc-random", "mw-random", "autoe2e"];
       const phaseCompletedTime = {};
       let _wasRunning    = false;
       let _dispatchTime  = null;
