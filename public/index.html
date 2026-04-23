@@ -499,7 +499,35 @@
       </a>
     </div>
 
-    <!-- ── 테스트 결과 리포트 (4-column) ──────────────────── -->
+    <!-- ── 커버리지 통계 바 ──────────────────────────────── -->
+    <div id="coverage-bar" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:10px;color:var(--text-hint);font-weight:600;letter-spacing:0.4px;">총 누적 테스트 URL</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text-main);margin-top:2px;" id="cov-total">—</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text-hint);font-weight:600;letter-spacing:0.4px;">PC / MW 고유 URL</div>
+            <div style="font-size:14px;font-weight:600;color:var(--text-sub);margin-top:6px;" id="cov-pc-mw">—</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text-hint);font-weight:600;letter-spacing:0.4px;">오늘 테스트 수</div>
+            <div style="font-size:14px;font-weight:600;color:var(--text-sub);margin-top:6px;" id="cov-today">—</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text-hint);font-weight:600;letter-spacing:0.4px;">오늘 통과율</div>
+            <div style="font-size:20px;font-weight:800;margin-top:2px;" id="cov-passrate">—</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text-hint);font-weight:600;letter-spacing:0.4px;">완주 사이클</div>
+            <div style="font-size:14px;font-weight:600;color:var(--text-sub);margin-top:6px;" id="cov-cycles">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 테스트 결과 리포트 ──────────────────────────────── -->
     <div class="section-header-row">
       <div class="section-label" style="margin:0;font-size:26px;font-weight:700;color:var(--text-main)">테스트 결과 리포트</div>
       <button id="run-test-btn" onclick="runWorkflow()" style="
@@ -672,6 +700,21 @@
       }
 
       /* ── 카드 그리드 렌더링 ────────────────────────────────── */
+      function renderCoverage(cov) {
+        if (!cov) return;
+        const bar = document.getElementById("coverage-bar");
+        if (!bar) return;
+        bar.style.display = "";
+        document.getElementById("cov-total").textContent = (cov.totalUniqueUrls ?? 0).toLocaleString() + "개";
+        document.getElementById("cov-pc-mw").textContent = `PC ${(cov.pc?.uniqueUrls ?? 0).toLocaleString()} / MW ${(cov.mw?.uniqueUrls ?? 0).toLocaleString()}`;
+        document.getElementById("cov-today").textContent = `${(cov.todayTested ?? 0).toLocaleString()}건`;
+        const passRate = parseFloat(cov.todayPassRate || "0");
+        const passEl = document.getElementById("cov-passrate");
+        passEl.textContent = `${cov.todayPassRate || 0}%`;
+        passEl.style.color = passRate >= 95 ? "#2E7D32" : passRate >= 90 ? "#E65100" : "#C62828";
+        document.getElementById("cov-cycles").textContent = `PC ${cov.pc?.cyclesCompleted ?? 0} / MW ${cov.mw?.cyclesCompleted ?? 0}`;
+      }
+
       function renderCards(reports) {
         document.getElementById("cards-grid").innerHTML = REPORT_CONFIGS
           .map(cfg => {
@@ -793,6 +836,7 @@
           renderCards(data.reports);
           if (_wasRunning) applyProgressState(); // 카드 재렌더 후 로딩 상태 복원
           renderIncidentChart(data.incidents?.byMonth || []);
+          renderCoverage(data.coverage);
 
           if (data.incidents) {
             const inc = data.incidents;

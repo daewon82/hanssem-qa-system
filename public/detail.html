@@ -199,6 +199,8 @@
 
 <div class="summary-bar" id="summary-bar"></div>
 
+<div id="ai-analysis" style="display:none;background:var(--card);border:1px solid var(--border);border-left:3px solid #7B1FA2;border-radius:8px;padding:14px 16px;margin:12px 0;"></div>
+
 <div class="filter-bar">
   <button class="filter-btn active" onclick="setFilter('all', this)">전체</button>
   <button class="filter-btn" onclick="setFilter('pass', this)">통과만</button>
@@ -261,11 +263,44 @@
         if (a.status === b.status) return 0;
         return a.status === "fail" ? -1 : 1;
       });
+      renderAiAnalysis(data.aiAnalysis);
       renderTable();
     } catch (e) {
       document.getElementById("table-body").innerHTML =
         `<tr><td colspan="5" class="empty-msg">데이터를 불러올 수 없습니다. 테스트를 먼저 실행해 주세요.</td></tr>`;
     }
+  }
+
+  function renderAiAnalysis(ai) {
+    const box = document.getElementById("ai-analysis");
+    if (!box) return;
+    if (!ai || !ai.summary) { box.style.display = "none"; return; }
+    const priColor = ai.priority === "critical" ? "#C62828" : ai.priority === "high" ? "#E65100" : ai.priority === "medium" ? "#1D4ED8" : "#4B5568";
+    const causes = (ai.rootCauses || []).map(c => `<li>${escapeHtml(c)}</li>`).join("");
+    const fixes = (ai.suggestedFixes || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
+    box.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="background:${priColor};color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:4px;letter-spacing:0.4px;">${(ai.priority||"").toUpperCase()}</span>
+        <span style="font-size:14px;font-weight:700;color:var(--text-main);">🤖 Claude AI 자동 분석</span>
+        <span style="font-size:10px;color:var(--text-hint);margin-left:auto;">${ai.model || ""}</span>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--text-main);margin-bottom:10px;">${escapeHtml(ai.summary)}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-sub);margin-bottom:4px;">근본 원인</div>
+          <ul style="margin:0;padding-left:18px;font-size:12px;color:var(--text-sub);line-height:1.6;">${causes || "<li>정보 없음</li>"}</ul>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-sub);margin-bottom:4px;">수정 제안</div>
+          <ul style="margin:0;padding-left:18px;font-size:12px;color:var(--text-sub);line-height:1.6;">${fixes || "<li>정보 없음</li>"}</ul>
+        </div>
+      </div>
+    `;
+    box.style.display = "";
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
   }
 
   function setFilter(filter, btn) {

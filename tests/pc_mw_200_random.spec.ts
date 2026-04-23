@@ -1,6 +1,8 @@
 import { test, devices, Browser } from "@playwright/test";
 import fs from "fs";
 import { updateProgress, publishResults } from "./utils";
+import { analyzeFailures } from "./ai-analyzer";
+import { updateCoverage } from "./coverage";
 
 // [공통 설정]
 const RANDOM_COUNT = 200;
@@ -77,6 +79,18 @@ async function runRandom(browser: Browser, config: RandomConfig) {
         loadTimeSec = ((Date.now() - startMs) / 1000).toFixed(2);
         httpStatus = response?.status() || "Error";
         isPass = httpStatus === 200;
+
+        // Body 404 체크 (SPA 라우팅: URL 200이지만 실제 에러 페이지)
+        if (isPass) {
+          try {
+            const bodyText = await page.evaluate(() => document.body?.innerText?.slice(0, 1000) || "");
+            if (/페이지를 찾을 수 없|페이지가 존재하지 않|찾으시는 페이지|잘못된 접근|404 Not Found|NOT FOUND/i.test(bodyText)) {
+              isPass = false;
+              httpStatus = "200(body 404)";
+            }
+          } catch { /* body 확인 실패 시 pass 유지 */ }
+        }
+
         consecutiveTimeouts = 0;
         return true;
       } catch {
@@ -137,6 +151,7 @@ async function runRandom(browser: Browser, config: RandomConfig) {
       status: isPass ? "pass" : "fail",
       duration: `${loadTimeSec}s`,
       reason: failReason,
+      priority: "low", // random은 기본 low (discovery 성격)
     });
   }
 
@@ -151,7 +166,14 @@ async function runRandom(browser: Browser, config: RandomConfig) {
     existingData = JSON.parse(raw);
   } catch {}
 
-  const newReport = {
+  // AI 실패 분석 (ANTHROPIC_API_KEY 있을 때만 동작)
+  const failCases = caseResults.filter((c) => c.status === "fail");
+  const aiAnalysis = await analyzeFailures(
+    failCases.map((c) => ({ name: c.name, url: c.url, reason: c.reason, duration: c.duration })),
+    { platform: config.platform, testType: "random" }
+  );
+
+  const newReport: any = {
     id: config.reportId,
     title: config.reportTitle,
     lastUpdated: kst,
@@ -159,8 +181,9 @@ async function runRandom(browser: Browser, config: RandomConfig) {
     pass: passCount,
     fail: failCount,
     passRate,
-    cases: caseResults.filter((c) => c.status === "fail"),
+    cases: failCases,
   };
+  if (aiAnalysis) newReport.aiAnalysis = aiAnalysis;
 
   const reportIdx = existingData.reports.findIndex((r: any) => r.id === config.reportId);
   if (reportIdx >= 0) {
@@ -172,14 +195,9 @@ async function runRandom(browser: Browser, config: RandomConfig) {
 
   fs.writeFileSync("public/results.json", JSON.stringify(existingData, null, 2));
 
-  fs.writeFileSync(
-    `public/${config.outputJsonFile}`,
-    JSON.stringify(
-      { title: config.reportTitle, lastUpdated: kst, total: totalCount, pass: passCount, fail: failCount, passRate, cases: caseResults },
-      null,
-      2,
-    ),
-  );
+  const fullJsonPayload: any = { title: config.reportTitle, lastUpdated: kst, total: totalCount, pass: passCount, fail: failCount, passRate, cases: caseResults };
+  if (aiAnalysis) fullJsonPayload.aiAnalysis = aiAnalysis;
+  fs.writeFileSync(`public/${config.outputJsonFile}`, JSON.stringify(fullJsonPayload, null, 2));
 
   await publishResults(
     newReport,
@@ -196,6 +214,10 @@ async function runRandom(browser: Browser, config: RandomConfig) {
   const updatedHistory = Array.from(new Set([...history, ...targets]));
   fs.writeFileSync(historyFile, JSON.stringify({ lastUpdated: kst, urls: updatedHistory }, null, 2));
   console.log(`📝 ${config.platform} 이력 업데이트: +${targets.length} (누적 ${updatedHistory.length}개)`);
+
+  // 커버리지 통계 업데이트
+  const coverage = updateCoverage();
+  console.log(`📊 커버리지: 누적 ${coverage.totalUniqueUrls}개 URL (PC ${coverage.pc.uniqueUrls} / MW ${coverage.mw.uniqueUrls}), 오늘 통과율 ${coverage.todayPassRate}%`);
 
   console.log(`🏁 ${config.platform} 랜덤 점검 완료! 총 ${totalCount}건 (통과 ${passCount} / 실패 ${failCount})`);
 
