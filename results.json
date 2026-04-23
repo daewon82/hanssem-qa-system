@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. AM 10:34:39",
+  "lastUpdated": "2026. 4. 23. AM 10:35:40",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -374,11 +374,11 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 23. AM 10:34:39",
+      "lastUpdated": "2026. 4. 23. AM 10:35:40",
       "total": 27,
-      "pass": 25,
-      "fail": 2,
-      "passRate": "92.6",
+      "pass": 24,
+      "fail": 3,
+      "passRate": "88.9",
       "cases": [
         {
           "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
@@ -392,6 +392,13 @@
           "url": "",
           "status": "fail",
           "duration": "5.46s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+        },
+        {
+          "name": "상품상세 200 응답",
+          "url": "",
+          "status": "fail",
+          "duration": "5.44s",
           "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
         }
       ]
