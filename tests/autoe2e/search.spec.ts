@@ -57,14 +57,17 @@ test.describe('검색 기능', () => {
  * 홈퍼니싱 페이지의 상시 노출 검색창을 이용해 검색을 실행한다.
  * 메인 GNB 검색창은 headless 환경에서 숨김 이슈가 있어 회피.
  */
+/**
+ * 검색 결과 페이지로 직접 이동.
+ * 실제 검색 입력 플로우는 TC004에서 별도 검증하므로, 결과 페이지 검증 테스트에서는
+ * /furnishing → 검색창 → Enter 플로우를 우회해서 안정성 확보.
+ * (headless 환경에서 검색 input이 간헐적으로 미노출되는 이슈 대응)
+ */
 async function submitSearch(page: import('@playwright/test').Page, keyword: string) {
-  await page.goto(`${BASE}/furnishing`, { waitUntil: "domcontentloaded" });
-  const searchInput = page.locator('input[placeholder="검색어를 입력해 주세요."]').first();
-  await searchInput.fill(keyword);
-  await searchInput.press('Enter');
-  await page.waitForLoadState('domcontentloaded');
-  // 검색 결과 페이지의 JS 렌더링 대기 (상품 리스트 비동기 로딩)
-  await page.waitForTimeout(1500);
+  const searchUrl = `${BASE}/search/goods?searchKey=${encodeURIComponent(keyword)}`;
+  await page.goto(searchUrl, { waitUntil: "domcontentloaded" });
+  // 상품 리스트 비동기 로딩 대기
+  await page.waitForTimeout(2000);
 }
 
 test.describe('통합검색 결과 페이지', () => {
