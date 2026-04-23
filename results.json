@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. AM 10:33:21",
+  "lastUpdated": "2026. 4. 23. AM 10:34:39",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -374,25 +374,25 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 22. PM 4:15:35",
+      "lastUpdated": "2026. 4. 23. AM 10:34:39",
       "total": 27,
       "pass": 25,
       "fail": 2,
       "passRate": "92.6",
       "cases": [
         {
-          "name": "인테리어 페이지 — 카테고리/기획 링크 1개 이상 노출",
-          "url": "https://m.store.hanssem.com/interior",
-          "status": "fail",
-          "duration": "30.06s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
-        },
-        {
           "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
           "url": "about:blank",
           "status": "fail",
           "duration": "30.07s",
           "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
+        },
+        {
+          "name": "상품 상세 — 상품명(H1) 노출",
+          "url": "",
+          "status": "fail",
+          "duration": "5.46s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
         }
       ]
     },
