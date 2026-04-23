@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 8:36:17",
+  "lastUpdated": "2026. 4. 23. PM 8:50:13",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,39 +345,17 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 7:56:14",
-      "total": 91,
-      "pass": 76,
-      "fail": 5,
-      "passRate": "93.8",
+      "lastUpdated": "2026. 4. 23. PM 8:50:13",
+      "total": 92,
+      "pass": 80,
+      "fail": 2,
+      "passRate": "97.6",
       "cases": [
-        {
-          "name": "카테고리 로드 - 침실",
-          "url": "https://store.hanssem.com/category/20070",
-          "status": "fail",
-          "duration": "40.09s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "medium",
-          "project": "AutoE2E_Public_PC",
-          "file": "category.spec.ts",
-          "platform": "PC"
-        },
-        {
-          "name": "TC009 - 호텔침대 필터 칩 클릭",
-          "url": "https://store.hanssem.com/category/20070",
-          "status": "fail",
-          "duration": "30.34s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "medium",
-          "project": "AutoE2E_Public_PC",
-          "file": "category.spec.ts",
-          "platform": "PC"
-        },
         {
           "name": "통합검색 결과 - 상품 리스트 노출",
           "url": "",
           "status": "fail",
-          "duration": "23.89s",
+          "duration": "35.04s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -385,25 +363,14 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+          "name": "통합검색 결과 - 상품 리스트 노출",
           "url": "",
           "status": "fail",
-          "duration": "18.94s",
-          "reason": "Error: expect(locator).toBeAttached() failed",
+          "duration": "35.60s",
+          "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
           "file": "search.spec.ts",
-          "platform": "PC"
-        },
-        {
-          "name": "상품 상세 - 구매하기/바로구매 버튼 노출",
-          "url": "https://store.hanssem.com/category/20070",
-          "status": "fail",
-          "duration": "30.52s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "critical",
-          "project": "AutoE2E_Authed",
-          "file": "product.spec.ts",
           "platform": "PC"
         }
       ]
