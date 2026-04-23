@@ -422,18 +422,33 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 3:33:53",
-      "total": 26,
-      "pass": 25,
-      "fail": 1,
-      "passRate": "96.2",
+      "lastUpdated": "2026. 4. 23. PM 7:56:14",
+      "total": 60,
+      "pass": 38,
+      "fail": 2,
+      "passRate": "95.0",
       "cases": [
         {
-          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
-          "url": "https://m.store.hanssem.com/furnishing",
+          "name": "카테고리 로드 - 커튼·블라인드",
+          "url": "https://store.hanssem.com/category/20109",
           "status": "fail",
-          "duration": "5.46s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+          "duration": "5.63s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/category/20109",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "category.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "인테리어 상담신청 접근점 존재",
+          "url": "https://store.hanssem.com/interior",
+          "status": "fail",
+          "duration": "30.39s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "interior.spec.ts",
+          "platform": "MW"
         }
       ]
     },
