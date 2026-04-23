@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 3:30:26",
+  "lastUpdated": "2026. 4. 23. PM 3:31:38",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -374,12 +374,20 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 2:07:42",
+      "lastUpdated": "2026. 4. 23. PM 3:31:38",
       "total": 26,
-      "pass": 26,
-      "fail": 0,
-      "passRate": "100.0",
-      "cases": []
+      "pass": 25,
+      "fail": 1,
+      "passRate": "96.2",
+      "cases": [
+        {
+          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
+          "url": "https://m.store.hanssem.com/furnishing",
+          "status": "fail",
+          "duration": "5.46s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+        }
+      ]
     },
     {
       "id": "pc-e2e-v2",
