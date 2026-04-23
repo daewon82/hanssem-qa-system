@@ -1,22 +1,31 @@
 {
   "lastUpdated": "2026. 4. 23. AM 10:37:13",
   "incidents": {
-    "total": 31,
-    "hotfix": 31,
-    "feCount": 15,
+    "total": 32,
+    "hotfix": 32,
+    "feCount": 16,
     "beCount": 15,
     "appCount": 1,
-    "lastUpdated": "2026-04-20",
-    "period": "2026-01-06 ~ 2026-04-20",
+    "lastUpdated": "2026-04-23",
+    "period": "2026-01-06 ~ 2026-04-23",
     "byMonth": [
       {
         "month": "2026-04",
         "label": "2026년 4월",
-        "count": 12,
-        "fe": 7,
+        "count": 13,
+        "fe": 8,
         "be": 5,
         "app": 0,
         "list": [
+          {
+            "no": 13,
+            "date": "2026-04-23",
+            "type": "핫픽스",
+            "category": "FE",
+            "assignee": "이대원",
+            "summary": "이슈 등록 테스트",
+            "jiraLink": ""
+          },
           {
             "no": 12,
             "date": "2026-04-20",
@@ -775,5 +784,5 @@
       "cases": []
     }
   ],
-  "codeLastModified": "NaN. NaN. NaN. NaN:NaN"
+  "codeLastModified": "2026. 4. 23. 09:51"
 }

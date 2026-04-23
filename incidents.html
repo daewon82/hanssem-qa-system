@@ -529,10 +529,16 @@
 
       // ── GitHub API ──────────────────────────────────────────
       const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].join("");
-      const REPO_API = "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/public/results.json";
+      const REPO_BASE = "https://api.github.com/repos/daewon82/hanssem-qa-system/contents";
+
+      // gh-pages는 publish_dir: ./public 으로 배포되어 파일이 루트에 있음
+      function apiUrl(branch) {
+        const path = branch === "gh-pages" ? "results.json" : "public/results.json";
+        return `${REPO_BASE}/${path}`;
+      }
 
       async function fetchBranch(branch) {
-        const r = await fetch(`${REPO_API}?ref=${branch}`, {
+        const r = await fetch(`${apiUrl(branch)}?ref=${branch}`, {
           headers: { Authorization: `token ${GH_TOKEN}` }
         });
         if (!r.ok) throw new Error(`GET ${branch} 실패 (${r.status})`);
@@ -543,7 +549,7 @@
 
       async function putBranch(branch, sha, data, message) {
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-        const r = await fetch(REPO_API, {
+        const r = await fetch(apiUrl(branch), {
           method: "PUT",
           headers: { Authorization: `token ${GH_TOKEN}`, "Content-Type": "application/json" },
           body: JSON.stringify({ message, content, sha, branch })
