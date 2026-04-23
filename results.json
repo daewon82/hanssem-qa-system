@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 8:29:07",
+  "lastUpdated": "2026. 4. 23. PM 8:36:17",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -822,9 +822,9 @@
     {
       "id": "mw-random",
       "title": "운영환경 MW 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 23. PM 7:40:22",
-      "total": 200,
-      "pass": 200,
+      "lastUpdated": "2026. 4. 23. PM 8:36:17",
+      "total": 185,
+      "pass": 185,
       "fail": 0,
       "passRate": "100.0",
       "cases": []
