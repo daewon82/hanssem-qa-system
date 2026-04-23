@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 7:06:17",
+  "lastUpdated": "2026. 4. 23. PM 7:25:38",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,9 +334,9 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 23. PM 6:38:33",
-      "total": 500,
-      "pass": 500,
+      "lastUpdated": "2026. 4. 23. PM 7:25:38",
+      "total": 100,
+      "pass": 100,
       "fail": 0,
       "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
