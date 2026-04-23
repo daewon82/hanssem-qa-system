@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 1:40:37",
+  "lastUpdated": "2026. 4. 23. PM 2:04:03",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -355,7 +355,7 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 23. AM 11:40:10",
+      "lastUpdated": "2026. 4. 23. PM 2:04:03",
       "total": 500,
       "pass": 500,
       "fail": 0,
