@@ -250,7 +250,8 @@ async function runCrawl(browser: Browser, config: CrawlConfig) {
       console.log(`[PROGRESS] ${config.platform}_500: ${visitedLinks.size}/${MAX_LINKS}`);
     }
 
-    if (Date.now() - lastProgressUpdate > 5000) {
+    // 30초 간격 (gh-pages deploy 트리거 감소 목적)
+    if (Date.now() - lastProgressUpdate > 30000) {
       await updateProgress(config.progressPhase, visitedLinks.size, MAX_LINKS);
       lastProgressUpdate = Date.now();
     }

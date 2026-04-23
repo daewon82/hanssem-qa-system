@@ -134,7 +134,8 @@ async function runRandom(browser: Browser, config: RandomConfig) {
       } catch { /* 무시 */ }
     }
 
-    if (Date.now() - lastProgressUpdate > 5000) {
+    // 30초 간격 (gh-pages deploy 트리거 감소)
+    if (Date.now() - lastProgressUpdate > 30000) {
       await updateProgress(config.progressPhase, i + 1, targets.length);
       lastProgressUpdate = Date.now();
     }
