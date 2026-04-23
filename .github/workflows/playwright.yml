@@ -45,6 +45,7 @@ jobs:
         run: npx playwright test
         continue-on-error: true
         env:
+          CI: "" # 잔디 알림 잠시 중단 (재활성화 시 이 라인 삭제)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_OPTIONS: "--expose-gc --max-old-space-size=4096"
 
@@ -53,7 +54,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
 
-          git add public/results.json public/pc_500.json public/pc_e2e.json public/mw_500.json public/mw_e2e.json
+          git add public/results.json public/pc_500.json public/pc_e2e.json public/mw_500.json public/mw_e2e.json public/pc_random.json public/mw_random.json public/pc_url_pool.json public/mw_url_pool.json public/pc_tested_urls.json public/mw_tested_urls.json
 
           git commit -m "auto update $(date +'%s') [skip ci]" || echo "no changes"
 

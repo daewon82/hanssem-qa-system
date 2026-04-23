@@ -37,9 +37,14 @@ export default defineConfig({
 
   projects: [
     {
-      // PC/MW 500 랜딩 크롤링 (내부에서 context 직접 생성 → PC→MW 순차)
+      // 500 크롤링 (내부에서 context 직접 생성 → PC→MW 순차)
       name: "Crawling",
-      testMatch: ["**/pc_mw_*.spec.ts"],
+      testMatch: ["**/pc_mw_500_crawling.spec.ts"],
+    },
+    {
+      // 랜덤 테스트 (크롤링에서 생성한 URL 풀 재활용, Crawling 다음 실행)
+      name: "Random",
+      testMatch: ["**/pc_mw_200_random.spec.ts"],
     },
     {
       name: "PC_Chrome",

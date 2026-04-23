@@ -304,6 +304,41 @@ async function runCrawl(browser: Browser, config: CrawlConfig) {
     config.outputJsonFile
   );
 
+  // -----------------------------
+  // URL 풀 저장 (랜덤 테스트용 — 누적 이력 제외)
+  // -----------------------------
+  const historyFile = `public/${config.platform.toLowerCase()}_tested_urls.json`;
+  const poolFile = `public/${config.platform.toLowerCase()}_url_pool.json`;
+
+  let history: string[] = [];
+  try {
+    history = JSON.parse(fs.readFileSync(historyFile, "utf8")).urls || [];
+  } catch { /* 이력 파일 없음 — 신규 생성 */ }
+
+  // 현재 크롤링 방문 URL을 이력에 누적
+  const updatedHistory = Array.from(new Set([...history, ...Array.from(visitedLinks)]));
+  const historySet = new Set(updatedHistory);
+
+  // 풀 = 수집된 URL − 누적 이력 (과거 및 이번 크롤링에서 테스트한 URL 제외)
+  let remaining = Array.from(linkPool).filter((u) => !historySet.has(u));
+
+  // 풀이 너무 작으면 이력 리셋 (한 사이클 완료 → 다음 사이클 시작)
+  if (remaining.length < 100) {
+    console.log(`♻️ ${config.platform} 미테스트 URL ${remaining.length}개 — 이력 리셋 (다음 사이클 시작)`);
+    const resetHistory = Array.from(visitedLinks); // 이번 크롤링만 이력에 남김
+    fs.writeFileSync(historyFile, JSON.stringify({ lastUpdated: kst, urls: resetHistory }, null, 2));
+    const resetSet = new Set(resetHistory);
+    remaining = Array.from(linkPool).filter((u) => !resetSet.has(u));
+  } else {
+    fs.writeFileSync(historyFile, JSON.stringify({ lastUpdated: kst, urls: updatedHistory }, null, 2));
+  }
+
+  fs.writeFileSync(
+    poolFile,
+    JSON.stringify({ generated: kst, platform: config.platform, urls: remaining }, null, 2)
+  );
+  console.log(`📦 ${config.platform} URL 풀: ${remaining.length}개 (누적 이력: ${updatedHistory.length}개 제외)`);
+
   // 잔디 알림 (GitHub Actions 에서만 전송)
   if (!process.env.CI) {
     console.log("⏭️ 로컬 실행 — 잔디 알림 스킵");
