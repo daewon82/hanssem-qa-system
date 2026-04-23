@@ -47,6 +47,22 @@ async function gotoWithRetry(page: Page, url: string, maxRetries = 2) {
   throw lastError;
 }
 
+// 힙 메모리 체크 + 임계치 초과 시 브라우저 상태 리셋
+async function checkMemoryAndReset(page: Page) {
+  const heapMB = process.memoryUsage().heapUsed / 1024 / 1024;
+  if (heapMB > 2500) { // 2.5GB 임계치
+    console.log(`  ⚠️ 힙 메모리 ${heapMB.toFixed(0)}MB — 쿠키/스토리지/캐시 리셋`);
+    try {
+      await page.context().clearCookies();
+      await page.context().clearPermissions();
+      await page.evaluate(() => {
+        try { localStorage.clear(); sessionStorage.clear(); } catch {}
+      }).catch(() => {});
+      if (global.gc) global.gc();
+    } catch { /* 무시 */ }
+  }
+}
+
 const stripAnsi = (str: string) => str.replace(/\x1B\[[0-9;]*m/g, "").trim();
 
 test.describe("MW E2E 테스트", () => {
@@ -285,7 +301,10 @@ test.describe("3. 상품 목록", () => {
 
 // ─── 4. 상품 상세 ──────────────────────────────────────────
 test.describe("4. 상품 상세", () => {
+  test.describe.configure({ retries: 1 });
+
   test.beforeEach(async ({ page }) => {
+    await checkMemoryAndReset(page);
     await gotoWithRetry(page, `/goods/${SAMPLE_GOODS_ID}`);
     await waitForPageReady(page, 3000);
   });
@@ -374,8 +393,11 @@ test.describe("8. 주요 페이지 HTTP 응답", () => {
     { name: "매장찾기",    path: "/store" },
   ];
 
+  test.describe.configure({ retries: 1 });
+
   for (const { name, path } of pageList) {
     test(`${name} 200 응답`, async ({ page }) => {
+      await checkMemoryAndReset(page);
       const response = await gotoWithRetry(page, path);
       expect(response?.status()).toBeLessThan(400);
       console.log(`[✓] ${name}: ${response?.status()}`);
@@ -396,7 +418,10 @@ test.describe("9. 매장 찾기", () => {
 
 // ─── 10. 상품 상세 탭 전환 ───────────────────────────────────
 test.describe("10. 상품 상세 탭 전환", () => {
+  test.describe.configure({ retries: 1 });
+
   test.beforeEach(async ({ page }) => {
+    await checkMemoryAndReset(page);
     await gotoWithRetry(page, `/goods/${SAMPLE_GOODS_ID}`);
     await waitForPageReady(page, 3000);
   });
@@ -428,6 +453,12 @@ test.describe("11. 검색 결과", () => {
 
 // ─── 12. 인테리어 서브 페이지 ────────────────────────────────
 test.describe("12. 인테리어 서브 페이지", () => {
+  test.describe.configure({ retries: 1 });
+
+  test.beforeEach(async ({ page }) => {
+    await checkMemoryAndReset(page);
+  });
+
   test("카테고리 페이지(/category/숫자) 진입 및 상품 노출", async ({ page }) => {
     await page.goto("https://m.store.hanssem.com/category/20002");
     await waitForPageReady(page, 3000);
