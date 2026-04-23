@@ -69,7 +69,13 @@ test.afterEach(async ({ page }, testInfo) => {
 
   const isPassed = testInfo.status === "passed";
   const rawUrl = page.url();
-  const currentUrl = (rawUrl.startsWith("chrome-error://") || rawUrl === "about:blank") ? "" : rawUrl;
+  let currentUrl = (rawUrl.startsWith("chrome-error://") || rawUrl === "about:blank") ? "" : rawUrl;
+  // 실패 시 page.url()이 비어있으면 에러 메시지에서 시도한 URL 추출
+  if (!currentUrl && !isPassed) {
+    const msg = testInfo.errors?.[0]?.message || "";
+    const m = msg.match(/navigating to "(https?:\/\/[^"]+)"/) || msg.match(/at (https?:\/\/\S+)/);
+    if (m) currentUrl = m[1];
+  }
   const duration = (testInfo.duration / 1000).toFixed(2);
 
   if (!isPassed) {
