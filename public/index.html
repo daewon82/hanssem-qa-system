@@ -1031,16 +1031,16 @@
           PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
           return;
         }
-        const isLanding = _currentPhase.includes("landing");
+        // landing / random 은 진행률 %, e2e 는 스피너만 (건수 판정 어려움)
+        const hasProgress = _currentPhase.includes("landing") || _currentPhase.includes("random");
         PHASE_ORDER.forEach(id => {
           const pIdx = PHASE_ORDER.indexOf(id);
           const cIdx = PHASE_ORDER.indexOf(_currentPhase);
           if (pIdx < cIdx) {
             setCardLoading(id, "done");
           } else if (id === _currentPhase) {
-            // landing: count/total 기반 실제 %, E2E: 스피너만
             let label = "";
-            if (isLanding) {
+            if (hasProgress) {
               label = (_progressCount != null && _progressTotal)
                 ? Math.round((_progressCount / _progressTotal) * 100) + "%"
                 : "0%";
