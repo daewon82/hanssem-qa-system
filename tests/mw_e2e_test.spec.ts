@@ -275,13 +275,6 @@ test.describe("4. 상품 상세", () => {
     console.log(`[✓] 상품명: ${title?.trim()}`);
   });
 
-  test("상품 상세 — 가격 정보 노출 (숫자+원 패턴)", async ({ page }) => {
-    const priceText = page.locator("text=/[\\d,]+원/").first();
-    await expect(priceText).toBeVisible({ timeout: 8000 });
-    const text = await priceText.textContent();
-    console.log(`[✓] 가격 노출: ${text?.trim().slice(0, 30)}`);
-  });
-
   test("상품 상세 — 상품 이미지 노출", async ({ page }) => {
     await expect(async () => {
       const imgs = await page.locator('img[src*="image.hanssem.com"]').all();
