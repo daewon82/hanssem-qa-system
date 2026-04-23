@@ -16,37 +16,37 @@ const CATEGORIES = [
 
 for (const cat of CATEGORIES) {
   test(`카테고리 로드 - ${cat.name}`, async ({ page }) => {
-    await page.goto(`${BASE}${cat.url}`);
+    await page.goto(`${BASE}${cat.url}`, { waitUntil: 'domcontentloaded' });
     await expect(page.locator('h1')).toContainText(cat.h1);
   });
 }
 
 test.describe('침실 카테고리 상세', () => {
   test('TC009 - 호텔침대 필터 칩 클릭', async ({ page }) => {
-    await page.goto(`${BASE}/category/20070`);
+    await page.goto(`${BASE}/category/20070`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h1')).toContainText('침실');
     await expect(page.locator('button:has-text("호텔침대")')).toBeVisible();
     await page.locator('button:has-text("호텔침대")').click();
   });
 
   test('침실 BEST 상품 섹션 노출', async ({ page }) => {
-    await page.goto(`${BASE}/category/20070`);
+    await page.goto(`${BASE}/category/20070`, { waitUntil: "domcontentloaded" });
     // 복수 H2 존재 → first() 사용
     await expect(page.locator('h2:has-text("BEST 상품")').first()).toBeVisible();
   });
 
   test('침실 라인업 섹션 노출', async ({ page }) => {
-    await page.goto(`${BASE}/category/20070`);
+    await page.goto(`${BASE}/category/20070`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("라인업")').first()).toBeVisible();
   });
 
   test('침실 신상품 섹션 노출', async ({ page }) => {
-    await page.goto(`${BASE}/category/20070`);
+    await page.goto(`${BASE}/category/20070`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("신상품")')).toBeVisible();
   });
 
   test('상품 링크 /goods/:id 패턴 확인', async ({ page }) => {
-    await page.goto(`${BASE}/category/20070`);
+    await page.goto(`${BASE}/category/20070`, { waitUntil: "domcontentloaded" });
     const goodsLinks = page.locator('a[href*="/goods/"]');
     const count = await goodsLinks.count();
     expect(count).toBeGreaterThan(0);
@@ -63,20 +63,20 @@ test.describe('거실 카테고리 상세', () => {
   });
 
   test('거실 BEST 상품 섹션 노출', async ({ page }) => {
-    await page.goto(`${BASE}/category/20071`);
+    await page.goto(`${BASE}/category/20071`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("BEST 상품")').first()).toBeVisible();
   });
 });
 
 test.describe('키즈룸 카테고리 상세', () => {
   test('TC012 - 출산필수템 필터 칩 노출', async ({ page }) => {
-    await page.goto(`${BASE}/category/20074`);
+    await page.goto(`${BASE}/category/20074`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h1')).toContainText('키즈룸');
     await expect(page.locator('button:has-text("출산필수템")')).toBeVisible();
   });
 
   test('키즈룸 샘키즈 알아보기 섹션', async ({ page }) => {
-    await page.goto(`${BASE}/category/20074`);
+    await page.goto(`${BASE}/category/20074`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("샘키즈")')).toBeVisible();
   });
 });
@@ -107,7 +107,7 @@ test.describe('TC018 - 반응형 모바일', () => {
 
   test('모바일 뷰포트 카테고리 페이지', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(`${BASE}/category/20070`);
+    await page.goto(`${BASE}/category/20070`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h1')).toContainText('침실');
   });
 });

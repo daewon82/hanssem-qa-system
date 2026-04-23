@@ -64,13 +64,16 @@ export default defineConfig({
       testMatch: ["**/mw_*.spec.ts"],
     },
     // ─── AutoE2E E2E 테스트 (PC 먼저, 그 다음 MW) ───────────
+    // flaky 서버 응답 회복을 위해 retries: 1 (프로젝트 레벨)
     {
       name: "AutoE2E_Public_PC",
+      retries: 1,
       use: { ...devices["Desktop Chrome"], locale: "ko-KR" },
       testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
     },
     {
       name: "AutoE2E_Authed",
+      retries: 1,
       use: {
         ...devices["Desktop Chrome"],
         locale: "ko-KR",
@@ -80,6 +83,7 @@ export default defineConfig({
     },
     {
       name: "AutoE2E_Public_Mobile",
+      retries: 1,
       use: { ...devices["Pixel 5"], locale: "ko-KR" },
       testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
     },

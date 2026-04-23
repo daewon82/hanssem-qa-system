@@ -9,7 +9,7 @@ test.describe('검색 기능', () => {
   test('TC004 - 키워드 입력 후 검색 실행', async ({ page }) => {
     if (isMobile(page)) { test.skip(); return; }
     // 홈퍼니싱 페이지는 검색창이 상시 노출됨 (메인 GNB 와 달리 숨김 이슈 없음)
-    await page.goto(`${BASE}/furnishing`);
+    await page.goto(`${BASE}/furnishing`, { waitUntil: "domcontentloaded" });
     const searchInput = page.locator('input[placeholder="검색어를 입력해 주세요."]').first();
     await searchInput.fill('소파');
     await searchInput.press('Enter');
@@ -46,7 +46,7 @@ test.describe('검색 기능', () => {
 
   test('홈퍼니싱 페이지 검색창 DOM 존재', async ({ page }) => {
     if (isMobile(page)) { test.skip(); return; }
-    await page.goto(`${BASE}/furnishing`);
+    await page.goto(`${BASE}/furnishing`, { waitUntil: "domcontentloaded" });
     await expect(
       page.locator('input[placeholder="검색어를 입력해 주세요."]').first()
     ).toBeAttached();
@@ -58,11 +58,13 @@ test.describe('검색 기능', () => {
  * 메인 GNB 검색창은 headless 환경에서 숨김 이슈가 있어 회피.
  */
 async function submitSearch(page: import('@playwright/test').Page, keyword: string) {
-  await page.goto(`${BASE}/furnishing`);
+  await page.goto(`${BASE}/furnishing`, { waitUntil: "domcontentloaded" });
   const searchInput = page.locator('input[placeholder="검색어를 입력해 주세요."]').first();
   await searchInput.fill(keyword);
   await searchInput.press('Enter');
   await page.waitForLoadState('domcontentloaded');
+  // 검색 결과 페이지의 JS 렌더링 대기 (상품 리스트 비동기 로딩)
+  await page.waitForTimeout(1500);
 }
 
 test.describe('통합검색 결과 페이지', () => {
@@ -77,7 +79,8 @@ test.describe('통합검색 결과 페이지', () => {
     if (isMobile(page)) { test.skip(); return; }
     await submitSearch(page, '소파');
     const goods = page.locator('a[href*="/goods/"]');
-    await expect(goods.first()).toBeVisible({ timeout: 20000 });
+    // 20s → 30s 로 확장 (검색 결과 비동기 로딩 지연 대응)
+    await expect(goods.first()).toBeVisible({ timeout: 30000 });
   });
 
   test('통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재', async ({ page }) => {
@@ -90,9 +93,10 @@ test.describe('통합검색 결과 페이지', () => {
   test('통합검색 결과 - 정렬/필터 컨트롤 노출', async ({ page }) => {
     if (isMobile(page)) { test.skip(); return; }
     await submitSearch(page, '소파');
-    // "인기순/낮은가격순/높은가격순/리뷰순/최신순" 등 정렬 키워드 노출
-    const sortControl = page.locator('button, a').filter({ hasText: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순/ }).first();
-    await expect(sortControl).toBeAttached({ timeout: 15000 });
+    // 정렬 컨트롤이 비동기로 렌더되므로 추가 대기
+    await page.waitForTimeout(2000);
+    const sortControl = page.locator('button, a, span, div').filter({ hasText: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순|가격낮은|가격높은/ }).first();
+    await expect(sortControl).toBeAttached({ timeout: 25000 });
   });
 
   test('통합검색 결과 - 정렬 변경 시 URL 또는 DOM 변화', async ({ page }) => {

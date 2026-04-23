@@ -7,7 +7,7 @@ const isMobile = (page: import('@playwright/test').Page) =>
 
 test.describe('인테리어 페이지', () => {
   test('TC007 - 인테리어 메인 페이지 로드', async ({ page }) => {
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await expect(page).toHaveTitle(/인테리어|한샘/);
     if (!isMobile(page)) {
       await expect(page.locator('button:has-text("키친")').first()).toBeVisible();
@@ -16,7 +16,7 @@ test.describe('인테리어 페이지', () => {
   });
 
   test('TC008 - 키친 공간 필터 칩 클릭', async ({ page }) => {
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     const kitchenChip = page.locator('button:has-text("키친")').first();
     await expect(kitchenChip).toBeVisible();
     await kitchenChip.click();
@@ -24,37 +24,37 @@ test.describe('인테리어 페이지', () => {
   });
 
   test('공간 필터 칩 - 거실 클릭', async ({ page }) => {
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await page.locator('button:has-text("거실")').first().click();
     await expect(page.locator('button:has-text("거실")').first()).toBeVisible();
   });
 
   test('공간 필터 칩 - 침실 클릭', async ({ page }) => {
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await page.locator('button:has-text("침실")').first().click();
     await expect(page.locator('button:has-text("침실")').first()).toBeVisible();
   });
 
   test('공간별 시공사례 섹션 노출', async ({ page }) => {
     if (isMobile(page)) { test.skip(); return; }
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("한샘이 제안하는 공간별 시공사례")')).toBeVisible();
   });
 
   test('고객 후기 섹션 노출', async ({ page }) => {
     if (isMobile(page)) { test.skip(); return; }
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("실제 고객들의 후기")')).toBeVisible();
   });
 
   test('무료상담 섹션 노출', async ({ page }) => {
     if (isMobile(page)) { test.skip(); return; }
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("BEST 전문가의 특별혜택 무료상담")')).toBeVisible();
   });
 
   test('시공사례 링크 접근 가능', async ({ page }) => {
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     const constcaseLink = page.locator(`a[href*="interior/constcase"]`).first();
     if (await constcaseLink.isVisible()) {
       await constcaseLink.click();
@@ -63,7 +63,7 @@ test.describe('인테리어 페이지', () => {
   });
 
   test('더보기 버튼 동작', async ({ page }) => {
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     const moreBtn = page.locator('button:has-text("더보기")').first();
     if (await moreBtn.isVisible()) {
       await moreBtn.click();
@@ -87,13 +87,13 @@ test.describe('인테리어 세부 페이지', () => {
 
   test('시공기사 찾기 진입점 노출', async ({ page }) => {
     // 시공기사 찾기는 인테리어 메인에서 접근 — URL 경로는 여러 후보 가능성 → 텍스트/링크 존재로 검증
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     const designerLink = page.locator('a, button').filter({ hasText: /시공기사|전문가|디자이너|RD/ }).first();
     await expect(designerLink).toBeAttached({ timeout: 15000 });
   });
 
   test('인테리어 상담신청 접근점 존재', async ({ page }) => {
-    await page.goto(`${BASE}/interior`);
+    await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     const consultLink = page.locator('a, button').filter({ hasText: /상담신청|무료상담|상담/ }).first();
     await expect(consultLink).toBeAttached({ timeout: 10000 });
   });

@@ -11,9 +11,9 @@ const BASE = process.env.BASE_URL || 'https://store.hanssem.com';
  * 클릭은 viewport 판정 이슈가 있어 안정성을 위해 직접 navigate.
  */
 async function goToFirstGoods(page: import('@playwright/test').Page, categoryUrl: string) {
-  await page.goto(`${BASE}${categoryUrl}`);
+  await page.goto(`${BASE}${categoryUrl}`, { waitUntil: 'domcontentloaded' });
   const firstGoods = page.locator('a[href*="/goods/"]').first();
-  await expect(firstGoods).toBeVisible({ timeout: 15000 });
+  await expect(firstGoods).toBeVisible({ timeout: 20000 });
   const href = await firstGoods.getAttribute('href');
   if (!href) throw new Error('goods href not found');
   const fullUrl = href.startsWith('http') ? href : `${BASE}${href}`;
