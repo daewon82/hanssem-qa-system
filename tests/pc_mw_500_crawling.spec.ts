@@ -228,9 +228,13 @@ async function runCrawl(browser: Browser, config: CrawlConfig) {
         } catch { /* 무시 */ }
       }
     } else if (!isPass && typeof httpStatus === "number" && httpStatus >= 500) {
-      console.log(`  ⏳ ${httpStatus} 오류. 5초 후 재시도...`);
-      await page.waitForTimeout(5000);
-      await attemptGoto();
+      // 5xx 서버 오류 → 10초 간격으로 최대 2회 재시도
+      for (let retry = 1; retry <= 2; retry++) {
+        console.log(`  ⏳ ${httpStatus} 오류. 10초 후 재시도 (${retry}/2)...`);
+        await page.waitForTimeout(10000);
+        await attemptGoto();
+        if (isPass) break;
+      }
     }
 
     if (isPass) {
