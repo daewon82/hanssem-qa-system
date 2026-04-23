@@ -30,6 +30,23 @@ async function waitForPageReady(page: Page, extra = 1500) {
   await page.waitForTimeout(extra);
 }
 
+// 네트워크 일시 오류(ERR_EMPTY_RESPONSE, 타임아웃 등) 재시도 헬퍼
+async function gotoWithRetry(page: Page, url: string, maxRetries = 2) {
+  let lastError: any;
+  for (let i = 0; i <= maxRetries; i++) {
+    try {
+      return await page.goto(url);
+    } catch (e: any) {
+      lastError = e;
+      if (i < maxRetries) {
+        console.log(`  ⏳ 접속 실패 — 5초 후 재시도 (${i + 1}/${maxRetries})`);
+        await page.waitForTimeout(5000);
+      }
+    }
+  }
+  throw lastError;
+}
+
 const stripAnsi = (str: string) => str.replace(/\x1B\[[0-9;]*m/g, "").trim();
 
 test.describe("MW E2E 테스트", () => {
@@ -263,7 +280,7 @@ test.describe("3. 상품 목록", () => {
 // ─── 4. 상품 상세 ──────────────────────────────────────────
 test.describe("4. 상품 상세", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`/goods/${SAMPLE_GOODS_ID}`);
+    await gotoWithRetry(page, `/goods/${SAMPLE_GOODS_ID}`);
     await waitForPageReady(page, 3000);
   });
 
@@ -353,7 +370,7 @@ test.describe("8. 주요 페이지 HTTP 응답", () => {
 
   for (const { name, path } of pageList) {
     test(`${name} 200 응답`, async ({ page }) => {
-      const response = await page.goto(path);
+      const response = await gotoWithRetry(page, path);
       expect(response?.status()).toBeLessThan(400);
       console.log(`[✓] ${name}: ${response?.status()}`);
     });
@@ -374,7 +391,7 @@ test.describe("9. 매장 찾기", () => {
 // ─── 10. 상품 상세 탭 전환 ───────────────────────────────────
 test.describe("10. 상품 상세 탭 전환", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`/goods/${SAMPLE_GOODS_ID}`);
+    await gotoWithRetry(page, `/goods/${SAMPLE_GOODS_ID}`);
     await waitForPageReady(page, 3000);
   });
 
@@ -423,7 +440,7 @@ test.describe("12. 인테리어 서브 페이지", () => {
   });
 
   test("인테리어 — 무료견적상담 링크 노출", async ({ page }) => {
-    await page.goto("/interior");
+    await gotoWithRetry(page, "/interior");
     await waitForPageReady(page, 3000);
     const consultLink = page
       .locator('[data-gtm-tracking-menu-value="무료 견적상담"], a[href*="choose-consult"]')
