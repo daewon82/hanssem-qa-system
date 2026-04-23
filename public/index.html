@@ -889,8 +889,9 @@
         if (_wasRunning) return;
         const token = GH_TOKEN;
 
-        // 버튼 클릭 즉시 비활성화 (로딩 표시는 실행 확인 후)
+        // ✅ 클릭 즉시: 버튼 비활성화 + 모든 카드 로딩 아이콘 표시 (API 응답 대기 없이)
         setRunBtn(true);
+        PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
 
         // GitHub API로 실행 중 여부 확인
         try {
@@ -905,7 +906,6 @@
               // 이미 실행 중 → 폴링만 시작, 새 dispatch 차단
               _wasRunning = true;
               localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
-              PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
               initProgress();
               return;
             }
@@ -914,8 +914,6 @@
 
         // 재진입 방지: API 응답 대기 중 다른 경로로 실행 중 감지된 경우
         if (_wasRunning) return;
-
-        PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
 
         try {
           const res = await fetch(
@@ -938,16 +936,19 @@
             initProgress();
           } else if (res.status === 401) {
             setRunBtn(false);
-            loadStats(); // 실패 시 원래 결과로 복구
+            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
+            loadStats();
             alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
           } else {
             const msg = await res.text();
             setRunBtn(false);
+            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
             loadStats();
             alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
           }
         } catch (e) {
           setRunBtn(false);
+          PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
           alert("네트워크 오류: " + e.message);
         }
       }
