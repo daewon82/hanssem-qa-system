@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. AM 10:37:13",
+  "lastUpdated": "2026. 4. 23. AM 11:43:55",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,7 +334,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 23. AM 10:06:34",
+      "lastUpdated": "2026. 4. 23. AM 11:16:35",
       "total": 500,
       "pass": 500,
       "fail": 0,
@@ -345,7 +345,7 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 23. AM 10:12:00",
+      "lastUpdated": "2026. 4. 23. AM 11:22:45",
       "total": 48,
       "pass": 48,
       "fail": 0,
@@ -355,53 +355,23 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 23. AM 10:33:21",
+      "lastUpdated": "2026. 4. 23. AM 11:40:10",
       "total": 500,
-      "pass": 499,
-      "fail": 1,
-      "passRate": "99.8",
+      "pass": 500,
+      "fail": 0,
+      "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": [
-        {
-          "name": "20072",
-          "url": "https://m.store.hanssem.com/category/20072",
-          "status": "fail",
-          "duration": "70.02s",
-          "reason": "접속 실패"
-        }
-      ]
+      "cases": []
     },
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 23. AM 10:37:13",
+      "lastUpdated": "2026. 4. 23. AM 11:43:55",
       "total": 26,
-      "pass": 23,
-      "fail": 3,
-      "passRate": "88.5",
-      "cases": [
-        {
-          "name": "상품 상세 — 상품명(H1) 노출",
-          "url": "",
-          "status": "fail",
-          "duration": "5.46s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
-        },
-        {
-          "name": "상품상세 200 응답",
-          "url": "",
-          "status": "fail",
-          "duration": "5.44s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
-        },
-        {
-          "name": "인테리어 — 무료견적상담 링크 노출",
-          "url": "https://m.store.hanssem.com/interior",
-          "status": "fail",
-          "duration": "30.05s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
-        }
-      ]
+      "pass": 26,
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "pc-e2e-v2",
@@ -761,5 +731,5 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 23. 09:51"
+  "codeLastModified": "2026. 4. 23. 11:00"
 }
