@@ -10,11 +10,11 @@
  * - Claude AI 자동 분석 연동 (ai-analyzer.ts)
  * - coverage 통계 업데이트 (coverage.ts)
  */
-import type { FullResult, Reporter, TestCase, TestResult } from "@playwright/test/reporter";
+import type { FullConfig, FullResult, Reporter, Suite, TestCase, TestResult } from "@playwright/test/reporter";
 import fs from "fs";
 import { analyzeFailures } from "./ai-analyzer";
 import { updateCoverage } from "./coverage";
-import { publishResults } from "./utils";
+import { publishResults, updateProgress } from "./utils";
 
 type Platform = "PC" | "MW";
 
@@ -53,6 +53,20 @@ function projectToPlatform(project: string): Platform | null {
 
 class AutoE2EReporter implements Reporter {
   private cases: CaseRecord[] = [];
+  private totalByPlatform: Record<Platform, number> = { PC: 0, MW: 0 };
+  private doneByPlatform: Record<Platform, number> = { PC: 0, MW: 0 };
+  private lastProgressTs: Record<Platform, number> = { PC: 0, MW: 0 };
+  private platformStarted: Record<Platform, boolean> = { PC: false, MW: false };
+
+  onBegin(_config: FullConfig, suite: Suite): void {
+    // 플랫폼별 총 테스트 수 집계
+    for (const test of suite.allTests()) {
+      const project = test.parent.project()?.name || "";
+      const platform = projectToPlatform(project);
+      if (platform) this.totalByPlatform[platform]++;
+    }
+    console.log(`📊 AutoE2E 총 테스트: PC ${this.totalByPlatform.PC} / MW ${this.totalByPlatform.MW}`);
+  }
 
   onTestEnd(test: TestCase, result: TestResult): void {
     const project = test.parent.project()?.name || "";
@@ -88,6 +102,21 @@ class AutoE2EReporter implements Reporter {
       file,
       platform,
     });
+
+    // 진행률 업데이트: 플랫폼별로 30초 간격 + 시작 시점 + 완료 시점
+    this.doneByPlatform[platform]++;
+    const phase = platform === "PC" ? "pc-e2e" : "mw-e2e";
+    const now = Date.now();
+    const isFirst = !this.platformStarted[platform];
+    const isComplete = this.doneByPlatform[platform] === this.totalByPlatform[platform];
+
+    if (isFirst || isComplete || now - this.lastProgressTs[platform] > 30000) {
+      this.platformStarted[platform] = true;
+      this.lastProgressTs[platform] = now;
+      // fire-and-forget: gh-pages 쓰기가 느려도 테스트 진행 지연 안함
+      updateProgress(phase, this.doneByPlatform[platform], this.totalByPlatform[platform])
+        .catch(() => {});
+    }
   }
 
   async onEnd(_result: FullResult): Promise<void> {

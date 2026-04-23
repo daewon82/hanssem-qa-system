@@ -63,15 +63,10 @@ export default defineConfig({
       use: { ...devices["Pixel 5"], baseURL: "https://m.store.hanssem.com" },
       testMatch: ["**/mw_*.spec.ts"],
     },
-    // ─── AutoE2E: 기능 E2E (AutoE2E 프로젝트에서 이관) ─────────
+    // ─── AutoE2E E2E 테스트 (PC 먼저, 그 다음 MW) ───────────
     {
       name: "AutoE2E_Public_PC",
       use: { ...devices["Desktop Chrome"], locale: "ko-KR" },
-      testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
-    },
-    {
-      name: "AutoE2E_Public_Mobile",
-      use: { ...devices["Pixel 5"], locale: "ko-KR" },
       testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
     },
     {
@@ -82,6 +77,11 @@ export default defineConfig({
         storageState: STORAGE_STATE,
       },
       testMatch: /autoe2e[\\/](auth|cart|mypage|product)\.spec\.ts/,
+    },
+    {
+      name: "AutoE2E_Public_Mobile",
+      use: { ...devices["Pixel 5"], locale: "ko-KR" },
+      testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
     },
   ],
 });
