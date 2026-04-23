@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 6:17:17",
+  "lastUpdated": "2026. 4. 23. PM 7:56:14",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,9 +334,9 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 23. PM 5:51:08",
-      "total": 500,
-      "pass": 500,
+      "lastUpdated": "2026. 4. 23. PM 7:25:38",
+      "total": 100,
+      "pass": 100,
       "fail": 0,
       "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
@@ -345,19 +345,75 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 3:16:52",
-      "total": 37,
-      "pass": 37,
-      "fail": 0,
-      "passRate": "100.0",
-      "cases": []
+      "lastUpdated": "2026. 4. 23. PM 7:56:14",
+      "total": 91,
+      "pass": 76,
+      "fail": 5,
+      "passRate": "93.8",
+      "cases": [
+        {
+          "name": "카테고리 로드 - 침실",
+          "url": "https://store.hanssem.com/category/20070",
+          "status": "fail",
+          "duration": "40.09s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "medium",
+          "project": "AutoE2E_Public_PC",
+          "file": "category.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "TC009 - 호텔침대 필터 칩 클릭",
+          "url": "https://store.hanssem.com/category/20070",
+          "status": "fail",
+          "duration": "30.34s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "medium",
+          "project": "AutoE2E_Public_PC",
+          "file": "category.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 상품 리스트 노출",
+          "url": "",
+          "status": "fail",
+          "duration": "23.89s",
+          "reason": "Error: expect(locator).toBeVisible() failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+          "url": "",
+          "status": "fail",
+          "duration": "18.94s",
+          "reason": "Error: expect(locator).toBeAttached() failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "상품 상세 - 구매하기/바로구매 버튼 노출",
+          "url": "https://store.hanssem.com/category/20070",
+          "status": "fail",
+          "duration": "30.52s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "critical",
+          "project": "AutoE2E_Authed",
+          "file": "product.spec.ts",
+          "platform": "PC"
+        }
+      ]
     },
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 23. PM 6:07:51",
-      "total": 500,
-      "pass": 500,
+      "lastUpdated": "2026. 4. 23. PM 7:29:20",
+      "total": 100,
+      "pass": 100,
       "fail": 0,
       "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
@@ -366,18 +422,33 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 3:33:53",
-      "total": 26,
-      "pass": 25,
-      "fail": 1,
-      "passRate": "96.2",
+      "lastUpdated": "2026. 4. 23. PM 7:56:14",
+      "total": 60,
+      "pass": 38,
+      "fail": 2,
+      "passRate": "95.0",
       "cases": [
         {
-          "name": "상품 목록 → 첫 번째 상품 클릭 → 상세 페이지 이동",
-          "url": "https://m.store.hanssem.com/furnishing",
+          "name": "카테고리 로드 - 커튼·블라인드",
+          "url": "https://store.hanssem.com/category/20109",
           "status": "fail",
-          "duration": "5.46s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store"
+          "duration": "5.63s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/category/20109",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "category.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "인테리어 상담신청 접근점 존재",
+          "url": "https://store.hanssem.com/interior",
+          "status": "fail",
+          "duration": "30.39s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "interior.spec.ts",
+          "platform": "MW"
         }
       ]
     },
@@ -741,7 +812,7 @@
     {
       "id": "pc-random",
       "title": "운영환경 PC 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 23. PM 6:12:18",
+      "lastUpdated": "2026. 4. 23. PM 7:34:19",
       "total": 200,
       "pass": 200,
       "fail": 0,
@@ -751,7 +822,7 @@
     {
       "id": "mw-random",
       "title": "운영환경 MW 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 23. PM 6:17:17",
+      "lastUpdated": "2026. 4. 23. PM 7:40:22",
       "total": 200,
       "pass": 200,
       "fail": 0,
@@ -759,5 +830,25 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 23. 17:32"
+  "codeLastModified": "2026. 4. 23. 19:20",
+  "coverage": {
+    "lastUpdated": "2026. 4. 23. PM 7:56:18",
+    "pc": {
+      "uniqueUrls": 300,
+      "todayTested": 439,
+      "todayPassed": 424,
+      "todayFailed": 5,
+      "cyclesCompleted": 0
+    },
+    "mw": {
+      "uniqueUrls": 300,
+      "todayTested": 398,
+      "todayPassed": 376,
+      "todayFailed": 2,
+      "cyclesCompleted": 1
+    },
+    "totalUniqueUrls": 600,
+    "todayTested": 837,
+    "todayPassRate": "95.6"
+  }
 }
