@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. PM 3:12:51",
+  "lastUpdated": "2026. 4. 23. PM 3:16:52",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -353,20 +353,12 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 3:12:51",
-      "total": 11,
-      "pass": 10,
-      "fail": 1,
-      "passRate": "90.9",
-      "cases": [
-        {
-          "name": "상품 상세 — 구매 버튼 노출 (PC)",
-          "url": "https://store.hanssem.com/goods/837513",
-          "status": "fail",
-          "duration": "16.81s",
-          "reason": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisib"
-        }
-      ]
+      "lastUpdated": "2026. 4. 23. PM 3:16:52",
+      "total": 37,
+      "pass": 37,
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "mw-landing",
