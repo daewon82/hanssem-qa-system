@@ -1,8 +1,8 @@
 {
   "title": "운영환경 MW E2E 확장 테스트",
   "lastUpdated": "2026. 4. 17. 오전 11:08:55",
-  "total": 38,
-  "pass": 38,
+  "total": 37,
+  "pass": 37,
   "fail": 0,
   "passRate": "100.0",
   "cases": [
@@ -60,13 +60,6 @@
       "url": "https://m.store.hanssem.com/goods/837513",
       "status": "pass",
       "duration": "6.89s",
-      "reason": ""
-    },
-    {
-      "name": "상품 상세 — 가격 정보 노출 (숫자+원 패턴)",
-      "url": "https://m.store.hanssem.com/goods/837513",
-      "status": "pass",
-      "duration": "6.58s",
       "reason": ""
     },
     {
