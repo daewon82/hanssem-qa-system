@@ -786,25 +786,25 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 23. 19:20",
+  "codeLastModified": "2026. 4. 23. 20:04",
   "coverage": {
-    "lastUpdated": "2026. 4. 23. PM 7:56:18",
+    "lastUpdated": "2026. 4. 23. PM 8:50:17",
     "pc": {
-      "uniqueUrls": 300,
-      "todayTested": 439,
-      "todayPassed": 424,
-      "todayFailed": 5,
+      "uniqueUrls": 481,
+      "todayTested": 416,
+      "todayPassed": 404,
+      "todayFailed": 2,
       "cyclesCompleted": 0
     },
     "mw": {
-      "uniqueUrls": 300,
-      "todayTested": 398,
-      "todayPassed": 376,
-      "todayFailed": 2,
+      "uniqueUrls": 485,
+      "todayTested": 384,
+      "todayPassed": 363,
+      "todayFailed": 1,
       "cyclesCompleted": 1
     },
-    "totalUniqueUrls": 600,
-    "todayTested": 837,
-    "todayPassRate": "95.6"
+    "totalUniqueUrls": 966,
+    "todayTested": 800,
+    "todayPassRate": "95.9"
   }
 }
