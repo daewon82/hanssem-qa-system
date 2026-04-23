@@ -1,15 +1,11 @@
 import { test, devices, Browser } from "@playwright/test";
 import fs from "fs";
-import axios from "axios";
 import { updateProgress, publishResults } from "./utils";
 import { analyzeFailures } from "./ai-analyzer";
 import { updateCoverage } from "./coverage";
 
 // [공통 설정]
 const MAX_LINKS = 100;
-const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system/";
-const JANDI_WEBHOOK_URL =
-  "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
 const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
 
 const EXCLUDE_KEYWORDS = [
@@ -367,28 +363,9 @@ async function runCrawl(browser: Browser, config: CrawlConfig) {
   const coverage = updateCoverage();
   console.log(`📊 커버리지: 누적 ${coverage.totalUniqueUrls}개 URL (PC ${coverage.pc.uniqueUrls} / MW ${coverage.mw.uniqueUrls}), 오늘 통과율 ${coverage.todayPassRate}%`);
 
-  // 잔디 알림 (GitHub Actions 에서만 전송)
-  if (!process.env.CI) {
-    console.log("⏭️ 로컬 실행 — 잔디 알림 스킵");
-  } else {
-    try {
-      const failUrlText = failedUrls.length > 0 ? failedUrls.slice(0, 10).join("\n") : "없음";
-      await axios.post(JANDI_WEBHOOK_URL, {
-        body: `[${config.reportTitle}] 결과: ${passCount} 성공 / ${failCount} 실패`,
-        connectColor: failCount > 0 ? "#FF4444" : "#00C73C",
-        connectInfo: [
-          { title: "결과 요약", description: `총 ${totalCount}건 / 통과율 ${passRate}%` },
-          { title: "실패 URL", description: failUrlText },
-          { title: "📊 리포트 보기", description: DASHBOARD_URL },
-        ],
-      });
-      console.log("📤 잔디 전송 완료");
-    } catch (err: any) {
-      console.log("❌ 잔디 실패:", err.message);
-    }
-  }
-
-  console.log(`🏁 ${config.platform} 점검 완료! 총 ${totalCount}건 확인.`);
+  // 잔디 알림은 워크플로우 최종 단계에서 통합 전송 (scripts/send-jandi-summary.ts)
+  console.log(`🏁 ${config.platform} 점검 완료! 총 ${totalCount}건 확인. (실패 ${failCount}건)`);
+  void failedUrls; // keep-lint — 실패 URL은 results.json에 이미 기록됨
 
   await context.close();
 }

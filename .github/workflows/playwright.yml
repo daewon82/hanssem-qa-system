@@ -45,12 +45,16 @@ jobs:
         run: npx playwright test
         continue-on-error: true
         env:
-          CI: "" # 잔디 알림 잠시 중단 (재활성화 시 이 라인 삭제)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_OPTIONS: "--expose-gc --max-old-space-size=4096"
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           HANSSEM_ID: ${{ secrets.HANSSEM_ID }}
           HANSSEM_PW: ${{ secrets.HANSSEM_PW }}
+
+      - name: Send consolidated Jandi notification
+        if: always()
+        run: node scripts/send-jandi-summary.js
+        continue-on-error: true
 
       - name: Commit results
         run: |
