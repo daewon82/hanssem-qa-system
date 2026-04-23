@@ -1,6 +1,6 @@
 {
   "title": "운영환경 MW E2E 테스트",
-  "lastUpdated": "2026. 4. 23. AM 10:37:04",
+  "lastUpdated": "2026. 4. 23. AM 10:37:13",
   "total": 27,
   "pass": 23,
   "fail": 4,
@@ -12,13 +12,6 @@
       "status": "fail",
       "duration": "30.07s",
       "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
-    },
-    {
-      "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
-      "url": "https://m.store.hanssem.com/not-exists-content",
-      "status": "pass",
-      "duration": "8.10s",
-      "reason": ""
     },
     {
       "name": "페이지 정상 로딩 및 타이틀 확인",
@@ -194,6 +187,13 @@
       "status": "fail",
       "duration": "30.05s",
       "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded."
+    },
+    {
+      "name": "존재하지 않는 상품 — 리다이렉트 또는 에러 페이지",
+      "url": "https://m.store.hanssem.com/not-exists-content",
+      "status": "pass",
+      "duration": "4.98s",
+      "reason": ""
     }
   ]
 }
