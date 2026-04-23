@@ -1,8 +1,8 @@
 import { Page, expect } from '@playwright/test';
 
 export const CREDENTIALS = {
-  id: process.env.HANSSEM_ID || 'daren82@nate.com',
-  pw: process.env.HANSSEM_PW || 'daren35!',
+  id: process.env.HANSSEM_ID || '',
+  pw: process.env.HANSSEM_PW || '',
 };
 
 export const URLS = {
