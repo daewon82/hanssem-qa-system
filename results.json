@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 23. AM 11:22:45",
+  "lastUpdated": "2026. 4. 23. AM 11:40:10",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -355,21 +355,13 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 23. AM 10:33:21",
+      "lastUpdated": "2026. 4. 23. AM 11:40:10",
       "total": 500,
-      "pass": 499,
-      "fail": 1,
-      "passRate": "99.8",
+      "pass": 500,
+      "fail": 0,
+      "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
-      "cases": [
-        {
-          "name": "20072",
-          "url": "https://m.store.hanssem.com/category/20072",
-          "status": "fail",
-          "duration": "70.02s",
-          "reason": "접속 실패"
-        }
-      ]
+      "cases": []
     },
     {
       "id": "mw-e2e",
