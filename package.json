@@ -4,21 +4,25 @@
   "description": "한샘몰 서비스 품질 관리 시스템",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:debug": "npx playwright test --debug --headed",
+    "test:pc": "npx playwright test --project=AutoE2E_Public_PC --project=AutoE2E_Authed",
+    "test:mw": "npx playwright test --project=AutoE2E_Public_Mobile",
+    "test:autoe2e": "npx playwright test --project=AutoE2E_Public_PC --project=AutoE2E_Authed --project=AutoE2E_Public_Mobile",
+    "test:crawling": "npx playwright test --project=Crawling",
+    "test:random": "npx playwright test --project=Random",
+    "report": "npx playwright show-report",
+    "install-browsers": "npx playwright install --with-deps"
   },
   "keywords": [],
   "author": "dwlee",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^20.19.39",
-    "@types/nodemailer": "^8.0.0"
+    "@types/node": "^20.19.39"
   },
   "dependencies": {
-    "@google-cloud/local-auth": "^3.0.1",
-    "axios": "^1.6.0",
-    "google-spreadsheet": "^5.2.0",
-    "googleapis": "^171.4.0",
-    "nodemailer": "^8.0.5"
+    "axios": "^1.7.9"
   }
 }
