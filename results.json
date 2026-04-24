@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. PM 2:54:29",
+  "lastUpdated": "2026. 4. 24. PM 3:20:45",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,28 +345,28 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 24. PM 1:59:10",
+      "lastUpdated": "2026. 4. 24. PM 3:20:45",
       "total": 164,
       "pass": 158,
       "fail": 5,
       "passRate": "96.9",
       "cases": [
         {
-          "name": "공간 필터 칩 - 침실 클릭",
+          "name": "베스트셀러 섹션 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "25.45s",
-          "reason": "TimeoutError: locator.click: Timeout 20000ms exceeded.",
+          "duration": "7.01s",
+          "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "medium",
           "project": "AutoE2E_Public_PC",
-          "file": "interior.spec.ts",
+          "file": "furnishing.spec.ts",
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 상품 리스트 노출",
+          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "24.23s",
+          "duration": "24.78s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -374,10 +374,10 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 상품 리스트 노출",
+          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "24.53s",
+          "duration": "24.54s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -385,10 +385,10 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "18.71s",
+          "duration": "19.71s",
           "reason": "Error: expect(locator).toBeAttached() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -396,10 +396,10 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "18.93s",
+          "duration": "20.17s",
           "reason": "Error: expect(locator).toBeAttached() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
