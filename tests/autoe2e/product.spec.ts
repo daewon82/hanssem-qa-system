@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.BASE_URL || 'https://store.hanssem.com';
+// 빈 값: Playwright baseURL(프로젝트별: PC store / MW m.store) 자동 사용
+const BASE = '';
 
 /**
  * 상품 상세 페이지 테스트.

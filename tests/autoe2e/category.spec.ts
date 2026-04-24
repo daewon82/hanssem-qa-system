@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.BASE_URL || 'https://store.hanssem.com';
+// 빈 값: Playwright baseURL(프로젝트별: PC store / MW m.store) 자동 사용
+const BASE = '';
 
 const CATEGORIES = [
   { name: '침실', url: '/category/20070', h1: '침실', chips: ['호텔침대', '패브릭침대'] },
@@ -96,7 +97,7 @@ test.describe('커튼·블라인드 카테고리 상세', () => {
 test.describe('TC018 - 반응형 모바일', () => {
   test('모바일 뷰포트 메인 페이지 타이틀', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(BASE);
+    await page.goto('/');
     // 모바일에서 검색창은 접혀있음 → 타이틀로 확인
     await expect(page).toHaveTitle(/한샘몰/);
   });

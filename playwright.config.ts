@@ -65,10 +65,11 @@ export default defineConfig({
     },
     // ─── AutoE2E E2E 테스트 (PC 먼저, 그 다음 MW) ───────────
     // flaky 서버 응답 회복을 위해 retries: 1 (프로젝트 레벨)
+    // baseURL: PC는 store.hanssem.com / MW는 m.store.hanssem.com — spec 파일은 상대 경로 사용
     {
       name: "AutoE2E_Public_PC",
       retries: 1,
-      use: { ...devices["Desktop Chrome"], locale: "ko-KR" },
+      use: { ...devices["Desktop Chrome"], locale: "ko-KR", baseURL: "https://store.hanssem.com" },
       testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
     },
     {
@@ -77,15 +78,16 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         locale: "ko-KR",
+        baseURL: "https://store.hanssem.com",
         storageState: STORAGE_STATE,
       },
       testMatch: /autoe2e[\\/](auth|cart|mypage|product)\.spec\.ts/,
     },
     {
-      // MW 프로젝트: @pc-only 태그가 붙은 테스트는 자동 제외
+      // MW 프로젝트: 모바일 도메인 + @pc-only 태그 자동 제외
       name: "AutoE2E_Public_Mobile",
       retries: 1,
-      use: { ...devices["Pixel 5"], locale: "ko-KR" },
+      use: { ...devices["Pixel 5"], locale: "ko-KR", baseURL: "https://m.store.hanssem.com" },
       testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
       grepInvert: /@pc-only/,
     },

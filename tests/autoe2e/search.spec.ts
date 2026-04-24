@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.BASE_URL || 'https://store.hanssem.com';
+// 빈 값: Playwright baseURL(프로젝트별: PC store / MW m.store) 자동 사용
+const BASE = '';
 
 test.describe('검색 기능', () => {
   test('TC004 - 키워드 입력 후 검색 실행 @pc-only', async ({ page }) => {
@@ -14,14 +15,14 @@ test.describe('검색 기능', () => {
   });
 
   test('TC017 - 검색창 포커스 시 탭 DOM 존재 확인 @pc-only', async ({ page }) => {
-    await page.goto(BASE);
+    await page.goto('/');
     await expect(page.locator('button:has-text("최근 검색어")')).toBeAttached();
     await expect(page.locator('button:has-text("추천 검색어")')).toBeAttached();
     await expect(page.locator('button:has-text("인기 검색어")')).toBeAttached();
   });
 
   test('TC017 - 검색창 클릭 후 탭 활성화 @pc-only', async ({ page }) => {
-    await page.goto(BASE);
+    await page.goto('/');
     const searchInput = page.locator('input[placeholder="검색어를 입력해 주세요."]').first();
     await searchInput.click({ force: true });
     await page.waitForTimeout(500);
@@ -30,7 +31,7 @@ test.describe('검색 기능', () => {
   });
 
   test('검색창 DOM 존재 확인 @pc-only', async ({ page }) => {
-    await page.goto(BASE);
+    await page.goto('/');
     await expect(
       page.locator('input[placeholder="검색어를 입력해 주세요."]').first()
     ).toBeAttached();

@@ -13,7 +13,7 @@ const isMobile = (page: import('@playwright/test').Page) =>
 test.describe('GNB 네비게이션', () => {
   test('TC001 - 메인 홈 페이지 정상 로드', async ({ page }) => {
     const nav = new NavigationPage(page);
-    await page.goto(BASE);
+    await page.goto('/');
     await expect(page).toHaveTitle(/한샘몰/);
     if (!nav.isMobile) {
       await expect(nav.gnbLink('침실')).toBeAttached();
