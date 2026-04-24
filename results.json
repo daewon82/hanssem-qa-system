@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. PM 1:34:41",
+  "lastUpdated": "2026. 4. 24. PM 1:59:10",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,17 +345,28 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 24. AM 10:46:09",
-      "total": 92,
-      "pass": 80,
-      "fail": 2,
-      "passRate": "97.6",
+      "lastUpdated": "2026. 4. 24. PM 1:59:10",
+      "total": 164,
+      "pass": 158,
+      "fail": 5,
+      "passRate": "96.9",
       "cases": [
         {
-          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
+          "name": "공간 필터 칩 - 침실 클릭",
           "url": "",
           "status": "fail",
-          "duration": "35.83s",
+          "duration": "25.45s",
+          "reason": "TimeoutError: locator.click: Timeout 20000ms exceeded.",
+          "priority": "medium",
+          "project": "AutoE2E_Public_PC",
+          "file": "interior.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 상품 리스트 노출",
+          "url": "",
+          "status": "fail",
+          "duration": "24.23s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -363,11 +374,33 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
+          "name": "통합검색 결과 - 상품 리스트 노출",
           "url": "",
           "status": "fail",
-          "duration": "35.98s",
+          "duration": "24.53s",
           "reason": "Error: expect(locator).toBeVisible() failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+          "url": "",
+          "status": "fail",
+          "duration": "18.71s",
+          "reason": "Error: expect(locator).toBeAttached() failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+          "url": "",
+          "status": "fail",
+          "duration": "18.93s",
+          "reason": "Error: expect(locator).toBeAttached() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
           "file": "search.spec.ts",
