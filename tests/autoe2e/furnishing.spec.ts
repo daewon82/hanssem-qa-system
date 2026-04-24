@@ -20,20 +20,17 @@ test.describe('홈퍼니싱 페이지', () => {
     await expect(page.locator('button:has-text("더보기")').first()).toBeVisible();
   });
 
-  test('베스트셀러 섹션 노출', async ({ page }) => {
-    if (isMobile(page)) { test.skip(); return; }
+  test('베스트셀러 섹션 노출 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/furnishing`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("베스트셀러")')).toBeVisible();
   });
 
-  test('신상품 섹션 노출', async ({ page }) => {
-    if (isMobile(page)) { test.skip(); return; }
+  test('신상품 섹션 노출 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/furnishing`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("신상품")')).toBeVisible();
   });
 
-  test('1분 홈투어 섹션 노출', async ({ page }) => {
-    if (isMobile(page)) { test.skip(); return; }
+  test('1분 홈투어 섹션 노출 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/furnishing`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("1분 홈투어")')).toBeVisible();
   });

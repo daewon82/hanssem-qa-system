@@ -35,20 +35,17 @@ test.describe('인테리어 페이지', () => {
     await expect(page.locator('button:has-text("침실")').first()).toBeVisible();
   });
 
-  test('공간별 시공사례 섹션 노출', async ({ page }) => {
-    if (isMobile(page)) { test.skip(); return; }
+  test('공간별 시공사례 섹션 노출 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("한샘이 제안하는 공간별 시공사례")')).toBeVisible();
   });
 
-  test('고객 후기 섹션 노출', async ({ page }) => {
-    if (isMobile(page)) { test.skip(); return; }
+  test('고객 후기 섹션 노출 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("실제 고객들의 후기")')).toBeVisible();
   });
 
-  test('무료상담 섹션 노출', async ({ page }) => {
-    if (isMobile(page)) { test.skip(); return; }
+  test('무료상담 섹션 노출 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/interior`, { waitUntil: "domcontentloaded" });
     await expect(page.locator('h2:has-text("BEST 전문가의 특별혜택 무료상담")')).toBeVisible();
   });

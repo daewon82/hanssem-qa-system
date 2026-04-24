@@ -54,9 +54,7 @@ test.describe('침실 카테고리 상세', () => {
 });
 
 test.describe('거실 카테고리 상세', () => {
-  test('TC010 - 가죽소파 필터 칩 클릭', async ({ page }) => {
-    // 모바일은 필터 칩 구조가 달라 skip
-    if ((page.viewportSize()?.width ?? 1280) < 600) { test.skip(); return; }
+  test('TC010 - 가죽소파 필터 칩 클릭 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/category/20071`, { waitUntil: 'domcontentloaded' });
     await expect(page.locator('h1')).toContainText('거실');
     await page.locator('button:has-text("가죽소파")').first().click();
@@ -82,9 +80,7 @@ test.describe('키즈룸 카테고리 상세', () => {
 });
 
 test.describe('커튼·블라인드 카테고리 상세', () => {
-  test('TC015 - 암막커튼 필터 칩 노출', async ({ page }) => {
-    // 모바일은 카테고리 DOM 구조가 달라 필터 칩이 없음
-    if ((page.viewportSize()?.width ?? 1280) < 600) { test.skip(); return; }
+  test('TC015 - 암막커튼 필터 칩 노출 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/category/20109`, { waitUntil: 'domcontentloaded' });
     // 필터 칩 버튼 구조: <button><div><div>암막커튼</div></div></button>
     // button:text-is() 는 직접 텍스트만 보므로 매칭 실패 → getByRole 이용 (accessible name 기반)

@@ -33,8 +33,7 @@ test.describe('GNB 네비게이션', () => {
     await expect(page.locator('h1')).toContainText('거실');
   });
 
-  test('TC016 - 카테고리 페이지 내 GNB 링크 존재', async ({ page }) => {
-    if (isMobile(page)) { test.skip(); return; }
+  test('TC016 - 카테고리 페이지 내 GNB 링크 존재 @pc-only', async ({ page }) => {
     await page.goto(`${BASE}/category/20070`);
     await expect(page.locator(GNB('침실'))).toBeAttached();
     await expect(page.locator(GNB('거실'))).toBeAttached();
