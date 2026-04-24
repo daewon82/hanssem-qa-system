@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. PM 1:59:10",
+  "lastUpdated": "2026. 4. 24. PM 3:20:45",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,7 +334,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 24. PM 1:26:55",
+      "lastUpdated": "2026. 4. 24. PM 2:46:39",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -345,28 +345,28 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 24. PM 1:59:10",
+      "lastUpdated": "2026. 4. 24. PM 3:20:45",
       "total": 164,
       "pass": 158,
       "fail": 5,
       "passRate": "96.9",
       "cases": [
         {
-          "name": "공간 필터 칩 - 침실 클릭",
+          "name": "베스트셀러 섹션 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "25.45s",
-          "reason": "TimeoutError: locator.click: Timeout 20000ms exceeded.",
+          "duration": "7.01s",
+          "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "medium",
           "project": "AutoE2E_Public_PC",
-          "file": "interior.spec.ts",
+          "file": "furnishing.spec.ts",
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 상품 리스트 노출",
+          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "24.23s",
+          "duration": "24.78s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -374,10 +374,10 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 상품 리스트 노출",
+          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "24.53s",
+          "duration": "24.54s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -385,10 +385,10 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "18.71s",
+          "duration": "19.71s",
           "reason": "Error: expect(locator).toBeAttached() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -396,10 +396,10 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출",
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "18.93s",
+          "duration": "20.17s",
           "reason": "Error: expect(locator).toBeAttached() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -411,7 +411,7 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 24. PM 1:29:45",
+      "lastUpdated": "2026. 4. 24. PM 2:49:16",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -422,17 +422,17 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 24. PM 1:59:10",
-      "total": 108,
-      "pass": 103,
-      "fail": 4,
-      "passRate": "96.3",
+      "lastUpdated": "2026. 4. 24. PM 3:20:45",
+      "total": 91,
+      "pass": 82,
+      "fail": 8,
+      "passRate": "91.1",
       "cases": [
         {
           "name": "L96 - Tab 키 네비게이션 - 5개 이상 요소 포커스 가능",
           "url": "",
           "status": "fail",
-          "duration": "5.25s",
+          "duration": "6.55s",
           "reason": "Error: expect(received).toBeGreaterThanOrEqual(expected)",
           "priority": "low",
           "project": "AutoE2E_Public_Mobile",
@@ -443,7 +443,7 @@
           "name": "L96 - Tab 키 네비게이션 - 5개 이상 요소 포커스 가능",
           "url": "",
           "status": "fail",
-          "duration": "5.55s",
+          "duration": "7.59s",
           "reason": "Error: expect(received).toBeGreaterThanOrEqual(expected)",
           "priority": "low",
           "project": "AutoE2E_Public_Mobile",
@@ -454,7 +454,7 @@
           "name": "L97 - 모든 button에 접근 가능한 이름 (text 또는 aria-label)",
           "url": "",
           "status": "fail",
-          "duration": "7.50s",
+          "duration": "5.38s",
           "reason": "Error: expect(received).toBeGreaterThan(expected)",
           "priority": "low",
           "project": "AutoE2E_Public_Mobile",
@@ -465,11 +465,55 @@
           "name": "L97 - 모든 button에 접근 가능한 이름 (text 또는 aria-label)",
           "url": "",
           "status": "fail",
-          "duration": "7.76s",
+          "duration": "4.71s",
           "reason": "Error: expect(received).toBeGreaterThan(expected)",
           "priority": "low",
           "project": "AutoE2E_Public_Mobile",
           "file": "a11y.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "상품 링크 /goods/:id 패턴 확인",
+          "url": "https://m.store.hanssem.com/category/20070",
+          "status": "fail",
+          "duration": "5.64s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "category.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "K95 - OG 메타 태그(공유) - 메인 페이지 og:title 존재",
+          "url": "https://m.store.hanssem.com/",
+          "status": "fail",
+          "duration": "5.65s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "consistency.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "TC007 - 인테리어 메인 페이지 로드",
+          "url": "https://m.store.hanssem.com/interior",
+          "status": "fail",
+          "duration": "5.62s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/interior",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "interior.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "A02 - 상품명 특수문자 깨짐 (?, □) 감지",
+          "url": "https://m.store.hanssem.com/category/20070",
+          "status": "fail",
+          "duration": "5.63s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "quality.spec.ts",
           "platform": "MW"
         }
       ]
@@ -834,7 +878,7 @@
     {
       "id": "pc-random",
       "title": "운영환경 PC 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 24. PM 1:32:08",
+      "lastUpdated": "2026. 4. 24. PM 2:51:37",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -844,7 +888,7 @@
     {
       "id": "mw-random",
       "title": "운영환경 MW 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 24. PM 1:34:41",
+      "lastUpdated": "2026. 4. 24. PM 2:54:29",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -852,25 +896,25 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 24. 13:21",
+  "codeLastModified": "2026. 4. 24. 14:41",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. PM 1:59:13",
+    "lastUpdated": "2026. 4. 24. PM 3:20:48",
     "pc": {
-      "uniqueUrls": 300,
+      "uniqueUrls": 405,
       "todayTested": 412,
       "todayPassed": 406,
       "todayFailed": 5,
       "cyclesCompleted": 2
     },
     "mw": {
-      "uniqueUrls": 300,
-      "todayTested": 346,
-      "todayPassed": 341,
-      "todayFailed": 4,
+      "uniqueUrls": 400,
+      "todayTested": 329,
+      "todayPassed": 320,
+      "todayFailed": 8,
       "cyclesCompleted": 3
     },
-    "totalUniqueUrls": 600,
-    "todayTested": 758,
-    "todayPassRate": "98.5"
+    "totalUniqueUrls": 805,
+    "todayTested": 741,
+    "todayPassRate": "98.0"
   }
 }
