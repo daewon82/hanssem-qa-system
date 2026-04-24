@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. AM 9:40:25",
+  "lastUpdated": "2026. 4. 24. AM 10:46:09",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,7 +334,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 24. AM 9:14:18",
+      "lastUpdated": "2026. 4. 24. AM 10:18:33",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -345,17 +345,17 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 24. AM 9:40:25",
+      "lastUpdated": "2026. 4. 24. AM 10:46:09",
       "total": 92,
       "pass": 80,
       "fail": 2,
       "passRate": "97.6",
       "cases": [
         {
-          "name": "통합검색 결과 - 상품 리스트 노출",
+          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "34.96s",
+          "duration": "35.83s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -363,10 +363,10 @@
           "platform": "PC"
         },
         {
-          "name": "통합검색 결과 - 상품 리스트 노출",
+          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "35.15s",
+          "duration": "35.98s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -378,7 +378,7 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 24. AM 9:17:20",
+      "lastUpdated": "2026. 4. 24. AM 10:22:17",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -389,65 +389,32 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 24. AM 9:40:25",
-      "total": 65,
+      "lastUpdated": "2026. 4. 24. AM 10:46:09",
+      "total": 43,
       "pass": 40,
-      "fail": 5,
-      "passRate": "88.9",
+      "fail": 2,
+      "passRate": "95.2",
       "cases": [
         {
-          "name": "모바일 뷰포트 메인 페이지 타이틀",
-          "url": "https://store.hanssem.com/",
-          "status": "fail",
-          "duration": "30.70s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
           "name": "TC006 - 더보기 버튼 표시 확인",
-          "url": "https://store.hanssem.com/furnishing",
+          "url": "https://m.store.hanssem.com/furnishing",
           "status": "fail",
-          "duration": "5.55s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/furnishing",
+          "duration": "5.71s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/furnishing",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "furnishing.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "TC003 - GNB 거실 카테고리 이동",
-          "url": "",
+          "name": "매장찾기 - 매장/지역 키워드 노출",
+          "url": "https://remodeling.hanssem.com/shop/search",
           "status": "fail",
-          "duration": "10.22s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
-          "priority": "high",
+          "duration": "5.70s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://remodeling.hanssem.com/shop/search",
+          "priority": "low",
           "project": "AutoE2E_Public_Mobile",
-          "file": "navigation.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "GNB - 학생방 카테고리 이동",
-          "url": "https://store.hanssem.com/category/20075",
-          "status": "fail",
-          "duration": "5.55s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/category/20075",
-          "priority": "high",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "navigation.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "GNB - 홈&데코 카테고리 이동",
-          "url": "https://store.hanssem.com/category/20077",
-          "status": "fail",
-          "duration": "5.57s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/category/20077",
-          "priority": "high",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "navigation.spec.ts",
+          "file": "store.spec.ts",
           "platform": "MW"
         }
       ]
@@ -812,9 +779,9 @@
     {
       "id": "pc-random",
       "title": "운영환경 PC 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 24. AM 9:22:30",
-      "total": 200,
-      "pass": 200,
+      "lastUpdated": "2026. 4. 24. AM 10:24:53",
+      "total": 100,
+      "pass": 100,
       "fail": 0,
       "passRate": "100.0",
       "cases": []
@@ -822,33 +789,50 @@
     {
       "id": "mw-random",
       "title": "운영환경 MW 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 24. AM 9:26:48",
-      "total": 184,
-      "pass": 184,
-      "fail": 0,
-      "passRate": "100.0",
-      "cases": []
+      "lastUpdated": "2026. 4. 24. AM 10:32:20",
+      "total": 100,
+      "pass": 98,
+      "fail": 2,
+      "passRate": "98.0",
+      "cases": [
+        {
+          "name": "765132",
+          "url": "https://m.store.hanssem.com/goods/765132",
+          "status": "fail",
+          "duration": "70.02s",
+          "reason": "접속 실패",
+          "priority": "low"
+        },
+        {
+          "name": "834236",
+          "url": "https://m.store.hanssem.com/goods/834236",
+          "status": "fail",
+          "duration": "70.06s",
+          "reason": "접속 실패",
+          "priority": "low"
+        }
+      ]
     }
   ],
-  "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
+  "codeLastModified": "2026. 4. 24. 09:58",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. AM 9:40:30",
+    "lastUpdated": "2026. 4. 24. AM 10:46:12",
     "pc": {
-      "uniqueUrls": 501,
-      "todayTested": 440,
-      "todayPassed": 428,
+      "uniqueUrls": 200,
+      "todayTested": 340,
+      "todayPassed": 328,
       "todayFailed": 2,
-      "cyclesCompleted": 1
-    },
-    "mw": {
-      "uniqueUrls": 484,
-      "todayTested": 387,
-      "todayPassed": 362,
-      "todayFailed": 5,
       "cyclesCompleted": 2
     },
-    "totalUniqueUrls": 985,
-    "todayTested": 827,
-    "todayPassRate": "95.5"
+    "mw": {
+      "uniqueUrls": 200,
+      "todayTested": 281,
+      "todayPassed": 276,
+      "todayFailed": 4,
+      "cyclesCompleted": 3
+    },
+    "totalUniqueUrls": 400,
+    "todayTested": 621,
+    "todayPassRate": "97.3"
   }
 }
