@@ -909,7 +909,7 @@
   ],
   "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. PM 7:29:27",
+    "lastUpdated": "2026. 4. 25. AM 12:08:29",
     "pc": {
       "uniqueUrls": 405,
       "todayTested": 412,
@@ -919,15 +919,15 @@
     },
     "mw": {
       "uniqueUrls": 446,
-      "todayTested": 327,
+      "todayTested": 330,
       "todayPassed": 321,
-      "todayFailed": 5,
+      "todayFailed": 8,
       "cyclesCompleted": 3
     },
     "totalUniqueUrls": 851,
-    "todayTested": 739,
-    "todayPassRate": "98.2"
+    "todayTested": 742,
+    "todayPassRate": "97.8"
   },
-  "testLastRunAt": "2026-04-24T10:29:27.496Z",
-  "testLastRunAtKst": "2026. 4. 24. 19:29"
+  "testLastRunAt": "2026-04-24T15:08:29.644Z",
+  "testLastRunAtKst": "2026. 4. 25. 00:08"
 }
