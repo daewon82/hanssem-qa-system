@@ -460,7 +460,6 @@ test.afterEach(async ({ page }, testInfo) => {
 - `peaceiris/actions-gh-pages@v3` 액션 사용
 - `publish_dir: ./public` → `gh-pages` 브랜치로 자동 배포 (force push)
 - 배포 시 `public/progress.json` (idle 초기값)으로 gh-pages의 progress.json이 덮어써짐 (정상 동작)
-- Vercel은 완전히 제거됨 (deploy.yml, netlify.toml, vercel.json 삭제 완료)
 
 ### 장애 리포트 누적 관리
 - `results.json`의 `incidents` 섹션 수동 관리
