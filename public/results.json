@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. PM 6:24:38",
+  "lastUpdated": "2026. 4. 24. PM 7:29:24",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,18 +345,18 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 24. PM 4:46:55",
+      "lastUpdated": "2026. 4. 24. PM 7:29:24",
       "total": 164,
-      "pass": 158,
-      "fail": 5,
-      "passRate": "96.9",
+      "pass": 157,
+      "fail": 6,
+      "passRate": "96.3",
       "cases": [
         {
           "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "50.15s",
-          "reason": "Error: expect(locator).toBeVisible() failed",
+          "duration": "41.70s",
+          "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
           "file": "search.spec.ts",
@@ -366,8 +366,30 @@
           "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "51.09s",
-          "reason": "Error: expect(locator).toBeVisible() failed",
+          "duration": "41.91s",
+          "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재 @pc-only",
+          "url": "",
+          "status": "fail",
+          "duration": "42.60s",
+          "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재 @pc-only",
+          "url": "",
+          "status": "fail",
+          "duration": "41.83s",
+          "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
           "file": "search.spec.ts",
@@ -377,8 +399,8 @@
           "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "50.49s",
-          "reason": "Error: expect(locator).toBeAttached() failed",
+          "duration": "41.99s",
+          "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
           "file": "search.spec.ts",
@@ -388,22 +410,11 @@
           "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "50.43s",
-          "reason": "Error: expect(locator).toBeAttached() failed",
+          "duration": "42.26s",
+          "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
           "file": "search.spec.ts",
-          "platform": "PC"
-        },
-        {
-          "name": "상품 상세 - 상품명 요소 노출",
-          "url": "https://store.hanssem.com/category/20070",
-          "status": "fail",
-          "duration": "31.28s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "critical",
-          "project": "AutoE2E_Authed",
-          "file": "product.spec.ts",
           "platform": "PC"
         }
       ]
@@ -865,12 +876,12 @@
   ],
   "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. PM 6:24:40",
+    "lastUpdated": "2026. 4. 24. PM 7:29:27",
     "pc": {
       "uniqueUrls": 405,
       "todayTested": 412,
-      "todayPassed": 406,
-      "todayFailed": 5,
+      "todayPassed": 405,
+      "todayFailed": 6,
       "cyclesCompleted": 2
     },
     "mw": {
@@ -882,8 +893,8 @@
     },
     "totalUniqueUrls": 851,
     "todayTested": 739,
-    "todayPassRate": "98.4"
+    "todayPassRate": "98.2"
   },
-  "testLastRunAt": "2026-04-24T09:24:40.813Z",
-  "testLastRunAtKst": "2026. 4. 24. 18:24"
+  "testLastRunAt": "2026-04-24T10:29:27.496Z",
+  "testLastRunAtKst": "2026. 4. 24. 19:29"
 }
