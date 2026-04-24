@@ -206,7 +206,16 @@
   <button class="filter-btn active" onclick="setFilter('all', this)">전체</button>
   <button class="filter-btn" onclick="setFilter('pass', this)">통과만</button>
   <button class="filter-btn fail-active" style="background:var(--card);color:var(--text-sub);border-color:var(--border)" id="fail-btn" onclick="setFilter('fail', this)">실패만</button>
+  <select id="category-filter" class="filter-btn" style="display:none;cursor:pointer;" onchange="currentPage=1;renderTable()">
+    <option value="all">모든 카테고리</option>
+  </select>
   <input class="search-input" id="search-input" placeholder="URL / 테스트명 검색..." oninput="currentPage=1;renderTable()" />
+  <a id="artifact-link" href="https://github.com/daewon82/hanssem-qa-system/actions/workflows/playwright.yml"
+     target="_blank" rel="noopener" class="filter-btn"
+     style="text-decoration:none;display:none;color:var(--text-sub);margin-left:auto;"
+     title="GitHub Actions 워크플로우 페이지에서 최근 실행의 fail_evidence / playwright-report artifact 를 다운로드할 수 있습니다.">
+    📎 실패 증거 (Artifact)
+  </a>
 </div>
 
 <div class="table-wrap">
@@ -268,6 +277,29 @@
         if (a.status === b.status) return 0;
         return a.status === "fail" ? -1 : 1;
       });
+
+      // 실패 증거 링크: 실패 케이스가 1건 이상 있을 때만 노출
+      const hasFail = allCases.some(c => c.status === "fail");
+      const artifactEl = document.getElementById("artifact-link");
+      if (artifactEl) artifactEl.style.display = hasFail ? "inline-block" : "none";
+
+      // 카테고리 필터: E2E 리포트일 때만 노출 (테스트명에서 카테고리 추출)
+      // 예: "auth.spec.ts > 로그인 성공" → "auth", "카테고리 로드 - 침실" → "navigation/category"
+      const isE2E = /e2e/.test(reportId);
+      const catEl = document.getElementById("category-filter");
+      if (isE2E && catEl) {
+        const cats = new Set();
+        allCases.forEach(c => {
+          const cat = extractCategory(c.name || "");
+          if (cat) cats.add(cat);
+        });
+        const sorted = [...cats].sort();
+        catEl.innerHTML =
+          '<option value="all">모든 카테고리 (' + sorted.length + ')</option>' +
+          sorted.map(c => `<option value="${escHtml(c)}">${escHtml(c)}</option>`).join("");
+        if (sorted.length > 0) catEl.style.display = "inline-block";
+      }
+
       renderAiAnalysis(data.aiAnalysis);
       renderTable();
     } catch (e) {
@@ -331,11 +363,30 @@
     renderTable();
   }
 
+  // 테스트명에서 카테고리 추출 (AutoE2E 스펙 기반)
+  // 예: "auth.spec.ts > ..." → "auth" / Playwright 테스트명의 첫 describe 블록 이름 추출
+  function extractCategory(name) {
+    if (!name) return "";
+    // "auth.spec.ts > 로그인 실패" 패턴 우선 매칭
+    const m1 = name.match(/(\w+)\.spec\.ts/i);
+    if (m1) return m1[1];
+    // describe > test 형식: "인증 - 로그인/로그아웃 > ..." → 첫 단어
+    const m2 = name.match(/^(\S+?)\s*[-–—>]/);
+    if (m2) return m2[1];
+    return "";
+  }
+
   function renderTable() {
     const keyword = (document.getElementById("search-input").value || "").toLowerCase();
+    const catEl = document.getElementById("category-filter");
+    const selectedCat = catEl && catEl.style.display !== "none" ? catEl.value : "all";
     const filtered = allCases.filter(c => {
       if (currentFilter === "pass" && c.status !== "pass") return false;
       if (currentFilter === "fail" && c.status !== "fail") return false;
+      if (selectedCat !== "all") {
+        const cat = extractCategory(c.name || "");
+        if (cat !== selectedCat) return false;
+      }
       if (keyword) {
         const haystack = ((c.url || "") + " " + (c.name || "")).toLowerCase();
         if (!haystack.includes(keyword)) return false;

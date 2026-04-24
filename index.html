@@ -826,7 +826,7 @@
 
         try {
           // gh-pages에 배포된 results.json 직접 fetch (CDN 캐시 우회는 쿼리 파라미터로)
-          const apiRes = await fetch(`/results.json?t=${Date.now()}`, { cache: "no-store" });
+          const apiRes = await fetch(`results.json?t=${Date.now()}`, { cache: "no-store" });
           if (!apiRes.ok) throw new Error(`서버 응답 오류 (HTTP ${apiRes.status})`);
           const data = await apiRes.json();
           if (!data?.reports || !Array.isArray(data.reports)) {
@@ -1025,7 +1025,7 @@
       // progress.json 폴링 (gh-pages에 배포된 정적 파일 직접 fetch, 10초마다)
       async function pollProgressFallback() {
         try {
-          const res = await fetch(`/progress.json?t=${Date.now()}`, { cache: "no-store" });
+          const res = await fetch(`progress.json?t=${Date.now()}`, { cache: "no-store" });
           if (!res.ok) { if (_wasRunning) applyProgressState(); return; }
           const data = await res.json();
           const phase = data.phase;
@@ -1067,7 +1067,7 @@
       // 핵심 아이디어: progress.json의 startedAt이 최근이고 X분 내 업데이트되면 running
       async function pollWorkflowStatus() {
         try {
-          const res = await fetch(`/progress.json?t=${Date.now()}`, { cache: "no-store" });
+          const res = await fetch(`progress.json?t=${Date.now()}`, { cache: "no-store" });
           if (!res.ok) return;
           const data = await res.json();
           const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
