@@ -885,9 +885,9 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 24. 16:49",
+  "codeLastModified": "2026. 4. 24. 17:35",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. PM 5:22:43",
+    "lastUpdated": "2026. 4. 24. PM 5:49:01",
     "pc": {
       "uniqueUrls": 405,
       "todayTested": 412,
@@ -897,15 +897,15 @@
     },
     "mw": {
       "uniqueUrls": 400,
-      "todayTested": 331,
+      "todayTested": 330,
       "todayPassed": 322,
-      "todayFailed": 8,
+      "todayFailed": 7,
       "cyclesCompleted": 3
     },
     "totalUniqueUrls": 805,
-    "todayTested": 743,
-    "todayPassRate": "98.0"
+    "todayTested": 742,
+    "todayPassRate": "98.1"
   },
-  "testLastRunAt": "2026-04-24T08:22:43.462Z",
-  "testLastRunAtKst": "2026. 4. 24. 17:22"
+  "testLastRunAt": "2026-04-24T08:49:01.537Z",
+  "testLastRunAtKst": "2026. 4. 24. 17:49"
 }
