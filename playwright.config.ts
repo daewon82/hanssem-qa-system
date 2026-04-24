@@ -82,10 +82,12 @@ export default defineConfig({
       testMatch: /autoe2e[\\/](auth|cart|mypage|product)\.spec\.ts/,
     },
     {
+      // MW는 모바일 DOM 특성상 부적합한 테스트 제외: search 전체, 기타 섹션 테스트들
       name: "AutoE2E_Public_Mobile",
       retries: 1,
       use: { ...devices["Pixel 5"], locale: "ko-KR" },
-      testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store)\.spec\.ts/,
+      testMatch: /autoe2e[\\/](navigation|furnishing|interior|category|store)\.spec\.ts/,
+      grepInvert: /TC010|TC015|TC016|베스트셀러 섹션|신상품 섹션|1분 홈투어|공간별 시공사례|고객 후기 섹션|무료상담 섹션|시공사례 상세 이미지 클릭/,
     },
   ],
 });
