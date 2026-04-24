@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. PM 6:06:20",
+  "lastUpdated": "2026. 4. 24. PM 6:24:38",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -422,17 +422,28 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 24. PM 5:48:59",
-      "total": 92,
-      "pass": 84,
-      "fail": 7,
-      "passRate": "92.3",
+      "lastUpdated": "2026. 4. 24. PM 6:24:38",
+      "total": 89,
+      "pass": 83,
+      "fail": 5,
+      "passRate": "94.3",
       "cases": [
         {
-          "name": "카테고리 로드 - 침실",
+          "name": "카테고리 로드 - 다이닝",
+          "url": "https://m.store.hanssem.com/category/20072",
+          "status": "fail",
+          "duration": "5.67s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20072",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "category.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "카테고리 로드 - 키즈룸",
           "url": "",
           "status": "fail",
-          "duration": "8.48s",
+          "duration": "7.55s",
           "reason": "Error: expect(locator).toContainText(expected) failed",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
@@ -440,69 +451,36 @@
           "platform": "MW"
         },
         {
-          "name": "K91 - 새로고침 후 동일 페이지 유지",
+          "name": "침실 신상품 섹션 노출",
           "url": "https://m.store.hanssem.com/category/20070",
           "status": "fail",
-          "duration": "5.60s",
+          "duration": "5.67s",
           "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
-          "file": "consistency.spec.ts",
+          "file": "category.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "TC007 - 인테리어 메인 페이지 로드",
-          "url": "https://m.store.hanssem.com/interior",
-          "status": "fail",
-          "duration": "5.61s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/interior",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "interior.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "TC002 - GNB 침실 카테고리 이동",
+          "name": "침실 신상품 섹션 노출",
           "url": "",
           "status": "fail",
-          "duration": "9.26s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
-          "priority": "high",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "navigation.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "GNB - 홈오피스 카테고리 이동",
-          "url": "https://m.store.hanssem.com/category/20076",
-          "status": "fail",
-          "duration": "5.58s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20076",
-          "priority": "high",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "navigation.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "GNB - 홈&데코 카테고리 이동",
-          "url": "https://m.store.hanssem.com/category/20077",
-          "status": "fail",
-          "duration": "5.58s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20077",
-          "priority": "high",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "navigation.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "J86 - 메인 페이지 DOM 로드 < 6초",
-          "url": "",
-          "status": "fail",
-          "duration": "6.48s",
-          "reason": "Error: expect(received).toBeLessThan(expected)",
+          "duration": "7.76s",
+          "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
-          "file": "performance.spec.ts",
+          "file": "category.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "키즈룸 샘키즈 알아보기 섹션",
+          "url": "https://m.store.hanssem.com/category/20074",
+          "status": "fail",
+          "duration": "5.67s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20074",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "category.spec.ts",
           "platform": "MW"
         }
       ]
@@ -887,7 +865,7 @@
   ],
   "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. PM 6:06:22",
+    "lastUpdated": "2026. 4. 24. PM 6:24:40",
     "pc": {
       "uniqueUrls": 405,
       "todayTested": 412,
@@ -897,15 +875,15 @@
     },
     "mw": {
       "uniqueUrls": 446,
-      "todayTested": 330,
-      "todayPassed": 322,
-      "todayFailed": 7,
+      "todayTested": 327,
+      "todayPassed": 321,
+      "todayFailed": 5,
       "cyclesCompleted": 3
     },
     "totalUniqueUrls": 851,
-    "todayTested": 742,
-    "todayPassRate": "98.1"
+    "todayTested": 739,
+    "todayPassRate": "98.4"
   },
-  "testLastRunAt": "2026-04-24T09:06:22.775Z",
-  "testLastRunAtKst": "2026. 4. 24. 18:06"
+  "testLastRunAt": "2026-04-24T09:24:40.813Z",
+  "testLastRunAtKst": "2026. 4. 24. 18:24"
 }
