@@ -1126,11 +1126,11 @@
           if (!res.ok) return;
           const data = await res.json();
           const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
-          if (!startedAt) return;
           const now = Date.now();
-          // startedAt이 6시간 이내 + phase가 설정되어 있으면 running
-          const isRecent = (now - startedAt) < 6 * 60 * 60 * 1000;
-          const running = isRecent && data.phase && PHASE_ORDER.includes(data.phase);
+          // progress.json이 idle 상태(phase=idle 또는 startedAt=null)면 workflow 종료로 판정
+          const isIdle = !startedAt || data.phase === "idle";
+          const isRecent = startedAt && (now - startedAt) < 6 * 60 * 60 * 1000;
+          const running = !isIdle && isRecent && data.phase && PHASE_ORDER.includes(data.phase);
           if (running) {
             setRunBtn(true);
             _runStartedAt = startedAt;
