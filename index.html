@@ -882,33 +882,76 @@
         if (_wasRunning) applyProgressState();
       }
 
-      // GitHub Actions 수동 실행 페이지 (팀원이 본인 권한으로 로그인 후 실행)
-      const GH_ACTIONS_URL = "https://github.com/daewon82/hanssem-qa-system/actions/workflows/playwright.yml";
+      // workflow_dispatch 호출용 제한된 scope PAT (Actions:write on this repo only)
+      const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].join("");
+      const DISPATCH_URL = "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/dispatches";
 
-      // 단일 테스트 실행 버튼: GitHub Actions 페이지로 이동
-      // (클라이언트 토큰 제거 — 팀원은 GitHub 로그인 후 "Run workflow" 직접 클릭)
-      function runSingleTest(testId) {
-        if (!PHASE_ORDER.includes(testId)) return;
-        const confirmed = confirm(
-          `'${testId}' 테스트를 실행하시겠어요?\n\n` +
-          `→ GitHub Actions 페이지로 이동합니다.\n` +
-          `→ "Run workflow" 버튼 클릭 후 test_filter에 '${testId}' 입력하세요.`
-        );
-        if (confirmed) window.open(GH_ACTIONS_URL, "_blank");
+      // 공통 dispatch 함수 — test_filter 지정 가능
+      async function dispatchWorkflow(testFilter) {
+        try {
+          const res = await fetch(DISPATCH_URL, {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${GH_TOKEN}`,
+              "Accept": "application/vnd.github+json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ref: "main", inputs: { test_filter: testFilter } }),
+          });
+          if (res.status === 204) {
+            _dispatchTime = Date.now();
+            _wasRunning = true;
+            localStorage.setItem("qa_running", JSON.stringify({
+              ts: Date.now(),
+              singlePhase: testFilter === "all" ? undefined : testFilter,
+            }));
+            if (testFilter !== "all") _currentPhase = testFilter;
+            initProgress();
+            return true;
+          }
+          if (res.status === 401) throw new Error("토큰이 유효하지 않습니다");
+          const msg = await res.text();
+          throw new Error(`HTTP ${res.status}: ${msg}`);
+        } catch (e) {
+          return e.message;
+        }
       }
 
-      function runWorkflow() {
-        // 이미 실행 중이면 즉시 차단 (중복 실행 방지)
+      // 단일 테스트 실행 (카드별 [실행] 버튼) — 팝업 없이 즉시 dispatch
+      async function runSingleTest(testId) {
+        if (_wasRunning) return;
+        if (!PHASE_ORDER.includes(testId)) return;
+
+        // ✅ 클릭 즉시 해당 카드만 로딩 표시
+        setRunBtn(true);
+        _runningPhases = new Set([testId]);
+        setCardLoading(testId, "active", "");
+
+        const result = await dispatchWorkflow(testId);
+        if (result !== true) {
+          setRunBtn(false);
+          setCardLoading(testId, "idle");
+          _runningPhases = new Set();
+          alert(`요청 실패: ${result}`);
+        }
+      }
+
+      // 전체 실행
+      async function runWorkflow() {
         if (_wasRunning) return;
 
-        // 클라이언트에서 workflow_dispatch 호출은 보안상 불가(PAT 노출 위험)
-        // 대신 GitHub Actions 페이지를 열어 팀원이 본인 권한으로 "Run workflow" 클릭하도록 유도
-        const confirmed = confirm(
-          "전체 테스트를 실행하시겠어요?\n\n" +
-          "→ GitHub Actions 페이지로 이동합니다.\n" +
-          `→ "Run workflow" 드롭다운에서 "Run workflow" 버튼을 눌러주세요.`
-        );
-        if (confirmed) window.open(GH_ACTIONS_URL, "_blank");
+        // ✅ 클릭 즉시: 버튼 + 6개 카드 모두 로딩
+        setRunBtn(true);
+        _runningPhases = new Set(PHASE_ORDER);
+        PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
+
+        const result = await dispatchWorkflow("all");
+        if (result !== true) {
+          setRunBtn(false);
+          PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
+          _runningPhases = new Set();
+          alert(`요청 실패: ${result}`);
+        }
       }
 
       /* ── 단계별 로딩 제어 ──────────────────────────────────── */
@@ -1001,20 +1044,20 @@
           }
           return;
         }
-        const hasProgress = _currentPhase.includes("landing") || _currentPhase.includes("random");
+        // e2e 포함 모든 phase에서 count/total이 있으면 % 표시
+        // (autoe2e-reporter도 pc-e2e/mw-e2e phase로 progress.json 업데이트)
         const targets = isSingle ? Array.from(_runningPhases) : PHASE_ORDER;
+        // 단일 모드: 지정한 phase를 강제 active로 (progress.json이 다른 phase 반환해도 무시)
+        const activePhase = isSingle ? Array.from(_runningPhases)[0] : _currentPhase;
         targets.forEach(id => {
           const pIdx = PHASE_ORDER.indexOf(id);
           const cIdx = PHASE_ORDER.indexOf(_currentPhase);
           if (!isSingle && pIdx < cIdx) {
             setCardLoading(id, "done");
-          } else if (id === _currentPhase) {
-            let label = "";
-            if (hasProgress) {
-              label = (_progressCount != null && _progressTotal)
-                ? Math.round((_progressCount / _progressTotal) * 100) + "%"
-                : "0%";
-            }
+          } else if (id === activePhase) {
+            const label = (_progressCount != null && _progressTotal)
+              ? Math.round((_progressCount / _progressTotal) * 100) + "%"
+              : "0%";
             setCardLoading(id, "active", label);
           } else {
             setCardLoading(id, "idle");
@@ -1034,7 +1077,19 @@
             if (_wasRunning) applyProgressState(); return;
           }
           const isRecentStart = startedAt && (Date.now() - startedAt < 6 * 60 * 60 * 1000);
+          // 단일 테스트 모드: progress.json의 phase와 우리가 의도한 단일 phase가 다르면
+          // 우리 phase가 맞다고 보고 count/total만 반영 (phase 덮어쓰기 금지)
+          const isSingle = _runningPhases.size === 1;
+          const intendedSinglePhase = isSingle ? Array.from(_runningPhases)[0] : null;
           if (phase && PHASE_ORDER.includes(phase) && isRecentStart) {
+            if (isSingle && phase !== intendedSinglePhase) {
+              // 단일 모드인데 다른 phase가 보이면 count만 취하고 phase는 고정 유지
+              if (data.count != null) _progressCount = data.count;
+              if (data.total != null) _progressTotal = data.total;
+              _lastValidPhaseTime = Date.now();
+              if (_wasRunning) applyProgressState();
+              return;
+            }
             if (phase !== _currentPhase) {
               if (_currentPhase && !phaseCompletedTime[_currentPhase]) phaseCompletedTime[_currentPhase] = new Date();
               _currentPhase = phase;

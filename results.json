@@ -896,9 +896,9 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 24. 14:41",
+  "codeLastModified": "2026. 4. 24. 15:31",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. PM 3:20:48",
+    "lastUpdated": "2026. 4. 24. PM 3:51:44",
     "pc": {
       "uniqueUrls": 405,
       "todayTested": 412,
@@ -916,5 +916,7 @@
     "totalUniqueUrls": 805,
     "todayTested": 741,
     "todayPassRate": "98.0"
-  }
+  },
+  "testLastRunAt": "2026-04-24T06:51:44.545Z",
+  "testLastRunAtKst": "2026. 4. 24. 15:51"
 }
