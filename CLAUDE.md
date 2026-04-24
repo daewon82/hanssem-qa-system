@@ -181,12 +181,34 @@ hanssem-qa-system/
 ## 테스트 실행 중 로딩 UI (필수 규칙)
 
 **⚠️ 클릭 즉시 UI 반응 (API 응답 대기 금지)**
-1. `setRunBtn(true)` → 버튼 "테스트 실행 중"
+1. `setRunBtn(true)` → 버튼 "테스트 실행 중" / "실행 중"
 2. 단일 실행: `setCardLoading(testId, "active", "")` / 전체: `PHASE_ORDER.forEach(...)`
 3. 그 후 dispatch API 호출
 4. 순서 변경 금지 — 체감 반응성 핵심
 
 **단일 테스트 실행**: `_runningPhases = new Set([testId])` → 해당 카드만 업데이트
+
+---
+
+### 🔒 로딩 상태 유지 규칙 (절대 규칙)
+
+**버튼 클릭 즉시 "실행 중" 상태로 변경 + 로딩 아이콘 노출 + 그 상태가 계속 유지**되어야 한다.
+
+- **API 응답(dispatch 성공 여부)과 무관하게** 즉시 UI 전환 — API 대기 X
+- **새로고침해도 로딩 아이콘 유지** — localStorage.qa_running 기반 복원 + grace period(5분) 적용
+- **테스트가 실제로 끝날 때까지 로딩 유지** — progress.json 갱신이 지연되거나 stale해도 섣불리 idle로 복귀 금지
+
+**초기화(로딩 해제) 조건 — GitHub Actions API 기준**:
+- ✅ GitHub Actions run의 `status === "completed"`일 때만 해제
+  - conclusion: `success` | `failure` | `cancelled` | `timed_out` 등 모두 해당
+  - 즉, 테스트가 실제로 끝났을 때만 로딩 사라짐
+- ❌ progress.json이 idle/stale이어도 해제 금지 (gh-pages 배포 지연 가능성)
+- ❌ 로컬 타임아웃만으로 해제 금지
+- ❌ `status === "in_progress"` 또는 `"queued"`면 로딩 유지
+
+**구현 참조**:
+- [index.html:974-992](public/index.html#L974-L992) — 새로고침 복원 시 `_lastValidPhaseTime`, `_dispatchTime` 세팅으로 grace period 확보
+- [index.html:1158-1226](public/index.html#L1158-L1226) — `pollWorkflowStatus`가 `fetchLatestRun()`으로 GitHub API 조회 → `completed` 시에만 `clearLoadingState()` 호출
 
 ---
 

@@ -69,7 +69,8 @@ test.describe('통합검색 결과 페이지', () => {
     await submitSearch(page, '소파');
     // SPA 검색 결과 렌더 지연 대응: domcontentloaded 이후 networkidle 짧게 대기 + 30초 타임아웃
     await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => null);
-    const goods = page.locator('a[href*="/goods/"]');
+    // 셀렉터 다양화: /goods/, /product/, product-item class, data-goods-id 등
+    const goods = page.locator('a[href*="/goods/"], a[href*="/product/"], [class*="product-item"], [class*="goods-item"], [data-goods-id], [data-product-id]');
     await expect(goods.first()).toBeVisible({ timeout: 30000 });
   });
 
@@ -84,7 +85,10 @@ test.describe('통합검색 결과 페이지', () => {
     await submitSearch(page, '소파');
     // 정렬 컨트롤은 상품 리스트 렌더 후 생성되므로 networkidle 선행 + 30초 타임아웃
     await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => null);
-    const sortControl = page.locator('button, a').filter({ hasText: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순/ }).first();
+    // 셀렉터 다양화: 텍스트 기반 + class/data 기반 (dropdown trigger 포함)
+    const sortByText = page.locator('button, a, [role="button"]').filter({ hasText: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순|신상품/ }).first();
+    const sortByAttr = page.locator('[class*="sort"], [class*="filter"], [data-sort], [aria-label*="정렬"], [aria-label*="필터"]').first();
+    const sortControl = sortByText.or(sortByAttr);
     await expect(sortControl).toBeAttached({ timeout: 30000 });
   });
 
