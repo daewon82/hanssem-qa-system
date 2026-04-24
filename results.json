@@ -389,32 +389,65 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 23. PM 9:32:39",
-      "total": 62,
+      "lastUpdated": "2026. 4. 24. AM 9:40:25",
+      "total": 65,
       "pass": 40,
-      "fail": 2,
-      "passRate": "95.2",
+      "fail": 5,
+      "passRate": "88.9",
       "cases": [
         {
-          "name": "카테고리 로드 - 학생방",
-          "url": "",
+          "name": "모바일 뷰포트 메인 페이지 타이틀",
+          "url": "https://store.hanssem.com/",
           "status": "fail",
-          "duration": "9.97s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
+          "duration": "30.70s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "category.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "카테고리 로드 - 커튼·블라인드",
-          "url": "https://store.hanssem.com/category/20109",
+          "name": "TC006 - 더보기 버튼 표시 확인",
+          "url": "https://store.hanssem.com/furnishing",
           "status": "fail",
-          "duration": "5.72s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/category/20109",
+          "duration": "5.55s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/furnishing",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
+          "file": "furnishing.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "TC003 - GNB 거실 카테고리 이동",
+          "url": "",
+          "status": "fail",
+          "duration": "10.22s",
+          "reason": "Error: expect(locator).toContainText(expected) failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "navigation.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "GNB - 학생방 카테고리 이동",
+          "url": "https://store.hanssem.com/category/20075",
+          "status": "fail",
+          "duration": "5.55s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/category/20075",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "navigation.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "GNB - 홈&데코 카테고리 이동",
+          "url": "https://store.hanssem.com/category/20077",
+          "status": "fail",
+          "duration": "5.57s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://store.hanssem.com/category/20077",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "navigation.spec.ts",
           "platform": "MW"
         }
       ]
