@@ -832,23 +832,23 @@
   ],
   "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
   "coverage": {
-    "lastUpdated": "2026. 4. 23. PM 9:32:43",
+    "lastUpdated": "2026. 4. 24. AM 9:40:30",
     "pc": {
-      "uniqueUrls": 300,
+      "uniqueUrls": 501,
       "todayTested": 440,
       "todayPassed": 428,
       "todayFailed": 2,
       "cyclesCompleted": 1
     },
     "mw": {
-      "uniqueUrls": 300,
-      "todayTested": 400,
-      "todayPassed": 378,
-      "todayFailed": 2,
+      "uniqueUrls": 484,
+      "todayTested": 387,
+      "todayPassed": 362,
+      "todayFailed": 5,
       "cyclesCompleted": 2
     },
-    "totalUniqueUrls": 600,
-    "todayTested": 840,
-    "todayPassRate": "96.0"
+    "totalUniqueUrls": 985,
+    "todayTested": 827,
+    "todayPassRate": "95.5"
   }
 }
