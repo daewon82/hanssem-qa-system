@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. AM 10:24:53",
+  "lastUpdated": "2026. 4. 24. AM 10:32:20",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -822,12 +822,29 @@
     {
       "id": "mw-random",
       "title": "운영환경 MW 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 24. AM 9:26:48",
-      "total": 184,
-      "pass": 184,
-      "fail": 0,
-      "passRate": "100.0",
-      "cases": []
+      "lastUpdated": "2026. 4. 24. AM 10:32:20",
+      "total": 100,
+      "pass": 98,
+      "fail": 2,
+      "passRate": "98.0",
+      "cases": [
+        {
+          "name": "765132",
+          "url": "https://m.store.hanssem.com/goods/765132",
+          "status": "fail",
+          "duration": "70.02s",
+          "reason": "접속 실패",
+          "priority": "low"
+        },
+        {
+          "name": "834236",
+          "url": "https://m.store.hanssem.com/goods/834236",
+          "status": "fail",
+          "duration": "70.06s",
+          "reason": "접속 실패",
+          "priority": "low"
+        }
+      ]
     }
   ],
   "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
