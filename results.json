@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. PM 4:16:15",
+  "lastUpdated": "2026. 4. 24. PM 4:46:55",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,28 +345,17 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 24. PM 3:51:42",
+      "lastUpdated": "2026. 4. 24. PM 4:46:55",
       "total": 164,
       "pass": 158,
       "fail": 5,
       "passRate": "96.9",
       "cases": [
         {
-          "name": "L96 - Tab 키 네비게이션 - 5개 이상 요소 포커스 가능",
-          "url": "",
-          "status": "fail",
-          "duration": "3.51s",
-          "reason": "Error: expect(received).toBeGreaterThanOrEqual(expected)",
-          "priority": "low",
-          "project": "AutoE2E_Public_PC",
-          "file": "a11y.spec.ts",
-          "platform": "PC"
-        },
-        {
           "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "24.69s",
+          "duration": "50.15s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -377,7 +366,7 @@
           "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "24.46s",
+          "duration": "51.09s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -388,7 +377,7 @@
           "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "19.15s",
+          "duration": "50.49s",
           "reason": "Error: expect(locator).toBeAttached() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -399,11 +388,22 @@
           "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "19.15s",
+          "duration": "50.43s",
           "reason": "Error: expect(locator).toBeAttached() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
           "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "상품 상세 - 상품명 요소 노출",
+          "url": "https://store.hanssem.com/category/20070",
+          "status": "fail",
+          "duration": "31.28s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "critical",
+          "project": "AutoE2E_Authed",
+          "file": "product.spec.ts",
           "platform": "PC"
         }
       ]
