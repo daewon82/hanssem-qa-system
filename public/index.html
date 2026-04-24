@@ -1044,20 +1044,20 @@
           }
           return;
         }
-        const hasProgress = _currentPhase.includes("landing") || _currentPhase.includes("random");
+        // e2e 포함 모든 phase에서 count/total이 있으면 % 표시
+        // (autoe2e-reporter도 pc-e2e/mw-e2e phase로 progress.json 업데이트)
         const targets = isSingle ? Array.from(_runningPhases) : PHASE_ORDER;
+        // 단일 모드: 지정한 phase를 강제 active로 (progress.json이 다른 phase 반환해도 무시)
+        const activePhase = isSingle ? Array.from(_runningPhases)[0] : _currentPhase;
         targets.forEach(id => {
           const pIdx = PHASE_ORDER.indexOf(id);
           const cIdx = PHASE_ORDER.indexOf(_currentPhase);
           if (!isSingle && pIdx < cIdx) {
             setCardLoading(id, "done");
-          } else if (id === _currentPhase) {
-            let label = "";
-            if (hasProgress) {
-              label = (_progressCount != null && _progressTotal)
-                ? Math.round((_progressCount / _progressTotal) * 100) + "%"
-                : "0%";
-            }
+          } else if (id === activePhase) {
+            const label = (_progressCount != null && _progressTotal)
+              ? Math.round((_progressCount / _progressTotal) * 100) + "%"
+              : "0%";
             setCardLoading(id, "active", label);
           } else {
             setCardLoading(id, "idle");
@@ -1077,7 +1077,19 @@
             if (_wasRunning) applyProgressState(); return;
           }
           const isRecentStart = startedAt && (Date.now() - startedAt < 6 * 60 * 60 * 1000);
+          // 단일 테스트 모드: progress.json의 phase와 우리가 의도한 단일 phase가 다르면
+          // 우리 phase가 맞다고 보고 count/total만 반영 (phase 덮어쓰기 금지)
+          const isSingle = _runningPhases.size === 1;
+          const intendedSinglePhase = isSingle ? Array.from(_runningPhases)[0] : null;
           if (phase && PHASE_ORDER.includes(phase) && isRecentStart) {
+            if (isSingle && phase !== intendedSinglePhase) {
+              // 단일 모드인데 다른 phase가 보이면 count만 취하고 phase는 고정 유지
+              if (data.count != null) _progressCount = data.count;
+              if (data.total != null) _progressTotal = data.total;
+              _lastValidPhaseTime = Date.now();
+              if (_wasRunning) applyProgressState();
+              return;
+            }
             if (phase !== _currentPhase) {
               if (_currentPhase && !phaseCompletedTime[_currentPhase]) phaseCompletedTime[_currentPhase] = new Date();
               _currentPhase = phase;
