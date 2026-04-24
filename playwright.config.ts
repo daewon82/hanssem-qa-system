@@ -74,7 +74,12 @@ export default defineConfig({
     {
       name: "AutoE2E_Public_PC",
       retries: 1,
-      use: { ...devices["Desktop Chrome"], locale: "ko-KR", baseURL: "https://store.hanssem.com" },
+      use: {
+        ...devices["Desktop Chrome"],
+        locale: "ko-KR",
+        baseURL: "https://store.hanssem.com",
+        trace: "retain-on-failure", // E2E는 실패 원인 분석 위해 trace 저장 (URL 적어 용량 문제 없음)
+      },
       testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store|a11y|consistency|performance|ui|quality|price)\.spec\.ts/,
     },
     {
@@ -85,6 +90,7 @@ export default defineConfig({
         locale: "ko-KR",
         baseURL: "https://store.hanssem.com",
         storageState: STORAGE_STATE,
+        trace: "retain-on-failure",
       },
       testMatch: /autoe2e[\\/](auth|cart|mypage|product|coupon)\.spec\.ts/,
     },
@@ -92,7 +98,12 @@ export default defineConfig({
       // MW 프로젝트: 모바일 도메인 + @pc-only 태그 자동 제외
       name: "AutoE2E_Public_Mobile",
       retries: 1,
-      use: { ...devices["Pixel 5"], locale: "ko-KR", baseURL: "https://m.store.hanssem.com" },
+      use: {
+        ...devices["Pixel 5"],
+        locale: "ko-KR",
+        baseURL: "https://m.store.hanssem.com",
+        trace: "retain-on-failure",
+      },
       testMatch: /autoe2e[\\/](navigation|search|furnishing|interior|category|store|a11y|consistency|performance|ui|quality|price)\.spec\.ts/,
       grepInvert: /@pc-only/,
     },

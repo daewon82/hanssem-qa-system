@@ -77,7 +77,10 @@ export async function updateProgress(
       },
       { headers }
     );
-    console.log(`📡 진행상태 업데이트: ${phase}${count !== undefined ? ` (${count}/${total})` : ""}`);
+    // 로그 noise 축소: DEBUG_PROGRESS=1 일 때만 출력
+    if (process.env.DEBUG_PROGRESS) {
+      console.log(`📡 진행상태 업데이트: ${phase}${count !== undefined ? ` (${count}/${total})` : ""}`);
+    }
   } catch (e: any) {
     console.log(`⚠️ 진행상태 업데이트 실패: ${e.message}`);
   }

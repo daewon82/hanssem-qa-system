@@ -6,8 +6,6 @@ import { STORE_BASE } from './pages';
  * 레이아웃·스크롤·반응형·이미지 등 시각적 안정성 체크.
  */
 
-const isMobile = (page: Page) => (page.viewportSize()?.width ?? 1280) < 600;
-
 test.describe('E. UI/UX 표시', () => {
   test('E41 - 메인 페이지 가로 스크롤 - 과도하지 않음', async ({ page }) => {
     await page.goto('/');
@@ -61,8 +59,7 @@ test.describe('E. UI/UX 표시', () => {
     if (topZ > 0) expect(topZ).toBeGreaterThanOrEqual(10);
   });
 
-  test('E45 - GNB sticky 또는 고정 위치', async ({ page }) => {
-    if (isMobile(page)) { return; }
+  test('E45 - GNB sticky 또는 고정 위치 @pc-only', async ({ page }) => {
     await page.goto('/');
     // 페이지 스크롤 후 헤더의 위치 확인
     const headerInitial = await page.evaluate(() => {
