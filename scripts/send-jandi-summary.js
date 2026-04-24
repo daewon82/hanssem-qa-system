@@ -51,8 +51,19 @@ async function main() {
     return;
   }
 
-  const wanted = ["pc-landing", "pc-random", "pc-e2e", "mw-landing", "mw-random", "mw-e2e"];
-  const reports = (data.reports || []).filter((r) => wanted.includes(r.id));
+  // 대시보드와 동일한 명칭/순서 (index.html의 REPORT_CONFIGS와 1:1 매핑)
+  const DASHBOARD_NAMES = {
+    "pc-landing": "PC 500 Crawling Test",
+    "pc-random":  "PC 200 Random Test",
+    "pc-e2e":     "PC E2E Test",
+    "mw-landing": "MW 500 Crawling Test",
+    "mw-random":  "MW 200 Random Test",
+    "mw-e2e":     "MW E2E Test",
+  };
+  const ORDER = ["pc-landing", "pc-random", "pc-e2e", "mw-landing", "mw-random", "mw-e2e"];
+
+  const reportsMap = Object.fromEntries((data.reports || []).map((r) => [r.id, r]));
+  const reports = ORDER.map((id) => reportsMap[id]).filter(Boolean);
 
   if (reports.length === 0) {
     console.log("⚠️ 잔디 알림 스킵 — 대상 리포트 없음");
@@ -67,15 +78,17 @@ async function main() {
   const summaryLines = reports.map((r) => {
     const rate = r.passRate || "0";
     const mark = (r.fail || 0) === 0 ? "✅" : "❌";
-    return `${mark} ${r.title || r.id}: ${r.pass || 0}/${r.total || 0} (${rate}%)`;
+    const name = DASHBOARD_NAMES[r.id] || r.title || r.id;
+    return `${mark} ${name}: ${r.pass || 0}/${r.total || 0} (${rate}%)`;
   });
 
   // 실패 URL 수집 (상위 10개)
   const failUrls = [];
   for (const r of reports) {
+    const name = DASHBOARD_NAMES[r.id] || r.id;
     for (const c of (r.cases || [])) {
       if (c.status === "fail") {
-        failUrls.push(`[${r.id}] ${c.url || c.name || "-"}`);
+        failUrls.push(`[${name}] ${c.url || c.name || "-"}`);
         if (failUrls.length >= 10) break;
       }
     }
