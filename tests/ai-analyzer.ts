@@ -1,9 +1,30 @@
 /**
  * Claude API 기반 테스트 실패 자동 분석 + 수정 제안
  *
- * 환경변수 ANTHROPIC_API_KEY 필요 (GitHub Secrets 설정).
- * API 키가 없으면 silently skip — 로컬/개발 환경에서 실패해도 테스트는 계속 진행.
+ * 환경변수:
+ *   ANTHROPIC_API_KEY      — 필수. 없으면 silent skip (로컬/개발 환경 대응)
+ *   MIN_FAILURES_FOR_AI    — 선택. AI 호출 최소 실패 건수 (기본: 3). 이보다 적으면 스킵
+ *   MAX_AI_CALLS_PER_RUN   — 선택. 단일 workflow run 당 최대 호출 횟수 (기본: 10). 비용 보호
  */
+
+import * as fs from "fs";
+import * as path from "path";
+
+// 호출 카운터 파일 (workflow run 간 격리를 위해 /tmp 사용 — CI 재실행 시 리셋됨)
+const CALL_COUNTER_PATH = path.resolve("/tmp/.ai-analyzer-call-count");
+
+function incrementCallCount(): number {
+  try {
+    const cur = fs.existsSync(CALL_COUNTER_PATH)
+      ? parseInt(fs.readFileSync(CALL_COUNTER_PATH, "utf8"), 10) || 0
+      : 0;
+    const next = cur + 1;
+    fs.writeFileSync(CALL_COUNTER_PATH, String(next), "utf8");
+    return next;
+  } catch (_) {
+    return 1; // 파일 IO 실패해도 호출 자체는 허용
+  }
+}
 
 export interface FailureCase {
   name: string;
@@ -50,6 +71,22 @@ export async function analyzeFailures(
     console.log("⏭️ ANTHROPIC_API_KEY 없음 — AI 분석 스킵");
     return null;
   }
+
+  // 최소 실패 건수 미달 시 스킵 (1~2건 실패로 매번 호출 방지)
+  const minFailures = parseInt(process.env.MIN_FAILURES_FOR_AI || "3", 10);
+  if (failures.length < minFailures) {
+    console.log(`⏭️ AI 분석 스킵: 실패 ${failures.length}건 < 최소 ${minFailures}건`);
+    return null;
+  }
+
+  // 단일 run 당 최대 호출 횟수 제한 (비용 보호)
+  const maxCalls = parseInt(process.env.MAX_AI_CALLS_PER_RUN || "10", 10);
+  const callCount = incrementCallCount();
+  if (callCount > maxCalls) {
+    console.log(`⏭️ AI 분석 스킵: 이번 run 호출 ${callCount}회 > 최대 ${maxCalls}회`);
+    return null;
+  }
+  console.log(`🤖 AI 분석 시작 (이번 run ${callCount}/${maxCalls}회)`);
 
   try {
     // 동적 import (axios로 직접 호출 — sdk 의존성 최소화)

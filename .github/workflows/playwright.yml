@@ -68,6 +68,24 @@ jobs:
           HANSSEM_ID: ${{ secrets.HANSSEM_ID }}
           HANSSEM_PW: ${{ secrets.HANSSEM_PW }}
 
+      - name: Write test run timestamp to results.json
+        if: always()
+        run: |
+          node -e "
+          const fs = require('fs');
+          const p = 'public/results.json';
+          if (!fs.existsSync(p)) { console.log('results.json 없음 — 스킵'); process.exit(0); }
+          const data = JSON.parse(fs.readFileSync(p, 'utf8'));
+          const now = new Date();
+          const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+          // ISO 타임스탬프 (정밀) + 한글 포맷 (대시보드 표시용)
+          data.testLastRunAt = now.toISOString();
+          data.testLastRunAtKst = kst.getFullYear() + '. ' + (kst.getMonth()+1) + '. ' + kst.getDate() + '. ' +
+                                  String(kst.getHours()).padStart(2,'0') + ':' + String(kst.getMinutes()).padStart(2,'0');
+          fs.writeFileSync(p, JSON.stringify(data, null, 2));
+          console.log('✅ testLastRunAt 기록:', data.testLastRunAt);
+          "
+
       - name: Send consolidated Jandi notification
         if: always()
         run: node scripts/send-jandi-summary.js
