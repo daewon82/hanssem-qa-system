@@ -825,16 +825,10 @@
           `조회일자 : ${fmt(today)} ${timeStr}`;
 
         try {
-          // GitHub Contents API로 직접 fetch (CDN 캐시 우회, 항상 최신 데이터)
-          const apiRes = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/results.json?ref=gh-pages",
-            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
-          );
+          // gh-pages에 배포된 results.json 직접 fetch (CDN 캐시 우회는 쿼리 파라미터로)
+          const apiRes = await fetch(`/results.json?t=${Date.now()}`, { cache: "no-store" });
           if (!apiRes.ok) throw new Error(`서버 응답 오류 (HTTP ${apiRes.status})`);
-          const apiJson = await apiRes.json();
-          const raw = (apiJson.content || "").replace(/\n/g, "");
-          const bytes = Uint8Array.from(atob(raw), c => c.charCodeAt(0));
-          const data = JSON.parse(new TextDecoder("utf-8").decode(bytes));
+          const data = await apiRes.json();
           if (!data?.reports || !Array.isArray(data.reports)) {
             throw new Error("리포트 형식이 올바르지 않거나 데이터가 없습니다.");
           }
@@ -888,115 +882,33 @@
         if (_wasRunning) applyProgressState();
       }
 
-      const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].join("");
+      // GitHub Actions 수동 실행 페이지 (팀원이 본인 권한으로 로그인 후 실행)
+      const GH_ACTIONS_URL = "https://github.com/daewon82/hanssem-qa-system/actions/workflows/playwright.yml";
 
-      // 단일 테스트 실행 (카드별 [실행] 버튼)
-      async function runSingleTest(testId) {
-        if (_wasRunning) return;
+      // 단일 테스트 실행 버튼: GitHub Actions 페이지로 이동
+      // (클라이언트 토큰 제거 — 팀원은 GitHub 로그인 후 "Run workflow" 직접 클릭)
+      function runSingleTest(testId) {
         if (!PHASE_ORDER.includes(testId)) return;
-        const token = GH_TOKEN;
-
-        // ✅ 클릭 즉시 해당 카드만 로딩 표시
-        setRunBtn(true);
-        _runningPhases = new Set([testId]);
-        setCardLoading(testId, "active", "");
-
-        try {
-          const res = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/dispatches",
-            {
-              method: "POST",
-              headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
-              body: JSON.stringify({ ref: "main", inputs: { test_filter: testId } }),
-            }
-          );
-          if (res.status === 204) {
-            _dispatchTime = Date.now();
-            _wasRunning = true;
-            localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now(), singlePhase: testId }));
-            _currentPhase = testId;
-            initProgress();
-          } else {
-            setRunBtn(false);
-            setCardLoading(testId, "idle");
-            const msg = await res.text();
-            alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
-          }
-        } catch (e) {
-          setRunBtn(false);
-          setCardLoading(testId, "idle");
-          alert("네트워크 오류: " + e.message);
-        }
+        const confirmed = confirm(
+          `'${testId}' 테스트를 실행하시겠어요?\n\n` +
+          `→ GitHub Actions 페이지로 이동합니다.\n` +
+          `→ "Run workflow" 버튼 클릭 후 test_filter에 '${testId}' 입력하세요.`
+        );
+        if (confirmed) window.open(GH_ACTIONS_URL, "_blank");
       }
 
-      async function runWorkflow() {
+      function runWorkflow() {
         // 이미 실행 중이면 즉시 차단 (중복 실행 방지)
         if (_wasRunning) return;
-        const token = GH_TOKEN;
 
-        // ✅ 클릭 즉시: 버튼 비활성화 + 모든 카드 로딩 아이콘 표시 (API 응답 대기 없이)
-        setRunBtn(true);
-        _runningPhases = new Set(PHASE_ORDER);
-        PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
-
-        // GitHub API로 실행 중 여부 확인
-        try {
-          const checkRes = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
-            { headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" } }
-          );
-          if (checkRes.ok) {
-            const checkData = await checkRes.json();
-            const latest = checkData.workflow_runs?.[0];
-            if (latest && (latest.status === "in_progress" || latest.status === "queued")) {
-              // 이미 실행 중 → 폴링만 시작, 새 dispatch 차단
-              _wasRunning = true;
-              localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
-              initProgress();
-              return;
-            }
-          }
-        } catch (_) { /* API 실패 시 dispatch 시도 */ }
-
-        // 재진입 방지: API 응답 대기 중 다른 경로로 실행 중 감지된 경우
-        if (_wasRunning) return;
-
-        try {
-          const res = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/dispatches",
-            {
-              method: "POST",
-              headers: {
-                "Authorization": `Bearer ${token}`,
-                "Accept": "application/vnd.github+json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ ref: "main", inputs: { test_filter: "all" } }),
-            }
-          );
-
-          if (res.status === 204) {
-            _dispatchTime = Date.now();
-            _wasRunning = true;
-            localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now() }));
-            initProgress();
-          } else if (res.status === 401) {
-            setRunBtn(false);
-            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
-            loadStats();
-            alert("토큰이 유효하지 않습니다. 다시 시도해 주세요.");
-          } else {
-            const msg = await res.text();
-            setRunBtn(false);
-            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
-            loadStats();
-            alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
-          }
-        } catch (e) {
-          setRunBtn(false);
-          PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
-          alert("네트워크 오류: " + e.message);
-        }
+        // 클라이언트에서 workflow_dispatch 호출은 보안상 불가(PAT 노출 위험)
+        // 대신 GitHub Actions 페이지를 열어 팀원이 본인 권한으로 "Run workflow" 클릭하도록 유도
+        const confirmed = confirm(
+          "전체 테스트를 실행하시겠어요?\n\n" +
+          "→ GitHub Actions 페이지로 이동합니다.\n" +
+          `→ "Run workflow" 드롭다운에서 "Run workflow" 버튼을 눌러주세요.`
+        );
+        if (confirmed) window.open(GH_ACTIONS_URL, "_blank");
       }
 
       /* ── 단계별 로딩 제어 ──────────────────────────────────── */
@@ -1110,18 +1022,12 @@
         });
       }
 
-      // progress.json 폴링 (gh-pages Contents API, 10초마다)
+      // progress.json 폴링 (gh-pages에 배포된 정적 파일 직접 fetch, 10초마다)
       async function pollProgressFallback() {
         try {
-          const res = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/contents/progress.json?ref=gh-pages",
-            { headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json" }, cache: "no-store" }
-          );
+          const res = await fetch(`/progress.json?t=${Date.now()}`, { cache: "no-store" });
           if (!res.ok) { if (_wasRunning) applyProgressState(); return; }
-          const apiData = await res.json();
-          const raw = (apiData.content || "").replace(/\n/g, "");
-          const rawBytes = Uint8Array.from(atob(raw), c => c.charCodeAt(0));
-          const data = JSON.parse(new TextDecoder("utf-8").decode(rawBytes));
+          const data = await res.json();
           const phase = data.phase;
           const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
           if (_runStartedAt && startedAt && startedAt < _runStartedAt - 30000) {
@@ -1157,38 +1063,31 @@
         }
       }
 
+      // progress.json 기반으로 실행 중 여부 판단 (토큰 없이 공개 파일로만 동작)
+      // 핵심 아이디어: progress.json의 startedAt이 최근이고 X분 내 업데이트되면 running
       async function pollWorkflowStatus() {
-        const token = GH_TOKEN;
         try {
-          const res = await fetch(
-            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/runs?per_page=1",
-            { headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" } }
-          );
+          const res = await fetch(`/progress.json?t=${Date.now()}`, { cache: "no-store" });
           if (!res.ok) return;
           const data = await res.json();
-          const latest = data.workflow_runs?.[0];
-          if (!latest) return;
-          const running = latest.status === "in_progress" || latest.status === "queued";
-          const cancelled = latest.conclusion === "cancelled" || latest.conclusion === "failure" || latest.conclusion === "timed_out";
+          const startedAt = data.startedAt ? new Date(data.startedAt).getTime() : null;
+          if (!startedAt) return;
+          const now = Date.now();
+          // startedAt이 6시간 이내 + phase가 설정되어 있으면 running
+          const isRecent = (now - startedAt) < 6 * 60 * 60 * 1000;
+          const running = isRecent && data.phase && PHASE_ORDER.includes(data.phase);
           if (running) {
             setRunBtn(true);
-            _runStartedAt = new Date(latest.run_started_at || latest.created_at).getTime();
-            _currentRunId = latest.id;
+            _runStartedAt = startedAt;
             _wasRunning = true;
             applyProgressState();
           } else {
-            // ⚠️ 방금 dispatch한 직후면 무조건 유예 — latest가 '이전 취소된 run'을 반환할 수 있음
-            if (_dispatchTime && Date.now() - _dispatchTime < 90000) return; // 90s grace
-            // 취소/실패 시 유예 없이 즉시 종료 (dispatch 이후 충분히 지난 경우)
-            if (!cancelled) {
-              if (_dispatchTime && Date.now() - _dispatchTime < 300000) return;
-              if (_lastValidPhaseTime && Date.now() - _lastValidPhaseTime < 5 * 60 * 1000) return;
-            }
+            if (_dispatchTime && Date.now() - _dispatchTime < 90000) return;
+            if (_lastValidPhaseTime && Date.now() - _lastValidPhaseTime < 5 * 60 * 1000) return;
             setRunBtn(false);
             if (phaseTimer)    { clearInterval(phaseTimer);    phaseTimer = null; }
             if (animTimer)     { clearInterval(animTimer);     animTimer = null; }
             if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
-            // 단일 실행이었으면 해당 카드만 idle, 전체 실행이었으면 전부 idle
             const clearTargets = _runningPhases.size > 0 ? Array.from(_runningPhases) : PHASE_ORDER;
             clearTargets.forEach(id => setCardLoading(id, "idle"));
             if (_wasRunning) {

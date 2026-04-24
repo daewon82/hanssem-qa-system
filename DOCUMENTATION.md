@@ -194,24 +194,32 @@ hanssem-qa-system/
 
 **목적**: 실제 사용자 시나리오 기반 기능 회귀 검증
 
-#### 3.3.1 테스트 파일별 커버리지
+#### 3.3.1 테스트 파일별 커버리지 (17 spec · 153 테스트)
 
-| 파일 | 테스트 수 | 우선순위 | 내용 |
+| 파일 | 테스트 | 우선순위 | 내용 |
 |---|---|---|---|
-| **auth.spec.ts** | 5 | critical | 로그인, 로그아웃, 실패 케이스, 회원가입/ID찾기 버튼 노출 |
-| **cart.spec.ts** | 4 | critical | 장바구니 페이지 진입, 총 결제예정금액, 카운트 증가 검증 |
-| **product.spec.ts** | 8 | critical | 상품 상세 — 상품명/가격/구매 버튼/옵션 레이어/쿠폰 |
-| **mypage.spec.ts** | 14 | high | MY 한샘, 주문/배송내역, 상담내역, 1:1 문의, 배송지 관리 |
-| **search.spec.ts** | 10 | high | 검색 입력, 결과 페이지, 정렬/필터, 영문 키워드 |
-| **navigation.spec.ts** | 9 | high | GNB 9개 카테고리 진입, 메인 홈 로드 |
-| **category.spec.ts** | 13 | medium | 9개 카테고리 로드 + 필터 칩 + BEST/라인업/신상품 섹션 |
-| **furnishing.spec.ts** | 6 | medium | 홈퍼니싱 메인, 베스트셀러, 신상품, 더보기 동작 |
-| **interior.spec.ts** | 12 | medium | 인테리어 메인, 공간 필터 칩, 시공사례, 고객 후기 |
-| **store.spec.ts** | 2 | low | 매장찾기 페이지 진입, 지역 키워드 노출 |
+| **auth.spec.ts** | 5 | critical | 로그인/로그아웃/실패/회원가입·ID찾기 버튼 |
+| **cart.spec.ts** | 14 | critical | 장바구니 진입/카운트 + C21~C30 (합계·음수·빈상태·묶음배송·로드시간) |
+| **product.spec.ts** | 8 | critical | 상품 상세 — 상품명/가격/구매/옵션/쿠폰/다운로드 |
+| **price.spec.ts** | 10 | critical | B11~B20 가격 품질 (콤마·0원·음수·소수점·할인율·원가≥판매가) |
+| **coupon.spec.ts** | 5 | critical | I81~I85 쿠폰함/만료/다운로드/프로모션 |
+| **mypage.spec.ts** | 14 | high | MY 한샘 + 배송지 CRUD + 회원정보 + 1:1 문의 |
+| **search.spec.ts** | 20 | high | 검색 입력/결과 + D31~D40 (XSS·SQL·공백·이모지·0건·한영혼용) |
+| **navigation.spec.ts** | 9 | high | GNB 9개 카테고리 이동 + 메인 홈 로드 |
+| **quality.spec.ts** | 10 | high | A01~A10 상품 데이터 품질 (undefined/null·썸네일·alt·판매종료) |
+| **category.spec.ts** | 13 | medium | 9개 카테고리 로드 + 필터 칩 + BEST/라인업/신상품 |
+| **furnishing.spec.ts** | 6 | medium | 홈퍼니싱 메인/베스트셀러/신상품/1분 홈투어/더보기 |
+| **interior.spec.ts** | 12 | medium | 공간 필터/시공사례/고객 후기/무료상담/시공기사 |
+| **consistency.spec.ts** | 5 | medium | K91~K95 새로고침/뒤로가기/북마크/OG 메타 |
+| **performance.spec.ts** | 5 | medium | J86~J90 DOM 로드<6s / lazy loading / HTTP 200 |
+| **ui.spec.ts** | 10 | medium | E41~E50 가로스크롤/반응형/z-index/sticky GNB |
+| **store.spec.ts** | 2 | low | 매장찾기 페이지 진입/지역 키워드 |
+| **a11y.spec.ts** | 5 | low | L96~L100 Tab 네비/aria-label/lang/focus |
 
 **합계:**
-- PC E2E (Public_PC + Authed): 약 **83건**
-- MW E2E (Public_Mobile): 약 **52건** (20~30건은 `isMobile` 가드로 skip)
+- **총 153건** (17 spec × 평균 9 테스트)
+- PC E2E (Public_PC + Authed): 약 **117건**
+- MW E2E (Public_Mobile): 약 **97건** (`@pc-only` 태그 grepInvert로 실제 ~45건 실행)
 
 #### 3.3.2 POM (Page Object Model)
 
