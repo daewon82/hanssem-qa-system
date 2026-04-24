@@ -49,13 +49,50 @@ test.describe('검색 기능', () => {
 /**
  * 홈퍼니싱 페이지의 상시 노출 검색창을 이용해 검색을 실행한다.
  * 메인 GNB 검색창은 headless 환경에서 숨김 이슈가 있어 회피.
+ *
+ * 🔧 근본 수정 (2026-04-24):
+ *  - DOM 로드 + API 응답 + 상품 렌더 3단계 대기로 SPA 렌더 타이밍 해결
+ *  - networkidle 은 광고 스크립트 때문에 never-idle → 사용 안함
  */
 async function submitSearch(page: import('@playwright/test').Page, keyword: string) {
   await page.goto(`${BASE}/furnishing`);
   const searchInput = page.locator('input[placeholder="검색어를 입력해 주세요."]').first();
   await searchInput.fill(keyword);
-  await searchInput.press('Enter');
+
+  // Enter 누르는 것과 동시에 검색 결과 API 응답 대기 (비동기 병렬)
+  await Promise.all([
+    // 검색 결과 페이지 URL 전환 대기 (기본 보장)
+    page.waitForURL(/\/search/, { timeout: 15000 }).catch(() => null),
+    searchInput.press('Enter'),
+  ]);
+
+  // DOM 최소 로드
   await page.waitForLoadState('domcontentloaded');
+}
+
+/**
+ * 검색 결과 페이지에서 상품 리스트 렌더링 완료를 기다린다.
+ * (networkidle 대신 실제 DOM 기반 폴링)
+ */
+async function waitForSearchResultsReady(page: import('@playwright/test').Page, timeoutMs = 30000) {
+  // 1. 검색 API 응답 대기 (가능한 경우)
+  await Promise.race([
+    page.waitForResponse(
+      (r) => /\/search|\/api\/search|\/goods\/search/.test(r.url()) && r.status() === 200,
+      { timeout: 15000 }
+    ).catch(() => null),
+    page.waitForTimeout(15000),
+  ]);
+
+  // 2. 상품 DOM 실제 존재 여부를 직접 폴링 (텍스트 기반 selector보다 견고)
+  await page.waitForFunction(
+    () => {
+      const goods = document.querySelectorAll('a[href*="/goods/"]');
+      const noResult = /결과가 없|상품이 없|존재하지 않/.test(document.body.innerText);
+      return goods.length > 0 || noResult;
+    },
+    { timeout: timeoutMs }
+  );
 }
 
 test.describe('통합검색 결과 페이지', () => {
@@ -67,29 +104,29 @@ test.describe('통합검색 결과 페이지', () => {
 
   test('통합검색 결과 - 상품 리스트 노출 @pc-only', async ({ page }) => {
     await submitSearch(page, '소파');
-    // SPA 검색 결과 렌더 지연 대응: domcontentloaded 이후 networkidle 짧게 대기 + 30초 타임아웃
-    await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => null);
-    // 셀렉터 다양화: /goods/, /product/, product-item class, data-goods-id 등
-    const goods = page.locator('a[href*="/goods/"], a[href*="/product/"], [class*="product-item"], [class*="goods-item"], [data-goods-id], [data-product-id]');
-    await expect(goods.first()).toBeVisible({ timeout: 30000 });
+    // 🔧 근본 수정: API 응답 + DOM 폴링 기반 (networkidle 대신)
+    await waitForSearchResultsReady(page, 30000);
+    const goods = page.locator('a[href*="/goods/"]');
+    await expect(goods.first()).toBeVisible({ timeout: 10000 });
   });
 
   test('통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재 @pc-only', async ({ page }) => {
     await submitSearch(page, '소파');
-    await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => null);
+    await waitForSearchResultsReady(page, 20000);
     const tabsOrSections = page.locator('text=/시공사례|매거진|사진/').first();
-    await expect(tabsOrSections).toBeAttached({ timeout: 20000 });
+    await expect(tabsOrSections).toBeAttached({ timeout: 10000 });
   });
 
   test('통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only', async ({ page }) => {
     await submitSearch(page, '소파');
-    // 정렬 컨트롤은 상품 리스트 렌더 후 생성되므로 networkidle 선행 + 30초 타임아웃
-    await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => null);
-    // 셀렉터 다양화: 텍스트 기반 + class/data 기반 (dropdown trigger 포함)
-    const sortByText = page.locator('button, a, [role="button"]').filter({ hasText: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순|신상품/ }).first();
-    const sortByAttr = page.locator('[class*="sort"], [class*="filter"], [data-sort], [aria-label*="정렬"], [aria-label*="필터"]').first();
-    const sortControl = sortByText.or(sortByAttr);
-    await expect(sortControl).toBeAttached({ timeout: 30000 });
+    // 정렬 컨트롤은 상품 리스트 렌더 후 생성됨 → 실제 결과 준비 완료 대기
+    await waitForSearchResultsReady(page, 30000);
+    // Role 기반 + 텍스트 fallback (fragile 셀렉터 강화)
+    const sortControl = page
+      .getByRole('button', { name: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순/ })
+      .or(page.locator('button, a').filter({ hasText: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순/ }))
+      .first();
+    await expect(sortControl).toBeAttached({ timeout: 15000 });
   });
 
   test('통합검색 결과 - 정렬 변경 시 URL 또는 DOM 변화 @pc-only', async ({ page }) => {

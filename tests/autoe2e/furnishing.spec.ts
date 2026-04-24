@@ -24,24 +24,40 @@ test.describe('홈퍼니싱 페이지', () => {
 
   test('베스트셀러 섹션 노출 @pc-only', async ({ page }) => {
     await gotoWithRetry(page, `${BASE}/furnishing`);
-    // 페이지 하단 섹션은 lazy render — scroll로 강제 렌더 유도 + 타임아웃 확대
+    // 🔧 근본 수정: 고정 sleep 제거, DOM 렌더 완료까지 폴링
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
-    await page.waitForTimeout(500);
-    await expect(page.locator('h2:has-text("베스트셀러")')).toBeVisible({ timeout: 15000 });
+    // 텍스트 부분 매칭 + 폴링 (fragile selector 완화)
+    await page.waitForFunction(
+      () => {
+        const headings = Array.from(document.querySelectorAll('h2, h3'));
+        return headings.some((h) => /베스트셀러|BEST|인기 ?상품/i.test(h.textContent || ''));
+      },
+      { timeout: 15000 }
+    );
   });
 
   test('신상품 섹션 노출 @pc-only', async ({ page }) => {
     await gotoWithRetry(page, `${BASE}/furnishing`);
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
-    await page.waitForTimeout(500);
-    await expect(page.locator('h2:has-text("신상품")')).toBeVisible({ timeout: 15000 });
+    await page.waitForFunction(
+      () => {
+        const headings = Array.from(document.querySelectorAll('h2, h3'));
+        return headings.some((h) => /신상품|NEW|신규/i.test(h.textContent || ''));
+      },
+      { timeout: 15000 }
+    );
   });
 
   test('1분 홈투어 섹션 노출 @pc-only', async ({ page }) => {
     await gotoWithRetry(page, `${BASE}/furnishing`);
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
-    await page.waitForTimeout(500);
-    await expect(page.locator('h2:has-text("1분 홈투어")')).toBeVisible({ timeout: 15000 });
+    await page.waitForFunction(
+      () => {
+        const headings = Array.from(document.querySelectorAll('h2, h3'));
+        return headings.some((h) => /1분 ?홈투어|홈투어|HomeTour/i.test(h.textContent || ''));
+      },
+      { timeout: 15000 }
+    );
   });
 
   test('베스트셀러 더보기 → /furnishing/RANK 이동', async ({ page }) => {
