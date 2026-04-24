@@ -70,6 +70,35 @@ async function main() {
     return;
   }
 
+  // 부분 실행 방지: 6개 리포트 모두 '최근 2시간' 내 업데이트된 경우에만 전송
+  // (워크플로우 중단/실패로 일부 리포트가 빠진 경우 알림 스킵)
+  const nowMs = Date.now();
+  const freshnessThresholdMs = 2 * 60 * 60 * 1000; // 2시간
+  const parseKst = (s) => {
+    // "2026. 4. 24. AM 10:30:15" 형식 파싱
+    if (!s) return 0;
+    const m = s.match(/(\d{4})\.\s*(\d+)\.\s*(\d+)\.\s*(AM|PM)?\s*(\d+):(\d+):(\d+)/);
+    if (!m) return 0;
+    let [, y, mo, d, ampm, h, mi, se] = m;
+    h = parseInt(h);
+    if (ampm === "PM" && h < 12) h += 12;
+    if (ampm === "AM" && h === 12) h = 0;
+    return Date.UTC(+y, +mo - 1, +d, h - 9, +mi, +se); // KST → UTC ms
+  };
+
+  const missing = ORDER.filter((id) => !reportsMap[id]);
+  const stale = reports.filter((r) => {
+    const ts = parseKst(r.lastUpdated);
+    return ts === 0 || nowMs - ts > freshnessThresholdMs;
+  }).map((r) => r.id);
+
+  if (missing.length > 0 || stale.length > 0) {
+    console.log(`⚠️ 잔디 알림 스킵 — 부분 실행 감지`);
+    if (missing.length > 0) console.log(`   누락: ${missing.join(", ")}`);
+    if (stale.length > 0)   console.log(`   오래됨(2h 초과): ${stale.join(", ")}`);
+    return;
+  }
+
   const totalAll = reports.reduce((s, r) => s + (r.total || 0), 0);
   const passAll = reports.reduce((s, r) => s + (r.pass || 0), 0);
   const failAll = reports.reduce((s, r) => s + (r.fail || 0), 0);

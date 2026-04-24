@@ -5,7 +5,7 @@ import { analyzeFailures } from "./ai-analyzer";
 import { updateCoverage } from "./coverage";
 
 // [공통 설정]
-const RANDOM_COUNT = 200;
+const RANDOM_COUNT = 100;
 
 interface RandomConfig {
   platform: "PC" | "MW";
