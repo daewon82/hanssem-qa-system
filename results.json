@@ -814,25 +814,25 @@
       ]
     }
   ],
-  "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
+  "codeLastModified": "2026. 4. 24. 09:58",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. AM 9:40:30",
+    "lastUpdated": "2026. 4. 24. AM 10:46:12",
     "pc": {
-      "uniqueUrls": 501,
-      "todayTested": 440,
-      "todayPassed": 428,
+      "uniqueUrls": 200,
+      "todayTested": 340,
+      "todayPassed": 328,
       "todayFailed": 2,
-      "cyclesCompleted": 1
-    },
-    "mw": {
-      "uniqueUrls": 484,
-      "todayTested": 387,
-      "todayPassed": 362,
-      "todayFailed": 5,
       "cyclesCompleted": 2
     },
-    "totalUniqueUrls": 985,
-    "todayTested": 827,
-    "todayPassRate": "95.5"
+    "mw": {
+      "uniqueUrls": 200,
+      "todayTested": 281,
+      "todayPassed": 276,
+      "todayFailed": 4,
+      "cyclesCompleted": 3
+    },
+    "totalUniqueUrls": 400,
+    "todayTested": 621,
+    "todayPassRate": "97.3"
   }
 }
