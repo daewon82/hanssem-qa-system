@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. PM 5:22:40",
+  "lastUpdated": "2026. 4. 24. PM 5:48:59",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -422,17 +422,17 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 24. PM 5:22:40",
-      "total": 93,
+      "lastUpdated": "2026. 4. 24. PM 5:48:59",
+      "total": 92,
       "pass": 84,
-      "fail": 8,
-      "passRate": "91.3",
+      "fail": 7,
+      "passRate": "92.3",
       "cases": [
         {
-          "name": "카테고리 로드 - 홈오피스",
+          "name": "카테고리 로드 - 침실",
           "url": "",
           "status": "fail",
-          "duration": "9.95s",
+          "duration": "8.48s",
           "reason": "Error: expect(locator).toContainText(expected) failed",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
@@ -440,80 +440,69 @@
           "platform": "MW"
         },
         {
-          "name": "카테고리 로드 - 커튼·블라인드",
-          "url": "https://m.store.hanssem.com/category/20109",
+          "name": "K91 - 새로고침 후 동일 페이지 유지",
+          "url": "https://m.store.hanssem.com/category/20070",
           "status": "fail",
-          "duration": "5.62s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20109",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "K92 - 뒤로가기 → 이전 카테고리로 복귀",
-          "url": "",
-          "status": "fail",
-          "duration": "28.48s",
-          "reason": "Error: expect(received).toContain(expected) // indexOf",
+          "duration": "5.60s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "consistency.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "J86 - 메인 페이지 DOM 로드 < 6초",
-          "url": "https://m.store.hanssem.com/",
-          "status": "fail",
-          "duration": "5.59s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "performance.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "J88 - 오프라인 처리 - 네트워크 차단 후 재로드",
-          "url": "https://m.store.hanssem.com/",
-          "status": "fail",
-          "duration": "5.58s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "performance.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "B19 - 무료배송 텍스트와 0원 배송비 일관성",
-          "url": "https://m.store.hanssem.com/goods/932380",
-          "status": "fail",
-          "duration": "948.70s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "critical",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "price.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "A08 - \"NEW\" 뱃지와 등록일자 정합성(뱃지만 확인)",
-          "url": "https://m.store.hanssem.com/category/20070",
+          "name": "TC007 - 인테리어 메인 페이지 로드",
+          "url": "https://m.store.hanssem.com/interior",
           "status": "fail",
           "duration": "5.61s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
-          "priority": "high",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/interior",
+          "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
-          "file": "quality.spec.ts",
+          "file": "interior.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "E48 - 카테고리 페이지 - 상품 카드 그리드 정렬",
+          "name": "TC002 - GNB 침실 카테고리 이동",
           "url": "",
           "status": "fail",
-          "duration": "7.54s",
+          "duration": "9.26s",
+          "reason": "Error: expect(locator).toContainText(expected) failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "navigation.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "GNB - 홈오피스 카테고리 이동",
+          "url": "https://m.store.hanssem.com/category/20076",
+          "status": "fail",
+          "duration": "5.58s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20076",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "navigation.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "GNB - 홈&데코 카테고리 이동",
+          "url": "https://m.store.hanssem.com/category/20077",
+          "status": "fail",
+          "duration": "5.58s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20077",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "navigation.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "J86 - 메인 페이지 DOM 로드 < 6초",
+          "url": "",
+          "status": "fail",
+          "duration": "6.48s",
           "reason": "Error: expect(received).toBeLessThan(expected)",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
-          "file": "ui.spec.ts",
+          "file": "performance.spec.ts",
           "platform": "MW"
         }
       ]
@@ -896,9 +885,9 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 24. 16:49",
+  "codeLastModified": "2026. 4. 24. 17:35",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. PM 5:22:43",
+    "lastUpdated": "2026. 4. 24. PM 5:49:01",
     "pc": {
       "uniqueUrls": 405,
       "todayTested": 412,
@@ -908,15 +897,15 @@
     },
     "mw": {
       "uniqueUrls": 400,
-      "todayTested": 331,
+      "todayTested": 330,
       "todayPassed": 322,
-      "todayFailed": 8,
+      "todayFailed": 7,
       "cyclesCompleted": 3
     },
     "totalUniqueUrls": 805,
-    "todayTested": 743,
-    "todayPassRate": "98.0"
+    "todayTested": 742,
+    "todayPassRate": "98.1"
   },
-  "testLastRunAt": "2026-04-24T08:22:43.462Z",
-  "testLastRunAtKst": "2026. 4. 24. 17:22"
+  "testLastRunAt": "2026-04-24T08:49:01.537Z",
+  "testLastRunAtKst": "2026. 4. 24. 17:49"
 }
