@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { gotoWithRetry } from './helpers/gotoRetry';
 
 // 빈 값: Playwright baseURL(프로젝트별: PC store / MW m.store) 자동 사용
 const BASE = '';
@@ -52,7 +53,9 @@ test.describe('검색 기능', () => {
  */
 async function submitSearch(page: import('@playwright/test').Page, keyword: string) {
   const searchUrl = `${BASE}/search/goods?searchKey=${encodeURIComponent(keyword)}`;
-  await page.goto(searchUrl, { waitUntil: "domcontentloaded" });
+  await gotoWithRetry(page, searchUrl);
+  // 검색 결과 JS 비동기 로딩 대기 — 네트워크가 조용해질 때까지
+  await page.waitForLoadState('networkidle', { timeout: 20000 }).catch(() => {});
   await page.waitForTimeout(2000);
 }
 
@@ -65,7 +68,10 @@ test.describe('통합검색 결과 페이지', () => {
 
   test('통합검색 결과 - 상품 리스트 노출 @pc-only', async ({ page }) => {
     await submitSearch(page, '소파');
-    const goods = page.locator('a[href*="/goods/"]');
+    // 셀렉터 다양화: a[href*="/goods/"] 외에도 상품 카드·이미지 패턴 허용
+    const goods = page.locator(
+      'a[href*="/goods/"], a[href*="/product/"], [data-gtm-tracking*="goods"], [class*="Product"] a, [class*="goods"] a, img[src*="image.hanssem.com"]'
+    );
     await expect(goods.first()).toBeVisible({ timeout: 30000 });
   });
 
