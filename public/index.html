@@ -1119,7 +1119,9 @@
             _wasRunning = true;
             applyProgressState();
           } else {
-            // 취소/실패 시 유예 없이 즉시 종료
+            // ⚠️ 방금 dispatch한 직후면 무조건 유예 — latest가 '이전 취소된 run'을 반환할 수 있음
+            if (_dispatchTime && Date.now() - _dispatchTime < 90000) return; // 90s grace
+            // 취소/실패 시 유예 없이 즉시 종료 (dispatch 이후 충분히 지난 경우)
             if (!cancelled) {
               if (_dispatchTime && Date.now() - _dispatchTime < 300000) return;
               if (_lastValidPhaseTime && Date.now() - _lastValidPhaseTime < 5 * 60 * 1000) return;

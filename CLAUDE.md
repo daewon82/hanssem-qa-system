@@ -328,7 +328,16 @@ public/results.json public/pc_500.json public/pc_e2e.json public/mw_500.json pub
 
 #### 테스트 실행 중 로딩 UI
 
-- **버튼**: 클릭 즉시 "테스트 실행 중" + 비활성화, 완료 후 "테스트 실행" 복귀
+**⚠️ 필수 규칙: 클릭 즉시 UI 반응 (API 응답 대기 금지)**
+
+- **버튼 클릭 순간 즉시 수행** (동기적 · API 응답 기다리지 않음):
+  1. `setRunBtn(true)` → 버튼 텍스트 "테스트 실행 중" + 비활성화
+  2. `PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""))` → **6개 카드 모두 로딩 아이콘 즉시 노출**
+- 그 후에 GitHub API(checkRes) 호출·dispatch 처리
+- 실패 시(`401`/`!204`/`catch`) 반드시 `setRunBtn(false)` + 카드 로딩 idle 원복
+- **절대 순서를 바꾸지 말 것** — API 응답 후에 로딩 UI 적용하면 체감 반응성이 크게 저하됨
+- 구현 위치: `public/index.html` `runWorkflow()` 함수 시작 부분
+
 - **로딩 스피너**: 현재 실행 중인 카드에만 링 스피너 표시
 - **퍼센테이지**:
   - 랜딩 테스트(PC/MW): `count/total * 100` 실제 % 표시 (15초마다 갱신)
