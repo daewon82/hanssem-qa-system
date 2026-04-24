@@ -852,25 +852,25 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 24. 09:58",
+  "codeLastModified": "2026. 4. 24. 13:21",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. AM 10:46:12",
+    "lastUpdated": "2026. 4. 24. PM 1:59:13",
     "pc": {
-      "uniqueUrls": 200,
-      "todayTested": 340,
-      "todayPassed": 328,
-      "todayFailed": 2,
+      "uniqueUrls": 300,
+      "todayTested": 412,
+      "todayPassed": 406,
+      "todayFailed": 5,
       "cyclesCompleted": 2
     },
     "mw": {
-      "uniqueUrls": 200,
-      "todayTested": 281,
-      "todayPassed": 276,
+      "uniqueUrls": 300,
+      "todayTested": 346,
+      "todayPassed": 341,
       "todayFailed": 4,
       "cyclesCompleted": 3
     },
-    "totalUniqueUrls": 400,
-    "todayTested": 621,
-    "todayPassRate": "97.3"
+    "totalUniqueUrls": 600,
+    "todayTested": 758,
+    "todayPassRate": "98.5"
   }
 }
