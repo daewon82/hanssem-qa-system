@@ -1,8 +1,8 @@
-name: Retry Trigger (KST 08:00)
+name: Retry Trigger (KST 06:00)
 
 on:
   schedule:
-    - cron: "0 23 * * *" # UTC 23:00 = KST 08:00
+    - cron: "0 21 * * *" # UTC 21:00 = KST 06:00 (daily-trigger 1h 후 백업)
   workflow_dispatch:
 
 jobs:
@@ -12,7 +12,8 @@ jobs:
       - name: Check if today's test ran, retry if not
         run: |
           # KST 07:00 = UTC 22:00 기준으로 오늘 실행 여부 확인
-          TODAY_UTC=$(date -u +%Y-%m-%dT22:00:00Z)
+          # daily-trigger 시작 시각(UTC 20:00) 기준으로 오늘 실행 여부 판단
+          TODAY_UTC=$(date -u +%Y-%m-%dT20:00:00Z)
 
           RUNS=$(curl -s \
             -H "Accept: application/vnd.github+json" \

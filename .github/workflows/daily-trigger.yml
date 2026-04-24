@@ -1,8 +1,8 @@
-name: Daily Trigger (KST 07:00)
+name: Daily Trigger (KST 05:00)
 
 on:
   schedule:
-    - cron: "0 22 * * *" # UTC 22:00 = KST 07:00
+    - cron: "0 20 * * *" # UTC 20:00 = KST 05:00 (GitHub 지연 2시간 감안 → 실제 실행 ~07:00)
   workflow_dispatch: # 수동 테스트용
 
 jobs:
