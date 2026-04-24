@@ -33,16 +33,27 @@ interface CaseRecord {
 const stripAnsi = (str: string) => str.replace(/\x1B\[[0-9;]*m/g, "").trim();
 
 const PRIORITY_BY_FILE: Record<string, "critical" | "high" | "medium" | "low"> = {
-  "auth.spec.ts":       "critical",
-  "cart.spec.ts":       "critical",
-  "product.spec.ts":    "critical",
-  "mypage.spec.ts":     "high",
-  "search.spec.ts":     "high",
-  "navigation.spec.ts": "high",
-  "category.spec.ts":   "medium",
-  "furnishing.spec.ts": "medium",
-  "interior.spec.ts":   "medium",
-  "store.spec.ts":      "low",
+  // Critical: 핵심 비즈니스 플로우
+  "auth.spec.ts":        "critical",
+  "cart.spec.ts":        "critical",
+  "product.spec.ts":     "critical",
+  "price.spec.ts":       "critical",
+  "coupon.spec.ts":      "critical",
+  // High: 주요 기능 / 데이터 품질
+  "mypage.spec.ts":      "high",
+  "search.spec.ts":      "high",
+  "navigation.spec.ts":  "high",
+  "quality.spec.ts":     "high",
+  // Medium: 카테고리/페이지 UX
+  "category.spec.ts":    "medium",
+  "furnishing.spec.ts":  "medium",
+  "interior.spec.ts":    "medium",
+  "consistency.spec.ts": "medium",
+  "performance.spec.ts": "medium",
+  "ui.spec.ts":          "medium",
+  // Low: 부가 기능·접근성
+  "store.spec.ts":       "low",
+  "a11y.spec.ts":        "low",
 };
 
 function projectToPlatform(project: string): Platform | null {

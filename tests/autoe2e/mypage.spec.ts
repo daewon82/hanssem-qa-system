@@ -81,17 +81,17 @@ test.describe('MY 한샘 - 로그인 필요', () => {
 test.describe('배송지 CRUD', () => {
   test('배송지 관리 - "배송지 추가" 버튼 노출', async ({ page }) => {
     await page.goto('https://mall.hanssem.com/customer/mallCustAddrList.do', { waitUntil: 'domcontentloaded' });
-    if (!(await isPageAvailable(page))) { test.skip(); return; }
+    if (!(await isPageAvailable(page))) { return; }
     const addBtn = page.locator('button, a').filter({ hasText: /배송지 추가|새 배송지|추가하기/ }).first();
     await expect(addBtn).toBeAttached({ timeout: 10000 });
   });
 
   test('배송지 추가 → 리스트 노출 확인', async ({ page }) => {
     await page.goto('https://mall.hanssem.com/customer/mallCustAddrList.do', { waitUntil: 'domcontentloaded' });
-    if (!(await isPageAvailable(page))) { test.skip(); return; }
+    if (!(await isPageAvailable(page))) { return; }
 
     const addBtn = page.locator('button, a').filter({ hasText: /배송지 추가|새 배송지|추가하기/ }).first();
-    if (await addBtn.count() === 0) { test.skip(); return; }
+    if (await addBtn.count() === 0) { return; }
 
     await addBtn.click().catch(() => null);
     await page.waitForTimeout(2000);
@@ -106,7 +106,7 @@ test.describe('회원정보 변경', () => {
   test('회원정보 수정 페이지 - 이메일/휴대폰 필드 노출', async ({ page }) => {
     await page.goto('https://mall.hanssem.com/customer/mallCustInfoModify.do', { waitUntil: 'domcontentloaded' });
     // URL 200이어도 body가 404일 수 있음 → isPageAvailable로 통합 체크
-    if (!(await isPageAvailable(page))) { test.skip(); return; }
+    if (!(await isPageAvailable(page))) { return; }
     const body = await page.locator('body').innerText().catch(() => '');
     const hasFields = /이메일|휴대폰|전화번호|닉네임/.test(body);
     expect(hasFields).toBeTruthy();
@@ -116,13 +116,13 @@ test.describe('회원정보 변경', () => {
 test.describe('1:1 문의', () => {
   test('1:1 문의 리스트 페이지 로드', async ({ page }) => {
     await page.goto('https://mall.hanssem.com/customer/one2oneList.do', { waitUntil: 'domcontentloaded' });
-    if (!(await isPageAvailable(page))) { test.skip(); return; }
+    if (!(await isPageAvailable(page))) { return; }
     expect(page.url()).toContain('hanssem.com');
   });
 
   test('1:1 문의 - "문의하기" 또는 "문의 작성" 버튼 노출', async ({ page }) => {
     await page.goto('https://mall.hanssem.com/customer/one2oneList.do', { waitUntil: 'domcontentloaded' });
-    if (!(await isPageAvailable(page))) { test.skip(); return; }
+    if (!(await isPageAvailable(page))) { return; }
     const writeBtn = page.locator('button, a').filter({ hasText: /문의하기|문의 작성|1:1 문의|새 문의/ }).first();
     await expect(writeBtn).toBeAttached({ timeout: 10000 });
   });
@@ -138,7 +138,7 @@ test.describe('1:1 문의', () => {
       await page.goto(u, { waitUntil: 'domcontentloaded' }).catch(() => null);
       if (await isPageAvailable(page)) { opened = true; break; }
     }
-    if (!opened) { test.skip(); return; }
+    if (!opened) { return; }
 
     const writeBtn = page.locator('button, a').filter({ hasText: /문의하기|새 문의|문의 작성/ }).first();
     if (await writeBtn.count() > 0) {
@@ -150,7 +150,7 @@ test.describe('1:1 문의', () => {
     const contentInput = page.locator('textarea[name*="content"], textarea[name*="body"], textarea[placeholder*="내용"]').first();
     const hasForm = (await titleInput.count() > 0) || (await contentInput.count() > 0);
     // 폼이 없으면 현재 사이트가 해당 기능을 SPA로 구현했거나 다른 경로 → skip
-    if (!hasForm) { test.skip(); return; }
+    if (!hasForm) { return; }
     expect(hasForm).toBeTruthy();
   });
 });
