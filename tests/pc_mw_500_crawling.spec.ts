@@ -5,7 +5,7 @@ import { analyzeFailures } from "./ai-analyzer";
 import { updateCoverage } from "./coverage";
 
 // [공통 설정]
-const MAX_LINKS = 500;
+const MAX_LINKS = 100;
 const SPREADSHEET_ID = "1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k";
 
 const EXCLUDE_KEYWORDS = [
