@@ -194,7 +194,7 @@ logout, login, javascript, order, settle, cart, member, company.hanssem.com
 
 ## 잔디(Jandi) 알림 규칙
 
-- **Webhook URL**: `https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614`
+- **Webhook URL**: `https://wh.jandi.com/connect-api/webhook/24103837/4c878ba74e1e0cf15180f85bdd47c1f6`
 - **전송 조건**: **CI 환경에서만** (`process.env.CI` 가 true일 때)
 - **로컬 실행 시**: 알림 스킵 (`⏭️ 로컬 실행 — 잔디 알림 스킵`)
 - **현재 상태**: playwright.yml에서 `CI: ""` 환경변수로 임시 비활성화 중

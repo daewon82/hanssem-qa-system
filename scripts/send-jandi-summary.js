@@ -11,7 +11,7 @@ const fs = require("fs");
 const https = require("https");
 
 const JANDI_WEBHOOK_URL =
-  "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
+  "https://wh.jandi.com/connect-api/webhook/24103837/4c878ba74e1e0cf15180f85bdd47c1f6";
 const DASHBOARD_URL = "https://daewon82.github.io/hanssem-qa-system/";
 
 function post(url, data) {
