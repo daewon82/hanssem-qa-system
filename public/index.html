@@ -836,7 +836,9 @@
           console.log("✅ 데이터 로드 성공:", data.reports.length, "개의 리포트 확인");
 
           renderCards(data.reports);
-          if (_wasRunning) applyProgressState(); // 카드 재렌더 후 로딩 상태 복원
+          // 카드 DOM이 이제 존재 → 실행 중이면 버튼 상태(disabled + "실행 중") 재적용
+          // (최초 localStorage 복원 시에는 카드가 없어 setRunBtn이 카드 버튼을 못 찾았음)
+          if (_wasRunning) { setRunBtn(true); applyProgressState(); }
           renderIncidentChart(data.incidents?.byMonth || []);
           renderCoverage(data.coverage);
 
@@ -879,7 +881,7 @@
           showError("테스트 결과 파일(results.json)을 불러올 수 없습니다.<br>테스트를 먼저 실행하거나 파일 경로를 확인해주세요.");
         }
         // 카드 렌더링 완료 후 실행 상태 복원 (새로고침 시 즉시 로딩 아이콘 표시)
-        if (_wasRunning) applyProgressState();
+        if (_wasRunning) { setRunBtn(true); applyProgressState(); }
       }
 
       // workflow_dispatch 호출용 제한된 scope PAT (Actions:write on this repo only)
