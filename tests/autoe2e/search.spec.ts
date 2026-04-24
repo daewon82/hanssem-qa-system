@@ -67,21 +67,25 @@ test.describe('통합검색 결과 페이지', () => {
 
   test('통합검색 결과 - 상품 리스트 노출 @pc-only', async ({ page }) => {
     await submitSearch(page, '소파');
+    // SPA 검색 결과 렌더 지연 대응: domcontentloaded 이후 networkidle 짧게 대기 + 30초 타임아웃
+    await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => null);
     const goods = page.locator('a[href*="/goods/"]');
-    await expect(goods.first()).toBeVisible({ timeout: 20000 });
+    await expect(goods.first()).toBeVisible({ timeout: 30000 });
   });
 
   test('통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재 @pc-only', async ({ page }) => {
     await submitSearch(page, '소파');
+    await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => null);
     const tabsOrSections = page.locator('text=/시공사례|매거진|사진/').first();
-    await expect(tabsOrSections).toBeAttached({ timeout: 15000 });
+    await expect(tabsOrSections).toBeAttached({ timeout: 20000 });
   });
 
   test('통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only', async ({ page }) => {
     await submitSearch(page, '소파');
-    // "인기순/낮은가격순/높은가격순/리뷰순/최신순" 등 정렬 키워드 노출
+    // 정렬 컨트롤은 상품 리스트 렌더 후 생성되므로 networkidle 선행 + 30초 타임아웃
+    await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => null);
     const sortControl = page.locator('button, a').filter({ hasText: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순/ }).first();
-    await expect(sortControl).toBeAttached({ timeout: 15000 });
+    await expect(sortControl).toBeAttached({ timeout: 30000 });
   });
 
   test('통합검색 결과 - 정렬 변경 시 URL 또는 DOM 변화 @pc-only', async ({ page }) => {

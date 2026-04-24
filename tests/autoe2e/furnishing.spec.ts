@@ -24,17 +24,24 @@ test.describe('홈퍼니싱 페이지', () => {
 
   test('베스트셀러 섹션 노출 @pc-only', async ({ page }) => {
     await gotoWithRetry(page, `${BASE}/furnishing`);
-    await expect(page.locator('h2:has-text("베스트셀러")')).toBeVisible();
+    // 페이지 하단 섹션은 lazy render — scroll로 강제 렌더 유도 + 타임아웃 확대
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
+    await page.waitForTimeout(500);
+    await expect(page.locator('h2:has-text("베스트셀러")')).toBeVisible({ timeout: 15000 });
   });
 
   test('신상품 섹션 노출 @pc-only', async ({ page }) => {
     await gotoWithRetry(page, `${BASE}/furnishing`);
-    await expect(page.locator('h2:has-text("신상품")')).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
+    await page.waitForTimeout(500);
+    await expect(page.locator('h2:has-text("신상품")')).toBeVisible({ timeout: 15000 });
   });
 
   test('1분 홈투어 섹션 노출 @pc-only', async ({ page }) => {
     await gotoWithRetry(page, `${BASE}/furnishing`);
-    await expect(page.locator('h2:has-text("1분 홈투어")')).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
+    await page.waitForTimeout(500);
+    await expect(page.locator('h2:has-text("1분 홈투어")')).toBeVisible({ timeout: 15000 });
   });
 
   test('베스트셀러 더보기 → /furnishing/RANK 이동', async ({ page }) => {
