@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. AM 9:17:20",
+  "lastUpdated": "2026. 4. 24. AM 9:22:30",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -779,7 +779,7 @@
     {
       "id": "pc-random",
       "title": "운영환경 PC 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 23. PM 9:11:24",
+      "lastUpdated": "2026. 4. 24. AM 9:22:30",
       "total": 200,
       "pass": 200,
       "fail": 0,
