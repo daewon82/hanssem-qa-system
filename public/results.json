@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 24. PM 7:29:24",
+  "lastUpdated": "2026. 4. 25. AM 12:08:27",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -433,65 +433,98 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 24. PM 6:24:38",
-      "total": 89,
+      "lastUpdated": "2026. 4. 25. AM 12:08:27",
+      "total": 92,
       "pass": 83,
-      "fail": 5,
-      "passRate": "94.3",
+      "fail": 8,
+      "passRate": "91.2",
       "cases": [
-        {
-          "name": "카테고리 로드 - 다이닝",
-          "url": "https://m.store.hanssem.com/category/20072",
-          "status": "fail",
-          "duration": "5.67s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20072",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "카테고리 로드 - 키즈룸",
-          "url": "",
-          "status": "fail",
-          "duration": "7.55s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "침실 신상품 섹션 노출",
-          "url": "https://m.store.hanssem.com/category/20070",
-          "status": "fail",
-          "duration": "5.67s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "침실 신상품 섹션 노출",
-          "url": "",
-          "status": "fail",
-          "duration": "7.76s",
-          "reason": "Error: expect(locator).toBeVisible() failed",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
         {
           "name": "키즈룸 샘키즈 알아보기 섹션",
           "url": "https://m.store.hanssem.com/category/20074",
           "status": "fail",
-          "duration": "5.67s",
+          "duration": "5.60s",
           "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20074",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "category.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "공간 필터 칩 - 침실 클릭",
+          "url": "https://m.store.hanssem.com/interior",
+          "status": "fail",
+          "duration": "30.91s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "interior.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "인테리어 상담신청 접근점 존재",
+          "url": "https://m.store.hanssem.com/interior",
+          "status": "fail",
+          "duration": "5.60s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/interior",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "interior.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "GNB - 홈&데코 카테고리 이동",
+          "url": "https://m.store.hanssem.com/category/20077",
+          "status": "fail",
+          "duration": "5.59s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20077",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "navigation.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "GNB - 홈&데코 카테고리 이동",
+          "url": "",
+          "status": "fail",
+          "duration": "6.17s",
+          "reason": "Error: expect(locator).toContainText(expected) failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "navigation.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "J87 - 이미지 lazy loading 적용 비율",
+          "url": "https://m.store.hanssem.com/category/20070",
+          "status": "fail",
+          "duration": "5.59s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "performance.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "A06 - 상품 썸네일 alt 속성 존재 비율",
+          "url": "https://m.store.hanssem.com/category/20070",
+          "status": "fail",
+          "duration": "5.59s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
+          "priority": "high",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "quality.spec.ts",
+          "platform": "MW"
+        },
+        {
+          "name": "E43 - 모든 이미지 alt 속성 비어있지 않음 비율",
+          "url": "https://m.store.hanssem.com/",
+          "status": "fail",
+          "duration": "5.58s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "ui.spec.ts",
           "platform": "MW"
         }
       ]
@@ -876,7 +909,7 @@
   ],
   "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
   "coverage": {
-    "lastUpdated": "2026. 4. 24. PM 7:29:27",
+    "lastUpdated": "2026. 4. 25. AM 12:08:29",
     "pc": {
       "uniqueUrls": 405,
       "todayTested": 412,
@@ -886,15 +919,15 @@
     },
     "mw": {
       "uniqueUrls": 446,
-      "todayTested": 327,
+      "todayTested": 330,
       "todayPassed": 321,
-      "todayFailed": 5,
+      "todayFailed": 8,
       "cyclesCompleted": 3
     },
     "totalUniqueUrls": 851,
-    "todayTested": 739,
-    "todayPassRate": "98.2"
+    "todayTested": 742,
+    "todayPassRate": "97.8"
   },
-  "testLastRunAt": "2026-04-24T10:29:27.496Z",
-  "testLastRunAtKst": "2026. 4. 24. 19:29"
+  "testLastRunAt": "2026-04-24T15:08:29.644Z",
+  "testLastRunAtKst": "2026. 4. 25. 00:08"
 }
