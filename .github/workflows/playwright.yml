@@ -2,6 +2,12 @@ name: Playwright Tests
 
 on:
   workflow_dispatch: # daily-trigger.yml 또는 수동 실행
+    inputs:
+      test_filter:
+        description: "실행할 테스트 (all / pc-landing / mw-landing / pc-random / mw-random / pc-e2e / mw-e2e)"
+        required: false
+        default: "all"
+        type: string
 
 permissions:
   contents: write
@@ -42,7 +48,18 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: |
+          FILTER="${{ inputs.test_filter }}"
+          echo "test_filter = $FILTER"
+          case "$FILTER" in
+            pc-landing) npx playwright test --project=Crawling --grep "PC 랜딩" ;;
+            mw-landing) npx playwright test --project=Crawling --grep "MW 랜딩" ;;
+            pc-random)  npx playwright test --project=Random   --grep "PC 랜덤" ;;
+            mw-random)  npx playwright test --project=Random   --grep "MW 랜덤" ;;
+            pc-e2e)     npx playwright test --project=AutoE2E_Public_PC --project=AutoE2E_Authed ;;
+            mw-e2e)     npx playwright test --project=AutoE2E_Public_Mobile ;;
+            *)          npx playwright test ;;
+          esac
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

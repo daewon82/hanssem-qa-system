@@ -605,13 +605,13 @@
 
         const detailFileMap = { "pc-landing": "pc_500.json", "pc-e2e": "pc_e2e.json", "mw-landing": "mw_500.json", "mw-e2e": "mw_e2e.json", "pc-random": "pc_random.json", "mw-random": "mw_random.json" };
         const detailFile = detailFileMap[r.id];
-        const sheetBtn = detailFile
+        const detailBtn = detailFile
           ? `<a href="detail.html?id=${r.id}" class="rc4-sheet-btn">
                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                  <path d="M2 2h4v1H3v6h6V7h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/>
                  <path d="M7 2h3v3h-1V3.7L5.85 6.85l-.7-.7L8.3 3H7V2z" fill="currentColor"/>
                </svg>
-               리포트 상세보기
+               상세보기
              </a>`
           : r.sheetUrl
             ? `<a href="${r.sheetUrl}" target="_blank" rel="noopener" class="rc4-sheet-btn">
@@ -619,9 +619,15 @@
                    <path d="M2 2h4v1H3v6h6V7h1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="currentColor"/>
                    <path d="M7 2h3v3h-1V3.7L5.85 6.85l-.7-.7L8.3 3H7V2z" fill="currentColor"/>
                  </svg>
-                 리포트 상세보기
+                 상세보기
                </a>`
             : "";
+        // 해당 테스트만 개별 실행
+        const runSingleBtn = `<button id="run-single-${r.id}" onclick="runSingleTest('${r.id}')" class="rc4-sheet-btn" style="background:${cfg.iconBg};color:#fff;border:none;cursor:pointer;">
+          <svg width="11" height="11" viewBox="0 0 13 13" fill="none"><polygon points="3,2 11,6.5 3,11" fill="currentColor"/></svg>
+          실행
+        </button>`;
+        const sheetBtn = `<div style="display:flex;gap:6px;">${runSingleBtn}${detailBtn}</div>`;
 
         const updatedLine = r.lastUpdated
           ? `<div class="rc4-updated">최근 실행: ${r.lastUpdated}</div>`
@@ -884,6 +890,45 @@
 
       const GH_TOKEN = ["ghp","_0yXkI87t","kJ1wcUmh","lLIfYFs2","m4OH8243","MWD7"].join("");
 
+      // 단일 테스트 실행 (카드별 [실행] 버튼)
+      async function runSingleTest(testId) {
+        if (_wasRunning) return;
+        if (!PHASE_ORDER.includes(testId)) return;
+        const token = GH_TOKEN;
+
+        // ✅ 클릭 즉시 해당 카드만 로딩 표시
+        setRunBtn(true);
+        _runningPhases = new Set([testId]);
+        setCardLoading(testId, "active", "");
+
+        try {
+          const res = await fetch(
+            "https://api.github.com/repos/daewon82/hanssem-qa-system/actions/workflows/playwright.yml/dispatches",
+            {
+              method: "POST",
+              headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
+              body: JSON.stringify({ ref: "main", inputs: { test_filter: testId } }),
+            }
+          );
+          if (res.status === 204) {
+            _dispatchTime = Date.now();
+            _wasRunning = true;
+            localStorage.setItem("qa_running", JSON.stringify({ ts: Date.now(), singlePhase: testId }));
+            _currentPhase = testId;
+            initProgress();
+          } else {
+            setRunBtn(false);
+            setCardLoading(testId, "idle");
+            const msg = await res.text();
+            alert(`요청 실패 (HTTP ${res.status})\n${msg}`);
+          }
+        } catch (e) {
+          setRunBtn(false);
+          setCardLoading(testId, "idle");
+          alert("네트워크 오류: " + e.message);
+        }
+      }
+
       async function runWorkflow() {
         // 이미 실행 중이면 즉시 차단 (중복 실행 방지)
         if (_wasRunning) return;
@@ -891,6 +936,7 @@
 
         // ✅ 클릭 즉시: 버튼 비활성화 + 모든 카드 로딩 아이콘 표시 (API 응답 대기 없이)
         setRunBtn(true);
+        _runningPhases = new Set(PHASE_ORDER);
         PHASE_ORDER.forEach(id => setCardLoading(id, "active", ""));
 
         // GitHub API로 실행 중 여부 확인
@@ -925,7 +971,7 @@
                 "Accept": "application/vnd.github+json",
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ ref: "main" }),
+              body: JSON.stringify({ ref: "main", inputs: { test_filter: "all" } }),
             }
           );
 
@@ -957,6 +1003,8 @@
       const PHASE_ORDER = ["pc-landing", "mw-landing", "pc-random", "mw-random", "pc-e2e", "mw-e2e"];
       const phaseCompletedTime = {};
       let _wasRunning    = false;
+      // 현재 실행 중인 phase 집합 (단일 실행 시 1개만, 전체 실행 시 6개)
+      let _runningPhases = new Set();
       let _dispatchTime  = null;
       let _runStartedAt  = null;
       let _currentRunId  = null;   // 현재 실행 중인 workflow run ID
@@ -976,6 +1024,9 @@
           if (_stored.phase) _currentPhase = _stored.phase;
           if (_stored.count != null) _progressCount = _stored.count;
           if (_stored.total != null) _progressTotal = _stored.total;
+          // 단일 테스트 실행 복원
+          if (_stored.singlePhase) _runningPhases = new Set([_stored.singlePhase]);
+          else _runningPhases = new Set(PHASE_ORDER);
           setRunBtn(true);
         }
       } catch (_) {}
@@ -1022,21 +1073,28 @@
       // 실행 중 플래그가 on이면 현재 단계 카드의 로딩 아이콘을 항상 유지
       function applyProgressState() {
         if (!_wasRunning) return;
+        // 단일 실행 모드: _runningPhases에 1개만 있으면 그 카드만 갱신 (다른 카드 건드리지 않음)
+        const isSingle = _runningPhases.size === 1;
         if (!_currentPhase) {
-          // setup 구간: count가 있으면 실제 %, 없으면 0%
           const label = (_progressCount != null && _progressTotal)
             ? Math.round((_progressCount / _progressTotal) * 100) + "%"
             : "0%";
-          setCardLoading(PHASE_ORDER[0], "active", label);
-          PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
+          if (isSingle) {
+            // 단일 모드: 해당 phase만 active
+            const onlyId = Array.from(_runningPhases)[0];
+            setCardLoading(onlyId, "active", label);
+          } else {
+            setCardLoading(PHASE_ORDER[0], "active", label);
+            PHASE_ORDER.slice(1).forEach(id => setCardLoading(id, "idle"));
+          }
           return;
         }
-        // landing / random 은 진행률 %, e2e 는 스피너만 (건수 판정 어려움)
         const hasProgress = _currentPhase.includes("landing") || _currentPhase.includes("random");
-        PHASE_ORDER.forEach(id => {
+        const targets = isSingle ? Array.from(_runningPhases) : PHASE_ORDER;
+        targets.forEach(id => {
           const pIdx = PHASE_ORDER.indexOf(id);
           const cIdx = PHASE_ORDER.indexOf(_currentPhase);
-          if (pIdx < cIdx) {
+          if (!isSingle && pIdx < cIdx) {
             setCardLoading(id, "done");
           } else if (id === _currentPhase) {
             let label = "";
@@ -1130,7 +1188,9 @@
             if (phaseTimer)    { clearInterval(phaseTimer);    phaseTimer = null; }
             if (animTimer)     { clearInterval(animTimer);     animTimer = null; }
             if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
-            PHASE_ORDER.forEach(id => setCardLoading(id, "idle"));
+            // 단일 실행이었으면 해당 카드만 idle, 전체 실행이었으면 전부 idle
+            const clearTargets = _runningPhases.size > 0 ? Array.from(_runningPhases) : PHASE_ORDER;
+            clearTargets.forEach(id => setCardLoading(id, "idle"));
             if (_wasRunning) {
               _wasRunning    = false;
               _dispatchTime  = null;
@@ -1139,6 +1199,7 @@
               _currentPhase  = null;
               _progressCount = null;
               _progressTotal = null;
+              _runningPhases = new Set();
               _lastValidPhaseTime = null;
               Object.keys(phaseCompletedTime).forEach(k => delete phaseCompletedTime[k]);
               localStorage.removeItem("qa_running");
