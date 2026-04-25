@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 25. AM 8:10:41",
+  "lastUpdated": "2026. 4. 26. AM 7:57:19",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,7 +334,7 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 25. AM 7:31:19",
+      "lastUpdated": "2026. 4. 26. AM 6:59:41",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -345,7 +345,7 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 25. AM 8:10:41",
+      "lastUpdated": "2026. 4. 26. AM 7:57:19",
       "total": 165,
       "pass": 157,
       "fail": 7,
@@ -355,7 +355,7 @@
           "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "43.53s",
+          "duration": "49.36s",
           "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -366,7 +366,7 @@
           "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "43.55s",
+          "duration": "43.88s",
           "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -377,7 +377,7 @@
           "name": "통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "43.35s",
+          "duration": "43.65s",
           "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -388,7 +388,7 @@
           "name": "통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "43.64s",
+          "duration": "43.88s",
           "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -399,7 +399,7 @@
           "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "43.36s",
+          "duration": "43.81s",
           "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -410,7 +410,7 @@
           "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "43.53s",
+          "duration": "43.31s",
           "reason": "TimeoutError: page.waitForFunction: Timeout 20000ms exceeded.",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -418,14 +418,14 @@
           "platform": "PC"
         },
         {
-          "name": "상품 상세 - 쿠폰 다운로드 버튼 클릭 동작",
+          "name": "D38 - 검색어 페이지 로드 < 8초 @pc-only",
           "url": "",
           "status": "fail",
-          "duration": "15.87s",
-          "reason": "Error: expect(locator).toBeVisible() failed",
-          "priority": "critical",
-          "project": "AutoE2E_Authed",
-          "file": "product.spec.ts",
+          "duration": "8.94s",
+          "reason": "Error: expect(received).toBeLessThan(expected)",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
           "platform": "PC"
         }
       ]
@@ -433,7 +433,7 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 25. AM 7:34:19",
+      "lastUpdated": "2026. 4. 26. AM 7:04:02",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -444,39 +444,39 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 25. AM 8:10:41",
+      "lastUpdated": "2026. 4. 26. AM 7:57:19",
       "total": 89,
-      "pass": 83,
-      "fail": 5,
-      "passRate": "94.3",
+      "pass": 84,
+      "fail": 4,
+      "passRate": "95.5",
       "cases": [
         {
-          "name": "카테고리 로드 - 홈&데코",
-          "url": "https://m.store.hanssem.com/category/20077",
+          "name": "키즈룸 샘키즈 알아보기 섹션",
+          "url": "https://m.store.hanssem.com/category/20074",
           "status": "fail",
-          "duration": "5.67s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20077",
+          "duration": "5.73s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20074",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "category.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "카테고리 로드 - 홈&데코",
-          "url": "",
+          "name": "TC001 - 메인 홈 페이지 정상 로드",
+          "url": "https://m.store.hanssem.com/",
           "status": "fail",
-          "duration": "11.02s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
-          "priority": "medium",
+          "duration": "31.02s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "high",
           "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
+          "file": "navigation.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "B17 - 상품 상세 - 원가 ≥ 판매가 정합성",
+          "name": "B19 - 무료배송 텍스트와 0원 배송비 일관성",
           "url": "https://m.store.hanssem.com/goods/932380",
           "status": "fail",
-          "duration": "35.05s",
+          "duration": "947.45s",
           "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
           "priority": "critical",
           "project": "AutoE2E_Public_Mobile",
@@ -484,22 +484,11 @@
           "platform": "MW"
         },
         {
-          "name": "E41 - 메인 페이지 가로 스크롤 - 과도하지 않음",
+          "name": "E49 - 페이지 전환 시 로딩 인디케이터 가능성",
           "url": "https://m.store.hanssem.com/",
           "status": "fail",
-          "duration": "5.69s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "ui.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "E43 - 모든 이미지 alt 속성 비어있지 않음 비율",
-          "url": "",
-          "status": "fail",
-          "duration": "8.04s",
-          "reason": "Error: expect(received).toBeGreaterThan(expected)",
+          "duration": "31.00s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "ui.spec.ts",
@@ -867,7 +856,7 @@
     {
       "id": "pc-random",
       "title": "운영환경 PC 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 25. AM 7:36:53",
+      "lastUpdated": "2026. 4. 26. AM 7:06:40",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -877,7 +866,7 @@
     {
       "id": "mw-random",
       "title": "운영환경 MW 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 25. AM 7:39:25",
+      "lastUpdated": "2026. 4. 26. AM 7:09:07",
       "total": 100,
       "pass": 100,
       "fail": 0,
@@ -887,25 +876,25 @@
   ],
   "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
   "coverage": {
-    "lastUpdated": "2026. 4. 25. AM 8:10:45",
+    "lastUpdated": "2026. 4. 26. AM 7:57:22",
     "pc": {
-      "uniqueUrls": 200,
+      "uniqueUrls": 300,
       "todayTested": 413,
       "todayPassed": 405,
       "todayFailed": 7,
       "cyclesCompleted": 3
     },
     "mw": {
-      "uniqueUrls": 200,
+      "uniqueUrls": 300,
       "todayTested": 327,
-      "todayPassed": 321,
-      "todayFailed": 5,
+      "todayPassed": 322,
+      "todayFailed": 4,
       "cyclesCompleted": 4
     },
-    "totalUniqueUrls": 400,
+    "totalUniqueUrls": 600,
     "todayTested": 740,
-    "todayPassRate": "98.1"
+    "todayPassRate": "98.2"
   },
-  "testLastRunAt": "2026-04-24T23:10:45.173Z",
-  "testLastRunAtKst": "2026. 4. 25. 08:10"
+  "testLastRunAt": "2026-04-25T22:57:22.189Z",
+  "testLastRunAtKst": "2026. 4. 26. 07:57"
 }
