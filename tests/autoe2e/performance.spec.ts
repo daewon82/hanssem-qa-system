@@ -7,13 +7,7 @@ import { STORE_BASE } from './pages';
  */
 
 test.describe('J. 성능/네트워크', () => {
-  test('J86 - 메인 페이지 DOM 로드 < 12초', async ({ page }) => {
-    const t0 = Date.now();
-    await page.goto(STORE_BASE, { waitUntil: 'domcontentloaded' });
-    const elapsed = Date.now() - t0;
-    // 6s → 12s (CI 미국 IP → 한샘 서버 레이턴시 + cold-start 고려)
-    expect(elapsed).toBeLessThan(12000);
-  });
+  // 🗑 제거됨 (2026-04-27): J86 메인 페이지 DOM 로드 — CI 환경 의존성으로 임계값 의미 X
 
   test('J87 - 이미지 lazy loading 적용 비율', async ({ page }) => {
     await page.goto(`${STORE_BASE}/category/20070`, { waitUntil: 'domcontentloaded' });
