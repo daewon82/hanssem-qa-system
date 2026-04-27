@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. AM 10:28:32",
+  "lastUpdated": "2026. 4. 27. AM 10:41:59",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -366,61 +366,17 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 27. AM 7:42:51",
-      "total": 96,
-      "pass": 83,
-      "fail": 12,
-      "passRate": "87.4",
+      "lastUpdated": "2026. 4. 27. AM 10:41:59",
+      "total": 81,
+      "pass": 73,
+      "fail": 7,
+      "passRate": "91.3",
       "cases": [
         {
-          "name": "L99 - lang 속성 - HTML 태그에 lang 지정",
-          "url": "https://m.store.hanssem.com/",
-          "status": "fail",
-          "duration": "5.72s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
-          "priority": "low",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "a11y.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "L100 - 포커스 가능한 요소에 outline 또는 focus style",
-          "url": "https://m.store.hanssem.com/",
-          "status": "fail",
-          "duration": "5.73s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
-          "priority": "low",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "a11y.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "카테고리 로드 - 홈오피스",
+          "name": "침실 라인업 섹션 노출",
           "url": "",
           "status": "fail",
-          "duration": "9.36s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "카테고리 로드 - 홈&데코",
-          "url": "",
-          "status": "fail",
-          "duration": "9.21s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "침실 BEST 상품 섹션 노출",
-          "url": "",
-          "status": "fail",
-          "duration": "6.07s",
+          "duration": "6.08s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
@@ -428,77 +384,66 @@
           "platform": "MW"
         },
         {
-          "name": "TC012 - 출산필수템 필터 칩 노출",
-          "url": "",
+          "name": "K95 - OG 메타 태그(공유) - 메인 페이지 og:title 존재",
+          "url": "https://m.store.hanssem.com/",
           "status": "fail",
-          "duration": "7.34s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "K94 - 북마크 가능한 URL - URL이 의미있는 경로 포함",
-          "url": "https://m.store.hanssem.com/interior",
-          "status": "fail",
-          "duration": "38.18s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "duration": "5.58s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "consistency.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "TC002 - GNB 침실 카테고리 이동",
-          "url": "",
+          "name": "공간 필터 칩 - 침실 클릭",
+          "url": "https://m.store.hanssem.com/interior",
           "status": "fail",
-          "duration": "9.70s",
-          "reason": "Error: expect(locator).toContainText(expected) failed",
-          "priority": "high",
+          "duration": "5.62s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/interior",
+          "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
-          "file": "navigation.spec.ts",
+          "file": "interior.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "J86 - 메인 페이지 DOM 로드 < 6초",
-          "url": "",
+          "name": "J90 - HTTP 응답 코드 - 메인 페이지 200",
+          "url": "https://m.store.hanssem.com/",
           "status": "fail",
-          "duration": "7.51s",
-          "reason": "Error: expect(received).toBeLessThan(expected)",
+          "duration": "31.06s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "performance.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "J86 - 메인 페이지 DOM 로드 < 6초",
-          "url": "",
+          "name": "B17 - 상품 상세 - 원가 ≥ 판매가 정합성",
+          "url": "https://m.store.hanssem.com/goods/932380",
           "status": "fail",
-          "duration": "7.41s",
-          "reason": "Error: expect(received).toBeLessThan(expected)",
-          "priority": "medium",
+          "duration": "34.50s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
+          "priority": "critical",
           "project": "AutoE2E_Public_Mobile",
-          "file": "performance.spec.ts",
+          "file": "price.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "A07 - 상품 상세 - 상품명이 \"undefined\" / \"null\" 아님",
-          "url": "",
+          "name": "A03 - 상품명 길이 비정상 (300자 초과)",
+          "url": "https://m.store.hanssem.com/category/20070",
           "status": "fail",
-          "duration": "22.14s",
-          "reason": "TimeoutError: locator.getAttribute: Timeout 20000ms exceeded.",
+          "duration": "5.59s",
+          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
           "priority": "high",
           "project": "AutoE2E_Public_Mobile",
           "file": "quality.spec.ts",
           "platform": "MW"
         },
         {
-          "name": "E43 - 모든 이미지 alt 속성 비어있지 않음 비율",
-          "url": "",
+          "name": "E47 - 반응형 - 1920px 뷰포트에서 컨텐츠 최대너비 적용",
+          "url": "https://m.store.hanssem.com/",
           "status": "fail",
-          "duration": "5.36s",
-          "reason": "Error: expect(received).toBeGreaterThan(expected)",
+          "duration": "35.15s",
+          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
           "priority": "medium",
           "project": "AutoE2E_Public_Mobile",
           "file": "ui.spec.ts",
@@ -884,9 +829,9 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 27. 10:12",
+  "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
   "coverage": {
-    "lastUpdated": "2026. 4. 27. AM 10:28:32",
+    "lastUpdated": "2026. 4. 27. AM 10:42:01",
     "pc": {
       "uniqueUrls": 400,
       "todayTested": 394,
@@ -896,15 +841,15 @@
     },
     "mw": {
       "uniqueUrls": 400,
-      "todayTested": 334,
-      "todayPassed": 321,
-      "todayFailed": 12,
+      "todayTested": 319,
+      "todayPassed": 311,
+      "todayFailed": 7,
       "cyclesCompleted": 4
     },
     "totalUniqueUrls": 800,
-    "todayTested": 728,
-    "todayPassRate": "98.1"
+    "todayTested": 713,
+    "todayPassRate": "98.7"
   },
-  "testLastRunAt": "2026-04-27T01:28:32.967Z",
-  "testLastRunAtKst": "2026. 4. 27. 10:28"
+  "testLastRunAt": "2026-04-27T01:42:02.039Z",
+  "testLastRunAtKst": "2026. 4. 27. 10:42"
 }
