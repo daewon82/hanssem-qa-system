@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. PM 2:07:26",
+  "lastUpdated": "2026. 4. 27. PM 2:54:36",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,17 +345,17 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 27. PM 1:48:15",
-      "total": 163,
-      "pass": 158,
-      "fail": 4,
-      "passRate": "97.5",
+      "lastUpdated": "2026. 4. 27. PM 2:54:36",
+      "total": 162,
+      "pass": 159,
+      "fail": 2,
+      "passRate": "98.8",
       "cases": [
         {
           "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
           "status": "fail",
-          "duration": "32.06s",
+          "duration": "33.02s",
           "reason": "Error: expect(locator).toBeVisible() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
@@ -366,30 +366,8 @@
           "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
           "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
           "status": "fail",
-          "duration": "32.10s",
+          "duration": "33.89s",
           "reason": "Error: expect(locator).toBeVisible() failed",
-          "priority": "high",
-          "project": "AutoE2E_Public_PC",
-          "file": "search.spec.ts",
-          "platform": "PC"
-        },
-        {
-          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
-          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
-          "status": "fail",
-          "duration": "37.57s",
-          "reason": "Error: expect(locator).toBeAttached() failed",
-          "priority": "high",
-          "project": "AutoE2E_Public_PC",
-          "file": "search.spec.ts",
-          "platform": "PC"
-        },
-        {
-          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
-          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
-          "status": "fail",
-          "duration": "38.32s",
-          "reason": "Error: expect(locator).toBeAttached() failed",
           "priority": "high",
           "project": "AutoE2E_Public_PC",
           "file": "search.spec.ts",
@@ -808,14 +786,14 @@
       "cases": []
     }
   ],
-  "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
+  "codeLastModified": "2026. 4. 27. 14:31",
   "coverage": {
-    "lastUpdated": "2026. 4. 27. PM 2:07:28",
+    "lastUpdated": "2026. 4. 27. PM 2:54:38",
     "pc": {
       "uniqueUrls": 735,
-      "todayTested": 911,
-      "todayPassed": 906,
-      "todayFailed": 4,
+      "todayTested": 910,
+      "todayPassed": 907,
+      "todayFailed": 2,
       "cyclesCompleted": 3
     },
     "mw": {
@@ -826,9 +804,9 @@
       "cyclesCompleted": 4
     },
     "totalUniqueUrls": 1478,
-    "todayTested": 1735,
-    "todayPassRate": "99.6"
+    "todayTested": 1734,
+    "todayPassRate": "99.7"
   },
-  "testLastRunAt": "2026-04-27T05:07:28.905Z",
-  "testLastRunAtKst": "2026. 4. 27. 14:07"
+  "testLastRunAt": "2026-04-27T05:54:38.248Z",
+  "testLastRunAtKst": "2026. 4. 27. 14:54"
 }
