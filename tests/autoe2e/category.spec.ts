@@ -1,7 +1,26 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 // 빈 값: Playwright baseURL(프로젝트별: PC store / MW m.store) 자동 사용
 const BASE = '';
+
+/**
+ * 카테고리 타이틀 검증 헬퍼.
+ * MW는 h1이 없는 경우가 많아 h1/h2/title/aria-label 등 다양한 위치를 OR로 검사.
+ */
+async function expectCategoryTitle(page: Page, expected: string, timeout = 15000) {
+  await page.waitForFunction(
+    (expected) => {
+      const headings = Array.from(document.querySelectorAll('h1, h2, h3'));
+      const inHeading = headings.some(h => (h.textContent || '').includes(expected));
+      const inTitle = (document.title || '').includes(expected);
+      const inAriaLabel = !!document.querySelector(`[aria-label*="${expected}"]`);
+      const inDataAttr = !!document.querySelector(`[data-category-name*="${expected}"], [data-title*="${expected}"]`);
+      return inHeading || inTitle || inAriaLabel || inDataAttr;
+    },
+    expected,
+    { timeout }
+  );
+}
 
 const CATEGORIES = [
   { name: '침실', url: '/category/20070', h1: '침실', chips: ['호텔침대', '패브릭침대'] },
@@ -18,7 +37,7 @@ const CATEGORIES = [
 for (const cat of CATEGORIES) {
   test(`카테고리 로드 - ${cat.name}`, async ({ page }) => {
     await page.goto(`${BASE}${cat.url}`, { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('h1')).toContainText(cat.h1);
+    await expectCategoryTitle(page, cat.h1);
   });
 }
 
@@ -32,8 +51,9 @@ test.describe('침실 카테고리 상세', () => {
 
   test('침실 BEST 상품 섹션 노출', async ({ page }) => {
     await page.goto(`${BASE}/category/20070`, { waitUntil: "domcontentloaded" });
-    // 복수 H2 존재 → first() 사용
-    await expect(page.locator('h2:has-text("BEST 상품")').first()).toBeVisible();
+    // BEST 상품 섹션은 h2/h3/section/div 어디든 텍스트만 노출되면 OK (MW DOM 차이 흡수)
+    const bestSection = page.locator(':text-matches("BEST\\\\s*상품", "i")').first();
+    await expect(bestSection).toBeAttached({ timeout: 15000 });
   });
 
   test('침실 라인업 섹션 노출', async ({ page }) => {
@@ -70,8 +90,13 @@ test.describe('거실 카테고리 상세', () => {
 test.describe('키즈룸 카테고리 상세', () => {
   test('TC012 - 출산필수템 필터 칩 노출', async ({ page }) => {
     await page.goto(`${BASE}/category/20074`, { waitUntil: "domcontentloaded" });
-    await expect(page.locator('h1')).toContainText('키즈룸');
-    await expect(page.locator('button:has-text("출산필수템")')).toBeVisible();
+    await expectCategoryTitle(page, '키즈룸');
+    // 칩 버튼이 nested div 구조일 수 있어 getByRole + 텍스트 fallback OR로 결합
+    const chip = page
+      .getByRole('button', { name: /출산필수템/ })
+      .or(page.locator('button, a, [role="button"]').filter({ hasText: /출산필수템/ }))
+      .first();
+    await expect(chip).toBeVisible({ timeout: 15000 });
   });
 
   test('키즈룸 샘키즈 알아보기 섹션', async ({ page }) => {

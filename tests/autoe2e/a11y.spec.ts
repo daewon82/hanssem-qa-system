@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { STORE_BASE } from './pages';
+import { gotoWithRetry } from './helpers/gotoRetry';
 
 /**
  * L. 접근성 검증
@@ -76,7 +77,8 @@ test.describe('L. 접근성', () => {
   });
 
   test('L99 - lang 속성 - HTML 태그에 lang 지정', async ({ page }) => {
-    await page.goto('/');
+    // gotoWithRetry로 ERR_EMPTY_RESPONSE 자동 회복 (m.store.hanssem.com 간헐 차단 대응)
+    await gotoWithRetry(page, '/');
     const lang = await page.evaluate(() => document.documentElement.lang || document.documentElement.getAttribute('lang') || '');
     // 한국 사이트지만 lang 자체가 있기만 하면 통과 (en, ko, ko-KR 등 허용)
     // 빈 값이면 접근성 finding
@@ -84,7 +86,7 @@ test.describe('L. 접근성', () => {
   });
 
   test('L100 - 포커스 가능한 요소에 outline 또는 focus style', async ({ page }) => {
-    await page.goto('/');
+    await gotoWithRetry(page, '/');
     // 첫 button 또는 a에 포커스 후 outline 존재 확인
     await page.keyboard.press('Tab');
     const hasFocusStyle = await page.evaluate(() => {

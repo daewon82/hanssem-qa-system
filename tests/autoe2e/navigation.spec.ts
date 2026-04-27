@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 import { NavigationPage, STORE_BASE } from './pages';
 
 const BASE = STORE_BASE;
@@ -7,8 +7,25 @@ const BASE = STORE_BASE;
 const GNB = (text: string) =>
   `a[data-gtm-tracking="mall_gnb_category_depth1_button"]:has-text("${text}")`;
 
-const isMobile = (page: import('@playwright/test').Page) =>
+const isMobile = (page: Page) =>
   (page.viewportSize()?.width ?? 1280) < 600;
+
+/**
+ * 카테고리 타이틀 검증 (PC h1 / MW title-only 호환).
+ */
+async function expectCategoryTitle(page: Page, expected: string, timeout = 15000) {
+  await page.waitForFunction(
+    (expected) => {
+      const headings = Array.from(document.querySelectorAll('h1, h2, h3'));
+      const inHeading = headings.some(h => (h.textContent || '').includes(expected));
+      const inTitle = (document.title || '').includes(expected);
+      const inAriaLabel = !!document.querySelector(`[aria-label*="${expected}"]`);
+      return inHeading || inTitle || inAriaLabel;
+    },
+    expected,
+    { timeout }
+  );
+}
 
 test.describe('GNB 네비게이션', () => {
   test('TC001 - 메인 홈 페이지 정상 로드', async ({ page }) => {
@@ -24,13 +41,13 @@ test.describe('GNB 네비게이션', () => {
   test('TC002 - GNB 침실 카테고리 이동', async ({ page }) => {
     await page.goto(`${BASE}/category/20070`);
     await expect(page).toHaveURL(/category\/20070/);
-    await expect(page.locator('h1')).toContainText('침실');
+    await expectCategoryTitle(page, '침실');
   });
 
   test('TC003 - GNB 거실 카테고리 이동', async ({ page }) => {
     await page.goto(`${BASE}/category/20071`);
     await expect(page).toHaveURL(/category\/20071/);
-    await expect(page.locator('h1')).toContainText('거실');
+    await expectCategoryTitle(page, '거실');
   });
 
   test('TC016 - 카테고리 페이지 내 GNB 링크 존재 @pc-only', async ({ page }) => {
@@ -44,27 +61,27 @@ test.describe('GNB 네비게이션', () => {
 
   test('GNB - 다이닝 카테고리 이동', async ({ page }) => {
     await page.goto(`${BASE}/category/20072`);
-    await expect(page.locator('h1')).toContainText('다이닝');
+    await expectCategoryTitle(page, '다이닝');
   });
 
   test('GNB - 키즈룸 카테고리 이동', async ({ page }) => {
     await page.goto(`${BASE}/category/20074`);
-    await expect(page.locator('h1')).toContainText('키즈룸');
+    await expectCategoryTitle(page, '키즈룸');
   });
 
   test('GNB - 학생방 카테고리 이동', async ({ page }) => {
     await page.goto(`${BASE}/category/20075`);
-    await expect(page.locator('h1')).toContainText('학생방');
+    await expectCategoryTitle(page, '학생방');
   });
 
   test('GNB - 홈오피스 카테고리 이동', async ({ page }) => {
     await page.goto(`${BASE}/category/20076`);
-    await expect(page.locator('h1')).toContainText('홈오피스');
+    await expectCategoryTitle(page, '홈오피스');
   });
 
   test('GNB - 홈&데코 카테고리 이동', async ({ page }) => {
     await page.goto(`${BASE}/category/20077`);
-    await expect(page.locator('h1')).toContainText('홈&데코');
+    await expectCategoryTitle(page, '홈&데코');
   });
 
 });

@@ -90,6 +90,8 @@ jobs:
         if: always()
         run: node scripts/send-jandi-summary.js
         continue-on-error: true
+        env:
+          JANDI_WEBHOOK_URL: ${{ secrets.JANDI_WEBHOOK_URL }}
 
       - name: Commit results
         run: |
