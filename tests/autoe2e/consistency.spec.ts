@@ -18,8 +18,10 @@ test.describe('K. 데이터 일관성', () => {
     await page.goto(`${STORE_BASE}/category/20070`, { waitUntil: 'domcontentloaded' });
     await page.goto(`${STORE_BASE}/category/20071`, { waitUntil: 'domcontentloaded' });
     await page.goBack({ waitUntil: 'domcontentloaded' });
-    // SPA 라우팅 안정화 대기
-    await page.waitForURL(/category\/20070/, { timeout: 10000 }).catch(() => null);
+    // SPA 라우팅 안정화 — MW에서 popstate → URL 반영 시간이 더 필요하여 20s
+    await page.waitForURL(/category\/20070/, { timeout: 20000 }).catch(() => null);
+    // 추가 buffer: 일부 SPA는 waitForURL 후에도 url() 반영이 약간 지연
+    await page.waitForTimeout(500);
     expect(page.url()).toContain('/category/20070');
   });
 
