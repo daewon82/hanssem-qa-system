@@ -13,7 +13,7 @@ const https = require("https");
 // Jandi 웹훅 URL — env 우선, 미설정 시 하드코딩 fallback (URL은 이미 git history 노출)
 const JANDI_WEBHOOK_URL =
   process.env.JANDI_WEBHOOK_URL ||
-  "https://wh.jandi.com/connect-api/webhook/24103837/4c878ba74e1e0cf15180f85bdd47c1f6";
+  "https://wh.jandi.com/connect-api/webhook/24103837/37635b6c2df20f085651789f31762614";
 const DASHBOARD_URL = process.env.DASHBOARD_URL || "https://daewon82.github.io/hanssem-qa-system/";
 
 function post(url, data) {
