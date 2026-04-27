@@ -345,8 +345,8 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 27. AM 10:28:32",
-      "total": 146,
+      "lastUpdated": "2026. 4. 27. PM 12:50:11",
+      "total": 145,
       "pass": 145,
       "fail": 0,
       "passRate": "100.0",
@@ -751,27 +751,27 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 27. 11:02",
+  "codeLastModified": "2026. 4. 27. 11:22",
   "coverage": {
-    "lastUpdated": "2026. 4. 27. AM 11:17:23",
+    "lastUpdated": "2026. 4. 27. PM 12:50:14",
     "pc": {
-      "uniqueUrls": 400,
-      "todayTested": 394,
-      "todayPassed": 393,
+      "uniqueUrls": 735,
+      "todayTested": 893,
+      "todayPassed": 893,
       "todayFailed": 0,
       "cyclesCompleted": 3
     },
     "mw": {
-      "uniqueUrls": 400,
-      "todayTested": 311,
-      "todayPassed": 311,
+      "uniqueUrls": 743,
+      "todayTested": 811,
+      "todayPassed": 811,
       "todayFailed": 0,
       "cyclesCompleted": 4
     },
-    "totalUniqueUrls": 800,
-    "todayTested": 705,
-    "todayPassRate": "99.9"
+    "totalUniqueUrls": 1478,
+    "todayTested": 1704,
+    "todayPassRate": "100.0"
   },
-  "testLastRunAt": "2026-04-27T02:17:23.283Z",
-  "testLastRunAtKst": "2026. 4. 27. 11:17"
+  "testLastRunAt": "2026-04-27T03:50:14.462Z",
+  "testLastRunAtKst": "2026. 4. 27. 12:50"
 }
