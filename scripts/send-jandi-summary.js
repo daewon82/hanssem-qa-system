@@ -10,14 +10,11 @@
 const fs = require("fs");
 const https = require("https");
 
-// Jandi 웹훅 URL — 환경변수(GitHub Secrets)에서 주입, 미설정 시 알림 스킵
-const JANDI_WEBHOOK_URL = process.env.JANDI_WEBHOOK_URL;
+// Jandi 웹훅 URL — env 우선, 미설정 시 하드코딩 fallback (URL은 이미 git history 노출)
+const JANDI_WEBHOOK_URL =
+  process.env.JANDI_WEBHOOK_URL ||
+  "https://wh.jandi.com/connect-api/webhook/24103837/4c878ba74e1e0cf15180f85bdd47c1f6";
 const DASHBOARD_URL = process.env.DASHBOARD_URL || "https://daewon82.github.io/hanssem-qa-system/";
-
-if (!JANDI_WEBHOOK_URL) {
-  console.log("⏭️  JANDI_WEBHOOK_URL 환경변수 미설정 — Jandi 알림 스킵");
-  process.exit(0);
-}
 
 function post(url, data) {
   return new Promise((resolve, reject) => {
