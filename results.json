@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. PM 1:48:15",
+  "lastUpdated": "2026. 4. 27. PM 2:07:26",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -411,12 +411,24 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 27. PM 12:50:11",
-      "total": 73,
-      "pass": 73,
-      "fail": 0,
-      "passRate": "100.0",
-      "cases": []
+      "lastUpdated": "2026. 4. 27. PM 2:07:26",
+      "total": 86,
+      "pass": 84,
+      "fail": 1,
+      "passRate": "98.8",
+      "cases": [
+        {
+          "name": "K92 - 뒤로가기 → 이전 카테고리로 복귀",
+          "url": "https://m.store.hanssem.com/category/20071",
+          "status": "fail",
+          "duration": "31.59s",
+          "reason": "Error: expect(received).toContain(expected) // indexOf",
+          "priority": "medium",
+          "project": "AutoE2E_Public_Mobile",
+          "file": "consistency.spec.ts",
+          "platform": "MW"
+        }
+      ]
     },
     {
       "id": "pc-e2e-v2",
