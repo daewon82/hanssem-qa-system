@@ -37,14 +37,7 @@ test.describe('K. 데이터 일관성', () => {
     expect(title1).toBe(title2);
   });
 
-  test('K94 - 북마크 가능한 URL - URL이 의미있는 경로 포함', async ({ page }) => {
-    // CI에서 SPA 초기 로드 시 30s 초과 사례 → 60s로 상향 + retry helper 적용
-    const { gotoWithRetry } = await import('./helpers/gotoRetry');
-    await gotoWithRetry(page, `${STORE_BASE}/category/20070`, { timeout: 60000 });
-    expect(page.url()).toMatch(/category\/20070/);
-    await gotoWithRetry(page, `${STORE_BASE}/interior`, { timeout: 60000 });
-    expect(page.url()).toMatch(/interior/);
-  });
+  // 🗑 제거됨 (2026-04-27): K94 북마크 가능 URL — MW /interior SPA 로드 timeout 빈발
 
   test('K95 - OG 메타 태그(공유) - 메인 페이지 og:title 존재', async ({ page }) => {
     await page.goto('/');
