@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. AM 11:37:18",
+  "lastUpdated": "2026. 4. 27. AM 11:51:00",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -355,9 +355,9 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 27. AM 7:05:48",
-      "total": 100,
-      "pass": 100,
+      "lastUpdated": "2026. 4. 27. AM 11:51:00",
+      "total": 500,
+      "pass": 500,
       "fail": 0,
       "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
