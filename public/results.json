@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. PM 3:29:16",
+  "lastUpdated": "2026. 4. 27. PM 3:49:24",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,35 +345,12 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 27. PM 2:54:36",
-      "total": 162,
-      "pass": 159,
-      "fail": 2,
-      "passRate": "98.8",
-      "cases": [
-        {
-          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
-          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
-          "status": "fail",
-          "duration": "33.02s",
-          "reason": "Error: expect(locator).toBeVisible() failed",
-          "priority": "high",
-          "project": "AutoE2E_Public_PC",
-          "file": "search.spec.ts",
-          "platform": "PC"
-        },
-        {
-          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
-          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
-          "status": "fail",
-          "duration": "33.89s",
-          "reason": "Error: expect(locator).toBeVisible() failed",
-          "priority": "high",
-          "project": "AutoE2E_Public_PC",
-          "file": "search.spec.ts",
-          "platform": "PC"
-        }
-      ]
+      "lastUpdated": "2026. 4. 27. PM 3:49:24",
+      "total": 145,
+      "pass": 145,
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "mw-landing",
@@ -774,14 +751,14 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 27. 14:58",
+  "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
   "coverage": {
-    "lastUpdated": "2026. 4. 27. PM 3:29:17",
+    "lastUpdated": "2026. 4. 27. PM 3:49:25",
     "pc": {
       "uniqueUrls": 735,
-      "todayTested": 910,
-      "todayPassed": 907,
-      "todayFailed": 2,
+      "todayTested": 893,
+      "todayPassed": 893,
+      "todayFailed": 0,
       "cyclesCompleted": 3
     },
     "mw": {
@@ -792,9 +769,9 @@
       "cyclesCompleted": 4
     },
     "totalUniqueUrls": 1478,
-    "todayTested": 1721,
-    "todayPassRate": "99.8"
+    "todayTested": 1704,
+    "todayPassRate": "100.0"
   },
-  "testLastRunAt": "2026-04-27T06:29:17.870Z",
-  "testLastRunAtKst": "2026. 4. 27. 15:29"
+  "testLastRunAt": "2026-04-27T06:49:25.749Z",
+  "testLastRunAtKst": "2026. 4. 27. 15:49"
 }
