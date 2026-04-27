@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { gotoWithRetry } from './helpers/gotoRetry';
 
 // 빈 값: Playwright baseURL(프로젝트별: PC store / MW m.store) 자동 사용

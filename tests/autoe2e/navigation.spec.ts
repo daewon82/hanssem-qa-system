@@ -1,4 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect } from './fixtures';
+import type { Page } from '@playwright/test';
 import { NavigationPage, STORE_BASE } from './pages';
 
 const BASE = STORE_BASE;

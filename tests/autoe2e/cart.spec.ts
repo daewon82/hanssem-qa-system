@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { CartPage, CategoryPage, CATEGORIES, NavigationPage, STORE_BASE } from './pages';
 
 test.describe('장바구니 - 로그인 필요', () => {

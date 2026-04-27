@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { CREDENTIALS, URLS, login, expectLoggedIn, expectLoggedOut } from './helpers/auth';
 
 test.describe('인증 - 로그인/로그아웃', () => {

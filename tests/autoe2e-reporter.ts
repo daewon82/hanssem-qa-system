@@ -100,6 +100,12 @@ class AutoE2EReporter implements Reporter {
       const msg = result.errors?.[0]?.message || "";
       const m = msg.match(/navigating to "(https?:\/\/[^"]+)"/) || msg.match(/at (https?:\/\/\S+)/);
       if (m) url = m[1];
+      // Fallback: fixtures.ts가 실패 시 page.url()을 annotation에 부착
+      // (goto 성공 후 expect 실패한 케이스도 URL 캡처 가능)
+      if (!url) {
+        const ann = test.annotations?.find(a => a.type === "failUrl");
+        if (ann?.description) url = ann.description;
+      }
     }
 
     this.cases.push({

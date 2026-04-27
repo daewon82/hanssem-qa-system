@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { gotoWithRetry } from './helpers/gotoRetry';
 
 const STORE_SEARCH = 'https://remodeling.hanssem.com/shop/search';

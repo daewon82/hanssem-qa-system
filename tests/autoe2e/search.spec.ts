@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 // 빈 값: Playwright baseURL(프로젝트별: PC store / MW m.store) 자동 사용
 const BASE = '';
