@@ -70,7 +70,18 @@ test.describe('인테리어 페이지', () => {
 });
 
 test.describe('인테리어 세부 페이지', () => {
-  // 🗑 제거됨 (2026-04-27): 시공사례 상세 이미지 클릭 — 항상 skip 처리되어 신호 가치 없음
+  test('시공사례 상세 이미지 클릭 시 진입 가능', async ({ page }) => {
+    await page.goto(`${BASE}/interior/constcase`, { waitUntil: 'domcontentloaded' });
+    const items = page.locator('a[href*="constcase"]');
+    const count = await items.count();
+    if (count < 2) { test.skip(); return; }
+    // 첫 아이템은 리스트 자기 자신일 수 있어 index 1 선택
+    await items.nth(1).click().catch(async () => {
+      await items.first().click();
+    });
+    await page.waitForLoadState('domcontentloaded');
+    expect(page.url()).toContain('constcase');
+  });
 
   test('시공기사 찾기 진입점 노출', async ({ page }) => {
     // 시공기사 찾기는 인테리어 메인에서 접근 — URL 경로는 여러 후보 가능성 → 텍스트/링크 존재로 검증

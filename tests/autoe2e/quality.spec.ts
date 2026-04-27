@@ -92,7 +92,24 @@ test.describe('A. 상품 데이터 품질', () => {
     expect(imgsWithoutAlt / totalImgs).toBeLessThan(0.6);
   });
 
-  // 🗑 제거됨 (2026-04-27): A07 상품명 검증 — MW 상품 상세 SPA 로드 timeout 빈발
+  test('A07 - 상품 상세 - 상품명이 "undefined" / "null" 아님', async ({ page }) => {
+    await page.goto(`${STORE_BASE}/category/20070`, { waitUntil: 'domcontentloaded' });
+    // 상품 링크 등장까지 30초 대기 (SPA 지연 대응)
+    const firstLink = page.locator('a[href*="/goods/"]').first();
+    await firstLink.waitFor({ state: 'attached', timeout: 30000 }).catch(() => null);
+    const firstHref = await firstLink.getAttribute('href').catch(() => null);
+    if (!firstHref) { return; }
+    const full = firstHref.startsWith('http') ? firstHref : `${STORE_BASE}${firstHref}`;
+    await page.goto(full, { waitUntil: 'domcontentloaded' });
+    // 셀렉터 다양화: h1/h2/ProductName/product-name/goods-name 등
+    const productName = await page
+      .locator('h1, h2, [class*="ProductName"], [class*="product-name"], [class*="goods-name"], [class*="ProductTitle"], [data-product-name]')
+      .first()
+      .textContent({ timeout: 15000 })
+      .catch(() => '');
+    expect(productName).not.toMatch(/^(undefined|null|NaN)$/);
+    expect((productName || '').trim().length).toBeGreaterThan(0);
+  });
 
   test('A08 - "NEW" 뱃지와 등록일자 정합성(뱃지만 확인)', async ({ page }) => {
     // 서버 등록일자 접근 불가 → 단순 뱃지 노출 중복/과다 여부만 점검

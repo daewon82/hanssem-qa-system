@@ -87,7 +87,9 @@ jobs:
           "
 
       - name: Send consolidated Jandi notification
-        if: always()
+        # 전체 실행(test_filter=all 또는 빈 값)에서 정상/실패 종료 시에만 전송.
+        # cancel/단일 실행에서는 알림 스킵 — 의미없는 부분 통계 방지.
+        if: (success() || failure()) && (github.event.inputs.test_filter == 'all' || github.event.inputs.test_filter == '')
         run: node scripts/send-jandi-summary.js
         continue-on-error: true
 

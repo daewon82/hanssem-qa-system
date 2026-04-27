@@ -108,10 +108,32 @@ test.describe('통합검색 결과 페이지', () => {
     await expect(page).toHaveTitle(/한샘/);
   });
 
-  // 🗑 제거됨 (2026-04-27): 통합검색 결과 - 상품 리스트 노출 / 시공사례·매거진 / 정렬·필터 컨트롤
-  // 사유: GitHub Actions 미국 IP에서 한샘 검색 결과 SPA가 안정적으로 렌더링되지 않아
-  //       waitForFunction 30초 대기에도 결과 DOM/no-result 텍스트 모두 미노출.
-  //       환경 의존성으로 false-positive 빈발 → 의미있는 신호 X. 환경 개선 시 복구.
+  test('통합검색 결과 - 상품 리스트 노출 @pc-only', async ({ page }) => {
+    await submitSearch(page, '소파');
+    // 🔧 근본 수정: API 응답 + DOM 폴링 기반 (networkidle 대신)
+    await waitForSearchResultsReady(page, 30000);
+    const goods = page.locator('a[href*="/goods/"]');
+    await expect(goods.first()).toBeVisible({ timeout: 10000 });
+  });
+
+  test('통합검색 결과 - 시공사례/매거진 탭 또는 링크 존재 @pc-only', async ({ page }) => {
+    await submitSearch(page, '소파');
+    await waitForSearchResultsReady(page, 20000);
+    const tabsOrSections = page.locator('text=/시공사례|매거진|사진/').first();
+    await expect(tabsOrSections).toBeAttached({ timeout: 10000 });
+  });
+
+  test('통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only', async ({ page }) => {
+    await submitSearch(page, '소파');
+    // 정렬 컨트롤은 상품 리스트 렌더 후 생성됨 → 실제 결과 준비 완료 대기
+    await waitForSearchResultsReady(page, 30000);
+    // Role 기반 + 텍스트 fallback (fragile 셀렉터 강화)
+    const sortControl = page
+      .getByRole('button', { name: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순/ })
+      .or(page.locator('button, a').filter({ hasText: /인기순|낮은가격|높은가격|리뷰|최신순|정렬|추천순/ }))
+      .first();
+    await expect(sortControl).toBeAttached({ timeout: 15000 });
+  });
 
   test('통합검색 결과 - 정렬 변경 시 URL 또는 DOM 변화 @pc-only', async ({ page }) => {
     await submitSearch(page, '소파');
@@ -188,7 +210,13 @@ test.describe('D. 검색 확장', () => {
     expect(hasEmptyMsg || goodsCount === 0).toBeTruthy();
   });
 
-  // 🗑 제거됨 (2026-04-27): D38 검색어 페이지 로드 시간 — CI 환경 의존성으로 임계값 의미 X
+  test('D38 - 검색어 페이지 로드 < 15초 @pc-only', async ({ page }) => {
+    const t0 = Date.now();
+    await submitSearch(page, '의자');
+    const elapsed = Date.now() - t0;
+    // 8s → 15s (CI 환경 미국 IP → 한샘 서버 고레이턴시 고려)
+    expect(elapsed).toBeLessThan(15000);
+  });
 
   test('D39 - 인기 검색어 / 추천 검색어 영역 (DOM 존재) @pc-only', async ({ page }) => {
     await page.goto(BASE);
