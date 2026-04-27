@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. AM 11:17:22",
+  "lastUpdated": "2026. 4. 27. PM 12:50:11",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -334,9 +334,9 @@
     {
       "id": "pc-landing",
       "title": "운영환경 PC 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 27. AM 7:01:22",
-      "total": 100,
-      "pass": 100,
+      "lastUpdated": "2026. 4. 27. AM 11:37:18",
+      "total": 500,
+      "pass": 500,
       "fail": 0,
       "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
@@ -345,8 +345,8 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 27. AM 10:28:32",
-      "total": 146,
+      "lastUpdated": "2026. 4. 27. PM 12:50:11",
+      "total": 145,
       "pass": 145,
       "fail": 0,
       "passRate": "100.0",
@@ -355,9 +355,9 @@
     {
       "id": "mw-landing",
       "title": "운영환경 MW 500개 랜딩 테스트",
-      "lastUpdated": "2026. 4. 27. AM 7:05:48",
-      "total": 100,
-      "pass": 100,
+      "lastUpdated": "2026. 4. 27. AM 11:51:00",
+      "total": 500,
+      "pass": 500,
       "fail": 0,
       "passRate": "100.0",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1nZ37wkzNTDT-C7gXrH7X4ddiXyY4ZAbfG2zcSKM1n3k",
@@ -366,7 +366,7 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 27. AM 11:17:22",
+      "lastUpdated": "2026. 4. 27. PM 12:50:11",
       "total": 73,
       "pass": 73,
       "fail": 0,
@@ -733,9 +733,9 @@
     {
       "id": "pc-random",
       "title": "운영환경 PC 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 27. AM 7:08:23",
-      "total": 100,
-      "pass": 100,
+      "lastUpdated": "2026. 4. 27. AM 11:55:14",
+      "total": 200,
+      "pass": 200,
       "fail": 0,
       "passRate": "100.0",
       "cases": []
@@ -743,35 +743,35 @@
     {
       "id": "mw-random",
       "title": "운영환경 MW 200개 랜덤 테스트",
-      "lastUpdated": "2026. 4. 27. AM 7:10:53",
-      "total": 100,
-      "pass": 100,
+      "lastUpdated": "2026. 4. 27. PM 12:00:59",
+      "total": 200,
+      "pass": 200,
       "fail": 0,
       "passRate": "100.0",
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 27. 11:02",
+  "codeLastModified": "2026. 4. 27. 11:22",
   "coverage": {
-    "lastUpdated": "2026. 4. 27. AM 11:17:23",
+    "lastUpdated": "2026. 4. 27. PM 12:50:14",
     "pc": {
-      "uniqueUrls": 400,
-      "todayTested": 394,
-      "todayPassed": 393,
+      "uniqueUrls": 735,
+      "todayTested": 893,
+      "todayPassed": 893,
       "todayFailed": 0,
       "cyclesCompleted": 3
     },
     "mw": {
-      "uniqueUrls": 400,
-      "todayTested": 311,
-      "todayPassed": 311,
+      "uniqueUrls": 743,
+      "todayTested": 811,
+      "todayPassed": 811,
       "todayFailed": 0,
       "cyclesCompleted": 4
     },
-    "totalUniqueUrls": 800,
-    "todayTested": 705,
-    "todayPassRate": "99.9"
+    "totalUniqueUrls": 1478,
+    "todayTested": 1704,
+    "todayPassRate": "100.0"
   },
-  "testLastRunAt": "2026-04-27T02:17:23.283Z",
-  "testLastRunAtKst": "2026. 4. 27. 11:17"
+  "testLastRunAt": "2026-04-27T03:50:14.462Z",
+  "testLastRunAtKst": "2026. 4. 27. 12:50"
 }
