@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. AM 10:41:59",
+  "lastUpdated": "2026. 4. 27. AM 11:17:22",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -366,90 +366,12 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 27. AM 10:41:59",
-      "total": 81,
+      "lastUpdated": "2026. 4. 27. AM 11:17:22",
+      "total": 73,
       "pass": 73,
-      "fail": 7,
-      "passRate": "91.3",
-      "cases": [
-        {
-          "name": "침실 라인업 섹션 노출",
-          "url": "",
-          "status": "fail",
-          "duration": "6.08s",
-          "reason": "Error: expect(locator).toBeVisible() failed",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "category.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "K95 - OG 메타 태그(공유) - 메인 페이지 og:title 존재",
-          "url": "https://m.store.hanssem.com/",
-          "status": "fail",
-          "duration": "5.58s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "consistency.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "공간 필터 칩 - 침실 클릭",
-          "url": "https://m.store.hanssem.com/interior",
-          "status": "fail",
-          "duration": "5.62s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/interior",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "interior.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "J90 - HTTP 응답 코드 - 메인 페이지 200",
-          "url": "https://m.store.hanssem.com/",
-          "status": "fail",
-          "duration": "31.06s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "performance.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "B17 - 상품 상세 - 원가 ≥ 판매가 정합성",
-          "url": "https://m.store.hanssem.com/goods/932380",
-          "status": "fail",
-          "duration": "34.50s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "critical",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "price.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "A03 - 상품명 길이 비정상 (300자 초과)",
-          "url": "https://m.store.hanssem.com/category/20070",
-          "status": "fail",
-          "duration": "5.59s",
-          "reason": "Error: page.goto: net::ERR_EMPTY_RESPONSE at https://m.store.hanssem.com/category/20070",
-          "priority": "high",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "quality.spec.ts",
-          "platform": "MW"
-        },
-        {
-          "name": "E47 - 반응형 - 1920px 뷰포트에서 컨텐츠 최대너비 적용",
-          "url": "https://m.store.hanssem.com/",
-          "status": "fail",
-          "duration": "35.15s",
-          "reason": "TimeoutError: page.goto: Timeout 30000ms exceeded.",
-          "priority": "medium",
-          "project": "AutoE2E_Public_Mobile",
-          "file": "ui.spec.ts",
-          "platform": "MW"
-        }
-      ]
+      "fail": 0,
+      "passRate": "100.0",
+      "cases": []
     },
     {
       "id": "pc-e2e-v2",
@@ -829,9 +751,9 @@
       "cases": []
     }
   ],
-  "codeLastModified": "NaN. NaN. NaN. NaN:NaN",
+  "codeLastModified": "2026. 4. 27. 11:02",
   "coverage": {
-    "lastUpdated": "2026. 4. 27. AM 10:42:01",
+    "lastUpdated": "2026. 4. 27. AM 11:17:23",
     "pc": {
       "uniqueUrls": 400,
       "todayTested": 394,
@@ -841,15 +763,15 @@
     },
     "mw": {
       "uniqueUrls": 400,
-      "todayTested": 319,
+      "todayTested": 311,
       "todayPassed": 311,
-      "todayFailed": 7,
+      "todayFailed": 0,
       "cyclesCompleted": 4
     },
     "totalUniqueUrls": 800,
-    "todayTested": 713,
-    "todayPassRate": "98.7"
+    "todayTested": 705,
+    "todayPassRate": "99.9"
   },
-  "testLastRunAt": "2026-04-27T01:42:02.039Z",
-  "testLastRunAtKst": "2026. 4. 27. 10:42"
+  "testLastRunAt": "2026-04-27T02:17:23.283Z",
+  "testLastRunAtKst": "2026. 4. 27. 11:17"
 }
