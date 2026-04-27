@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. PM 12:50:11",
+  "lastUpdated": "2026. 4. 27. PM 1:48:15",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -345,12 +345,57 @@
     {
       "id": "pc-e2e",
       "title": "운영환경 PC E2E 테스트",
-      "lastUpdated": "2026. 4. 27. PM 12:50:11",
-      "total": 145,
-      "pass": 145,
-      "fail": 0,
-      "passRate": "100.0",
-      "cases": []
+      "lastUpdated": "2026. 4. 27. PM 1:48:15",
+      "total": 163,
+      "pass": 158,
+      "fail": 4,
+      "passRate": "97.5",
+      "cases": [
+        {
+          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
+          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
+          "status": "fail",
+          "duration": "32.06s",
+          "reason": "Error: expect(locator).toBeVisible() failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 상품 리스트 노출 @pc-only",
+          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
+          "status": "fail",
+          "duration": "32.10s",
+          "reason": "Error: expect(locator).toBeVisible() failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
+          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
+          "status": "fail",
+          "duration": "37.57s",
+          "reason": "Error: expect(locator).toBeAttached() failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        },
+        {
+          "name": "통합검색 결과 - 정렬/필터 컨트롤 노출 @pc-only",
+          "url": "https://store.hanssem.com/search/goods?searchKey=%EC%86%8C%ED%8C%8C",
+          "status": "fail",
+          "duration": "38.32s",
+          "reason": "Error: expect(locator).toBeAttached() failed",
+          "priority": "high",
+          "project": "AutoE2E_Public_PC",
+          "file": "search.spec.ts",
+          "platform": "PC"
+        }
+      ]
     },
     {
       "id": "mw-landing",
@@ -751,14 +796,14 @@
       "cases": []
     }
   ],
-  "codeLastModified": "2026. 4. 27. 11:22",
+  "codeLastModified": "2026. 4. 27. 13:23",
   "coverage": {
-    "lastUpdated": "2026. 4. 27. PM 12:50:14",
+    "lastUpdated": "2026. 4. 27. PM 1:48:18",
     "pc": {
       "uniqueUrls": 735,
-      "todayTested": 893,
-      "todayPassed": 893,
-      "todayFailed": 0,
+      "todayTested": 911,
+      "todayPassed": 906,
+      "todayFailed": 4,
       "cyclesCompleted": 3
     },
     "mw": {
@@ -769,9 +814,9 @@
       "cyclesCompleted": 4
     },
     "totalUniqueUrls": 1478,
-    "todayTested": 1704,
-    "todayPassRate": "100.0"
+    "todayTested": 1722,
+    "todayPassRate": "99.7"
   },
-  "testLastRunAt": "2026-04-27T03:50:14.462Z",
-  "testLastRunAtKst": "2026. 4. 27. 12:50"
+  "testLastRunAt": "2026-04-27T04:48:18.190Z",
+  "testLastRunAtKst": "2026. 4. 27. 13:48"
 }
