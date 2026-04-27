@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026. 4. 27. PM 12:00:59",
+  "lastUpdated": "2026. 4. 27. PM 12:50:11",
   "incidents": {
     "total": 31,
     "hotfix": 31,
@@ -366,7 +366,7 @@
     {
       "id": "mw-e2e",
       "title": "운영환경 MW E2E 테스트",
-      "lastUpdated": "2026. 4. 27. AM 11:17:22",
+      "lastUpdated": "2026. 4. 27. PM 12:50:11",
       "total": 73,
       "pass": 73,
       "fail": 0,
